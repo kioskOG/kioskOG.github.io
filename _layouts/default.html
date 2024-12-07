@@ -11,8 +11,8 @@
     <aside class="sidebar">
       <h2>Navigation</h2>
       <ul>
-        {% for item in site.devops %}
-          <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+        {% for doc in site.devops %}
+          <li><a href="{{ site.baseurl }}{{ doc.url }}">{{ doc.title }}</a></li>
         {% endfor %}
       </ul>
     </aside>

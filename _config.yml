@@ -1,14 +1,15 @@
 title: DevOps Notes
 description: A collection of DevOps projects and notes
 author: Jatin Sharma
-baseurl: "" # Empty for GitHub Pages
-theme: minima # GitHub Pages default theme
+baseurl: "/kioskOG.github.io"  # Replace this with your GitHub Pages repository name
+theme: minima
 markdown: kramdown
 permalink: pretty
 plugins:
   - jekyll-toc
   - jekyll-sitemap
+
 collections:
   devops:
     output: true
-    permalink: /devops/:path/
+    permalink: /devops/:path/  # This makes sure you get the proper URLs
