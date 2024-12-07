@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uptime-Kuma Deployment Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: #0073e6;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        h1, h2, h3 {
+            color: #0073e6;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        code, pre {
+            background: #f4f4f4;
+            padding: 5px;
+            border-radius: 3px;
+        }
+
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .note, .warning {
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 4px solid;
+        }
+
+        .note {
+            border-color: #0073e6;
+            background: #eef6fc;
+        }
+
+        .warning {
+            border-color: #ff6347;
+            background: #ffe6e6;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+
+        a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🚀 Uptime-Kuma Deployment Guide</h1>
+    </header>
+
+    <section>
+        <h2>🎯 Objective</h2>
+        <p>Uptime Kuma is an easy-to-use self-hosted monitoring tool.</p>
+    </section>
+
+    <section>
+        <h2>📋 Prerequisites</h2>
+        <ul>
+            <li>Docker and Docker Compose installed (Compose v2 recommended). Upgrade instructions can be found <a href="https://docs.docker.com/compose/migrate/">here</a>.</li>
+            <li>A host with at least 1 CPU core and 1 GB of RAM.</li>
+            <li>Basic understanding of Docker commands.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>⭐ Features</h2>
+        <ul>
+            <li>Monitoring uptime for HTTP(s), TCP, Ping, DNS Records, Docker Containers, and more.</li>
+            <li>Fancy, reactive, fast UI/UX.</li>
+            <li>Notifications via Telegram, Discord, Gotify, Slack, and over 90 notification services. <a href="https://github.com/louislam/uptime-kuma/tree/master/src/components/notifications">Click here for the full list</a>.</li>
+            <li>20-second intervals.</li>
+            <li><a href="https://github.com/louislam/uptime-kuma/tree/master/src/lang">Multi Languages</a>.</li>
+            <li>Multiple status pages.</li>
+            <li>Map status pages to specific domains.</li>
+            <li>Ping chart, certificate info, proxy support, and 2FA support.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>⚙️ Setup Instructions</h2>
+        <pre><code>mkdir uptime-kuma
+vim docker-compose.yaml</code></pre>
+
+        <pre><code>services:
+  uptime-kuma:
+    container_name: uptime-kuma
+    hostname: uptime-kuma
+    image: louislam/uptime-kuma:latest
+    network_mode: "host"
+    volumes:
+      - uptime-kuma:/app/data
+    restart: always
+
+volumes:
+  uptime-kuma:</code></pre>
+
+        <div class="warning">
+            <strong>Warning:</strong> File systems like <b>NFS</b> (Network File System) are <b>NOT</b> supported.
+        </div>
+    </section>
+
+    <section>
+        <h2>Real-time Uptime Monitoring with Uptime Kuma and Grafana</h2>
+        <h3>Introduction</h3>
+        <p>Integrating Uptime Kuma monitoring into your Grafana dashboard offers a powerful synergy...</p>
+
+        <h3>Prerequisites</h3>
+        <ul>
+            <li>Uptime Kuma Installed and Running.</li>
+            <li>Grafana Installed and Configured.</li>
+            <li>Access Credentials.</li>
+        </ul>
+        <img src="images/Apikey.png" alt="API Key Screenshot">
+
+        <h3>Prometheus and Grafana Configuration</h3>
+        <h4>Step 1: Verify Metrics Access</h4>
+        <pre><code>https://&lt;hostip&gt;:3001/metrics</code></pre>
+        <img src="images/kuma-login.png" alt="Kuma Login">
+        <img src="images/metrics-page.png" alt="Metrics Page">
+
+        <h4>Step 2: Configure Prometheus Scraper</h4>
+        <pre><code>- job_name: "uptime Kuma"
+  scrape_interval: 30s
+  static_configs:
+    - targets: ["192.168.0.185:3001"]</code></pre>
+
+        <h4>Step 3: Setting up Grafana Dashboard</h4>
+        <p>Grafana allows you to import dashboards using JSON files.</p>
+        <img src="images/dashboard-1.png" alt="Dashboard Screenshot">
+    </section>
+
+    <footer>
+        <p>Reference: <a href="https://medium.com/@tomer.klein/real-time-uptime-monitoring-with-uptime-kuma-and-grafana-16638d6a579f">Medium Article</a></p>
+    </footer>
+</body>
+
+</html>
