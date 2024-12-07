@@ -1,7 +1,7 @@
 title: DevOps Notes
 description: A collection of DevOps projects and notes
 author: Jatin Sharma
-baseurl: "/kioskOG.github.io"  # Replace this with your GitHub Pages repository name
+baseurl: "/kioskog.github.io"  # Replace this with your GitHub Pages repository name
 theme: minima
 markdown: kramdown
 permalink: pretty
@@ -12,4 +12,4 @@ plugins:
 collections:
   devops:
     output: true
-    permalink: /devops/:path/  # This makes sure you get the proper URLs
+    permalink: docs/devops/:path/  # This makes sure you get the proper URLs
