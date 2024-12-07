@@ -47,6 +47,9 @@ plugins:
   - jekyll-toc
   - jekyll-sitemap
 
+assets:
+  - src/css/custom.css
+
 collections:
   devops:
     output: true

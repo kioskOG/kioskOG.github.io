@@ -7,12 +7,15 @@
   <link rel="stylesheet" href="{{ '/src/css/custom.css' | relative_url }}">
 </head>
 <body>
+  <!-- Dark Mode Toggle Button -->
+  <button id="dark-mode-toggle">Toggle Dark Mode</button>
+
   <div class="container">
     <aside class="sidebar">
       <h2>Navigation</h2>
       <ul>
         {% for doc in site.devops %}
-          <li><a href="{{ site.baseurl }}{{ doc.url | relative_url }}">{{ doc.title }}</a></li>
+          <li><a href="{{ site.baseurl }}{{ doc.url }}">{{ doc.title }}</a></li>
         {% endfor %}
       </ul>
     </aside>
@@ -20,5 +23,7 @@
       {{ content }}
     </main>
   </div>
+
+  <script src="{{ '/src/js/dark-mode.js' | relative_url }}"></script>
 </body>
 </html>
