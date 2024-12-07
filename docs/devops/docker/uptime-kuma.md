@@ -61,10 +61,11 @@ volumes:
 ```
 
 
-> [!WARNING]
+> **WARNING**  
 > File Systems like **NFS** (Network File System) are **NOT** supported. Please map to a local directory or volume.
 
-> [!NOTE]
+
+> **NOTE**
 > If you want to limit exposure to localhost (without exposing port for other users or to use a [reverse proxy](https://github.com/louislam/uptime-kuma/wiki/Reverse-Proxy)), you can expose the port like this:
 > 
 > ```bash
@@ -101,7 +102,7 @@ ExecStart=/usr/bin/dockerd --config-file /etc/docker/daemon.json
 systemctl daemon-reload
 systemctl restart docker
 
-> [!NOTE] 
+> **NOTE**
 > Restarting **docker** will restart all the containers all well.
 
 
