@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Contact Me
+permalink: /docs/contact/
 ---
 
 # Contact Me
@@ -9,7 +10,7 @@ I’d love to hear from you! Whether you have a question, want to collaborate, o
 
 ## Contact Details
 
-- **Email**: [jatin.sharma@example.com](mailto:jatinvashishtha110@gmail.com)
+- **Email**: [jatinvashishtha110@gmail.com](mailto:jatinvashishtha110@gmail.com)
 - **LinkedIn**: [linkedin.com/in/jatin-sharma](https://www.linkedin.com/in/jatin-devops/)
 - **GitHub**: [github.com/kioskog](https://github.com/kioskog)
 
@@ -36,4 +37,4 @@ Alternatively, you can use the form below to drop me a quick message. I'll get b
 
 ---
 
-*Looking for my work? Check out my [DevOps Projects](../docs/devops/).*
+*Looking for my work? Check out my [DevOps Projects](../devops/).*

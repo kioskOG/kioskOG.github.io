@@ -1,6 +1,7 @@
 ---
 layout: default
 title: About Me
+permalink: /docs/about/
 ---
 
 # About Me
@@ -55,4 +56,4 @@ Feel free to check out my portfolio or reach out via the [Contact](../contact/) 
 
 ---
 
-*Want to know more? Check out my [DevOps Projects](../docs/devops/).*
+*Want to know more? Check out my [DevOps Projects](../devops/).*
