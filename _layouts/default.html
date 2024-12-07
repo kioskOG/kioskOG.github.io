@@ -12,7 +12,7 @@
       <h2>Navigation</h2>
       <ul>
         {% for doc in site.devops %}
-          <li><a href="{{ site.baseurl }}{{ doc.url }}">{{ doc.title }}</a></li>
+          <li><a href="{{ site.baseurl }}{{ doc.url | relative_url }}">{{ doc.title }}</a></li>
         {% endfor %}
       </ul>
     </aside>

@@ -37,11 +37,12 @@
 title: DevOps Notes
 description: A collection of DevOps projects and notes
 author: Jatin Sharma
-baseurl: "/docs"  # Replace this with your GitHub Pages repository name
-url: "https://kioskog.github.io"
+baseurl: ""  # Empty baseurl for root-level path (GitHub Pages root)
+url: "https://kioskog.github.io"  # Your GitHub Pages URL
 theme: minima
 markdown: kramdown
-permalink: pretty
+permalink: /docs/devops/:path/  # This ensures the right path structure
+
 plugins:
   - jekyll-toc
   - jekyll-sitemap
@@ -49,7 +50,9 @@ plugins:
 collections:
   devops:
     output: true
-    permalink: devops/:path/  # This makes sure you get the proper URLs
+    permalink: /docs/devops/:path/  # This will ensure paths like /docs/devops/docker/uptime-kuma/
+  # This ensures correct URL generation
+ # This makes sure you get the proper URLs
 
 # Exclude from processing.
 # The following items will not be processed, by default.
