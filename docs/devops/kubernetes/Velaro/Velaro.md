@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Uptime Kuma
-permalink: /docs/devops/kubernetes/Velaro/
+permalink: /docs/devops/kubernetes/velaro/
 ---
 
 # 🚀 Kubernetes backup with Velero
@@ -9,9 +9,7 @@ permalink: /docs/devops/kubernetes/Velaro/
 ## Overview
 
 Velero, is a powerful yet simple-to-use tool designed specifically for Kubernetes backup and restoration. It enables you to take consistent snapshots of your cluster’s state, including persistent volumes, configuration, and metadata, and store them securely off-cluster.
-
 ---
-
 
 ### 1. Create a identity providers for eks cluster.
 
