@@ -7,15 +7,16 @@
   <link rel="stylesheet" href="{{ '/src/css/custom.css' | relative_url }}">
 </head>
 <body>
-  <!-- Dark Mode Toggle Button -->
-  <!-- <button id="dark-mode-toggle">Toggle Dark Mode</button> -->
+  <header>
+    {% include header.html %}
+  </header>
+  
   <button id="theme-toggle" style="position: absolute; top: 20px; right: 20px;">🌙</button>
 
   <script>
     const toggleButton = document.getElementById('theme-toggle');
     const currentTheme = localStorage.getItem('theme');
   
-    // Set the initial theme
     if (currentTheme) {
       document.body.setAttribute('data-theme', currentTheme);
     }
@@ -26,13 +27,12 @@
       localStorage.setItem('theme', newTheme);
     });
   </script>
-  
 
   <div class="container">
     <aside class="sidebar">
       <h2>Navigation</h2>
       <ul>
-        {% for doc in site.devops %}
+        {% for doc in site.collections.devops %}
           <li><a href="{{ site.baseurl }}{{ doc.url }}">{{ doc.title }}</a></li>
         {% endfor %}
       </ul>

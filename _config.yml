@@ -53,7 +53,7 @@ assets:
 collections:
   devops:
     output: true
-    permalink: /docs/devops/:path/  # This will ensure paths like /docs/devops/docker/uptime-kuma/
+    permalink: /docs/devops/docker/:path/  # This will ensure paths like /docs/devops/docker/uptime-kuma/
   # This ensures correct URL generation
  # This makes sure you get the proper URLs
 

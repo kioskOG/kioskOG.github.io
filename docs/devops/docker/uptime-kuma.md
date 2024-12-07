@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Uptime Kuma
+permalink: /docs/devops/docker/uptime-kuma/
 ---
 # 🚀 **Uptime-Kuma Deployment Guide**
 
