@@ -189,10 +189,15 @@
         <!-- Integration with Grafana -->
         <h1>Real-time Uptime Monitoring with Uptime Kuma and Grafana</h1>
         <h2>Introduction</h2>
-<pre><code class="has-line-data" data-line-start="108" data-line-end="110" class="language-plaintext">Integrating Uptime Kuma monitoring into your Grafana dashboard offers a powerful synergy, allowing you to consolidate real-time uptime data alongside other critical metrics. By seamlessly embedding Uptime Kuma’s monitoring capabilities into Grafana, you unlock a comprehensive view of your system’s health and performance in a single unified interface. This integration empowers you to make informed decisions swiftly, enhancing your ability to proactively manage and optimize service uptime effortlessly. Let’s delve into the process of adding Uptime Kuma monitoring to your Grafana dashboard for a holistic monitoring experience.
+<pre><code class="has-line-data" data-line-start="108" data-line-end="110" class="language-plaintext">Integrating Uptime Kuma monitoring into your Grafana dashboard offers a powerful synergy, 
+    allowing you to consolidate real-time uptime data alongside other critical metrics. 
+    By seamlessly embedding Uptime Kuma’s monitoring capabilities into Grafana, you unlock a comprehensive view of your system’s health and performance in a single unified interface. 
+    This integration empowers you to make informed decisions swiftly, enhancing your ability to proactively manage and optimize service uptime effortlessly. 
+    Let’s delve into the process of adding Uptime Kuma monitoring to your Grafana dashboard for a holistic monitoring experience.
 </code></pre>
 <h2 class="code-line" data-line-start=112 data-line-end=113 ><a id="prerequisites_112"></a>prerequisites</h2>
-<pre><code class="has-line-data" data-line-start="114" data-line-end="116" class="language-plaintext">Integrating Uptime Kuma monitoring into your Grafana dashboard offers a powerful synergy, allowing you to consolidate real-time uptime data alongside other critical metrics.
+<pre><code class="has-line-data" data-line-start="114" data-line-end="116" class="language-plaintext">Integrating Uptime Kuma monitoring into your Grafana dashboard offers a powerful synergy, 
+    allowing you to consolidate real-time uptime data alongside other critical metrics.
 </code></pre>
 <blockquote>
 <ol>
@@ -204,7 +209,8 @@
 <p class="has-line-data" data-line-start="120" data-line-end="121"><img src="images/Apikey.png" alt="Apikey"></p>
 <h2 class="code-line" data-line-start=122 data-line-end=123 ><a id="Prometheus_and_Grafa_configuration_122"></a>Prometheus and Grafa configuration</h2>
 <h3 class="code-line" data-line-start=123 data-line-end=124 ><a id="Step_1_Verify_we_can_access_the_Uptime_Kuma_metrics_123"></a>Step 1. Verify we can access the Uptime Kuma metrics</h3>
-<pre><code class="has-line-data" data-line-start="126" data-line-end="128" class="language-plaintext">Before we can start scrapping the metrics we need to verify that we can access the Uptime Kuma “/metrics”. to do that, open the browser and enter your Uptime Kuma server, ending with “/metrics”:
+<pre><code class="has-line-data" data-line-start="126" data-line-end="128" class="language-plaintext">Before we can start scrapping the metrics we need to verify that we can access the Uptime Kuma “/metrics”. 
+    To do that, open the browser and enter your Uptime Kuma server, ending with “/metrics”:
 </code></pre>
 <pre><code class="has-line-data" data-line-start="130" data-line-end="132" class="language-shell">https://&lt;hostip&gt;:3001/metrics
 </code></pre>
@@ -212,7 +218,8 @@
 <p class="has-line-data" data-line-start="133" data-line-end="135">You should get a Basic Auth screen:<br>
 <img src="images/kuma-login.png" alt="kuma-login"></p>
 </blockquote>
-<pre><code class="has-line-data" data-line-start="137" data-line-end="139" class="language-plaintext">Leave the Username empty or pass the same username which you created when first time created a user and the password is the Uptime Kuma API Key you generated and click on “Sign in”. if the password is correct you should see a screen that looks like the following:
+<pre><code class="has-line-data" data-line-start="137" data-line-end="139" class="language-plaintext">Leave the Username empty or pass the same username which you created when first time created a user and the password is the Uptime Kuma API Key you generated and click on “Sign in”. 
+    if the password is correct you should see a screen that looks like the following:
 </code></pre>
 <p class="has-line-data" data-line-start="140" data-line-end="141"><img src="images/metrics-page.png" alt="metrics-page"></p>
 <h3 class="code-line" data-line-start=142 data-line-end=143 ><a id="Step_2_Configure_Prometheus_scrapper_142"></a>Step 2. Configure Prometheus scrapper</h3>
