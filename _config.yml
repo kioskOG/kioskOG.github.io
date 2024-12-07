@@ -1,0 +1,17 @@
+title: DevOps Notes
+description: A collection of DevOps projects and notes
+author: Jatin Sharma
+baseurl: "" # Keep this blank for GitHub Pages
+theme: minima # Default GitHub Pages theme
+markdown: kramdown
+permalink: pretty
+plugins:
+  - jekyll-toc
+  - jekyll-sitemap
+
+# Custom sidebar navigation
+collections:
+  devops:
+    output: true
+    permalink: /:collection/:path/
+
