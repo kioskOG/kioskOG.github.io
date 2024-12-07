@@ -81,95 +81,114 @@
 </head>
 
 <body>
-    <h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="_UptimeKuma_Deployment_Guide_0"></a>🚀 <strong>Uptime-Kuma Deployment Guide</strong></h1>
-<hr>
-<h2 class="code-line" data-line-start=4 data-line-end=5 ><a id="_Objective_4"></a>🎯 <strong>Objective</strong></h2>
-<p class="has-line-data" data-line-start="5" data-line-end="6">Uptime Kuma is an easy-to-use self-hosted monitoring tool.</p>
-<hr>
-<h2 class="code-line" data-line-start=9 data-line-end=10 ><a id="_Prerequisites_9"></a>📋 <strong>Prerequisites</strong></h2>
-<ul>
-<li class="has-line-data" data-line-start="10" data-line-end="11"><strong>Docker</strong> and <strong>Docker Compose</strong> installed (<strong>Compose v2 recommended</strong>). Upgrade instructions can be found <a href="https://docs.docker.com/compose/migrate/">here</a>.</li>
-<li class="has-line-data" data-line-start="11" data-line-end="12">A host with <strong>at least 1 CPU cores</strong> and <strong>1 GB of RAM</strong>.</li>
-<li class="has-line-data" data-line-start="12" data-line-end="14">Basic understanding of Docker commands.</li>
-</ul>
-<hr>
-<p class="has-line-data" data-line-start="16" data-line-end="17">⭐ Features</p>
-<ul>
-<li class="has-line-data" data-line-start="17" data-line-end="18">Monitoring uptime for HTTP(s) / TCP / HTTP(s) Keyword / HTTP(s) Json Query / Ping / DNS Record / Push / Steam Game Server / Docker Containers</li>
-<li class="has-line-data" data-line-start="18" data-line-end="19">Fancy, Reactive, Fast UI/UX</li>
-<li class="has-line-data" data-line-start="19" data-line-end="20">Notifications via Telegram, Discord, Gotify, Slack, Pushover, Email (SMTP), and <a href="https://github.com/louislam/uptime-kuma/tree/master/src/components/notifications">90+ notification services, click here for the full list</a></li>
-<li class="has-line-data" data-line-start="20" data-line-end="21">20-second intervals</li>
-<li class="has-line-data" data-line-start="21" data-line-end="22"><a href="https://github.com/louislam/uptime-kuma/tree/master/src/lang">Multi Languages</a></li>
-<li class="has-line-data" data-line-start="22" data-line-end="23">Multiple status pages</li>
-<li class="has-line-data" data-line-start="23" data-line-end="24">Map status pages to specific domains</li>
-<li class="has-line-data" data-line-start="24" data-line-end="25">Ping chart</li>
-<li class="has-line-data" data-line-start="25" data-line-end="26">Certificate info</li>
-<li class="has-line-data" data-line-start="26" data-line-end="27">Proxy support</li>
-<li class="has-line-data" data-line-start="27" data-line-end="28">2FA support</li>
-</ul>
-<h2 class="code-line" data-line-start=31 data-line-end=32 ><a id="_Setup_Instructions_31"></a>⚙️ <strong>Setup Instructions</strong></h2>
-<pre><code class="has-line-data" data-line-start="35" data-line-end="38" class="language-shell">mkdir uptime-kuma
-vim docker-compose.yaml
-</code></pre>
-<pre><code class="has-line-data" data-line-start="40" data-line-end="57" class="language-shell">name: uptime-kuma
-
-services:
-  uptime-kuma:
-    container_name: uptime-kuma
-    hostname: uptime-kuma
-    image: louislam/uptime-kuma:latest
-    network_mode: &quot;host&quot;
+    <body>
+        <h1 class="code-line" data-line-start=0 data-line-end=1>
+            🚀 <strong>Uptime-Kuma Deployment Guide</strong>
+        </h1>
+        <hr>
+        
+        <!-- Objective Section -->
+        <h2 class="code-line" data-line-start=4 data-line-end=5>
+            🎯 <strong>Objective</strong>
+        </h2>
+        <p>Uptime Kuma is an easy-to-use self-hosted monitoring tool.</p>
+        <hr>
+    
+        <!-- Prerequisites Section -->
+        <h2 class="code-line" data-line-start=9 data-line-end=10>
+            📋 <strong>Prerequisites</strong>
+        </h2>
+        <ul>
+            <li><strong>Docker</strong> and <strong>Docker Compose</strong> installed (<strong>Compose v2 recommended</strong>). Upgrade instructions can be found <a href="https://docs.docker.com/compose/migrate/">here</a>.</li>
+            <li>A host with <strong>at least 1 CPU core</strong> and <strong>1 GB of RAM</strong>.</li>
+            <li>Basic understanding of Docker commands.</li>
+        </ul>
+        <hr>
+    
+        <!-- Features Section -->
+        <p>⭐ Features</p>
+        <ul>
+            <li>Monitoring uptime for various services such as HTTP(s), TCP, Ping, Docker Containers, etc.</li>
+            <li>Fancy, reactive, and fast UI/UX.</li>
+            <li>Notifications via multiple platforms like Telegram, Discord, Slack, etc. (<a href="https://github.com/louislam/uptime-kuma/tree/master/src/components/notifications">Full list</a>)</li>
+            <li>20-second intervals.</li>
+            <li>Supports <a href="https://github.com/louislam/uptime-kuma/tree/master/src/lang">multiple languages</a>.</li>
+            <li>Multiple status pages with domain mapping.</li>
+            <li>Additional features like Ping charts, certificate info, proxy support, and 2FA.</li>
+        </ul>
+    
+        <!-- Setup Instructions -->
+        <h2 class="code-line" data-line-start=31 data-line-end=32>
+            ⚙️ <strong>Setup Instructions</strong>
+        </h2>
+        <pre><code class="language-shell">
+    mkdir uptime-kuma
+    vim docker-compose.yaml
+        </code></pre>
+        <pre><code class="language-shell">
+    name: uptime-kuma
+    
+    services:
+      uptime-kuma:
+        container_name: uptime-kuma
+        hostname: uptime-kuma
+        image: louislam/uptime-kuma:latest
+        network_mode: "host"
+        volumes:
+          - uptime-kuma:/app/data
+        restart: always
+    
     volumes:
-      - uptime-kuma:/app/data
-    restart: always
-    # ports:
-    #  - '3001:3001'
-
-volumes:
-  uptime-kuma:
-</code></pre>
-<blockquote>
-<p class="has-line-data" data-line-start="59" data-line-end="61">[!WARNING]<br>
-File Systems like <strong>NFS</strong> (Network File System) are <strong>NOT</strong> supported. Please map to a local directory or volume.</p>
-</blockquote>
-<blockquote>
-<p class="has-line-data" data-line-start="62" data-line-end="64">[!NOTE]<br>
-If you want to limit exposure to localhost (without exposing port for other users or to use a <a href="https://github.com/louislam/uptime-kuma/wiki/Reverse-Proxy">reverse proxy</a>), you can expose the port like this:</p>
-<pre><code class="has-line-data" data-line-start="66" data-line-end="68" class="language-bash">docker run <span class="hljs-operator">-d</span> --restart=always -p <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">3001</span>:<span class="hljs-number">3001</span> -v uptime-kuma:/app/data --name uptime-kuma louislam/uptime-kuma:<span class="hljs-number">1</span>
-</code></pre>
-</blockquote>
-<p class="has-line-data" data-line-start="69" data-line-end="70">Uptime Kuma is now running on <a href="http://0.0.0.0:3001">http://0.0.0.0:3001</a></p>
-<pre><code class="has-line-data" data-line-start="72" data-line-end="75" class="language-shell">http://&lt;host-ip&gt;:3001
-http://&lt;host-ip&gt;:3001/metrics
-</code></pre>
-<h2 class="code-line" data-line-start=77 data-line-end=78 ><a id="Track_Docker_container_using_uptime_kuma_77"></a>Track Docker container using uptime kuma</h2>
-<blockquote>
-<p class="has-line-data" data-line-start="78" data-line-end="79">Create a file at below location &amp; paste the content</p>
-</blockquote>
-<pre><code class="has-line-data" data-line-start="81" data-line-end="85" class="language-shell">/etc/docker/daemon.json
-
-{&quot;hosts&quot;: [&quot;tcp://0.0.0.0:2375&quot;, &quot;unix:///var/run/docker.sock&quot;]}
-</code></pre>
-<blockquote>
-<p class="has-line-data" data-line-start="86" data-line-end="87">Create another file if not present at below loaction</p>
-</blockquote>
-<pre><code class="has-line-data" data-line-start="88" data-line-end="94" class="language-shell">/etc/systemd/system/docker.service.d/override.conf
-
-[Service]
-ExecStart=
-ExecStart=/usr/bin/dockerd --config-file /etc/docker/daemon.json
-</code></pre>
-<blockquote>
-<p class="has-line-data" data-line-start="95" data-line-end="98">Restart the daemon &amp; docker service<br>
-systemctl daemon-reload<br>
-systemctl restart docker</p>
-</blockquote>
-<blockquote>
-<p class="has-line-data" data-line-start="99" data-line-end="101">[!NOTE]<br>
-Restarting <strong>docker</strong> will restart all the containers all well.</p>
-</blockquote>
-<h1 class="code-line" data-line-start=104 data-line-end=105 ><a id="Realtime_Uptime_Monitoring_with_Uptime_Kuma_and_Grafana_104"></a>Real-time Uptime Monitoring with Uptime Kuma and Grafana</h1>
-<h2 class="code-line" data-line-start=106 data-line-end=107 ><a id="Introduction_106"></a>Introduction</h2>
+      uptime-kuma:
+        </code></pre>
+        <blockquote>
+            <p><strong>⚠️ Warning:</strong> File Systems like <strong>NFS</strong> (Network File System) are <strong>NOT</strong> supported. Please map to a local directory or volume.</p>
+        </blockquote>
+        <blockquote>
+            <p><strong>💡 Note:</strong> To limit exposure to localhost without exposing ports, you can expose like this:</p>
+            <pre><code class="language-shell">
+    docker run -d --restart=always -p 127.0.0.1:3001:3001 -v uptime-kuma:/app/data --name uptime-kuma louislam/uptime-kuma:1
+            </code></pre>
+        </blockquote>
+        <p>Uptime Kuma is now running on <a href="http://0.0.0.0:3001">http://0.0.0.0:3001</a>.</p>
+        <pre><code class="language-shell">
+    http://<host-ip>:3001
+    http://<host-ip>:3001/metrics
+        </code></pre>
+    
+        <!-- Additional Sections -->
+        <h2 class="code-line" data-line-start=77 data-line-end=78>
+            Track Docker Container Using Uptime Kuma
+        </h2>
+        <blockquote>
+            <p>Create a file at the location below and paste the content:</p>
+        </blockquote>
+        <pre><code class="language-shell">
+    /etc/docker/daemon.json
+    
+    {"hosts": ["tcp://0.0.0.0:2375", "unix:///var/run/docker.sock"]}
+        </code></pre>
+        <blockquote>
+            <p>Create another file if not present at the location below:</p>
+        </blockquote>
+        <pre><code class="language-shell">
+    /etc/systemd/system/docker.service.d/override.conf
+    
+    [Service]
+    ExecStart=
+    ExecStart=/usr/bin/dockerd --config-file /etc/docker/daemon.json
+        </code></pre>
+        <blockquote>
+            <p>Restart the daemon and Docker service:</p>
+            <pre><code>
+    systemctl daemon-reload
+    systemctl restart docker
+            </code></pre>
+        </blockquote>
+    
+        <!-- Integration with Grafana -->
+        <h1>Real-time Uptime Monitoring with Uptime Kuma and Grafana</h1>
+        <h2>Introduction</h2>
 <pre><code class="has-line-data" data-line-start="108" data-line-end="110" class="language-plaintext">Integrating Uptime Kuma monitoring into your Grafana dashboard offers a powerful synergy, allowing you to consolidate real-time uptime data alongside other critical metrics. By seamlessly embedding Uptime Kuma’s monitoring capabilities into Grafana, you unlock a comprehensive view of your system’s health and performance in a single unified interface. This integration empowers you to make informed decisions swiftly, enhancing your ability to proactively manage and optimize service uptime effortlessly. Let’s delve into the process of adding Uptime Kuma monitoring to your Grafana dashboard for a holistic monitoring experience.
 </code></pre>
 <h2 class="code-line" data-line-start=112 data-line-end=113 ><a id="prerequisites_112"></a>prerequisites</h2>
