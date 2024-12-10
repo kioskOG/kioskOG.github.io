@@ -12,9 +12,13 @@ I’d love to hear from you! Whether you have a question, want to collaborate, o
 
 ## Contact Details
 
-- **Email**: [jatinvashishtha110@gmail.com](mailto:jatinvashishtha110@gmail.com)
-- **LinkedIn**: [linkedin.com/in/jatin-sharma](https://www.linkedin.com/in/jatin-devops/)
-- **GitHub**: [github.com/kioskog](https://github.com/kioskog)
+📧 Email:: [jatinvashishtha110@gmail.com](mailto:jatinvashishtha110@gmail.com)
+
+💼 LinkedIn: [linkedin.com/in/jatin-sharma](https://www.linkedin.com/in/jatin-devops/)
+
+[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:jatinvashishtha110@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jatin-devops/)
+[![github.com/kioskog](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/kioskog)
 
 ## Looking to Collaborate?
 
@@ -39,4 +43,4 @@ Alternatively, you can use the form below to drop me a quick message. I'll get b
 
 ---
 
-_Looking for my work? Check out my [DevOps Projects](../devops/)._
+_Looking for my work? Check out my [DevOps Projects](./contact.md)._
