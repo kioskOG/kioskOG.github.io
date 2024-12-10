@@ -43,4 +43,4 @@ Alternatively, you can use the form below to drop me a quick message. I'll get b
 
 ---
 
-_Looking for my work? Check out my [DevOps Projects](./contact.md)._
+_Looking for my work? Check out my [DevOps Projects](../devops/)._
