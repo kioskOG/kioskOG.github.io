@@ -80,7 +80,7 @@ When I’m not coding or exploring new tools, you’ll find me:
 
 ## Let’s Connect!
 
-Feel free to check out my portfolio or reach out via the [Contact](./contact.md) page.
+Feel free to check out my portfolio or reach out via the [Contact](./contact/) page.
 
 ---
 
