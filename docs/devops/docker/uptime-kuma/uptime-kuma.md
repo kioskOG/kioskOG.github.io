@@ -126,7 +126,7 @@ Integrating Uptime Kuma monitoring into your Grafana dashboard offers a powerful
 > 2. Grafana Installed and Configured: Ensure Grafana is installed and properly configured to create and manage dashboards.
 > 3. Access Credentials: Have the necessary access credentials or APIs ready for both Uptime Kuma and Grafana for seamless integration. This can be done under API key in Uptime Kuma Settings:
 
-![Apikey](./images/Apikey.png)
+![Apikey](../../../../static/images/Apikey.png)
 
 ## Prometheus and Grafa configuration
 
@@ -141,13 +141,13 @@ https://<hostip>:3001/metrics
 ```
 
 > You should get a Basic Auth screen:
-> ![kuma-login](./images/kuma-login.png)
+> ![kuma-login](../../../../static/images/kuma-login.png)
 
 ```plaintext
 Leave the Username empty or pass the same username which you created when first time created a user and the password is the Uptime Kuma API Key you generated and click on “Sign in”. if the password is correct you should see a screen that looks like the following:
 ```
 
-![metrics-page](./images/metrics-page.png)
+![metrics-page](../../../../static/images/metrics-page.png)
 
 ### Step 2. Configure Prometheus scrapper
 
@@ -187,12 +187,12 @@ Grafana allows you to import dashboards using JSON files. This can be helpful fo
   > You can select between three existing dashboards or create one of your own
 
 - [uptime kuma](https://grafana.com/grafana/dashboards/14847-uptime-kuma/)
-  ![dashboard-1](./images/dashboard-1.png)
+  ![dashboard-1](../../../../static/images/dashboard-1.png)
 
 - [Uptime Kuma — SLA/Latency/Certs](https://grafana.com/grafana/dashboards/18667-uptime-kuma-metrics/)
-  ![dashboard-2](./images/dashboard-2.png)
+  ![dashboard-2](../../../../static/images/dashboard-2.png)
 
 - [Uptime Kuma — Metrics](https://grafana.com/grafana/dashboards/18278-uptime-kuma/)
-  ![dashboard-3](./images/dashboard-3.png)
+  ![dashboard-3](../../../../static/images/dashboard-3.png)
 
 [Reference](https://medium.com/@tomer.klein/real-time-uptime-monitoring-with-uptime-kuma-and-grafana-16638d6a579f)

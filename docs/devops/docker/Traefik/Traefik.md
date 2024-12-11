@@ -91,5 +91,5 @@ docker logs nginx
 
 ## Testing
 
-- Access `http://<host-ip>:8090/` in your browser.
+- Access http://<host-ip>:8090/ in your browser.
 - If everything is configured correctly, you should see the default NGINX page.
