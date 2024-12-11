@@ -1,8 +1,16 @@
 title: Home
+logo: "./site-icon.webp"
+# favicon_ico: "./favicon.ico"
 description: 🌟 Welcome to My Portfolio – Showcasing expertise in Cloud, DevOps, Automation, and Cutting-Edge Technologies! 🚀
 theme: just-the-docs
+color_scheme: dark
 
 url: https://github.com/kioskOG/kioskOG.github.io
 
 aux_links:
-  Template Repository: https://github.com/kioskOG
+  Repository: https://github.com/kioskOG/kioskOG.github.io
+
+aux_links_new_tab: true
+
+search:
+  focus_shortcut_key: 'k'
