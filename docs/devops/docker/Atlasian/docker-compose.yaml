@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  atlantis:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: atlantis
+    ports:
+      - "4000:4141"
+    command: >
+      server
+      --automerge
+      --autoplan-modules
+      --gh-user=${GITHUB_USERNAME}
+      --gh-token=${GITHUB_TOKEN}
+      --repo-allowlist=${REPO_ALLOWLIST}
+    environment:
+      - GITHUB_USERNAME=${GITHUB_USERNAME}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - REPO_ALLOWLIST=${REPO_ALLOWLIST}
+    volumes:
+      - ./data:/home/atlantis/.aws
+    restart: unless-stopped
