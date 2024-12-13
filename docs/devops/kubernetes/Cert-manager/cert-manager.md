@@ -8,7 +8,7 @@ permalink: /docs/devops/kubernetes/Cert-manager/
 
 # EKS Ingress with Traefik, Cert-Manager, and Cross-Account Route 53 using IAM Role and Service Account
 
-![certmanager|traefik ](image.png)
+![certmanager|traefik ](./images/cert-traefik.png)
 
 ## 🎯 Objective
 When managing workloads in Kubernetes (EKS), securing communication with HTTPS is crucial. This blog demonstrates how to set up **Traefik** as an ingress controller and integrate it with **Cert-Manager** for TLS certificate management. We also cover cross-account Route 53 integration for DNS-01 validation using AWS IAM roles and service accounts.
