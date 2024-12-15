@@ -11,3 +11,6 @@ permalink: /docs/devops/kubernetes/
 Select a project to view details.
 
 - [Velaro](/docs/devops/kubernetes/velaro/)
+- [Traefik](/docs/devops/kubernetes/Traefik/)
+- [Cert-manager](/docs/devops/kubernetes/Cert-manager/)
+- [coredns-custom-domains](/docs/devops/kubernetes/coredns-custom-domains/)

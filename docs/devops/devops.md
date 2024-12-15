@@ -11,4 +11,4 @@ Select a project to view details.
 
 - [Docker](/docs/devops/docker)
 - [Kubernetes](/docs/devops/kubernetes)
-- [monitoring_and_Alerts](/docs/devops/monitoring_and_Alerts)
+<!-- - [monitoring_and_Alerts](/docs/devops/monitoring_and_Alerts) -->
