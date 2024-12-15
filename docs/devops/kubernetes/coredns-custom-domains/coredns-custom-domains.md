@@ -5,24 +5,26 @@ parent: Kubernetes Projects
 nav_order: 4
 permalink: /docs/devops/kubernetes/coredns-custom-domains/
 ---
-# Custom domain names using Kubernetes CoreDNS
+# 🌐 Custom domain names using Kubernetes CoreDNS
 
 ![coredns](./images/coredns.png)
 
-## **Introduction**
+## **✨ Introduction**
 
-**CoreDNS** is the DNS service discovery plugin for Kubernetes. It replaces the older `kube-dns` and is pre-installed in the `kube-system` namespace.
+🎯 **CoreDNS** is the DNS service discovery plugin for Kubernetes. It replaces the older `kube-dns` and is pre-installed in the `kube-system` namespace.
 
-The objective of this guide is to use CoreDNS to provide **custom domain names** inside the cluster. For example, replacing the service name `nginx.default.svc.cluster.local` with something like `nginx.default.aks.com`.
+💡 The objective of this guide is to use CoreDNS to provide **custom domain names** inside the cluster. For example, replacing the service name `nginx.default.svc.cluster.local` with something like `nginx.default.aks.com`.
 
 ---
 
-### **Getting Started**
+### **🔍 Getting Started**
 
+📜 Check the current CoreDNS setup:
 ```shell
 kubectl get pods,service,configmap -n kube-system -l=k8s-app=kube-dns
 ```
 ![get-coredns](./images/get-core-dns.png)
+
 
 CoreDNS configuration is saved into a configmap.
 
@@ -32,6 +34,7 @@ kubectl describe configmap coredns -n kube-system
 
 ### To provide a custom confiuration, we can use the coredns custom confgmap.
 
+#### 🛠️ Customizing CoreDNS
 > 1) Save the following as `create custome-configmap.yaml`
 ```yaml
 apiVersion: v1
@@ -57,7 +60,7 @@ kubectl apply -f custom-configmap.yaml
 > 2) Import the Custom ConfigMap
 
 > Edit the default CoreDNS ConfigMap to include the custom configuration:
-Reference screenshot:
+📸 Reference screenshot:
 ![coredns-cm](images/coredns-cm.png)
 
 ```shell
@@ -67,7 +70,7 @@ kubectl edit configmap coredns -n kube-system
 import custom/*.override
 ```
 
-> 3) Update CoreDNS Deployment
+> 3) ⚙️ Update CoreDNS Deployment
 > To enable the custom configuration, add a volume and volume mount to the CoreDNS deployment: Modify the deployment YAML:
 <!-- Now to tell coreDNS about this `custom/*.override`, Add a volume & volume mount in coredns deployment -->
 
@@ -87,14 +90,13 @@ volumeMounts:
 
 ```
 
-Reference screenshot:
+📸 Reference screenshot:
 ![volume-and-volumeMounts](images/volume.png)
 
 
-> 4) Now let's start deploying some services & expose them. So, we need 2 namespaces. In this case we are using
+> 4) 📦 Now let's start deploying some services & expose them. Create Services in Different Namespaces
 
-  * default
-  * kong
+> 🚢 Create deployments and expose services in the `default` and `kong` namespaces:
 
 ```shell
 kubectl create deployment nginx --image=nginx --replicas=1 -n default
@@ -107,18 +109,29 @@ kubectl get deploy,svc -n kong
 ```
 
 
-### Explanation:
+### 🧩 Explanation:
 
-> Incoming domain apache2.kong.aks.com will be rewritten as apache2.kong.svc.cluster.local.
+> 🔄 Incoming domain `apache2.kong.aks.com` will be rewritten as `apache2.kong.svc.cluster.local.`
 
-> Incoming domain nginx.default.aks.com will be rewritten as nginx.default.svc.cluster.local.
+> 🔄 Incoming domain `nginx.default.aks.com` will be rewritten as `nginx.default.svc.cluster.local.`
 
-### Testing:
-```plaintext
-Try querying domains like:
+### 🧪 Testing:
+> Let us try resolving with `.aks.com` . Andunderstand how that works.
+
+> ✅ `nginx.default.aks.com` → should resolve to `nginx.default.svc.cluster.local.`
+
+> ✅ `apache2.kong.aks.com` → should resolve to `apache2.kong.svc.cluster.local.`
+
+```shell
+kubectl exec -it deploy/apache2 -n kong -- bash
+apt update && apt install dnsutils curl -y
+
+nslookup nginx.default.aks.com
+nslookup apache2.kong.aks.com
+
+curl nginx.default.aks.com
+curl apach2.kong.aks.com
 ```
-> nginx.default.aks.com → should resolve to nginx.default.svc.cluster.local.
-
-> apache2.kong.aks.com → should resolve to apache2.kong.svc.cluster.local.
+> 📸 Reference screenshot of final output:
 
 ![final-output](./images/final-output.png)
