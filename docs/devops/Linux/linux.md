@@ -10,5 +10,5 @@ permalink: /docs/devops/Linux/
 
 Select a project to view details.
 
-- [Wazuh](/docs/devops/Linux/SIEM-And-XDR/)
+- [Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/)
 <!-- - [Wazuh Indexer](/docs/devops/Linux/SIEM-And-XDR/) -->
