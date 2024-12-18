@@ -1,9 +1,9 @@
 ---
 title: Wazuh
-layout: default
+layout: home
 parent: Linux Projects
 nav_order: 1
-permalink: /docs/devops/Linux/SIEM-And-XDR/
+permalink: /docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/
 description: Documentation for configuring the Wazuh XDR and SIEM platform.
 ---
 
@@ -30,7 +30,8 @@ The Wazuh indexer cluster is a collection of one or more nodes that communicate 
 
 For production environments, it is recommended to deploy the Wazuh server and Wazuh indexer to different hosts.
 
-![Architecture](./images/Architecture.png)
+![Architecture](../images/Architecture.png)
+
 
 ---
 ## Server-Indexer Communication
