@@ -93,8 +93,5 @@ Delete - File deleted
 ```
 
 
-```markdown
-{: .highlight }
-Referance
-```
+### Referance
 [wazuh-for-file-integrity-monitoring](https://systemweakness.com/using-wazuh-for-file-integrity-monitoring-9d4a11501529)
