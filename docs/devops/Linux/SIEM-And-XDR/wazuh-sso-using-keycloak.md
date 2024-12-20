@@ -362,6 +362,7 @@ systemctl restart wazuh-dashboard
 
 ## Test the configuration. Go to your **Wazuh dashboard URL** and log in with your **Keycloak account**.
 
+[keycloak setup](../../../docker/keycloak/)
 
 ## Referance
 [keycloak sso](https://documentation.wazuh.com/current/user-manual/user-administration/single-sign-on/administrator/keycloak.html)
