@@ -11,6 +11,8 @@ permalink: /docs/devops/docker/keycloak/
 
 # 🚀 SOP: Keycloak Deployment using docker
 
+[Keycloak](https://www.keycloak.org/) is an open source identity and access management tool. It provides user federation, strong authentication, user management, and fine-grained authorization for modern applications and services.
+
 ## 🎯 Objective
 Deploy Keycloak in a docker environment for Authentication & Authorization.
 
