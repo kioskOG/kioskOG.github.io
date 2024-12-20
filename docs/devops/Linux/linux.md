@@ -19,4 +19,5 @@ Select a project to view details.
    - [Wazuh dashboard setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-dashboard-setup/)
    - [FIM](/docs/devops/Linux/SIEM-And-XDR/FIM/)
    - [Malware Detection and Deletion along with Slack Intergarion](/docs/devops/Linux/SIEM-And-XDR/malware-detection-and-deletion-and-slack-intergarion/)
+   - [Wazuh SSO Using Keycloak](/docs/devops/Linux/SIEM-And-XDR/wazuh-sso-using-keycloak/)
 <!-- - [Wazuh Indexer](/docs/devops/Linux/SIEM-And-XDR/) -->
