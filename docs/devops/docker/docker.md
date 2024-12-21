@@ -17,3 +17,4 @@ Select a project to view details.
 - [Authentik](/docs/devops/docker/Authentik/)
 - [hashicorp-vault](/docs/devops/docker/hashicorp-vault/)
 - [Wazuh](/docs/devops/docker/Wazuh/)
+- [keycloak](/docs/devops/docker/keycloak/)
