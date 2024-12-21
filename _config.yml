@@ -1,7 +1,10 @@
-title: Home
+# title: Home
+title: My Portfolio
 logo: "./site-icon.webp"
 # favicon_ico: "./favicon.ico"
-description: 🌟 Welcome to My Portfolio – Showcasing expertise in Cloud, DevOps, Automation, and Cutting-Edge Technologies! 🚀
+description: 🌟 Welcome to My Portfolio - Showcasing expertise in Cloud, DevOps, Automation, and Cutting-Edge Technologies! 🚀
+author: Jatin Sharma
+github_username: kioskOG
 theme: just-the-docs
 color_scheme: dark
 
@@ -14,3 +17,7 @@ aux_links_new_tab: true
 
 search:
   focus_shortcut_key: 'k'
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
