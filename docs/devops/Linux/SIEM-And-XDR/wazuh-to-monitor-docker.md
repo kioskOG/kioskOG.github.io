@@ -3,7 +3,7 @@ title: Monitor Docker Environment Using Wazuh
 layout: default
 parent: Wazuh
 grand_parent: Linux Projects
-nav_order: 7
+nav_order: 8
 permalink: /docs/devops/Linux/SIEM-And-XDR/wazuh-to-monitor-docker/
 description: Documentation for monitoring Docker environments with Wazuh.
 ---
