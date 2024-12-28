@@ -79,7 +79,9 @@ docker exec -it vault-new /bin/sh
 ```bash
 vault operator init
 ```
-**📝Note: Save the unseal keys and root token securely. They will be required for unsealing and logging in.**
+
+{: .note}
+> Save the unseal keys and root token securely. They will be required for unsealing and logging in.**
 
 ![vault-operator-init](images/vault-operator-init.png)
 
@@ -170,7 +172,8 @@ docker exec -it vault-new /bin/sh
 
 ### 4️⃣ Notes for HTTPS Setup
 
-**Note: Follow the same steps as the HTTP setup for the remaining configuration.**
+{: .note}
+> Follow the same steps as the HTTP setup for the remaining configuration.**
 
 >If you're using **self-signed certificates**, use a browser instead of running the `vault operator init` command inside the container. The browser will guide you through the necessary prompts to proceed with initialization.
 

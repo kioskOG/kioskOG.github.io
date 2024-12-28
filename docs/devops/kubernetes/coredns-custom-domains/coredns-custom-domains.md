@@ -13,7 +13,7 @@ permalink: /docs/devops/kubernetes/coredns-custom-domains/
 
 🎯 **CoreDNS** is the DNS service discovery plugin for Kubernetes. It replaces the older `kube-dns` and is pre-installed in the `kube-system` namespace.
 
-💡 The objective of this guide is to use CoreDNS to provide **custom domain names** inside the cluster. For example, replacing the service name `nginx.default.svc.cluster.local` with something like `nginx.default.aks.com`.
+💡 The objective of this guide is to use CoreDNS to provide **custom domain names** inside the cluster. For example, replacing the service name `nginx.default.svc.cluster.local` with something like `nginx.default.devops.com`.
 
 ---
 
@@ -48,7 +48,7 @@ data:
   internal-custom.override: |
     rewrite stop {
       name regex (.*)\.aks\.com\.$ {1}.svc.cluster.local.
-      answer name (.*)\.svc\.cluster\.local\.$ {1}.aks.com.
+      answer name (.*)\.svc\.cluster\.local\.$ {1}.devops.com.
     }
 ```
 
@@ -111,26 +111,26 @@ kubectl get deploy,svc -n kong
 
 ### 🧩 Explanation:
 
-> 🔄 Incoming domain `apache2.kong.aks.com` will be rewritten as `apache2.kong.svc.cluster.local.`
+> 🔄 Incoming domain `apache2.kong.devops.com` will be rewritten as `apache2.kong.svc.cluster.local.`
 
-> 🔄 Incoming domain `nginx.default.aks.com` will be rewritten as `nginx.default.svc.cluster.local.`
+> 🔄 Incoming domain `nginx.default.devops.com` will be rewritten as `nginx.default.svc.cluster.local.`
 
 ### 🧪 Testing:
-> Let us try resolving with `.aks.com` . Andunderstand how that works.
+> Let us try resolving with `.devops.com` . Andunderstand how that works.
 
-> ✅ `nginx.default.aks.com` → should resolve to `nginx.default.svc.cluster.local.`
+> ✅ `nginx.default.devops.com` → should resolve to `nginx.default.svc.cluster.local.`
 
-> ✅ `apache2.kong.aks.com` → should resolve to `apache2.kong.svc.cluster.local.`
+> ✅ `apache2.kong.devops.com` → should resolve to `apache2.kong.svc.cluster.local.`
 
 ```shell
 kubectl exec -it deploy/apache2 -n kong -- bash
 apt update && apt install dnsutils curl -y
 
-nslookup nginx.default.aks.com
-nslookup apache2.kong.aks.com
+nslookup nginx.default.devops.com
+nslookup apache2.kong.devops.com
 
-curl nginx.default.aks.com
-curl apach2.kong.aks.com
+curl nginx.default.devops.com
+curl apach2.kong.devops.com
 ```
 > 📸 Reference screenshot of final output:
 

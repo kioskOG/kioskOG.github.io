@@ -83,7 +83,7 @@ Front channel logout: ON
 
 ![client3](../images/client3.png)
 
-### NOTE
+{: .note }
 > You can leave the rest of the values as default. Click Save to apply the configuration.
 
 ### 1.3.2 **Navigate to** `Clients > Keys` and set the following parameter:
@@ -105,7 +105,9 @@ Front channel logout: ON
 
 ### 1.3.4 Create a new role. Navigate to `Realm roles > Create role` and complete the section with these parameters:
    * Role name: `admin`.
-    ## NOTE: This will be our backend role in the Wazuh indexer configuration.
+   
+   {: .note }
+   > This will be our backend role in the Wazuh indexer configuration.
 
 ### 1.3.5 Create a new user.
    * Navigate to `Users > Add user` and fill in the required information.
@@ -152,7 +154,7 @@ Single Role Attribute: On
 
 * sp.entity_id: wazuh-saml
 * roles_key: Roles
-* kibana_url: https://<WAZUH_DASHBOARD_URL>
+* kibana_url: `https://<WAZUH_DASHBOARD_URL>`
 
 > To obtain the remaining parameters.
 

@@ -280,9 +280,10 @@ spec:
 
 ### Final Note
 
-**Ensure that a CNAME record for `nginx.dev.example.com` points to your Traefik load balancer's DNS in Route 53.**
-
-**With this setup, Traefik and Cert-Manager efficiently manage ingress traffic and certificates, ensuring secure communication for your Kubernetes workloads.**
+{: .note}
+> Ensure that a CNAME record for `nginx.dev.example.com` points to your Traefik load balancer's DNS in Route 53.
+>
+> With this setup, Traefik and Cert-Manager efficiently manage ingress traffic and certificates, ensuring secure communication for your Kubernetes workloads.
 
 
 ![working-app](./images/working_app.jpeg)

@@ -164,7 +164,8 @@ plugins.security.nodes_dn:
 
 #### Deploying certificates:
 
-> Note Make sure that a copy of the wazuh-certificates.tar file, created during the initial configuration step, is placed in your working directory.
+{: .note }
+> Make sure that a copy of the wazuh-certificates.tar file, created during the initial configuration step, is placed in your working directory.
 
 ```shell
     export NODE_NAME=<indexer-node-name>
@@ -187,10 +188,11 @@ plugins.security.nodes_dn:
 
 3. ## Cluster initialization:
 
+{: .note }
+> You only have to initialize the cluster once, there is no need to run this command on every node.
+
 ```shell
     /usr/share/wazuh-indexer/bin/indexer-security-init.sh
-
-    Note You only have to initialize the cluster once, there is no need to run this command on every node.
 
     curl -k -u admin:admin https://<WAZUH_INDEXER_IP_ADRESS>:9200
     curl -k -u admin:admin https://<WAZUH_INDEXER_IP_ADDRESS>:9200/_cat/nodes?v

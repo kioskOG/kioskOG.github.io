@@ -62,7 +62,9 @@ helm repo list
 helm install traefik traefik/traefik -n traefik
 ```
 
->[!IMPORTANT] All [Helm features](https://helm.sh/docs/intro/using_helm/) are supported.
+{: .important}
+> All [Helm features](https://helm.sh/docs/intro/using_helm/) are supported.
+>
 > Examples are provided [here](https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md)
 
 

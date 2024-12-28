@@ -102,8 +102,9 @@ If you need Wazuh to delete logs after processing, use the following policy:
 }
 ```
 
-### NOTE
+{: .note }
 > * `<REGION>`, `<ACCOUNT_ID>`, `<LOG_GROUP_NAME>`, `<LOG_GROUP_NAME>` and `<LOG_STREAM_NAME>` are placeholders. Replace them with the appropriate values.
+>
 > * Attach this policy to a user, role, or group as required.
 
 ## Configure Wazuh to process Amazon CloudWatch logs
@@ -147,5 +148,4 @@ systemctl restart wazuh-manager
 
 ## Conclusion
 By following this guide, you can successfully integrate AWS CloudWatch Logs with Wazuh for centralized log monitoring. This setup enables you to analyze logs and improve visibility into your AWS environment.
-
 

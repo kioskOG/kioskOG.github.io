@@ -63,7 +63,8 @@ services:
       - start-dev  # Start Keycloak in developer mode
 ```
 
-> **Note:** Use certificates from let's encrypt or self sign certificates for your domain.
+{: .note}
+> Use certificates from let's encrypt or self sign certificates for your domain.
 
 
 ```shell

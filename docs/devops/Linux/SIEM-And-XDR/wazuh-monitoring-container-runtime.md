@@ -185,9 +185,10 @@ The `location` field in the alert data shows the container where the event was g
 }
 ```
 
-## Notes
-* The `location` field in the alert data identifies the container where the event occurred.
-
-* Ensure Docker logs are stored in JSON format for proper monitoring by Wazuh.
-
-![final-output](../images/sql-injection-demonstrate.png)
+{: .note }
+> You only have to initialize the cluster once, there is no need to run this command on every node.
+> * The `location` field in the alert data identifies the container where the event occurred.
+>
+> * Ensure Docker logs are stored in JSON format for proper monitoring by Wazuh.
+>
+> ![final-output](../images/sql-injection-demonstrate.png)

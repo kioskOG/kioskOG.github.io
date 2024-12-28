@@ -218,7 +218,7 @@ spec:
                 - SYS_ADMIN
 ```
 
-> [!NOTE]
+{: .note}
 > Cluster security group allows inbound access from the Netbird client security group on HTTPS (for services).
 > Worker security group allows inbound access from the Netbird client security group on All TCP (for pods).
 
