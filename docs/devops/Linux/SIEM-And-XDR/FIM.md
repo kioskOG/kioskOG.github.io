@@ -54,8 +54,8 @@ vi /var/ossec/etc/ossec.conf
   *    `/tmp` - Temporary files (optional, depending on your security policy)
 
 
+{: .note}
 > Final code will look like below.
-{: .note }
 
 ```shell
 <!-- File integrity monitoring -->

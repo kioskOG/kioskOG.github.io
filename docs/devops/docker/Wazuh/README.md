@@ -35,9 +35,9 @@ cat generate-indexer-certs.yml #update image mentioned in below NOTE.
 docker compose -f generate-indexer-certs.yml run --rm generator
 ```
 
-## 📝NOTE
-* **Update Image in `generate-indexer-certs.yml`**
-* **image: `wazuh/wazuh-certs-generator:0.0.2`**
+{: .note}
+> * **Update Image in `generate-indexer-certs.yml`**
+> * **image: `wazuh/wazuh-certs-generator:0.0.2`**
 
 ## Start the environment with docker-compose:
 - [docker-compose-with-environment-variables-file](./docker-compose-with-environment-variables.yaml)

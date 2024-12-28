@@ -40,8 +40,8 @@ To interact with the **Docker Engine API**, install the required Python librarie
 pip3 install docker==7.1.0 urllib3==2.2.2 requests==2.32.2 --break-system-packages
 ```
 
-### NOTE
-* If you encounter the error Cannot uninstall urllib3 2.0.7, RECORD file not found, remove urllib3==2.2.2 from the command since Ubuntu 24.04 already includes urllib3.
+{: .note }
+> * If you encounter the error Cannot uninstall urllib3 2.0.7, RECORD file not found, remove urllib3==2.2.2 from the command since Ubuntu 24.04 already includes urllib3.
 
 * To avoid modifying the default Python environment, consider using a virtual environment:
 ```shell
@@ -78,9 +78,9 @@ Update the first line to:
 wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.9.2-1_amd64.deb && sudo WAZUH_MANAGER='192.168.0.15' WAZUH_AGENT_GROUP='docker' WAZUH_AGENT_NAME='netbird-docker' dpkg -i ./wazuh-agent_4.9.2-1_amd64.deb
 ```
 
-### Important Notes:
-* Run the command with administrator privileges.
-* Use a Bash Shell.
+{: .important }
+> * Run the command with administrator privileges.
+> * Use a Bash Shell.
 
 ## 2.2) Configure the Wazuh agent
 

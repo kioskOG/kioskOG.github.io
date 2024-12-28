@@ -18,7 +18,8 @@ First of all ssh into the **wazuh-indexer** instance & follow the steps
 2) Cluster configuration for multi-node deployment
 
 
-**Note** You need root user privileges to run all the commands described below.
+{: .important }
+> You need root user privileges to run all the commands described below.
 
 ---
 1. ## Wazuh server node installation
@@ -85,7 +86,9 @@ curl -s https://packages.wazuh.com/4.x/filebeat/wazuh-filebeat-0.4.tar.gz | tar 
 ```
 
 #### Deploying certificates:
-###### **Note** Make sure that a copy of the wazuh-certificates.tar file, created during the initial configuration step, is placed in your working directory.
+
+{: .important }
+> Make sure that a copy of the wazuh-certificates.tar file, created during the initial configuration step, is placed in your working directory.
 
 1. ##### Replace <SERVER_NODE_NAME> with your Wazuh server node certificate name, the same one used in config.yml when creating the certificates. Then, move the certificates to their corresponding location.
 
@@ -104,7 +107,9 @@ chown -R root:root /etc/filebeat/certs
 ```
 
 #### Configuring the Wazuh indexer connection:
-**Note** You can skip this step if you are not going to use the vulnerability detection capability.
+
+{: .note }
+> You can skip this step if you are not going to use the vulnerability detection capability.
 
 ```shell
 echo '<INDEXER_USERNAME>' | /var/ossec/bin/wazuh-keystore -f indexer -k username

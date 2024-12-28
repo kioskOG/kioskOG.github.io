@@ -116,7 +116,6 @@ kubectl annotate serviceaccount velero -n velero \
 ####
 
 ```yaml
-
 configuration:
   backupStorageLocation:
   - bucket: velero-testing-123
@@ -137,9 +136,12 @@ serviceAccount:
   server:
     annotations:
       eks.amazonaws.com/role-arn: "arn:aws:iam::547580490325:role/Velero-testing"
+```
 
-Note - If we want to use already created service account then use below value file
+{: .note}
+> If we want to use already created service account then use below value file
 
+```yaml
 configuration:
   backupStorageLocation:
   - bucket: velero-testing-123
@@ -160,7 +162,6 @@ serviceAccount:
   server:
     create: false
     name: <serviceaccount name>
-
 ```
 
 ```bash

@@ -38,21 +38,25 @@ cat .env
 echo "AUTHENTIK_ERROR_REPORTING__ENABLED=true" >> .env
 cat .env
 ```
-> **💡 Tip:** Because of a PostgreSQL limitation, only passwords up to 99 chars are supported. See: https://www.postgresql.org/message-id/09512C4F-8CB9-4021-B455-EF4C4F0D55A0@amazon.com
+
+{: .warning }
+> Because of a PostgreSQL limitation, only passwords up to 99 chars are supported. See: [postgres](https://www.postgresql.org/message-id/09512C4F-8CB9-4021-B455-EF4C4F0D55A0@amazon.com)
 
 
 ##  2️⃣ Configure for port 80/443
-> **💡 Tip:** By default, authentik listens internally on port 9000 for HTTP and 9443 for HTTPS. To change the exposed ports to 80 and 443, you can set the following variables in `.env`:
+
+{: .warning }
+> By default, authentik listens internally on port 9000 for HTTP and 9443 for HTTPS. To change the exposed ports to 80 and 443, you can set the following variables in `.env`:
 
 ```shell
 COMPOSE_PORT_HTTP=80
 COMPOSE_PORT_HTTPS=443
 ```
 
-> **🚨 Warning:**
 
-* Authentik uses UTC time for all internal processes. Displayed times in the UI are localized.
-* Avoid modifying or mounting /etc/timezone or /etc/localtime in Authentik containers. Doing so may cause issues with OAuth and SAML authentication.
+{: .warning }
+> * Authentik uses UTC time for all internal processes. Displayed times in the UI are localized.
+> * Avoid modifying or mounting /etc/timezone or /etc/localtime in Authentik containers. Doing so may cause issues with OAuth and SAML authentication.
 
 
 ## 3️⃣ Email configuration (optional but recommended)

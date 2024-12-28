@@ -104,15 +104,14 @@ aws sts get-caller-identity
 * Choose **Generate New Token (classic)**
 
 
-> ❗IMPORTANT
-```plaintext
-> Provide a Name
-> Expiration
-> Select scopes
-> Select repo (Full control of private repositories)
-> Select admin:repo_hookFull (control of repository hooks)
-> Click on Active & save
-```
+{: .important }
+> - Provide a Name
+> - Expiration
+> - Select scopes
+> - Select repo (Full control of private repositories)
+> - Select admin:repo_hookFull (control of repository hooks)
+> - Click on Active & save
+
 
 ### 7. Start docker compose
 ```shell
@@ -126,17 +125,18 @@ http://<Instance-Public-IP>:4000/
 ```
 
 ### 9. Create a Webshook for the repo you wanna use Atlasian for
-> ❗IMPORTANT
-* Go to the repo Settings
-* Choose Webhooks
-* Add webhook
-* **Payload URL** http://<Instance-Public-IP>:4000/events
-* **Content type** application/json
-* **SSL verification** Disable if you aren't using any ssl on Atlasian domain. As we are using IP keep it Disabled.
-* **Which events would you like to trigger this webhook?**
-* **Choose** Issue comments, Pull request reviews, Pull requests, Pushes
-* Choose **Active** & save
->
+
+{: .important }
+> * Go to the repo Settings
+> * Choose Webhooks
+> * Add webhook
+> * **Payload URL** http://<Instance-Public-IP>:4000/events
+> * **Content type** application/json
+> * **SSL verification** Disable if you aren't using any ssl on Atlasian domain. As we are using IP keep it Disabled.
+> * **Which events would you like to trigger this webhook?**
+> * **Choose** Issue comments, Pull request reviews, Pull requests, Pushes
+> * Choose **Active** & save
+
 
 ### 10. How to test 
 - Create a develop branch in repo
@@ -196,8 +196,8 @@ git push origin develop
 - When you comment **atlantis apply -d .** terraform apply happens.
 - ![apply](images/3.png)
 
-> 📝 NOTE
-## If Wanna Run Atlantis as Docker contianer Without docker-compose
+{: .note }
+If Wanna Run Atlantis as Docker contianer Without docker-compose
 
 ```shell 
 docker run -itd -p 4000:4141 --name atlantis atlantis server --automerge --autoplan-modules --gh-user=<github-account-username> --gh-token=<github-usr-access-token> --repo-allowlist=<list of allowed repos>
