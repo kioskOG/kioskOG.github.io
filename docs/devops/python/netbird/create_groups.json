@@ -1,0 +1,10 @@
+[
+  {
+    "__comment2__": "This is the group id: ctfv1aif3jac73b036s0",
+    "name": "devops" 
+    },
+    {
+    "__comment2__": "This is the group id: ctg16iif3jac73b03720",
+    "name": "k8s-worker-nodes"
+    }
+]

@@ -1,0 +1,23 @@
+[{
+  "description": "DNS Server for k8s services",
+  "domains": [
+    "cluster.local",
+    "devops.com"
+  ],
+  "enabled": true,
+  "groups": [
+    "ctfv1aif3jac73b036s0",
+    "ctg16iif3jac73b03720"
+  ],
+  "id": "ctg3r4af3jac73b0379g",
+  "name": "k8s-dns",
+  "nameservers": [
+    {
+      "ip": "10.100.0.10",
+      "ns_type": "udp",
+      "port": 53
+    }
+  ],
+  "primary": false,
+  "search_domains_enabled": false
+}]

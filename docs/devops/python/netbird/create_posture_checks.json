@@ -1,0 +1,16 @@
+[
+{
+    "name": "test",
+    "description": "This checks Country & Region. Allow or Block location",
+    "checks": {
+        "geo_location_check": {
+            "locations": [
+                {
+                    "country_code": "IN",
+                    "city_name": "Gurugram"
+                }
+            ],
+            "action": "deny"
+        }
+    }
+}]
