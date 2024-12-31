@@ -1,0 +1,22 @@
+[
+    {
+        "auto_groups": [
+          "ctfv1aif3jac73b036s0"
+      ],
+        "name": "devops",
+        "type": "reusable",
+        "expires_in": 0,
+        "usage_limit": 0,
+        "ephemeral": true
+    },
+    {
+        "name": "test",
+        "type": "reusable",
+        "expires_in": 0,
+        "auto_groups": [
+          "ctfv1aif3jac73b036s0"
+      ],
+        "usage_limit": 0,
+        "ephemeral": true
+    }
+]

@@ -1,0 +1,50 @@
+[
+    {
+      "id": "policy1",
+      "name": "Policy 1",
+      "description": "This is the first policy.",
+      "enabled": true,
+      "source_posture_checks": [
+        "ct0958f8mjks739q8920"
+      ],
+      "rules": [
+        {
+          "id": "rule1",
+          "name": "Rule 1",
+          "description": "Rule for Policy 1",
+          "enabled": true,
+          "action": "accept",
+          "bidirectional": true,
+          "protocol": "tcp",
+          "ports": ["80"],
+          "sources": ["csq5ldn8mjks73da5oj0"],
+          "destinations": ["csq5ldn8mjks73da5oj0"]
+        }
+      ]
+    },
+    {
+      "id": "policy2",
+      "name": "Policy 2",
+      "description": "This is the second policy.",
+      "enabled": true,
+      "rules": [
+        {
+          "id": "rule1",
+          "name": "Rule 1",
+          "description": "Rule for Policy 2",
+          "enabled": true,
+          "action": "accept",
+          "bidirectional": true,
+          "protocol": "tcp",
+          "port_ranges": [
+            {
+            "start": 30000,
+            "end": 32767
+            }
+        ],
+          "sources": ["csq5ldn8mjks73da5oj0"],
+          "destinations": ["csq5ldn8mjks73da5oj0"]
+        }
+      ]
+    }
+  ]

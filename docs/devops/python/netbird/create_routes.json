@@ -1,0 +1,79 @@
+[{
+  "description": "k8s cluster access",
+  "enabled": true,
+  "groups": [
+    "ctfv1aif3jac73b036s0"
+  ],
+  "id": "ctg3m92f3jac73b03770",
+  "keep_route": false,
+  "masquerade": true,
+  "metric": 9999,
+  "network": "18.163.235.54/32",
+  "network_id": "k8s-cluster",
+  "network_type": "IPv4",
+  "peer": "ctfv1jaf3jac73b036sg"
+  },
+  {
+    "description": "k8s cluster access",
+    "enabled": true,
+    "groups": [
+      "ctfv1aif3jac73b036s0"
+    ],
+    "id": "ctg3miqf3jac73b0377g",
+    "keep_route": false,
+    "masquerade": true,
+    "metric": 9999,
+    "network": "18.163.229.152/32",
+    "network_id": "k8s-cluster",
+    "network_type": "IPv4",
+    "peer": "ctfv1jaf3jac73b036sg"
+  },
+  {
+    "description": "k8s Services access",
+    "enabled": true,
+    "groups": [
+      "ctfv1aif3jac73b036s0"
+    ],
+    "id": "ctg3oiif3jac73b0378g",
+    "keep_route": false,
+    "masquerade": true,
+    "metric": 9999,
+    "network": "10.100.0.0/16",
+    "network_id": "k8s-services",
+    "network_type": "IPv4",
+    "peer": "",
+    "peer_groups": [
+      "ctg16iif3jac73b03720"
+    ]
+  },
+  {
+    "description": "pods access",
+    "enabled": true,
+    "groups": [
+      "ctfv1aif3jac73b036s0"
+    ],
+    "id": "ctg3p5qf3jac73b03790",
+    "keep_route": false,
+    "masquerade": true,
+    "metric": 9999,
+    "network": "192.168.0.0/16",
+    "network_id": "pods",
+    "network_type": "IPv4",
+    "peer": "ctfv1jaf3jac73b036sg"
+  },
+  {
+    "description": "test",
+    "enabled": true,
+    "groups": [
+      "ctfv1aif3jac73b036s0"
+    ],
+    "id": "ctghc6if3jac73b037a0",
+    "keep_route": false,
+    "masquerade": true,
+    "metric": 9999,
+    "network": "192.168.8.0/24",
+    "network_id": "test",
+    "network_type": "IPv4",
+    "peer": "ctfv1jaf3jac73b036sg"
+  }
+]
