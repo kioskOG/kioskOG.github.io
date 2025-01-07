@@ -13,4 +13,5 @@ Select a project to view details.
 - [Kubernetes](/docs/devops/kubernetes)
 - [Linux](/docs/devops/Linux)
 - [Python](/docs/devops/python)
-<!-- - [monitoring_and_Alerts](/docs/devops/monitoring_and_Alerts) -->
+- [Monitoring](/docs/devops/monitoring)
+- [Cloud](/docs/devops/Cloud)
