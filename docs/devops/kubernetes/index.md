@@ -4,15 +4,18 @@ layout: home
 parent: Devops
 nav_order: 2
 permalink: /docs/devops/kubernetes/
+description: Documentation for various Kubernetes-related projects.
 ---
 
 # Kubernetes Projects
 
-Select a project to view details.
+This section provides documentation for various Kubernetes projects.
 
-- [Velaro](/docs/devops/kubernetes/velaro/)
-- [Traefik](/docs/devops/kubernetes/Traefik/)
-- [Cert-manager](/docs/devops/kubernetes/Cert-manager/)
-- [coredns-custom-domains](/docs/devops/kubernetes/coredns-custom-domains/)
-- [debug-containers](/docs/devops/kubernetes/debug-containers/)
-- [Grafana-password-reset](/docs/devops/kubernetes/Grafana-password-reset/)
+| Project                     | Description                                                              | Status |
+| --------------------------- | ------------------------------------------------------------------------ | ------ |
+| [Velaro](/docs/devops/kubernetes/velaro/) | Deploying and managing Velaro on Kubernetes.                                  | Done   |
+| [Traefik](/docs/devops/kubernetes/Traefik/) | Configuring and deploying Traefik as an Ingress controller on Kubernetes. | Done   |
+| [Cert-manager](/docs/devops/kubernetes/Cert-manager/) | Managing TLS certificates in Kubernetes with cert-manager.                    | Done   |
+| [coredns-custom-domains](/docs/devops/kubernetes/coredns-custom-domains/) | Configuring custom domains with CoreDNS in Kubernetes.                       | Done   |
+| [debug-containers](/docs/devops/kubernetes/debug-containers/) | Techniques for debugging containers running in Kubernetes.                    | Done   |
+| [Grafana-password-reset](/docs/devops/kubernetes/Grafana-password-reset/) | Resetting Grafana passwords in a Kubernetes deployment.                     | Done   |

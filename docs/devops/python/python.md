@@ -11,6 +11,15 @@ permalink: /docs/devops/python/
 
 1. TOC
 {:toc}
-Select a project to view details.
 
-- [Python](/docs/devops/python/)
+This section provides documentation for various Python-based DevOps projects and scripts.
+
+| Project                                         | Description                                                                     | Status |
+| ----------------------------------------------- | ------------------------------------------------------------------------------- | ------ |
+| [Netbird Python Utility](/docs/devops/python/netbird-python-utility/) | A Python utility for managing Netbird resources and configurations.        | Done   |
+| [Docker Container Memory/CPU Monitoring](/docs/devops/python/docker-container-memory-cpu-monitoring/) | Scripts for monitoring Docker container resource usage (memory and CPU). | Done   |
+| [Docker Container Monitoring Script](/docs/devops/python/docker-container-monitoring-script/) | A Python script for general Docker container monitoring.                        | Done   |
+
+<!-- - [Netbird Python Utility](/docs/devops/python/netbird-python-utility/)
+- [Docker Container Memory Cpu Monitoring](/docs/devops/python/docker-container-memory-cpu-monitoring/)
+- [Docker Container Monitoring Script](/docs/devops/python/docker-container-monitoring-script/) -->
