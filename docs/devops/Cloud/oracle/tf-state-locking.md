@@ -1,7 +1,8 @@
 ---
 title: Terraform State File Locking
 layout: home
-parent: Cloud Projects
+parent: oracle
+grand_parent: Cloud Projects
 nav_order: 1
 description: Enable Terraform State File Locking with Amazon S3 Compatible Backend in OCI
 author: Jatin Sharma

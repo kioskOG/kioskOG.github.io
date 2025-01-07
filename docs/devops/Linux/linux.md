@@ -13,7 +13,7 @@ permalink: /docs/devops/Linux/
 {:toc}
 Select a project to view details.
 
-- [Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/)
+<!-- - [Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/)
    - [Wazuh indexer setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-indexer-setup/)
    - [Wazuh server setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-server-setup/)
    - [Wazuh dashboard setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-dashboard-setup/)
@@ -22,4 +22,19 @@ Select a project to view details.
    - [Wazuh SSO Using Keycloak](/docs/devops/Linux/SIEM-And-XDR/wazuh-sso-using-keycloak/)
    - [Monitor Docker Environment Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-to-monitor-docker/)
    - [Monitoring Container Runtime Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-monitoring-container-runtime/)
-<!-- - [Wazuh Indexer](/docs/devops/Linux/SIEM-And-XDR/) -->
+
+- [Wazuh Indexer](/docs/devops/Linux/SIEM-And-XDR/) -->
+
+This section provides documentation for various Linux projects, with a focus on SIEM and XDR solutions.
+
+| Project                     | Description                                                                                             | Status |
+| --------------------------- | ------------------------------------------------------------------------------------------------------- | ------ |
+| [Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/) | Introduction to Wazuh, an open-source security monitoring solution.                                | Done   |
+| [Wazuh Indexer Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-indexer-setup/) | Setting up the Wazuh Indexer component.                                                              | Done   |
+| [Wazuh Server Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-server-setup/) | Configuring the Wazuh Server.                                                                       | Done   |
+| [Wazuh Dashboard Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-dashboard-setup/) | Setting up the Wazuh Dashboard for visualization and analysis.                                       | Done   |
+| [FIM](/docs/devops/Linux/SIEM-And-XDR/FIM/) | Implementing File Integrity Monitoring (FIM) with Wazuh.                                             | Done   |
+| [Malware Detection and Deletion with Slack Integration](/docs/devops/Linux/SIEM-And-XDR/malware-detection-and-deletion-and-slack-intergarion/) | Configuring Wazuh for malware detection and automated deletion, including Slack notifications. | Done   |
+| [Wazuh SSO Using Keycloak](/docs/devops/Linux/SIEM-And-XDR/wazuh-sso-using-keycloak/) | Integrating Wazuh with Keycloak for Single Sign-On (SSO).                                          | Done   |
+| [Monitor Docker Environment Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-to-monitor-docker/) | Monitoring Docker environments using Wazuh.                                                          | Done   |
+| [Monitoring Container Runtime Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-monitoring-container-runtime/) | Monitoring container runtimes with Wazuh.                                                             | Done   |

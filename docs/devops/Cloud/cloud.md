@@ -6,8 +6,11 @@ nav_order: 6
 permalink: /docs/devops/Cloud/
 ---
 
-# Docker Projects
+# Cloud Projects
 
-Select a project to view details.
+This section provides documentation for various cloud projects. Select a project below for detailed information.
 
-- [Terraform State File Locking](/docs/devops/Cloud/tf-state-locking/)
+<!-- - [Terraform State File Locking](/docs/devops/Cloud/tf-state-locking/) -->
+
+
+
