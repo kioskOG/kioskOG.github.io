@@ -18,3 +18,4 @@ This section provides documentation for various Oracle cloud projects. Select a 
 | Project                     | Description                                      | Status     |
 | --------------------------- | ------------------------------------------------ | ---------- |
 | [Terraform State File Locking](/docs/devops/Cloud/tf-state-locking/) | Managing state file locking in Terraform projects. | Done |
+
