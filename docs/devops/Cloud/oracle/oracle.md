@@ -12,9 +12,8 @@ description: Documentation for oracle cloud.
 
 1. TOC
 {:toc}
-Select a project to view details.
+This section provides documentation for various Oracle cloud projects. Select a project below for detailed information.
 
-<!-- - [Oracles](/docs/devops/Cloud/tf-state-locking/) -->
 
 | Project                     | Description                                      | Status     |
 | --------------------------- | ------------------------------------------------ | ---------- |
