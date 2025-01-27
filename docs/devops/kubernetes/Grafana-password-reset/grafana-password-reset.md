@@ -1,5 +1,5 @@
 ---
-title: 🐛 Grafana password reset
+title: Grafana password reset
 layout: default
 parent: Kubernetes Projects
 nav_order: 6
