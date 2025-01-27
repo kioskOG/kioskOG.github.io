@@ -7,6 +7,8 @@ author: Jatin Sharma
 github_username: kioskOG
 theme: just-the-docs
 color_scheme: dark
+sass:
+  quiet_deps: true
 
 url: https://github.com/kioskOG/kioskOG.github.io
 
