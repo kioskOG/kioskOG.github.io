@@ -19,4 +19,4 @@ This section provides documentation for various Kubernetes projects.
 | [coredns-custom-domains](/docs/devops/kubernetes/coredns-custom-domains/) | Configuring custom domains with CoreDNS in Kubernetes.                       | Done   |
 | [debug-containers](/docs/devops/kubernetes/debug-containers/) | Techniques for debugging containers running in Kubernetes.                    | Done   |
 | [Grafana-password-reset](/docs/devops/kubernetes/Grafana-password-reset/) | Resetting Grafana passwords in a Kubernetes deployment.                     | Done   |
-| [Introduction to Cilium & Hubble](/docs/devops/kubernetes/cilium/) | Cilium Introduction.                     | Done   |
+| [Introduction to Cilium & Hubble](/docs/devops/kubernetes/cilium/cilium-intro/) | Cilium Introduction.                     | Done   |
