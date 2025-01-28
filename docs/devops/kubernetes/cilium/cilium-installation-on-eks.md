@@ -8,6 +8,8 @@ permalink: /docs/devops/kubernetes/cilium/cilium-installation-on-eks/
 description: Documentation for HertzBeat setup via Docker.
 ---
 
+![cilium](../images/cilium.png)
+
 ## Table of Contents
 - [Cilium Installation](#cilium-installation)
 - [Components of Cilium](#components-of-cilium)

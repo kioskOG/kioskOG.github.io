@@ -8,6 +8,8 @@ permalink: /docs/devops/kubernetes/cilium/cilium-intro/
 
 # Introduction to Cilium & Hubble
 
+![cilium](../images/image.png)
+
 ## Table of Contents
 - [Cilium](##what-is-cilium)
 - [Hubble](##what-is-hubble)
