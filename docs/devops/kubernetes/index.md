@@ -20,4 +20,4 @@ This section provides documentation for various Kubernetes projects.
 | [debug-containers](/docs/devops/kubernetes/debug-containers/) | Techniques for debugging containers running in Kubernetes.                    | Done   |
 | [Grafana-password-reset](/docs/devops/kubernetes/Grafana-password-reset/) | Resetting Grafana passwords in a Kubernetes deployment.                     | Done   |
 | [Introduction to Cilium & Hubble](/docs/devops/kubernetes/cilium/cilium-intro/) | Cilium Introduction.                     | Done   |
-| [Install Cilium & Hubble on EKS](/docs/devops/kubernetes/cilium/cilium-installation-on-eks/) | Cilium Introduction.                     | Done   |
+| [Install Cilium & Hubble on EKS](/docs/devops/kubernetes/cilium/cilium-installation-on-eks/) | Install Cilium & Hubble on EKS.                     | Done   |
