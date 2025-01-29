@@ -21,3 +21,5 @@ This section provides documentation for various Kubernetes projects.
 | [Grafana-password-reset](/docs/devops/kubernetes/Grafana-password-reset/) | Resetting Grafana passwords in a Kubernetes deployment.                     | Done   |
 | [Introduction to Cilium & Hubble](/docs/devops/kubernetes/cilium/cilium-intro/) | Cilium Introduction.                     | Done   |
 | [Install Cilium & Hubble on EKS](/docs/devops/kubernetes/cilium/cilium-installation-on-eks/) | Install Cilium & Hubble on EKS.                     | Done   |
+| [Install Prometheus & Grafana on EKS](/docs/devops/kubernetes/prometheus-grafana/) | Install Prometheus & Grafana on EKS.                     | Done   |
+| [Cilium Monitoring using Prometheus & Grafana](/docs/devops/kubernetes/cilium/cilium-monitoring/) | Cilium Monitoring using Prometheus & Grafana.                     | Done   |

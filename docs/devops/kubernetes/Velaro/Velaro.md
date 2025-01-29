@@ -8,11 +8,26 @@ permalink: /docs/devops/kubernetes/velaro/
 
 # 🚀 Kubernetes backup with Velero
 
+- [Overview](#overview)
+- [Create a identity providers for eks cluster](#1-create-a-identity-providers-for-eks-cluster)
+- [Create a role and attach policy for velero service account](#2-create-a-role-and-attach-policy-for-velero-service-account)
+- [Policy](#policy)
+- [Create an S3 Bucket to store backups](#4-create-an-s3-bucket-to-store-backups)
+- [Add the Velero Helm Repository](#5-add-the-velero-helm-repository)
+- [Create a service account for accessing the aws velero role](#6-create-a-service-account-for-accessing-the-aws-velero-role)
+- [Install velero cli in your system](#7-install-velero-cli-in-your-system)
+- [Create a custom values file](#8-create-a-custom-values-file)
+- [Verify the backup location](#9-verify-the-backup-location)
+- [Creating a backup](#10-creating-a-backup)
+- [Restoration Process](#11-restoration-process)
+- [Reference](#reference)
+
+
 ## Overview
 
-## Velero, is a powerful yet simple-to-use tool designed specifically for Kubernetes backup and restoration. It enables you to take consistent snapshots of your cluster’s state, including persistent volumes, configuration, and metadata, and store them securely off-cluster.
+Velero, is a powerful yet simple-to-use tool designed specifically for Kubernetes backup and restoration. It enables you to take consistent snapshots of your cluster’s state, including persistent volumes, configuration, and metadata, and store them securely off-cluster.
 
-### 1. Create a identity providers for eks cluster.
+## 1. Create a identity providers for eks cluster.
 
 - Go to IAM service
 - In the left pane, under Access management, select Identity providers.
@@ -21,9 +36,9 @@ permalink: /docs/devops/kubernetes/velaro/
 - In Provider URL paste the OpenID Connect provider URL
 - In Audience use "sts.amazonaws.com"
 
-### 2. Create a role and attach policy for velero service account.
+## 2. Create a role and attach policy for velero service account.
 
-#### Create Custom trust policy role
+### Create Custom trust policy role
 
 ```json
 {
@@ -46,7 +61,7 @@ permalink: /docs/devops/kubernetes/velaro/
 }
 ```
 
-#### Policy
+## 3. Policy
 
 ```json
 {
@@ -84,18 +99,18 @@ permalink: /docs/devops/kubernetes/velaro/
 }
 ```
 
-### 4. Create an S3 Bucket to store backups
+## 4. Create an S3 Bucket to store backups
 
 Velero uses S3 to store EKS backups when running in AWS.
 
-#### 5. Add the Velero Helm Repository
+## 5. Add the Velero Helm Repository
 
 ```bash
 helm repo add vmware-tanzu https://vmware-tanzu.github.io/helm-charts
 helm repo update
 ```
 
-#### 6. Create a service account for accessing the aws velero role.
+## 6. Create a service account for accessing the aws velero role.
 
 ```bash
 kubectl create serviceaccount velero -n velero
@@ -104,16 +119,14 @@ kubectl annotate serviceaccount velero -n velero \
 
 ```
 
-#### 7. Install velero cli in your system
+## 7. Install velero cli in your system
 
 - Go to https://github.com/vmware-tanzu/velero/releases/tag/v1.15.0
 - Download the velero version
 - Extract the file and move the binary to /usr/local/bin/
 - Verify installation use cmd "velero version"
 
-#### 8. Create a custom values file
-
-####
+## 8. Create a custom values file
 
 ```yaml
 configuration:
@@ -172,7 +185,7 @@ velero backup-location get
 
 ---
 
-#### 9. verify the backup location
+## 9. verify the backup location
 
 - The phase in output should be available for below command
 
@@ -180,7 +193,7 @@ velero backup-location get
 velero backup-location get
 ```
 
-#### 10. Creating a backup
+## 10. Creating a backup
 
 - We can use below cli command to create a backup
 
@@ -219,7 +232,7 @@ spec:
 velero backup describe my-first-backup-demo
 ```
 
-#### 10. Restoration Process
+## 11. Restoration Process
 
 - We can restore using below command:
 
@@ -231,7 +244,7 @@ velero restore describe my-first-backup-demo-20240413163430
 velero restore logs my-first-backup-demo-20240413163430
 ```
 
-#### 11. Schedule Backups
+## 11. Schedule Backups
 
 - We can use below cli command to set the schedule backups for kubernetes cluster:
 

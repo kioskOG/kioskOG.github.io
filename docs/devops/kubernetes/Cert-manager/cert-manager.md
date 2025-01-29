@@ -10,6 +10,23 @@ permalink: /docs/devops/kubernetes/Cert-manager/
 
 ![certmanager](./images/cert-traefik.png)
 
+# Table of Contents
+
+1. [🎯 Objective](#-objective)
+2. [📋 Prerequisites](#-prerequisites)
+   - [Cert-Manager](#-cert-manager)
+   - [Traefik](#-traefik)
+3. [Cross-Account Setup Overview](#cross-account-setup-overview)
+   - [Account-B Setup: Trusted Role for Account-A](#account-b-setup-trusted-role-for-account-a)
+   - [Grab Hosted Zone ID from Route53 in Account B](#grab-hosted-zone-id-from-route53-in-account-b)
+   - [Account-A Setup: Role and Service Account](#account-a-setup-role-and-service-account)
+4. [Cert-Manager Setup](#cert-manager-setup)
+5. [ClusterIssuer and Certificate Configuration](#clusterissuer-and-certificate-configuration)
+6. [Traefik Setup](#traefik-setup)
+7. [Deploy and Test an Application](#deploy-and-test-an-application)
+8. [Final Note](#final-note)
+
+
 ## 🎯 Objective
 When managing workloads in Kubernetes (EKS), securing communication with HTTPS is crucial. This blog demonstrates how to set up **Traefik** as an ingress controller and integrate it with **Cert-Manager** for TLS certificate management. We also cover cross-account Route 53 integration for DNS-01 validation using AWS IAM roles and service accounts.
 

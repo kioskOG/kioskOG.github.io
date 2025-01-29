@@ -5,7 +5,7 @@ parent: Introduction to Cilium & Hubble
 grand_parent: Kubernetes Projects
 nav_order: 1
 permalink: /docs/devops/kubernetes/cilium/cilium-installation-on-eks/
-description: Documentation for HertzBeat setup via Docker.
+description: Documentation for Install Cilium & Hubble on EKS.
 ---
 
 ![cilium](../images/cilium.png)
