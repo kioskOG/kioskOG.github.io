@@ -66,7 +66,7 @@ kubectl describe ciliumnetworkpolicies
 kubectl -n kube-system exec $MASTER_CILIUM_POD -- cilium policy get
 
 #Hubble
-    #Generate som traffic
+    #Generate some traffic
         kubectl exec tiefighter -- curl -s -XPOST deathstar.default.svc.cluster.local/v1/request-landing
         kubectl exec tiefighter -- curl -s -XPUT deathstar.default.svc.cluster.local/v1/exhaust-port
         kubectl exec xwing -- curl -s -XPOST deathstar.default.svc.cluster.local/v1/request-landing

@@ -8,6 +8,27 @@ permalink: /docs/devops/kubernetes/Traefik/
 
 # 🚀 How to Deploy Traefik Ingress Controller on Kubernetes using Helm with Prometheus & Grafana Integration.
 
+## Table of Contents
+- [🚀 How to Deploy Traefik Ingress Controller on Kubernetes using Helm with Prometheus & Grafana Integration.](#-how-to-deploy-traefik-ingress-controller-on-kubernetes-using-helm-with-prometheus--grafana-integration)
+  - [Overview](#overview)
+  - [Key Features](#key-features)
+  - [Prerequisites](#prerequisites)
+  - [Step 1: Deploy Traefik Ingress Controller](#step-1)
+    - [1.1: 🌟 Create a New Namespace](#11--create-a-new-namespace-called-traefik)
+    - [1.2: 🌟 Add Traefik Labs Chart Repository](#12--add-traefik-labs-chart-repository-to-helm)
+    - [1.3: 🌟 Update and List the Chart Repository](#13--you-can-update--list-the-chart-repository-by-running)
+    - [1.4: 🌟 Install Traefik with Helm](#14--and-install-it-with-the-helm-command-line)
+    - [🌟 Installing with Custom Values](#-installing-with-custom-values)
+  - [Step 2: 🌟 Access Traefik Dashboard](#step-2-access-traefik-dashboard-without-exposing-it)
+    - [2.1: Local Dashboard Access (Port-Forwarding)](#21-local-dashboard-access-port-forwarding)
+  - [Step 3: Integrate with Prometheus](#step-3-integrate-with-prometheus)
+    - [3.1: Verify Prometheus Metrics Scraping](#31-verify-your-prometheus-able-to-scrape-traefik-metrics)
+  - [Step 4: Visualize Metrics with Grafana Dashboard](#step-4-visualize-metrics-with-grafana-dashboard)
+    - [4.1: Import the Official Traefik Grafana Dashboard](#41-import-the-official-traefik-grafana-dashboard)
+    - [4.2: Import the Dashboard Template in Grafana](#42-open-grafana-in-your-browser)
+  - [References](#references)
+
+
 ## Overview
 
 ![Traefik](images/image.png)
@@ -102,7 +123,7 @@ This makes the dashboard accessible on the url: [http://127.0.0.1:8080/dashboard
 
 ### Step 3: Integrate with Prometheus
 
-> [!TIP]
+{: .important}
 > If you want to access the `Traefik` metrics, on prometheus (prometheus satck), add `release: promstack` selector into serviceMonitor created in monitoring namespace. like below. If you have prometheus running in different namespace change the serviceMonitor namespace as required.
 
 ```shell
@@ -111,7 +132,7 @@ This makes the dashboard accessible on the url: [http://127.0.0.1:8080/dashboard
           release: promstack
 ```
 
-### 3.2: Verify your Prometheus able to scrape Traefik metrics
+### 3.1 Verify your Prometheus able to scrape Traefik metrics
 ---
 - Port Forward for prometheus service
 ![Port Forward](images/port-forward-prometheus.png)
@@ -122,7 +143,7 @@ This makes the dashboard accessible on the url: [http://127.0.0.1:8080/dashboard
 ---
 
 ### Step 4: Visualize Metrics with Grafana Dashboard
-### 4.1
+### 4.1 Import the Official Traefik Grafana Dashboard
 > [traefik-official-standalone-dashboard](https://grafana.com/grafana/dashboards/17346-traefik-official-standalone-dashboard/)
 > Import the dashboard template by `Copy ID to clipboard`
 

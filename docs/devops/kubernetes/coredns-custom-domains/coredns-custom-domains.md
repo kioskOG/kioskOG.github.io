@@ -9,6 +9,7 @@ permalink: /docs/devops/kubernetes/coredns-custom-domains/
 
 ![coredns](./images/coredns.png)
 
+
 ## **✨ Introduction**
 
 🎯 **CoreDNS** is the DNS service discovery plugin for Kubernetes. It replaces the older `kube-dns` and is pre-installed in the `kube-system` namespace.
