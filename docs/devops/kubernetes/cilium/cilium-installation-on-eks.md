@@ -100,6 +100,7 @@ Cilium uses a data store to propagate state between agents.
 ## Remove kube-proxy iptable entires from each node
 * With root permissions ensure that iptable entries pertinent to kube-proxy are removed.
     - This is done to clear out AWS-VPC-CNI related rules.
+
 ```bash
 iptables-save | grep -v KUBE | iptables-restore
 
@@ -107,8 +108,8 @@ iptables-save | grep -E -v 'AWS-SNAT-CHAIN|AWS-CONNMARK-CHAIN' | iptables-restor
 ```
 
 {: .note}
-> - **Updated as of 27/06/2024 with inputs from Isovalent team member- Scott Lowe.**
-> **If you provision an EKS cluster without the AWS-VPC-CNI plugin, then you don’t need to do the above step.**
+> Updated as of 27/06/2024 with inputs from Isovalent team member- Scott Lowe.**
+> If you provision an EKS cluster without the AWS-VPC-CNI plugin, then you don’t need to do the above step.
 
 
 ## Installation Steps
