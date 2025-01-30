@@ -97,6 +97,20 @@ Cilium uses a data store to propagate state between agents.
 
 ---
 
+## Remove kube-proxy iptable entires from each node
+* With root permissions ensure that iptable entries pertinent to kube-proxy are removed.
+    - This is done to clear out AWS-VPC-CNI related rules.
+```bash
+iptables-save | grep -v KUBE | iptables-restore
+
+iptables-save | grep -E -v 'AWS-SNAT-CHAIN|AWS-CONNMARK-CHAIN' | iptables-restore
+```
+
+{: .note}
+> - **Updated as of 27/06/2024 with inputs from Isovalent team member- Scott Lowe.**
+> **If you provision an EKS cluster without the AWS-VPC-CNI plugin, then you don’t need to do the above step.**
+
+
 ## Installation Steps
 
 ### Add the Helm Repository
@@ -113,13 +127,32 @@ kubectl -n kube-system patch daemonset aws-node --type='strategic' -p='{"spec":{
 ### Install Cilium with Helm
 ***********************
 
+
+{: .important}
+> * You can install Cilium in either `ENI mode` or `Overlay mode` on an EKS cluster.
+> * In case of ENI mode, Cilium will manage ENIs instead of VPC CNI, so the `aws-node` DaemonSet has to be patched to prevent conflict behavior.
+
 ```bash
+API_SERVER_IP=<your_api_server_FQDN>
+API_SERVER_PORT=<your_api_server_port>
+
+
 helm install cilium cilium/cilium --version 1.16.6 \
   --namespace kube-system \
   --set eni.enabled=true \
   --set ipam.mode=eni \
   --set egressMasqueradeInterfaces=eth+ \
-  --set routingMode=native
+  --set routingMode=native \
+  --set kubeProxyReplacement=true \
+  --set prometheus.enabled=true \
+  --set hubble.relay.enabled=true \
+  --set hubble.ui.enabled=true \
+  --set operator.prometheus.enabled=true \
+  --set hubble.enabled=true \
+  --set hubble.metrics.enableOpenMetrics=true \
+  --set hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,httpV2:exemplars=true;labelsContext=source_ip,source_namespace,source_workload,destination_ip,destination_namespace,destination_workload,traffic_direction}" \
+  --set k8sServiceHost=$API_SERVER_IP \
+  --set k8sServicePort=$API_SERVER_PORT
 ```
 
 #### Example Output
@@ -135,6 +168,17 @@ NOTES:
 You have successfully installed Cilium with Hubble.
 Your release version is 1.16.6.
 For help, visit https://docs.cilium.io/en/v1.16/gettinghelp
+```
+
+### Validate that the Cilium agent is running in the desired mode
+```bash
+kubectl -n kube-system exec ds/cilium -- cilium status | grep KubeProxyReplacement
+```
+
+#### Example Output
+```bash
+Defaulted container "cilium-agent" out of: cilium-agent, config (init), mount-cgroup (init), apply-sysctl-overwrites (init), mount-bpf-fs (init), clean-cilium-state (init), install-cni-binaries (init)
+KubeProxyReplacement:    True   [eth0   10.36.144.230 fe80::af:2ff:fe17:6fd9 (Direct Routing), eth1   10.36.144.119 fe80::69:39ff:fe87:85ff, eth2   10.36.144.39 fe80::73:42ff:fe95:9eb7]
 ```
 
 
@@ -195,6 +239,16 @@ pod-to-external-fqdn-allow-google-cnp-78986f4bcf-btjn7   1/1     Running   0    
 
 {: .note}
 > If you deploy the connectivity check to a single node cluster, pods that check multi-node functionalities will remain in the Pending state. This is expected since these pods need at least 2 nodes to be scheduled successfully.
+
+
+{: .important}
+> Check the EKS nodes for any iptable entries related to kube-proxy
+```bash
+[root@ip-10-36-128-139 ~]# iptables-save | grep -c KUBE-SVC
+0
+[root@ip-10-36-128-139 ~]# iptables-save | grep -c KUBE-SEP
+0
+```
 
 </details> 
 
@@ -316,7 +370,75 @@ hubble observe
 
 </details>
 
+
+
+## How can we ensure that kube-proxy is not installed post a Kubernetes version upgrade?
+
+* You can also optionally validate that kube-proxy is not installed as an add-on a subsequent kubernetes upgrade.
+
+* As you can see in this example below, the EKS cluster is upgraded from k8s version 1.27 to k8s version 1.29 and we don’t see kube-proxy being enabled as an add-on.
+
+```bash
+eksctl upgrade cluster --name cluster1 --region ap-southeast-2 --version 1.29 --approve
+
+eksctl get nodegroup ng-1 --region ap-southeast-2 --cluster=cluster1
+CLUSTER  NODEGROUP STATUS CREATED   MIN SIZE MAX SIZE DESIRED CAPACITY INSTANCE TYPE IMAGE ID ASG NAME     TYPE
+cluster1 ng-1  ACTIVE 2024-03-10T16:13:06Z 2  2  2   m5.large AL2_x86_64 eks-ng-1-54c71491-cd91-5c20-0e4c-bb39fea7a7b7 managed
+
+eksctl upgrade nodegroup \
+  --name=ng-1 \
+  --cluster=cluster1 \
+  --region=ap-southeast-2 \
+  --kubernetes-version=1.29
+```
+
+## Validate that the Cilium agent is running in the desired mode
+
+```bash
+kubectl -n kube-system exec ds/cilium -- cilium status | grep KubeProxyReplacement
+```
+
+#### Example Output
+```bash
+Defaulted container "cilium-agent" out of: cilium-agent, config (init), mount-cgroup (init), apply-sysctl-overwrites (init), mount-bpf-fs (init), clean-cilium-state (init), install-cni-binaries (init)
+KubeProxyReplacement:    True   [eth0   10.36.144.230 fe80::af:2ff:fe17:6fd9 (Direct Routing), eth1   10.36.144.119 fe80::69:39ff:fe87:85ff, eth2   10.36.144.39 fe80::73:42ff:fe95:9eb7]
+```
+
+
+## Validate that kube-proxy is not present as a daemonset post the upgrade.
+
+```bash
+kubectl get ds -A
+
+NAMESPACE     NAME       DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR                     AGE
+kube-system   aws-node   0         0         0       0            0           io.cilium/aws-node-enabled=true   8d
+kube-system   cilium     2         2         2       2            2           kubernetes.io/os=linux            19h
+```
+
+```bash
+kubectl get cm -A
+
+NAMESPACE         NAME                                                   DATA   AGE
+default           kube-root-ca.crt                                       1      8d
+kube-node-lease   kube-root-ca.crt                                       1      8d
+kube-public       kube-root-ca.crt                                       1      8d
+kube-system       amazon-vpc-cni                                         2      8d
+kube-system       aws-auth                                               1      8d
+kube-system       cilium-config                                          105    19h
+kube-system       coredns                                                1      8d
+kube-system       extension-apiserver-authentication                     6      8d
+kube-system       kube-apiserver-legacy-service-account-token-tracking   1      8d
+kube-system       kube-root-ca.crt                                       1      8d
+```
+
+
 ## References
 [Cilium](https://docs.cilium.io/en/stable/installation/k8s-install-helm/)
 
 [Hubble](https://docs.cilium.io/en/stable/observability/hubble/setup/#hubble-setup)
+
+<!-- https://medium.com/@amitmavgupta/cilium-installing-cilium-in-eks-with-no-kube-proxy-86f54a56c360 -->
+
+
+## 🌟Conclusion 🌟
+Hopefully, this post gave you a good overview of how to install Cilium on EKS in ENI or Overlay mode with no kube-proxy. Thank you for Reading !! 🙌🏻😁📃, see you in the next blog.
