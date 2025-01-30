@@ -183,6 +183,47 @@ KubeProxyReplacement:    True   [eth0   10.36.144.230 fe80::af:2ff:fe17:6fd9 (Di
 ```
 
 
+{: .warning}
+> If you face an issue where hubble-relay throwing below error
+>
+```yaml
+eric@makaka ~/W/D/p/r/k0s> kubectl logs -n kube-system hubble-relay-cd85c8f55-f2mgb 
+level=info msg="Starting server..." options="{peerTarget:hubble-peer.kube-system.svc.cluster.local:443 dialTimeout:5000000000 retryTimeout:30000000000 listenAddress::4245 log:0x40002a2150 serverTLSConfig:<nil> insecureServer:true clientTLSConfig:0x400000c0a8 clusterName:default insecureClient:false observerOptions:[0xc44c80 0xc44da0]}" subsys=hubble-relay
+level=warning msg="Failed to create peer client for peers synchronization; will try again after the timeout has expired" error="context deadline exceeded" subsys=hubble-relay target="hubble-peer.kube-system.svc.cluster.local:443"
+level=warning msg="Failed to create peer client for peers synchronization; will try again after the timeout has expired" error="context deadline exceeded" subsys=hubble-relay target="hubble-peer.kube-system.svc.cluster.local:443"
+level=warning msg="Failed to create peer client for peers synchronization; will try again after the timeout has expired" error="context deadline exceeded" subsys=hubble-relay target="hubble-peer.kube-system.svc.cluster.local:443"
+```
+>
+> Then try to use below helm
+
+
+```bash
+API_SERVER_IP=<your_api_server_FQDN>
+API_SERVER_PORT=<your_api_server_port>
+
+helm upgrade cilium cilium/cilium --version 1.16.6 \
+  --namespace kube-system \
+  --set cluster.name="bellatrix" \
+  --set cluster.id=0 \
+  --set eni.enabled=true \
+  --set ipam.mode=eni \
+  --set egressMasqueradeInterfaces=eth+ \
+  --set routingMode=native \
+  --set kubeProxyReplacement=true \
+  --set prometheus.enabled=true \
+  --set hubble.tls.enabled=false \
+  --set hubble.relay.enabled=true \
+  --set hubble.tls.auto.enabled=false \
+  --set hubble.ui.enabled=true \
+  --set operator.prometheus.enabled=true \
+  --set hubble.enabled=true \
+  --set hubble.metrics.enableOpenMetrics=true \
+  --set hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,httpV2:exemplars=true;labelsContext=source_ip,source_namespace,source_workload,destination_ip,destination_namespace,destination_workload,traffic_direction}" \
+  --set k8sServiceHost=$API_SERVER_IP \
+  --set k8sServicePort=$API_SERVER_PORT
+```
+
+
 ## Post-Installation Steps
 
 ### Restart Unmanaged Pods
