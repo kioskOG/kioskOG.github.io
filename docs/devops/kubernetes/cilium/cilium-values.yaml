@@ -1,0 +1,47 @@
+eni:
+  enabled: true
+
+ipam:
+  mode: eni
+
+egressMasqueradeInterfaces: "eth+"
+
+routingMode: native
+
+kubeProxyReplacement: true
+
+prometheus:
+  enabled: true
+
+hubble:
+  enabled: true
+  relay:
+    enabled: true
+  tls:
+    auto:
+      enabled: true
+      method: helm
+      certValidityDuration: 1095
+  ui:
+    enabled: true
+    frontend:
+      server:
+        ipv6:
+          enabled: false
+  metrics:
+    enableOpenMetrics: true
+    enabled:
+      - dns
+      - drop
+      - tcp
+      - flow
+      - port-distribution
+      - icmp
+      - httpV2: exemplars=true; labelsContext=source_ip,source_namespace,source_workload,destination_ip,destination_namespace,destination_workload,traffic_direction
+
+operator:
+  prometheus:
+    enabled: true
+
+k8sServiceHost: "${API_SERVER_IP}"
+k8sServicePort: "${API_SERVER_PORT}"

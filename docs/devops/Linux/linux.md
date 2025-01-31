@@ -38,3 +38,5 @@ This section provides documentation for various Linux projects, with a focus on 
 | [Wazuh SSO Using Keycloak](/docs/devops/Linux/SIEM-And-XDR/wazuh-sso-using-keycloak/) | Integrating Wazuh with Keycloak for Single Sign-On (SSO).                                          | Done   |
 | [Monitor Docker Environment Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-to-monitor-docker/) | Monitoring Docker environments using Wazuh.                                                          | Done   |
 | [Monitoring Container Runtime Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-monitoring-container-runtime/) | Monitoring container runtimes with Wazuh.                                                             | Done   |
+| [Quick Introduction to Linux iptables](/docs/devops/Linux/Iptables/iptables/) | Introduction to Linux iptables.                                                             | Done   |
+| [Setting up IPVS Load Balancer with NGINX Application Servers](/docs/devops/Linux/Iptables/ipvs-loadbalancer/) | Setting up IPVS Load Balancer with NGINX Application Servers.                                                             | Done   |
