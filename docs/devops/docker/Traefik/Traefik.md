@@ -16,7 +16,7 @@ touch docker-compose.yaml
 cd Traefik
 mkdir config
 cd config
-touch traefik.yamk
+touch traefik.yaml
 ```
 
 ```shell
