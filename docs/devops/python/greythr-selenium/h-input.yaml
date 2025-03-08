@@ -1,0 +1,11 @@
+website_link: ""
+username: ""
+password: ""
+email_sender: ""
+email_password: ""  # https://myaccount.google.com/u/1/apppasswords
+email_host: "smtp.gmail.com"
+email_port: 587
+
+email_recipients:
+  - name: "Recipient One"
+    email: ""
