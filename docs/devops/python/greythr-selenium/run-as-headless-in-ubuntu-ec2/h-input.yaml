@@ -1,0 +1,11 @@
+website_link: ""
+username: ""
+password: ""
+email_sender: ""
+email_password: ""
+email_host: "smtp.gmail.com"
+email_port: 587
+
+email_recipients:
+  - name: "Recipient One"
+    email: ""

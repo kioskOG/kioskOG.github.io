@@ -1,0 +1,15 @@
+[Unit]
+Description=Automated Attendance System
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /root/myenv/attendance.py
+WorkingDirectory=/root/myenv
+Restart=always
+User=root
+Environment="DISPLAY=:99"
+StandardOutput=append:/var/log/attendance.log
+StandardError=append:/var/log/attendance.log
+
+[Install]
+WantedBy=multi-user.target
