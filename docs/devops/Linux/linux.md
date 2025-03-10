@@ -40,3 +40,5 @@ This section provides documentation for various Linux projects, with a focus on 
 | [Monitoring Container Runtime Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-monitoring-container-runtime/) | Monitoring container runtimes with Wazuh.                                                             | Done   |
 | [Quick Introduction to Linux iptables](/docs/devops/Linux/Iptables/iptables/) | Introduction to Linux iptables.                                                             | Done   |
 | [Setting up IPVS Load Balancer with NGINX Application Servers](/docs/devops/Linux/Iptables/ipvs-loadbalancer/) | Setting up IPVS Load Balancer with NGINX Application Servers.                                                             | Done   |
+| [VPN](/docs/devops/Linux/vpn/vpn/) | Introduction to VPN.   | Done   |
+| [OpenVPN vs NetBird](/docs/devops/Linux/vpn/openvpn-vs-netbird/) | Documentation for Differences Between OpenVPN and NetBird.                                                             | Done   |
