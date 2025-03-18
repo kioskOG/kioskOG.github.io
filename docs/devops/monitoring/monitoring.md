@@ -19,6 +19,8 @@ This section provides documentation for deploying and using Apache HertzBeat, an
 | [Overview of Apache HertzBeat](/docs/devops/monitoring/Apache-HertzBeat/) | Overview of Apache HertzBeat, its features, and use cases.                       | Done   |
 | [Apache HertzBeat Docker Deployment](/docs/devops/monitoring/Apache-HertzBeat-docker/) | Deploying Apache HertzBeat using Docker.                                      | Done   |
 | [Apache HertzBeat Docker Compose Deployment](/docs/devops/monitoring/Apache-HertzBeat-docker-compose/) | Deploying Apache HertzBeat using Docker Compose for multi-container setups. | Done   |
+| [Introduction to Distributed Tracing & Grafana Tempo](/docs/devops/monitoring/grafana_tempo/) | Introduction to Distributed Tracing & Grafana Tempo. | Done   |
+| [Setting Up Grafana Tempo via Docker](/docs/devops/monitoring/grafana_tempo/Grafana-Tempo-Docker/) | Documentation for Setting Up Grafana Tempo via Docker. | Done   |
 
 
 
