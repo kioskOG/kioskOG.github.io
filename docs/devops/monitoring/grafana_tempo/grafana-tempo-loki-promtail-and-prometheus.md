@@ -442,21 +442,43 @@ datasources:
   - name: Tempo
     type: tempo
     access: proxy
+    uid: tempo
     url: http://tempo:3200
-    isDefault: false
+    isDefault: true
+    editable: true
     jsonData:
       httpMethod: GET
-      tracesToLogs:
+      tracesToLogsV2:
         datasourceUid: "loki"
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '1h'
+        filterByTraceID: false
+        filterBySpanID: false
+      tracesToMetrics:
+        datasourceUid: "prometheus"
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '1h'
+      streamingEnabled:
+        search: true
+      traceQuery:
+        timeShiftEnabled: true
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '1h'
       serviceMap:
         datasourceUid: "prometheus"
+      nodeGraph:
+        enabled: true
       spanBar:
         datasourceUid: "prometheus"
+      lokiSearch:
+        datasourceUid: 'loki'
   - name: Prometheus
     type: prometheus
     access: proxy
+    uid: prometheus
     url: http://prometheus:9090
-    isDefault: true
+    isDefault: false
+    editable: true
   - name: Loki
     type: loki
     uid: loki
@@ -469,7 +491,7 @@ datasources:
     editable: true
     jsonData:
       derivedFields:
-      - datasourceName: Tempo
+      - datasourceName: tempo
         datasourceUid: tempo
         matcherRegex: trace_id=(\w+)
         name: traceID

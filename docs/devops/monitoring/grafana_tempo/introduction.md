@@ -8,6 +8,7 @@ description: Introduction to Distributed Tracing & Grafana Tempo.
 ---
 
 # 📌 Introduction to Distributed Tracing & Grafana Tempo
+Grafana Tempo is an open-source, easy-to-use, and high-scale distributed tracing backend. Tempo lets you search for traces, generate metrics from spans, and link your tracing data with logs and metrics.
 
 ## 1️⃣ What is Distributed Tracing?
 
@@ -42,6 +43,8 @@ With tracing, you can see which service is slow and fix it.
 * `Zipkin`: Older tool, similar to Jaeger, but requires `storage management`.
 
 * `AWS X-Ray`: Paid service, good but locked into AWS.
+
+* `OpenTelemetry`: Open source, as well as vendor and tool-agnostic.
 
 
 ### 🔹 Why Tempo?
@@ -111,3 +114,25 @@ This shows that `Payment Service took 20ms` and `Inventory Service took 20ms`, w
 3️⃣ `Traces` – Collected using `Tempo`.
 
 By combining `logs, metrics, and traces`, you get full visibility into your system.
+
+
+## Traces
+
+A trace represents the whole journey of a request or an action as it moves through all the nodes of a distributed system, especially containerized applications or microservices architectures.
+
+Traces are composed of one or more spans. A span is a unit of work within a trace that has a start time relative to the beginning of the trace, a duration, and an operation name for the unit of work. It usually has a reference to a parent span, unless it’s the first, or root, span in a trace. It frequently includes key/value attributes that are relevant to the span itself, for example the HTTP method used in the request, as well as other metadata such as the service name, sub-span events, or links to other spans.
+
+Setting up tracing adds an identifier, or trace ID, to all of these events. The trace ID generates when the request initiates. That same trace ID applies to every span as the request and response generate activity across the system.
+
+The trace ID lets you trace, or follow, a request as it flows from node to node, service to microservice to lambda function to wherever it goes in your chaotic, cloud computing system and back again. This is recorded and displayed as spans.
+
+
+## Trace structure
+
+Traces are telemetry data structured as trees. Traces are made of spans (for example, a span tree); there is a root span that can have zero to multiple branches that are called child spans. Each child span can itself be a parent span of one or multiple child spans, and so on so forth.
+
+![trace_structure](../images/trace_structure.png)
+
+## Referance:
+
+[Grafana Doc](https://grafana.com/docs/tempo/latest)
