@@ -47,70 +47,70 @@ from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
+from opentelemetry.trace import get_current_span
 
-# Setup Logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
+# ✅ Custom LogRecord Factory to Inject Trace IDs
+old_factory = logging.getLogRecordFactory()
 
-# Flask App
-app = Flask(__name__)
+def log_record_factory(*args, **kwargs):
+    record = old_factory(*args, **kwargs)
+    span = get_current_span()
+    if span and span.get_span_context():
+        record.trace_id = format(span.get_span_context().trace_id, 'x')
+        record.span_id = format(span.get_span_context().span_id, 'x')
+    else:
+        record.trace_id = "N/A"
+        record.span_id = "N/A"
+    return record
 
-# ✅ Explicitly start metrics server (fix for missing /metrics)
-metrics = PrometheusMetrics(app, group_by='endpoint', buckets=[0.1, 0.2, 0.5, 1, 2, 5, 10])
-metrics.start_http_server(5001)  # ✅ Ensures /metrics is available
+logging.setLogRecordFactory(log_record_factory)
 
-FlaskInstrumentor().instrument_app(app)
+# ✅ Update Logging Format
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s application=flask-otel-app traceId=%(trace_id)s spanId=%(span_id)s level=%(levelname)s message="%(message)s"',
+)
+logger = logging.getLogger(__name__)
 
-# Initialize tracing with resource attributes
+# ✅ Initialize tracing with resource attributes
 resource = Resource.create({
     "service.name": "flask-otel-app",
     "service.version": "1.0.0",
-    "service.environment": "dev"
+    "service.environment": "QA"
 })
 trace.set_tracer_provider(TracerProvider(resource=resource))
 tracer = trace.get_tracer(__name__)
 
-# Export spans to OTLP (Tempo)
+# ✅ Export spans to OTLP (Tempo)
 try:
-    otlp_exporter = OTLPSpanExporter(endpoint="http://otel-collector:4318/v1/traces")
+    otlp_exporter = OTLPSpanExporter(endpoint="http://tempo:4318/v1/traces")
     span_processor = BatchSpanProcessor(otlp_exporter)
     trace.get_tracer_provider().add_span_processor(span_processor)
 except Exception as e:
-    logging.error(f"Error initializing OTLP exporter: {e}")
+    logger.error(f"Error initializing OTLP exporter: {e}")
+
+# ✅ Start metrics server explicitly before creating Flask app
+metrics = PrometheusMetrics.for_app_factory(group_by='endpoint', buckets=[0.1, 0.2, 0.5, 1, 2, 5, 10])
+metrics.start_http_server(5001)
+
+# ✅ Flask App
+app = Flask(__name__)
+metrics.init_app(app)
+FlaskInstrumentor().instrument_app(app)
 
 @app.route('/')
 def home():
     with tracer.start_as_current_span("home-handler"):
         time.sleep(0.2)  # Simulate processing
-        logging.info("Processing / request")
-        return "Hello, OpenTelemetry with Grafana Tempo!"
+        logger.info("Processing / request")
+        return "Hello, OpenTelemetry!"
 
 @app.route('/slow')
 def slow():
     with tracer.start_as_current_span("slow-handler"):
         time.sleep(1)  # Simulate a slow response
-        logging.info("Processing /slow request")
+        logger.info("Processing /slow request")
         return "This took a while!"
-
-@app.route("/process")
-def process():
-    with tracer.start_as_current_span("processing_request"):
-        time.sleep(1)  # Simulate a delay
-        logging.info("Processing request completed")
-    return "Processing complete!"
-
-@app.route("/external-api")
-def external_api():
-    with tracer.start_as_current_span("calling_external_api"):
-        time.sleep(2)  # Simulating an external API delay
-        logging.info("External API call completed")
-    return "External API response!"
-
-@app.route("/db-query")
-def db_query():
-    with tracer.start_as_current_span("querying_database"):
-        time.sleep(1.5)  # Simulating a database query delay
-        logging.info("Database query completed")
-    return "Database query response!"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
@@ -167,22 +167,28 @@ pwd
 Create a file `docker-compose.yml`:
 
 ```yaml
-version: '3.7'
+---
+networks:
+  observability:
+    driver: bridge
 
-x-logging:
-  &default-logging
-  driver: "json-file"
-  options:
-    max-size: "1m"
-    max-file: "1"
-    tag: "{{.Name}}"
-
-x-labels:
-  &default-labels
-  logging: "promtail"
-  logging_jobname: "containerlogs"
+volumes:
+  tempo-data:
+  grafana-data:
+  loki-data:
+  prometheus-data:
 
 services:
+  flask-otel-app:
+    build: ./otel-python-app/ 
+    ports:
+        - 5000:5000
+    container_name: flask-otel-app
+    networks:
+        - observability
+          #image: flask-otel-app
+    depends_on:
+    - prometheus
   tempo:
     image: grafana/tempo:latest
     command: [ "-config.file=/etc/tempo.yml" ]
@@ -196,41 +202,6 @@ services:
       - "4318:4318"  # OTLP HTTP
     networks:
       - observability
-    logging: *default-logging
-    labels: *default-labels
-
-  grafana:
-    image: grafana/grafana:latest
-    ports:
-      - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_USERS_DEFAULT_THEME=dark
-    volumes:
-      - grafana-data:/var/lib/grafana
-      - ./grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml
-    depends_on:
-      - tempo
-      - prometheus
-    networks:
-      - observability
-    logging: *default-logging
-
-  otel-collector:
-    image: otel/opentelemetry-collector-contrib:latest
-    command: [ "--config=/etc/otel-collector-config.yml" ]
-    volumes:
-      - ./otel-collector-config.yml:/etc/otel-collector-config.yml
-    ports:
-      - "4317"  # OTLP gRPC
-      - "4318"  # OTLP HTTP
-      - "55680:55680"  # OpenTelemetry HTTP Debugging
-    depends_on:
-      - tempo
-    networks:
-      - observability
-    logging: *default-logging
-  
   prometheus:
     image: prom/prometheus:latest
     volumes:
@@ -242,68 +213,204 @@ services:
       - "9090:9090"
     networks:
       - observability
-    depends_on:
-      - otel-collector
-    logging: *default-logging
-
-  flask-otel-app:
-        build: ./otel-python-app/ 
-        ports:
-            - 5000:5000
-        container_name: flask-otel-app
-        networks:
-            - observability
-              #image: flask-otel-app
-        depends_on:
-        - otel-collector
-        - prometheus
-        logging: *default-logging
-        labels: *default-labels
-
-  promtail:
-    image:  grafana/promtail:2.9.7
-    container_name: promtail
-    volumes:
-      - ./promtail.yaml:/etc/promtail/docker-config.yaml
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - /var/run/docker.sock:/var/run/docker.sock
-      - promtail-data:/var
-    command: -config.file=/etc/promtail/docker-config.yaml
-    depends_on:
-      - loki
-    networks:
-      - observability
-    logging: *default-logging
-  
-  loki:
-    image: grafana/loki:2.9.7
-    container_name: loki
+  read:
+    image: grafana/loki:latest
+    command: "-config.file=/etc/loki/config.yaml -target=read"
     ports:
-      - 3100:3100
-    command: -config.file=/etc/loki/local-config.yaml
+      - 3101:3100
+      - 7946
+      - 9095
+    volumes:
+      - ./loki-config.yaml:/etc/loki/config.yaml
+    depends_on:
+      - minio
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3100/ready || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: 
+      - observability
+
+  write:
+    image: grafana/loki:latest
+    command: "-config.file=/etc/loki/config.yaml -target=write"
+    ports:
+      - 3102:3100
+      - 7946
+      - 9095
+    volumes:
+      - ./loki-config.yaml:/etc/loki/config.yaml
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3100/ready || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      - minio
+    networks: 
+      - observability
+
+  alloy:
+    image: grafana/alloy:latest
+    volumes:
+      - ./alloy-local-config.yaml:/etc/alloy/config.alloy:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:  run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+    ports:
+      - 12345:12345
+    depends_on:
+      - gateway
     networks:
       - observability
+
+  minio:
+    image: minio/minio
+    entrypoint:
+      - sh
+      - -euc
+      - |
+        mkdir -p /data/loki-data && \
+        mkdir -p /data/loki-ruler && \
+        minio server /data
+    environment:
+      - MINIO_ROOT_USER=loki
+      - MINIO_ROOT_PASSWORD=supersecret
+      - MINIO_PROMETHEUS_AUTH_TYPE=public
+      - MINIO_UPDATE=off
+    ports:
+      - 9000:9000
     volumes:
+      - ./.data/minio:/data
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 15s
+      timeout: 20s
+      retries: 5
+    networks:
+      - observability
+
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_DEFAULT_THEME=dark
+    depends_on:
+      - gateway
+      - tempo
+      - prometheus
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/api/health || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - observability
+
+  backend:
+    image: grafana/loki:latest
+    volumes:
+      - ./loki-config.yaml:/etc/loki/config.yaml
       - loki-data:/loki
-    logging: *default-logging
+    ports:
+      - "3100"
+      - "7946"
+    command: "-config.file=/etc/loki/config.yaml -target=backend -legacy-read-mode=false"
+    depends_on:
+      - gateway
+    networks:
+      - observability
+    
 
-volumes:
-  tempo-data:
-  grafana-data:
-  loki-data:
-  prometheus-data:
-  promtail-data:
+  gateway:
+    image: nginx:latest
+    depends_on:
+      - read
+      - write
+    entrypoint:
+      - sh
+      - -euc
+      - |
+        cat <<EOF > /etc/nginx/nginx.conf
+        user  nginx;
+        worker_processes  5;  ## Default: 1
 
-networks:
-  observability:
-    driver: bridge
+        events {
+          worker_connections   1000;
+        }
+
+        http {
+          resolver 127.0.0.11;
+
+          server {
+            listen             3100;
+
+            location = / {
+              return 200 'OK';
+              auth_basic off;
+            }
+
+            location = /api/prom/push {
+              proxy_pass       http://write:3100\$$request_uri;
+            }
+
+            location = /api/prom/tail {
+              proxy_pass       http://read:3100\$$request_uri;
+              proxy_set_header Upgrade \$$http_upgrade;
+              proxy_set_header Connection "upgrade";
+            }
+
+            location ~ /api/prom/.* {
+              proxy_pass       http://read:3100\$$request_uri;
+            }
+
+            location = /loki/api/v1/push {
+              proxy_pass       http://write:3100\$$request_uri;
+            }
+
+            location = /loki/api/v1/tail {
+              proxy_pass       http://read:3100\$$request_uri;
+              proxy_set_header Upgrade \$$http_upgrade;
+              proxy_set_header Connection "upgrade";
+            }
+
+            location ~ /loki/api/.* {
+              proxy_pass       http://read:3100\$$request_uri;
+            }
+          }
+        }
+        EOF
+        /docker-entrypoint.sh nginx -g "daemon off;"
+    ports:
+      - "3100:3100"
+    healthcheck:
+      test: ["CMD", "service", "nginx", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - observability
+  
+
+  flog:
+    image: mingrammer/flog
+    command: -f json -d 200ms -l
+    networks:
+      - observability
 ```
 
 
-{ : .important }
-> Add `labels: *default-labels` to the container for which you want the loki to scrape logs. Because we have a filter configured in `promtail.yaml` for the same.
+<!-- { : .important }
+> Add `labels: *default-labels` to the container for which you want the loki to scrape logs. Because we have a filter configured in `promtail.yaml` for the same. -->
 
-## 7️⃣ Create OpenTelemetry Collector Config
+<!-- ## 7️⃣ Create OpenTelemetry Collector Config
 
 Create a file `otel-collector-config.yml` 
 
@@ -335,6 +442,43 @@ service:
     metrics:
       receivers: [otlp]
       exporters: [prometheus]
+``` -->
+
+## 7️⃣ Create Alloy Collector Config
+
+Create a file `otel-collector-config.yml` 
+
+```yaml
+discovery.docker "flog_scrape" {
+	host             = "unix:///var/run/docker.sock"
+	refresh_interval = "5s"
+}
+
+discovery.relabel "flog_scrape" {
+	targets = []
+
+	rule {
+		source_labels = ["__meta_docker_container_name"]
+		regex         = "/(.*)"
+		target_label  = "container"
+	}
+}
+
+loki.source.docker "flog_scrape" {
+	host             = "unix:///var/run/docker.sock"
+	targets          = discovery.docker.flog_scrape.targets
+	forward_to       = [loki.write.default.receiver]
+	relabel_rules    = discovery.relabel.flog_scrape.rules
+	refresh_interval = "5s"
+}
+
+loki.write "default" {
+	endpoint {
+		url       = "http://gateway:3100/loki/api/v1/push"
+		tenant_id = "tenant1"
+	}
+	external_labels = {}
+}
 ```
 
 ## 8️⃣ Create Tempo Config
@@ -375,9 +519,8 @@ distributor:
           endpoint: 0.0.0.0:4318
 
 ingester:
-  trace_idle_period: 10s
+  trace_idle_period: 35s
   max_block_bytes: 1_000_000
-  max_block_duration: 5m  # Cut the headblock after this much time (for demo purposes)
 
 compactor:
   compaction:
@@ -390,7 +533,7 @@ metrics_generator:
       source: tempo
       cluster: docker-compose
   storage:
-    path: /tmp/tempo/generator/wal
+    path: /var/tempo/generator/wal
     remote_write:
       - url: http://prometheus:9090/api/v1/write
         send_exemplars: true
@@ -400,6 +543,8 @@ storage:
     backend: local
     local:
       path: /var/tempo/traces  # Keeping the path from the second config
+    wal:
+      path: /var/tempo/wal
     block:
       bloom_filter_false_positive: 0.05
       v2_index_downsample_bytes: 1000
@@ -410,6 +555,9 @@ overrides:
     metrics_generator:
       processors: [service-graphs, span-metrics, local-blocks]  # Kept local-blocks from the first config
       generate_native_histograms: both
+      processor:
+        service_graphs:
+          enable_messaging_system_latency_histogram: true
 ```
 
 ## 9️⃣ Create Prometheus Config
@@ -421,13 +569,33 @@ global:
   scrape_interval: 10s
 
 scrape_configs:
-  - job_name: "otel-collector"
+  # Scrape Prometheus itself
+  - job_name: "prometheus"
     static_configs:
-      - targets: ["otel-collector:9090"]
+      - targets: ["localhost:9090"]  # Assuming Prometheus is running on localhost:9090
+
+  # Scrape Loki metrics
+  - job_name: "loki"
+    metrics_path: "/metrics"  # Loki's metrics endpoint
+    static_configs:
+      - targets: ["backend:3100"]  # Replace with your Loki's address and port
+
+  # Scrape Loki metrics
+  - job_name: "Alloy"
+    metrics_path: "/metrics"  # Alloy's metrics endpoint
+    static_configs:
+      - targets: ["alloy:12345"]  # Replace with your Alloy's address and port
+
   - job_name: 'tempo'
     static_configs:
       - targets: [ 'tempo:3200' ]
+
+  - job_name: 'grafana'
+    static_configs:
+      - targets: [ 'grafana:3000' ]
+
   - job_name: "flask-app"
+    metrics_path: "/metrics"
     static_configs:
       - targets: ["flask-otel-app:5001"]
 ```
@@ -458,12 +626,11 @@ datasources:
         datasourceUid: "prometheus"
         spanStartTimeShift: '-1h'
         spanEndTimeShift: '1h'
+        tags: [{ key: 'service.name', value: 'flask-otel-app' }, { key: 'job' }]
       streamingEnabled:
         search: true
       traceQuery:
         timeShiftEnabled: true
-        spanStartTimeShift: '-1h'
-        spanEndTimeShift: '1h'
       serviceMap:
         datasourceUid: "prometheus"
       nodeGraph:
@@ -479,69 +646,75 @@ datasources:
     url: http://prometheus:9090
     isDefault: false
     editable: true
-  - name: Loki
-    type: loki
+  - name: Loki # (name of the data source)
+    type: loki # (type of data source)
     uid: loki
-    access: proxy
+    access: proxy # (access type)
     orgId: 1
-    url: http://loki:3100
+    url: http://gateway:3100 # (URL of the Loki data source. Loki uses an nginx gateway to direct traffic to the appropriate component)
     basicAuth: false
     isDefault: false
     version: 1
     editable: true
     jsonData:
-      derivedFields:
-      - datasourceName: tempo
-        datasourceUid: tempo
-        matcherRegex: trace_id=(\w+)
-        name: traceID
-        url: '$${__value.raw}'
+      httpHeaderName1: "X-Scope-OrgID" # (header name for the organization ID)
+    secureJsonData:
+      httpHeaderValue1: "tenant1" # (header value for the organization ID)
+
+# It is important to note when Loki is configured in any other mode other than monolithic deployment, you are required to pass a tenant ID in the header. 
+# Without this, queries will return an authorization error.
 ```
 
 ## Create Promtail Config
 
-Create a file `promtail.yaml`:
+Create a file `loki-config.yaml`:
 
 ```yaml
-# https://grafana.com/docs/loki/latest/clients/promtail/configuration/
-# https://docs.docker.com/engine/api/v1.41/#operation/ContainerList
+---
 server:
-  http_listen_port: 9080
-  grpc_listen_port: 0
+  http_listen_address: 0.0.0.0
+  http_listen_port: 3100
 
-positions:
-  filename: /tmp/positions.yaml
+memberlist:
+  join_members: ["read", "write", "backend"]
+  dead_node_reclaim_time: 30s
+  gossip_to_dead_nodes_time: 15s
+  left_ingesters_timeout: 30s
+  bind_addr: ['0.0.0.0']
+  bind_port: 7946
+  gossip_interval: 2s
 
-clients:
-  - url: http://loki:3100/loki/api/v1/push
+schema_config:
+  configs:
+    - from: 2023-01-01
+      store: tsdb
+      object_store: s3
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
+common:
+  path_prefix: /loki
+  replication_factor: 1
+  compactor_address: http://backend:3100
+  storage:
+    s3:
+      endpoint: minio:9000
+      insecure: true
+      bucketnames: loki-data
+      access_key_id: loki
+      secret_access_key: supersecret
+      s3forcepathstyle: true
+  ring:
+    kvstore:
+      store: memberlist
+ruler:
+  storage:
+    s3:
+      bucketnames: loki-ruler
 
-scrape_configs:
-  - job_name: flog_scrape 
-    docker_sd_configs:
-      - host: unix:///var/run/docker.sock
-        refresh_interval: 5s
-        filters:
-          - name: label
-            values: ["logging=promtail"] 
-    relabel_configs:
-      - source_labels: ['__meta_docker_container_name']
-        regex: '/(.*)'
-        target_label: 'container'
-      - source_labels: ['__meta_docker_container_log_stream']
-        target_label: 'logstream'
-      - source_labels: ['__meta_docker_container_label_logging_jobname']
-        target_label: 'job'
-    pipeline_stages:
-      - cri: {}
-      - multiline:
-          firstline: ^\d{4}-\d{2}-\d{2} \d{1,2}:\d{2}:\d{2},\d{3}
-          max_wait_time: 3s
-      # https://grafana.com/docs/loki/latest/clients/promtail/stages/json/
-      - json:
-          expressions:
-            #message: message
-            level: level
-            #output: 'message'
+compactor:
+  working_directory: /tmp/compactor
 ```
 
 ## Start docker compose
