@@ -19,7 +19,7 @@ description: Documentation for File Integrity Monitoring setup.
 
 ## Configuration Steps:
 
-1) ## Edit ossec.conf
+## 1) Edit ossec.conf
 
 > Navigate to the Wazuh agent configuration file:
 
@@ -27,27 +27,27 @@ description: Documentation for File Integrity Monitoring setup.
 vi /var/ossec/etc/ossec.conf
 ```
 
-2) ## Enable File Integrity Monitoring:
+## 2) Enable File Integrity Monitoring:
 
 > * Locate the <syscheck> section and ensure disabled is set to **no**. This activates file integrity monitoring.
 
-3) ## Configure Monitoring Frequency:
+## 3) Configure Monitoring Frequency:
 
 > * The <frequency> tag defines how often Wazuh scans for file changes. The default is `12 hours`. For this demo we are keeping it as `10 seconds`, but you can adjust it based on your needs and system load.
 
 
-4) ## Initial Scan and New File Alerts:
+## 4) Initial Scan and New File Alerts:
 
 > * Set scan_on_start to yes to trigger an initial scan upon agent startup.
 
 > * Enable alert_new_files to receive alerts when new files appear in monitored directories.
 
 
-5) ## Ignoring Frequent Changes:
+## 5) Ignoring Frequent Changes:
 
 > * Utilize auto_ignore to avoid overwhelming alerts for frequently modified files. Set frequency to the desired ignore timeframe (e.g., ignore files changing every 10 seconds within an hour).
 
-6) ## Define Directories to Monitor:
+## 6) Define Directories to Monitor:
 > Within the <directories> tag, specify the critical directories you want Wazuh to monitor. Examples include:
   *    `/etc` - System configuration files
   *    `/usr/bin & /usr/sbin` - Essential system binaries
@@ -73,7 +73,7 @@ vi /var/ossec/etc/ossec.conf
   <directories>/bin,/sbin,/boot</directories>
 ```
 
-7) ## Restart Wazuh Agent:
+## 7) Restart Wazuh Agent:
 
 After saving changes, restart the Wazuh agent using.
 ```shell
@@ -81,7 +81,7 @@ systemctl restart wazuh-agent
 ```
 
 
-8) ## Verifying Monitoring:
+## 8) Verifying Monitoring:
 
 > Access your Wazuh console and navigate to the file integrity monitoring events section.
 > You should see events for monitored directories, including:

@@ -97,7 +97,7 @@ hello-world
 
 * `templates/`: Contains Kubernetes manifests but with Helm templating.
 
-{ : .note }
+{: .note }
 > This file contains the default values for a chart. These values may be overridden by users during `helm install` or `helm upgrade`.
 
 ## Basic HELM Commands

@@ -20,3 +20,5 @@ This section provides documentation for various Docker projects.
 | [hashicorp-vault](/docs/devops/docker/hashicorp-vault/) | Running HashiCorp Vault securely with Docker.          | Done   |
 | [Wazuh](/docs/devops/docker/Wazuh/) | Deploying and configuring Wazuh with Docker.          | Done   |
 | [keycloak](/docs/devops/docker/keycloak/) | Deploying and configuring Keycloak with Docker.       | Done   |
+| [Minio Introduction](/docs/devops/docker/minio/) | Introduction to MinIO Object Storage       | Done   |
+| [Minio limits](/docs/devops/docker/minio-limits/) | Minio limits       | Done   |

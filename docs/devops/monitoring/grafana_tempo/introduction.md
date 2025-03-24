@@ -131,7 +131,7 @@ The trace ID lets you trace, or follow, a request as it flows from node to node,
 
 Traces are telemetry data structured as trees. Traces are made of spans (for example, a span tree); there is a root span that can have zero to multiple branches that are called child spans. Each child span can itself be a parent span of one or multiple child spans, and so on so forth.
 
-![trace_structure](../images/trace_structure.png)
+![trace_structure](../grafana_tempo/images/trace_structure.png)
 
 ## Referance:
 
