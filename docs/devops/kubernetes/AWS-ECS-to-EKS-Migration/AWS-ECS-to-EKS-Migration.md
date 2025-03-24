@@ -217,7 +217,7 @@ kubectl logs -f deployment/external-dns -n default # check logs of external-dns 
 ### 5. Service Registration in EKS
 To register services dynamically in AWS Cloud Map, we added the following annotation in `service.yaml`:
 
-{ : .important }
+{: .important }
 > This Example is via headless service. It will create 2 records 1 for service & 1 for pod. This is just for demonstration purpose. you can remove the pod annotation.
 >
 > use ingress as below if you wanna use ingress.
@@ -328,13 +328,22 @@ spec:
           name: http
 ```
 
+## Verification
+After migration, We confirm that the EKS service is fully operational?
+
+Try below command from a machine within the same vpc.
+
+```bash
+nslookup nginx.external-dns-test.internal
+```
+
 {: .warning}
 > If a service is already registered in cloudmap with the DNS same as you are creating with EKS, ExternalDNS won't create that resource, and you will get the error in `externalDNS` logs because ExternalDNS verify the resource using `--txt-owner-id`.
 
 {: .important}
 > The default DNS record TTL (time to live) is 300 seconds. You can customize this value by setting the annotation `external-dns.alpha.kubernetes.io/ttl`
 
-{ : .note }
+{: .note }
 > After one minute check that a corresponding DNS record for your service was created in your hosted zone.
 
 
