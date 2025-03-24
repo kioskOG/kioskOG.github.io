@@ -78,20 +78,27 @@ cd hello-world
 
 ```bash
 hello-world
-├── charts
-├── Chart.yaml
-├── templates
+├── charts/                  # Dependencies (other Helm charts)
+├── Chart.yaml               # Chart metadata
+├── templates/               # YAML templates (Deployment, Service, etc.)
 │   ├── deployment.yaml
-│   ├── _helpers.tpl
-│   ├── hpa.yaml
-│   ├── ingress.yaml
-│   ├── NOTES.txt
-│   ├── serviceaccount.yaml
 │   ├── service.yaml
-│   └── tests
-│       └── test-connection.yaml
-└── values.yaml
+│   ├── ingress.yaml
+│   ├── _helpers.tpl         # Stores reusable templates or A place to put template helpers that you can re-use throughout the chart
+│   ├── NOTES.txt            # The "help text" for your chart. This will be displayed to your users when they run helm install.
+│   ├── tests/               # Helm test files
+│   └── serviceaccount.yaml
+└── values.yaml              # Default configuration values
 ```
+
+* `Chart.yaml`: Defines the name, description, version, and dependencies.
+
+* `values.yaml`: Contains default values for your templates.
+
+* `templates/`: Contains Kubernetes manifests but with Helm templating.
+
+{ : .note }
+> This file contains the default values for a chart. These values may be overridden by users during `helm install` or `helm upgrade`.
 
 ## Basic HELM Commands
 
