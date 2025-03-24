@@ -68,7 +68,7 @@ aws servicediscovery create-service \
       --health-check-custom-config FailureThreshold=1
 ```
 
-{ : .important }
+{: .important }
 > Replace the place holders in above commands.
 
 ### 4. External-DNS Configuration
