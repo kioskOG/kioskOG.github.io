@@ -12,18 +12,18 @@ Hello! I’m **Jatin Sharma**, a passionate **DevOps Engineer** with a strong fo
 ## 🌐 Skills and Expertise
 
 ### Cloud Platforms
-🌩  **AWS**- Amazon S3, Route 53, EC2, AWS Lambda, VPC, EKS, ECR, AWS CloudFormation, AWS SSO, IAM, SES, SNS, SQS, Opensearch, Redis, cloudwatch, ALB, NLB, Autoscaling, Amazon Cloudfront, ApiGateway, Amazon Athena, AWS Organisation, AWS Batch
+🌩  **AWS**- Amazon S3, Route 53, EC2, AWS Lambda, VPC, EKS, ECR, AWS CloudFormation, AWS SSO, IAM, SES, SNS, SQS, Opensearch, Redis, cloudwatch, ALB, NLB, Autoscaling, Amazon Cloudfront, ApiGateway, Amazon Athena, AWS Organisation, AWS Batch, CloudMap, ECS
 
 ☁️ **GCP**:- Compute, Storage, GKE, VCN
 
 ☀️ **Oracle Cloud**:- CloudVCN, compute, Storage, oke, container registry, oracle function, Api Gateway, LoadBalancers, Oracle Heatwave Mysql, Oracle Redis, Oracle Postgres
 
 ### 🖥️ Operating Systems
-- **Linux**- UBUNTU, RedHat, Amazon Linux, Centos7
+- **Linux**- UBUNTU, RedHat, Amazon Linux, Centos7, Windows
 
 ### 🛠️ Configuration Management & Infrastructure Automation
 - 🔧 Configuration Management: Ansible
-- 🌍 IAC (Infrastructure as Code): Terraform, AWS CloudFormation
+- 🌍 IAC (Infrastructure as Code): Terraform, AWS CloudFormation, Crossplane
 
 ### 🚢 Containerization & Orchestration
 - 🐳 Containerization: Docker, Kubernetes
@@ -32,7 +32,7 @@ Hello! I’m **Jatin Sharma**, a passionate **DevOps Engineer** with a strong fo
 - ⚙️ Tools: Jenkins, GitHub Actions, GitLab CI/CD, AWS CodeBuild, AWS CodeDeploy
 
 ### 📊 Monitoring & Logging
-- 🔍 Tools: Prometheus, Grafana, SigNoz, Elastic Stack, Uptime-Kuma, Grafana Tempo
+- 🔍 Tools: Prometheus, Grafana, SigNoz, Elastic Stack, Uptime-Kuma, Grafana Tempo, Grafana Loki, Grafana Alloy, Apache HeartBeat, OpenTelemetry
 
 ### 🖥️ Programming & Scripting
 - 📜 Languages: Python, Go (Golang), Bash
@@ -45,8 +45,8 @@ Hello! I’m **Jatin Sharma**, a passionate **DevOps Engineer** with a strong fo
 
 ### 🎨 Specialized Tools & Platforms
 - 🖋️ AEM (Adobe Experience Manager)
-- 🔒 VPN: Netbird
-- 🕸️ Web Servers & Reverse Proxy: Apache, NGINX
+- 🔒 VPN: Netbird, OpenVPN
+- 🕸️ Web Servers & Reverse Proxy: Apache, NGINX, Caddy
 
 ### 🔗 API Management & Ingress
 - 🌉 API Gateways: Tyk, AWS API Gateway, Traefik
@@ -60,7 +60,7 @@ Hello! I’m **Jatin Sharma**, a passionate **DevOps Engineer** with a strong fo
 - 🔎 Tools: Wazuh, Coralogix
 
 ### 🛠️ Additional Tools
-- 📦 Other Tools: Apicurio, Novu, Polaris, Kafka UI, Metabase, KEDA, Helm, HPA, Packer, Node Local DNS
+- 📦 Other Tools: Apicurio, HashiCorp Vault, Novu, Polaris, Kafka UI, Metabase, KEDA, Helm, HPA, Packer, Node Local DNS, Minio, Atlasian, External DNS, MiroTalk, Selenium, RustDesk
 
 ## My Journey
 
@@ -74,7 +74,7 @@ I believe in the power of **continuous learning** and embracing new technologies
 
 When I’m not coding or exploring new tools, you’ll find me:
 
-- Learning about emerging cloud technologies.
+- Learning about emerging technologies.
 - Reading tech blogs and sharing my insights.
 - Experimenting with open-source projects.
 
