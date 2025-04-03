@@ -25,3 +25,11 @@ This section provides documentation for various Kubernetes projects.
 | [Cilium Monitoring using Prometheus & Grafana](/docs/devops/kubernetes/cilium/cilium-monitoring/) | Cilium Monitoring using Prometheus & Grafana.                     | Done   |
 | [Helm Introduction](/docs/devops/kubernetes/helm) | Documentation for Helm Introduction                     | Done   |
 | [ECS to EKS Migration (POC)](/docs/devops/kubernetes/AWS-ECS-to-EKS-Migration/) | POC Document for AWS ECS to EKS Migration while ECS is running with CloudMap service for service discovery.                     | Done   |
+| [Kubernetes NodePort and iptables rules](/docs/devops/kubernetes/Kubernetes-NodePort-and-iptables-rules/) | Detailed documentation on Kubernetes NodePort and iptables rules.                     | Done   |
+| [Kubernetes Service Traffic Routing & Traffic Policies](/docs/devops/kubernetes/Kubernetes-Traffic-Policies/) | Detailed documentation on Kubernetes Traffic Policies and routing strategies.                     | Done   |
+| [Knative](/docs/devops/kubernetes/knative/) | Documentation on knative Introduction.                     | Done   |
+| [Knative Serving](/docs/devops/kubernetes/knative/knative-serving/) | Documentation on knative serving                     | Done   |
+| [Knative Serving Monitoring](/docs/devops/kubernetes/knative/knative-serving-monitoring/) | Documentation on knative serving monitoring                     | Done   |
+| [Karpenter](/docs/devops/kubernetes/karpenter/) | Documentation on Karpenter  Introduction.                    | Done   |
+| [Setup Karpenter on Existing EKS Cluster](/docs/devops/kubernetes/karpenter/karpenter-setup-in-existing-eks-cluster/) | Documentation on karpenter serving Setup.                     | Done   |
+| [Monitoring Karpenter Using Prometheus & Grafana](/docs/devops/kubernetes/karpenter/karpenter-monitoring/) | Documentation on Karpenter monitoring Using prometheus & grafana.                     | Done   |

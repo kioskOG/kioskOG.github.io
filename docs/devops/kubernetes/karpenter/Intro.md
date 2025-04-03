@@ -4,7 +4,7 @@ layout: default
 parent: Kubernetes Projects
 nav_order: 13
 permalink: /docs/devops/kubernetes/karpenter/
-description: Documentation on Karpenter
+description: Documentation on Karpenter Introduction.
 ---
 
 ## Introduction
