@@ -4,8 +4,8 @@ layout: home
 parent: Karpenter
 grand_parent: Kubernetes Projects
 nav_order: 1
-permalink: /docs/devops/kubernetes/knative/karpenter-setup-in-existing-eks-cluster/
-description: Documentation on knative serving
+permalink: /docs/devops/kubernetes/karpenter/karpenter-setup-in-existing-eks-cluster/
+description: Documentation on karpenter serving
 ---
 
 # EKS scaling with Karpenter
@@ -523,7 +523,6 @@ kubectl scale deploy/cluster-autoscaler -n kube-system --replicas=0
 ```bash
 kubectl logs -f -n karpenter -c controller -l app.kubernetes.io/name=karpenter
 ```
-
 
 ## Troubleshot
 

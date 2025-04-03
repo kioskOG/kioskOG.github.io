@@ -4,7 +4,7 @@ layout: default
 parent: Kubernetes Projects
 nav_order: 12
 permalink: /docs/devops/kubernetes/knative/
-description: Documentation on knative
+description: Documentation on knative Introduction.
 ---
 
 # What is Knative?
