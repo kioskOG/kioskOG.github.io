@@ -134,7 +134,7 @@ Type:      Private
 | vhvretyo2csna-ha.tyo2.sap.cars24.team.    | A    | 60            | 10.60.0.13                                                                       |
 | vhvretyo2csnb-ha.tyo2.sap.cars24.team.    | A    | 60            | 10.60.0.29                                                                       |
 | vhvretyo2csnc-ha.tyo2.sap.cars24.team.    | A    | 60            | 10.60.0.45                                                                       |
-| vpn.sap.cars24.team.                      | A    | 60            | 34.47.194.181                                                                          |
+| abc.example.com.                      | A    | 60            | 34.47.194.181                                                                          |
 
 ### DNS VM
 ```yaml
@@ -220,7 +220,7 @@ Netbird Server:
   Storage: 20 GB
   Static IP: 
     - private: 10.10.0.12
-    - Public: 34.47.194.181
+    - Public: x.x.x.x
 
 Netbird Client:
   Instance Name: netbird-client
@@ -276,7 +276,7 @@ mkdir Netbird && cd Netbird
 vim netbird-setup
 export CLIENT_ID="<google_client_id>"
 export CLIENT_SECRET="<google_client_secret>"
-export NETBIRD_DOMAIN=vpn.sap.cars24.team; bash netbird-setup
+export NETBIRD_DOMAIN=abc.example.com; bash netbird-setup
 docker ps
 ```
 
@@ -331,8 +331,8 @@ If you have installed the UI Version:-
    Click on netbird icon -> Settings -> Advance Settings & update the below endpoints.
 
 ```bash
-    Management Url: https://vpn.sap.cars24.team:443
-    Admin Url: https://vpn.sap.cars24.team:443
+    Management Url: https://abc.example.com:443
+    Admin Url: https://abc.example.com:443
 ```
 
 - Then connect to netbird, it will open up authentication page in your browser.
@@ -342,15 +342,15 @@ If you have installed the UI Version:-
 If you have installed the CLI Version:-
 
 ```bash
-netbird up --management-url https://vpn.sap.cars24.team --admin-url https://vpn.sap.cars24.team --setup-key <your-setup-key>
+netbird up --management-url https://abc.example.com --admin-url https://abc.example.com --setup-key <your-setup-key>
 ```
 
 ---
 
 ## 📬 Contacts
 - Project Owner: <name/email>
-- VPN Access Request: [VPN Endpoint](https://vpn.sap.cars24.team/peers)
-                      [Zitadel Endpoint](https://vpn.sap.cars24.team/ui/console)
+- VPN Access Request: [VPN Endpoint](https://abc.example.com/peers)
+                      [Zitadel Endpoint](https://abc.example.com/ui/console)
 
 ---
 
