@@ -274,8 +274,8 @@ sudo apt install jq
 sudo apt install curl
 mkdir Netbird && cd Netbird
 vim netbird-setup
-export CLIENT_ID="995608924287-20nqkvr8svoqa8jcca9ss5g3sggkgmcm.apps.googleusercontent.com"
-export CLIENT_SECRET="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"
+export CLIENT_ID="<google_client_id>"
+export CLIENT_SECRET="<google_client_secret>"
 export NETBIRD_DOMAIN=vpn.sap.cars24.team; bash netbird-setup
 docker ps
 ```
