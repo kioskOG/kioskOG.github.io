@@ -1,11 +1,10 @@
-# File: controller/cloudmap.py
 import boto3
 import logging
 from botocore.exceptions import ClientError
 from botocore.config import Config
 import time
 import threading
-from kubernetes import client
+from kubernetes import client, config
 from kubernetes.client.rest import ApiException
 
 logger = logging.getLogger("controller.cloudmap")
@@ -18,8 +17,13 @@ CREATOR_TAG = {"CreatedBy": "cloudmap-controller"}
 DOMAIN_OWNERSHIP = {}
 SYNC_INTERVAL = 60  # seconds
 
-SERVICE_CACHE = {}  # {(namespace, service): (hostname, set_of_expected_ips)}
+SERVICE_CACHE = {}  # {(k8s_namespace, service): (cloudmap_namespace, hostname, set_of_expected_ips)}
 
+# Load Kubernetes config
+try:
+    config.load_incluster_config()
+except config.ConfigException:
+    config.load_kube_config()
 
 def retry_with_backoff(func, *args, max_retries=5, initial_delay=0.5, **kwargs):
     for attempt in range(max_retries):
@@ -146,33 +150,81 @@ def release_domain(domain, owner):
         logger.info(f"Releasing claim on domain {domain} for {owner}")
         del DOMAIN_OWNERSHIP[domain]
 
+# def track_expected(namespace, service, hostname, ips):
+#     SERVICE_CACHE[(namespace, service)] = (namespace, hostname, set(ips))
+def track_expected(k8s_ns, service, cloudmap_ns, hostname, ips):
+    SERVICE_CACHE[(k8s_ns, service)] = (cloudmap_ns, hostname, set(ips))
+
+
+def update_expected_ips():
+    k8s = client.CoreV1Api()
+    for (k8s_ns, svc), (cloudmap_ns, hostname, _) in SERVICE_CACHE.items():
+        try:
+            eps = k8s.read_namespaced_endpoints(name=svc, namespace=k8s_ns)
+            ips = []
+            for subset in eps.subsets or []:
+                for addr in subset.addresses or []:
+                    if addr.ip:
+                        ips.append(addr.ip)
+            SERVICE_CACHE[(k8s_ns, svc)] = (cloudmap_ns, hostname, set(ips))
+        except ApiException as e:
+            logger.warning(f"Failed to update expected IPs for {svc} in {k8s_ns}: {e}")
+
+def initialize_service_cache():
+    k8s = client.CoreV1Api()
+    try:
+        services = k8s.list_service_for_all_namespaces().items
+        for svc in services:
+            k8s_ns = svc.metadata.namespace
+            name = svc.metadata.name
+            annotations = svc.metadata.annotations or {}
+            hostname = annotations.get("cloudmap.controller/hostname")
+            cloudmap_ns = annotations.get("cloudmap.controller/namespace", k8s_ns)
+            if not hostname:
+                continue
+            try:
+                eps = k8s.read_namespaced_endpoints(name=name, namespace=k8s_ns)
+                ips = []
+                for subset in eps.subsets or []:
+                    for addr in subset.addresses or []:
+                        if addr.ip:
+                            ips.append(addr.ip)
+                if ips:
+                    SERVICE_CACHE[(k8s_ns, name)] = (cloudmap_ns, hostname, set(ips))
+            except ApiException as e:
+                logger.warning(f"Could not read endpoints for {name} in {k8s_ns}: {e}")
+    except Exception as e:
+        logger.error(f"Failed to initialize service cache: {e}")
+
 def periodic_sync():
     while True:
         time.sleep(SYNC_INTERVAL)
         logger.info("Running periodic CloudMap drift sync")
-        for (ns, svc), (hostname, expected_ips) in list(SERVICE_CACHE.items()):
+        update_expected_ips()
+        for (k8s_ns, svc), (cloudmap_ns, hostname, expected_ips) in list(SERVICE_CACHE.items()):
             try:
-                # Ensure the K8s service still exists before syncing
                 k8s = client.CoreV1Api()
                 try:
-                    k8s.read_namespaced_service(name=svc, namespace=ns)
+                    k8s.read_namespaced_service(name=svc, namespace=k8s_ns)
                 except ApiException as e:
                     if e.status == 404:
-                        logger.info(f"Skipping drift sync for deleted service {svc} in {ns}")
+                        logger.info(f"Skipping drift sync for deleted service {svc} in {k8s_ns}")
                         continue
                     raise
 
-                actual_ips = set(get_registered_ips(ns, hostname).keys())
+                actual_ips = set(get_registered_ips(cloudmap_ns, hostname).keys())
                 missing = expected_ips - actual_ips
+                extra = actual_ips - expected_ips
                 for ip in missing:
                     logger.warning(f"Drift detected: {ip} missing in {hostname}, re-registering")
-                    register_instance(ns, hostname, ip)
+                    register_instance(cloudmap_ns, hostname, ip)
+                for ip in extra:
+                    logger.warning(f"Drift detected: {ip} not expected in {hostname}, de-registering")
+                    deregister_instance(cloudmap_ns, hostname, ip)
             except Exception as e:
                 logger.error(f"Drift check failed for {hostname}: {e}")
 
-def track_expected(namespace, service, hostname, ips):
-    SERVICE_CACHE[(namespace, service)] = (hostname, set(ips))
-
 def start_sync_loop():
+    initialize_service_cache()
     thread = threading.Thread(target=periodic_sync, daemon=True)
     thread.start()

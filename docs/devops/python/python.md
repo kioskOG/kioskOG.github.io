@@ -19,6 +19,8 @@ This section provides documentation for various Python-based DevOps projects and
 | [Netbird Python Utility](/docs/devops/python/netbird-python-utility/) | A Python utility for managing Netbird resources and configurations.        | Done   |
 | [Docker Container Memory/CPU Monitoring](/docs/devops/python/docker-container-memory-cpu-monitoring/) | Scripts for monitoring Docker container resource usage (memory and CPU). | Done   |
 | [Docker Container Monitoring Script](/docs/devops/python/docker-container-monitoring-script/) | A Python script for general Docker container monitoring.                        | Done   |
+| [Greythr Attendance Automation](/docs/devops/python/greythr-selenium/README/) | A Python script for Greythr Attendance Automation.                        | Done   |
+| [EKS Cloudmap controller](/docs/devops/python/aws-cloudmap-controller/) | EKS Cloudmap controller.                        | Done   |
 
 <!-- - [Netbird Python Utility](/docs/devops/python/netbird-python-utility/)
 - [Docker Container Memory Cpu Monitoring](/docs/devops/python/docker-container-memory-cpu-monitoring/)

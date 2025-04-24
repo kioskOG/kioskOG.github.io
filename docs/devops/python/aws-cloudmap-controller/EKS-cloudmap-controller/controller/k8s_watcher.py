@@ -62,18 +62,6 @@ def register_service_endpoints(service, endpoints):
     registered_ips = cloudmap.get_registered_ips(cloudmap_namespace, hostname)
     current_ips = set()
 
-    # for subset in endpoints.subsets or []:
-    #     for address in subset.addresses or []:
-    #         ip = address.ip
-    #         current_ips.add(ip)
-    #         if cloudmap.should_update(ip, registered_ips):
-    #             cloudmap.register_instance(cloudmap_namespace, hostname, ip)
-    #             emit_event(service, "IPRegistered", f"Registered {ip} to {hostname}")
-
-    # for ip in registered_ips:
-    #     if ip not in current_ips:
-    #         cloudmap.deregister_instance(cloudmap_namespace, hostname, ip)
-    #         emit_event(service, "IPRemoved", f"Deregistered stale IP {ip} from {hostname}")
     for subset in endpoints.subsets or []:
         for address in subset.addresses or []:
             ip = address.ip
@@ -84,30 +72,18 @@ def register_service_endpoints(service, endpoints):
 
     for ip in registered_ips:
         if ip not in current_ips:
-            logger.info(f"Skipping deregistration of IP {ip} not owned by {service_key}")
-            # Do not deregister unless the current service owns the domain
+            logger.info(f"Skipping deregistration of IP {ip} is no longer part of {service_key}")
             if cloudmap.DOMAIN_OWNERSHIP.get(hostname) == service_key:
                 cloudmap.deregister_instance(cloudmap_namespace, hostname, ip)
                 emit_event(service, "IPRemoved", f"Deregistered stale IP {ip} from {hostname}")
 
-    # Track expected state for periodic drift detection
     cloudmap.track_expected(
-        cloudmap_namespace,
-        service.metadata.name,
-        hostname,
-        list(current_ips)
+        service.metadata.namespace,  # k8s_ns
+        service.metadata.name,       # service
+        cloudmap_namespace,          # cloudmap_ns
+        hostname,                    # hostname
+        list(current_ips)            # ips
     )
-
-# def deregister_service(service):
-#     annotations = service.metadata.annotations
-#     hostname = annotations.get("cloudmap.controller/hostname")
-#     cloudmap_namespace = annotations.get("cloudmap.controller/namespace")
-
-#     if hostname and cloudmap_namespace:
-#         logger.info(f"Deregistering all instances of service {service.metadata.name} from CloudMap")
-#         cloudmap.deregister_all_instances(cloudmap_namespace, hostname)
-#         cloudmap.release_domain(hostname, f"{service.metadata.namespace}/{service.metadata.name}")
-#         emit_event(service, "ServiceDeleted", f"Deregistered all IPs from {hostname}")
 
 def deregister_service(service):
     annotations = service.metadata.annotations
