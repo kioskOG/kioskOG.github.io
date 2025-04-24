@@ -2,7 +2,7 @@
 title: Greythr Attendance Automation
 layout: home
 parent: python
-nav_order: 4
+nav_order: 3
 permalink: /docs/devops/python/greythr-selenium/README/
 description: Greythr Attendance Automation
 ---
