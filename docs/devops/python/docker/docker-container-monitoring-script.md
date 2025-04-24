@@ -1,8 +1,9 @@
 ---
 title: Daily Docker Container Usage Summary Script
 layout: home
-parent: python
-nav_order: 2
+parent: Docker Container Monitoring Script
+grand_parent: python
+nav_order: 1
 permalink: /docs/devops/python/docker-container-monitoring-script/
 description: Send a daily summary email with the complete day's CPU and memory usage of all containers.
 ---

@@ -2,7 +2,7 @@
 title: Netbird Management Utility
 layout: home
 parent: python
-nav_order: 3
+nav_order: 2
 permalink: /docs/devops/python/netbird-python-utility/
 description: Netbird Management Utility for managing Netbird resources as code.
 ---

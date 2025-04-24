@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ecs-service
+  namespace: default
+  annotations:
+    cloudmap.controller/namespace: "test-namespace"
+    cloudmap.controller/hostname: "nginx-ecs-service"   # Cloud Map service name
+    cloudmap.controller/ttl: "30"                     # DNS record TTL (seconds)
+spec:
+  clusterIP: None
+  ports:
+  - port: 80
+    name: http
+    targetPort: 80
+  selector:
+    app: nginx-ecs-service
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-ecs-service
+  namespace: default
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nginx-ecs-service
+  template:
+    metadata:
+      labels:
+        app: nginx-ecs-service
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        ports:
+        - containerPort: 80
+          name: http
