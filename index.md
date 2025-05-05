@@ -77,6 +77,64 @@ nav_order: 1
             <a href="https://www.linkedin.com/in/jatin-devops/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
             <a href="https://github.com/kioskog"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
         </div>
+
+        <!-- Add inside <body>, below the container div or before closing </div> -->
+
+<section style="background-color:#1e1e1e; padding: 30px; border-radius: 10px; margin-top: 40px; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
+  <h2 style="color: #4caf50; margin-bottom: 20px;">🛠️ Projects</h2>
+
+  <div style="text-align: left;">
+    <h3 style="color: #fbc02d;">🔍 GitHub Secret Scanner in Kubernetes</h3>
+    <p style="line-height: 1.6;">
+      A production-ready GitHub secret detection pipeline using TruffleHog, Kafka, and FastAPI, deployed via Helm in Kubernetes. Includes Slack notifications and CI integration.
+      <br>
+      <a href="https://github.com/kioskOG/secret-scan-poc" target="_blank" style="color:#4caf50;">View Repository →</a>
+    </p>
+
+    <h3 style="color:rgb(188, 12, 215);">🌐 CloudMap Controller for EKS</h3>
+    <p style="line-height: 1.6;">
+      A custom Kubernetes controller that syncs kubernetes Native Services annotated headless services to AWS Cloud Map and Route53. Built with Python and supports dynamic reconciliation, TTLs, and audit logs.
+      <br>
+      <a href="https://github.com/kioskOG/EKS-cloudmap-controller" target="_blank" style="color:#4caf50;">View Repository →</a>
+    </p>
+
+    <h3 style="color:rgb(224, 180, 35);">🧪 GitHub Action - PR Secret Gatekeeper</h3>
+    <p style="line-height: 1.6;">
+      Prevents merge of PRs containing secrets using GitHub Webhook and Kafka pipeline. Integrates with TruffleHog and updates PR status checks.
+      <br>
+      <a href="https://github.com/kioskOG/secret-scan-poc/tree/main/based-on-push-and-pull_request" target="_blank" style="color:#4caf50;">View Repository →</a>
+    </p>
+
+    <h3 style="color:rgb(224, 18, 18);">Greythr Automated Sign-In/Sign-Out Script</h3>
+    <p style="line-height: 1.6;">
+      This Python script automates the sign-in and sign-out process on a website using Selenium. It schedules the sign-in and sign-out tasks from Monday to Friday at random times within a specified range. Additionally, it captures screenshots and sends email notifications upon successful execution.
+      <br>
+      <a href="https://github.com/kioskOG/Greythr" target="_blank" style="color:#4caf50;">View Repository →</a>
+    </p>
+
+    <h3 style="color:rgb(29, 209, 137);">SAP HANA Cloud Private Edition</h3>
+    <p style="line-height: 1.6;">
+      SAP HANA Cloud Private Edition Accessability from Client Side. Find the below complete blog on that.
+      <br>
+      <a href="https://kioskog.github.io/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/" target="_blank" style="color:#4caf50;">View →</a>
+    </p>
+
+    <h3 style="color:rgb(211, 77, 5);">Netbird Deployment Automation</h3>
+    <p style="line-height: 1.6;">
+      This guide provides instructions to set up a Netbird VPN server, configure Netbird clients, and create secure connections between resources in cloud environments or local systems. 
+      <br>
+      <a href="https://kioskog.github.io/docs/devops/docker/Netbird/" target="_blank" style="color:#4caf50;">View →</a>
+    </p>
+
+    <h3 style="color:rgb(236, 94, 7);">Netbird Management Utility</h3>
+    <p style="line-height: 1.6;">
+      The Netbird Management Utility is a Python-based tool that provides a dynamic, menu-driven interface for managing Netbird resources efficiently. 
+      <br>
+      <a href="https://kioskog.github.io/docs/devops/python/netbird-python-utility/" target="_blank" style="color:#4caf50;">View →</a>
+    </p>
+  </div>
+</section>
+
     </div>
 </body>
 </html>

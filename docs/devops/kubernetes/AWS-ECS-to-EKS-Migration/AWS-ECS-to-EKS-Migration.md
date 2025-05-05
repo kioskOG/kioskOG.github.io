@@ -1,5 +1,5 @@
 ---
-title: ECS to EKS Migration (POC)
+title: ECS to EKS Migration
 layout: default
 parent: Kubernetes Projects
 nav_order: 10
@@ -7,7 +7,7 @@ permalink: /docs/devops/kubernetes/AWS-ECS-to-EKS-Migration/
 description: POC Document for AWS ECS to EKS Migration while ECS is running with CloudMap service for service discovery.
 ---
 
-# ☸️ ECS to EKS Migration (POC)
+# ☸️ ECS to EKS Migration
 
 ![image](image.png)
 
