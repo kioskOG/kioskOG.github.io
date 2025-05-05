@@ -12,55 +12,171 @@ Hello! I’m **Jatin Sharma**, a passionate **DevOps Engineer** with a strong fo
 ## 🌐 Skills and Expertise
 
 ### Cloud Platforms
-🌩  **AWS**- Amazon S3, Route 53, EC2, AWS Lambda, VPC, EKS, ECR, AWS CloudFormation, AWS SSO, IAM, SES, SNS, SQS, Opensearch, Redis, cloudwatch, ALB, NLB, Autoscaling, Amazon Cloudfront, ApiGateway, Amazon Athena, AWS Organisation, AWS Batch, CloudMap, ECS
+🌩  **AWS**
+- Amazon S3
+- Route 53
+- EC2
+- AWS Lambda
+- VPC
+- EKS
+- ECR
+- AWS CloudFormation
+- AWS SSO
+- IAM
+- SES
+- SNS
+- SQS
+- Opensearch
+- ElastiCache
+- Cloudwatch
+- ALB
+- NLB
+- Autoscaling
+- Amazon Cloudfront
+- ApiGateway
+- Amazon Athena
+- AWS Organisation
+- AWS Batch
+- CloudMap
+- ECS
+- WAF
 
-☁️ **GCP**:- Compute, Storage, GKE, VCN
+☁️ **GCP**:-
+- Compute
+- Storage
+- GKE
+- VCN
+- Secret Store
 
-☀️ **Oracle Cloud**:- CloudVCN, compute, Storage, oke, container registry, oracle function, Api Gateway, LoadBalancers, Oracle Heatwave Mysql, Oracle Redis, Oracle Postgres
+☀️ **Oracle Cloud**:-
+- CloudVCN
+- Compute
+- Storage
+- OKE
+- Container Registry
+- Oracle Function
+- Api Gateway
+- LoadBalancers
+- Oracle Heatwave Mysql
+- Oracle Redis
+- Oracle Postgres
 
 ### 🖥️ Operating Systems
-- **Linux**- UBUNTU, RedHat, Amazon Linux, Centos7, Windows
+- **Linux** - UBUNTU, RedHat, Amazon Linux, Centos7
+- Windows
+- Mac
 
 ### 🛠️ Configuration Management & Infrastructure Automation
-- 🔧 Configuration Management: Ansible
-- 🌍 IAC (Infrastructure as Code): Terraform, AWS CloudFormation, Crossplane
+- 🔧 **Configuration Management**: 
+   - Ansible
+
+- 🌍 **IAC (Infrastructure as Code)**:
+   - Terraform
+   - AWS CloudFormation
+   - Crossplane
 
 ### 🚢 Containerization & Orchestration
-- 🐳 Containerization: Docker, Kubernetes
+- 🐳 **Containerization**: 
+    - Docker
+    - Kubernetes
 
 ### 🚀 CI/CD (Continuous Integration/Continuous Deployment)
-- ⚙️ Tools: Jenkins, GitHub Actions, GitLab CI/CD, AWS CodeBuild, AWS CodeDeploy
+- Jenkins
+- GitHub Actions
+- GitLab CI/CD
+- AWS CodeBuild
+- AWS CodeDeploy
 
 ### 📊 Monitoring & Logging
-- 🔍 Tools: Prometheus, Grafana, SigNoz, Elastic Stack, Uptime-Kuma, Grafana Tempo, Grafana Loki, Grafana Alloy, Apache HeartBeat, OpenTelemetry
+- Prometheus
+- Grafana
+- SigNoz
+- Elastic Stack
+- Uptime-Kuma
+- Grafana Tempo
+- Grafana Loki
+- Grafana Alloy
+- Apache HeartBeat
+- OpenTelemetry
 
 ### 🖥️ Programming & Scripting
 - 📜 Languages: Python, Go (Golang), Bash
 
 ### 🌟 Version Control & Collaboration
-- 📁 Tools: GitHub, GitLab, Bitbucket, AWS CodeCommit
+- GitHub
+- GitLab
+- Bitbucket
+- AWS CodeCommit
 
 ### 🗄️ Databases
-- 💾 : Oracle MySQL, Cassandra, Oracle Postgres, MariaDB
+- 💾 Oracle MySQL
+- Postgres
+- Cassandra
+- Oracle Postgres
+- MariaDB
 
 ### 🎨 Specialized Tools & Platforms
 - 🖋️ AEM (Adobe Experience Manager)
-- 🔒 VPN: Netbird, OpenVPN
+
+- 🔒 VPN: 
+   - Netbird
+   - OpenVPN
+
 - 🕸️ Web Servers & Reverse Proxy: Apache, NGINX, Caddy
 
 ### 🔗 API Management & Ingress
-- 🌉 API Gateways: Tyk, AWS API Gateway, Traefik
-- ⚡ Ingress: NGINX, Traefik, Kong, Istio
-- 🔗 Service Mesh: Istio, Linkerd
+- 🌉 API Gateways: 
+    - Tyk
+    - AWS API Gateway
+    - Traefik
+
+- ⚡ Ingress: 
+    - NGINX
+    - Traefik
+    - Kong
+    - Istio
+
+- 🔗 Service Mesh: 
+    - Istio
+    - Linkerd
 
 ### 🔐 Identity Providers (IdPs)
-- 🆔 Tools: Keycloak, Authentik, Zitadel
+- 🆔 Keycloak
+- 🆔 Authentik
+- 🆔 Zitadel
 
 ### 📈 SIEM (Security Information & Event Management)
-- 🔎 Tools: Wazuh, Coralogix
+- Wazuh
+- Coralogix
 
 ### 🛠️ Additional Tools
-- 📦 Other Tools: Apicurio, HashiCorp Vault, Novu, Polaris, Kafka UI, Metabase, KEDA, Helm, HPA, Packer, Node Local DNS, Minio, Atlasian, External DNS, MiroTalk, Selenium, RustDesk
+- Knative
+- Kro, 
+- Cillium, 
+- Velaro
+- Cert-Manager
+- ExternalDNS
+- Karpenter
+- External Secret
+- kubernetes-reflector
+- Apicurio
+- HashiCorp Vault
+- Novu
+- Polaris
+- Kafka UI
+- Metabase
+- KEDA
+- Helm
+- Helmfile
+- HPA
+- Packer
+- Node Local DNS
+- Minio
+- Atlasian
+- External DNS
+- MiroTalk
+- Selenium
+- RustDesk
 
 ## My Journey
 

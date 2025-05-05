@@ -42,3 +42,5 @@ This section provides documentation for various Linux projects, with a focus on 
 | [Setting up IPVS Load Balancer with NGINX Application Servers](/docs/devops/Linux/Iptables/ipvs-loadbalancer/) | Setting up IPVS Load Balancer with NGINX Application Servers.                                                             | Done   |
 | [VPN](/docs/devops/Linux/vpn/vpn/) | Introduction to VPN.   | Done   |
 | [OpenVPN vs NetBird](/docs/devops/Linux/vpn/openvpn-vs-netbird/) | Documentation for Differences Between OpenVPN and NetBird.                                                             | Done   |
+| [Linux Kernel](/docs/devops/Linux/kernel/kernel/) |  Documentation on Linux Kernel.                                                             | Done   |
+| [What is eBPF and Why is it Important?](/docs/devops/Linux/eBPF/) | Documentation on Linux Kernel.                                                             | Done   |
