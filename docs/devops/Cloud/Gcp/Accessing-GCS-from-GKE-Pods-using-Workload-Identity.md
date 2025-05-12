@@ -116,7 +116,7 @@ kubectl get serviceaccount -n $NAMESPACE $KSA_NAME -oyaml
 ## 🔹 Confirm KSA → GSA Mapping Works (Dry Run)
 
 ```bash
-gcloud iam service-accounts get-iam-policy gke-pod-accessor@bikes-272910.iam.gserviceaccount.com --format=json
+gcloud iam service-accounts get-iam-policy gke-pod-accessor@$PROJECT_ID.iam.gserviceaccount.com --format=json
 ```
 
 Expected output:-
@@ -126,7 +126,7 @@ Expected output:-
   "bindings": [
     {
       "members": [
-        "serviceAccount:bikes-272910.svc.id.goog[workload-namespace/k8-serviceaccount]"
+        "serviceAccount:$PROJECT_ID.svc.id.goog[workload-namespace/k8-serviceaccount]"
       ],
       "role": "roles/iam.workloadIdentityUser"
     }
@@ -180,6 +180,23 @@ gs://signoz-archive/data/aao/
 ```
 
 ---
+
+## Project Directory Structure
+
+```
+gcs-access-test/
+├── python-app/
+│   └── main.py
+├── nodejs-app/
+│   └── index.js
+├── java-app/
+│   └── src/main/java/GCSAccess.java
+├── Dockerfile (each app folder will have its own)
+├── k8s/
+│   ├── python-pod.yaml
+│   ├── nodejs-pod.yaml
+│   ├── java-pod.yaml
+```
 
 ## 🐍 Python App
 
@@ -371,6 +388,12 @@ Replace `<lang>` with `python`, `nodejs`, or `java`.
 ## 🔍 Verification
 
 Inside the pod:
+
+```bash
+kubectl exec -it <pod_name> -n $NAMESPACE -- bash
+
+apt update && apt install curl
+```
 
 ```bash
 curl -H "Metadata-Flavor: Google" \
