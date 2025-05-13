@@ -3,7 +3,7 @@ title: Accessing AWS Services from GKE Pods using Workload Identity
 layout: home
 parent: Google Cloud Platform
 grand_parent: Cloud Projects
-nav_order: 2
+nav_order: 3
 author: Jatin Sharma
 permalink: /docs/devops/Cloud/Gcp/Cross-cloud-identities-between-GCP-and-AWS/
 description: Documentation for Accessing AWS Services from GKE Pods using Workload Identity.
@@ -297,3 +297,5 @@ spec:
           - key: config
             path: config
 ```
+
+<!-- https://jason-umiker.medium.com/cross-cloud-identities-between-gcp-and-aws-from-gke-and-or-eks-182652bddadb -->
