@@ -1,14 +1,15 @@
 ---
-title: Knative Serving
+title: Knative Serving Part-2
 layout: home
-parent: Knative
-grand_parent: Kubernetes Projects
-nav_order: 1
-permalink: /docs/devops/kubernetes/knative/knative-serving/
+parent: Knative Developer Overview
+grand_parent: Knative
+ancestor: Kubernetes Projects
+nav_order: 1.5
+permalink: /docs/devops/kubernetes/knative/knative-serving-part-2/
 description: Documentation on knative serving
 ---
 
-## Knative Serving:-
+# Knative Serving
 
 Knative Serving enables applications to handle requests with autoscaling and traffic management.
 
