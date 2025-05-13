@@ -1,5 +1,5 @@
 ---
-title: AWS vs. GCP: Virtual Private Cloud (VPC) Networking Comparison
+title: AWS vs. GCP Virtual Private Cloud (VPC) Networking Comparison
 layout: home
 parent: Google Cloud Platform
 grand_parent: Cloud Projects
