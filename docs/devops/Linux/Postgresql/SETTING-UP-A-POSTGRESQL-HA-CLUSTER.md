@@ -11,9 +11,63 @@ description: Documentation on Setting Up a High Availability (HA) PostgreSQL Clu
 
 Setting up a High Availability (HA) cluster for PostgreSQL typically involves configuring multiple nodes to ensure data availability and reliability. There are various ways to achieve this, in this tutorial I deploy 3 PostgreSQL nodes with Patroni for HA setting up etcd for consensus, and using HAProxy to manage client connections.
 
+
+**Patroni** is a `Python tool` used for deploying and managing `high-availability (HA) PostgreSQL clusters`. It facilitates failover management, replication, and cluster management by leveraging distributed configuration stores like etcd, Consul, or ZooKeeper. Patroni uses PostgreSQL's streaming replication and hot standby capabilities to simplify the creation and management of HA clusters, especially those requiring read scalability. 
+
+### Key features and functionalities of Patroni:
+
+* ***High Availability:***
+Patroni ensures continuous database accessibility by automatically handling failover to a standby node if the primary node fails.
+
+***Automatic Failover:***
+Patroni monitors the health of PostgreSQL nodes and automatically switches to a standby node when the primary node becomes unavailable. 
+
+***Replication:***
+Patroni uses PostgreSQL's streaming replication to keep standby nodes synchronized with the primary node, ensuring data consistency and availability. 
+
+***Cluster Management:***
+Patroni provides tools for managing the PostgreSQL cluster, including adding, removing, and restarting nodes. 
+
+***Load Balancing:***
+Patroni can be integrated with load balancers like HAProxy and Keepalived to distribute client connections across the cluster nodes, optimizing performance and availability. 
+
+***Backup and Recovery:***
+Patroni integrates with tools like PgBackRest for backup and recovery operations, ensuring data protection and disaster recovery.
+
+### How Patroni works:
+
+***1. Distributed Configuration Store:***
+Patroni relies on a distributed configuration store (like etcd, Consul, or ZooKeeper) to store the cluster configuration, including node status, replication settings, and other relevant parameters. 
+
+***2. Patroni Agents:***
+Each PostgreSQL node in the cluster has a Patroni agent that monitors its own health and interacts with the distributed configuration store. 
+
+***3. Failover Detection:***
+When a node fails, the Patroni agents in the other nodes detect the failure and initiate failover procedures. 
+
+***4. Failover Execution:***
+Patroni uses the distributed configuration store to promote a standby node to become the new primary node, ensuring minimal downtime. 
+
+***5. Cluster Management:***
+Patroni provides tools for managing the cluster, including adding, removing, and restarting nodes. 
+
+
 ![main](/docs/devops/Linux/Postgresql/images/main.png)
 
 The need for shared storage in a PostgreSQL high availability (HA) cluster depends on the specific architecture and requirements of your deployment. PostgreSQL itself doesn’t require shared storage for a basic HA setup, but shared storage might be beneficial for certain configurations. Here are some considerations:
+
+---
+
+## ⚠️ Important Architectural Consideration
+
+To achieve **true high availability**, you must avoid any single points of failure. This setup includes:
+
+* **Three etcd nodes** (for quorum-based consensus and fault tolerance)
+* **Two HAProxy nodes** (active/passive with VIP managed by Keepalived)
+
+> ✅ This ensures no single point of failure in either the consensus layer (etcd) or the client connection layer (HAProxy).
+
+---
 
 ## 🧠 Shared Storage Considerations
 
@@ -179,6 +233,12 @@ DAEMON_ARGS = "--enable-v2=true"
 > Disables the v2 API by default
 > Responds with a 404 for any /v2/... endpoint
 
+
+{: .important}
+> If you wanna setup etcd cluster in HA instead of just 1 etcd
+>
+> [ETCD HA Setup](https://kioskog.github.io/docs/devops/Linux/Etcd-cluster-setup/Etcd-cluster-setup/)
+
 ```bash
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
@@ -206,53 +266,78 @@ You should get a valid response (likely an empty JSON or directory listing), not
 scope: postgres
 namespace: /db/
 name: node1
+
 restapi:
   listen: 192.168.0.249:8008
   connect_address: 192.168.0.249:8008
-etcd:
-  host: 192.168.0.179:2379
+  authentication:
+    username: patroni
+    password: Strong@RestAuth123!
+
+etcd3:
+  hosts: 192.168.0.179:2379
+
+watchdog:
+  mode: automatic
+  device: /dev/watchdog
+  safety_margin: 5
+
 bootstrap:
   dcs:
-    ttl: 30
-    loop_wait: 10
+    ttl: 15
+    loop_wait: 5
     retry_timeout: 10
     maximum_lag_on_failover: 1048576
+    synchronous_mode: true
+    synchronous_node_count: 2
     postgresql:
-    use_pg_rewind: true
+      use_pg_rewind: true
   initdb:
     - encoding: UTF8
     - data-checksums
   pg_hba:
-    - host replication replicator   127.0.0.1/32 md5
-    - host replication replicator   192.168.0.249/0   md5
-    - host replication replicator   192.168.0.248/0   md5
-    - host replication replicator   192.168.0.21/0   md5
-    - host all all   0.0.0.0/0   md5
+    - host replication replicator 127.0.0.1/32 md5
+    - host replication replicator 192.168.0.0/24 md5
+    - host all all 192.168.0.0/24 md5
   users:
     admin:
-       password: admin
-       options:
-       - createrole
-       - createdb
+      password: admin
+      options:
+        - createrole
+        - createdb
+
 postgresql:
-   listen: 192.168.0.249:5432
-   connect_address: 192.168.0.249:5432
-   data_dir:     /data/patroni
-   pgpass:     /tmp/pgpass
-   authentication:
+  listen: 192.168.0.249:5432
+  connect_address: 192.168.0.249:5432
+  data_dir: /data/patroni
+  pgpass: /tmp/pgpass
+  authentication:
     replication:
-      username:   replicator
-      password:     "A1qaz2wsx3edc"
+      username: replicator
+      password: "A1qaz2wsx3edc"
     superuser:
-      username:   postgres
-      password:     "B1qaz2wsx3edc"
-      parameters:
-      unix_socket_directories:  '.'
+      username: postgres
+      password: "B1qaz2wsx3edc"
+  parameters:
+    unix_socket_directories: '.'
+    wal_level: replica
+    hot_standby: on
+    max_wal_senders: 10
+    wal_keep_size: 64
+    archive_mode: 'on'
+    archive_command: 'cp %p /var/lib/postgresql/wal_archive/%f'
+    log_destination: 'stderr'
+    logging_collector: 'on'
+    log_directory: 'pg_log'
+    log_filename: 'postgresql-%a.log'
+    log_rotation_age: '1d'
+    log_rotation_size: '100MB'
+
 tags:
-   nofailover:   false
-   noloadbalance:   false
-   clonefrom:   false
-   nosync:   false
+  nofailover: false
+  noloadbalance: false
+  clonefrom: false
+  nosync: false
 ```
 
 
@@ -267,25 +352,32 @@ name: node2
 restapi:
   listen: 192.168.0.248:8008
   connect_address: 192.168.0.248:8008
-etcd:
-  host: 192.168.0.179:2379
+  authentication:
+    username: patroni
+    password: Strong@RestAuth123!
+etcd3:
+  hosts: 192.168.0.179:2379
+watchdog:
+  mode: automatic
+  device: /dev/watchdog
+  safety_margin: 5
 bootstrap:
   dcs:
-    ttl: 30
-    loop_wait: 10
+    ttl: 15
+    loop_wait: 5
     retry_timeout: 10
     maximum_lag_on_failover: 1048576
+    synchronous_mode: true
+    synchronous_node_count: 2
     postgresql:
-    use_pg_rewind: true
+      use_pg_rewind: true
   initdb:
     - encoding: UTF8
     - data-checksums
   pg_hba:
-    - host replication replicator   127.0.0.1/32 md5
-    - host replication replicator   192.168.0.249/0   md5
-    - host replication replicator   192.168.0.248/0   md5
-    - host replication replicator   192.168.0.21/0   md5
-    - host all all   0.0.0.0/0   md5
+    - host replication replicator 127.0.0.1/32 md5
+    - host replication replicator 192.168.0.0/24 md5
+    - host all all 192.168.0.0/24 md5
   users:
     admin:
        password: admin
@@ -293,19 +385,31 @@ bootstrap:
        - createrole
        - createdb
 postgresql:
-   listen: 192.168.0.248:5432
-   connect_address: 192.168.0.248:5432
-   data_dir:     /data/patroni
-   pgpass:     /tmp/pgpass
-   authentication:
+  listen: 192.168.0.248:5432
+  connect_address: 192.168.0.248:5432
+  data_dir: /data/patroni
+  pgpass: /tmp/pgpass
+  authentication:
     replication:
-      username:   replicator
-      password:     "A1qaz2wsx3edc"
+      username: replicator
+      password: "A1qaz2wsx3edc"
     superuser:
-      username:   postgres
-      password:     "B1qaz2wsx3edc"
-      parameters:
-      unix_socket_directories:  '.'
+      username: postgres
+      password: "B1qaz2wsx3edc"
+  parameters:
+    unix_socket_directories: '.'
+    wal_level: replica
+    hot_standby: on
+    max_wal_senders: 10
+    wal_keep_size: 64
+    archive_mode: 'on'
+    archive_command: 'cp %p /var/lib/postgresql/wal_archive/%f'
+    log_destination: 'stderr'
+    logging_collector: 'on'
+    log_directory: 'pg_log'
+    log_filename: 'postgresql-%a.log'
+    log_rotation_age: '1d'
+    log_rotation_size: '100MB'
 tags:
    nofailover:   false
    noloadbalance:   false
@@ -324,25 +428,32 @@ name: node3
 restapi:
   listen: 192.168.0.21:8008
   connect_address: 192.168.0.21:8008
-etcd:
-  host: 192.168.0.179:2379
+  authentication:
+    username: patroni
+    password: Strong@RestAuth123!
+etcd3:
+  hosts: 192.168.0.179:2379
+watchdog:
+  mode: automatic
+  device: /dev/watchdog
+  safety_margin: 5
 bootstrap:
   dcs:
-    ttl: 30
-    loop_wait: 10
+    ttl: 15
+    loop_wait: 5
     retry_timeout: 10
     maximum_lag_on_failover: 1048576
+    synchronous_mode: true
+    synchronous_node_count: 2
     postgresql:
-    use_pg_rewind: true
+      use_pg_rewind: true
   initdb:
     - encoding: UTF8
     - data-checksums
   pg_hba:
-    - host replication replicator   127.0.0.1/32 md5
-    - host replication replicator   192.168.0.249/0   md5
-    - host replication replicator   192.168.0.248/0   md5
-    - host replication replicator   192.168.0.21/0   md5
-    - host all all   0.0.0.0/0   md5
+    - host replication replicator 127.0.0.1/32 md5
+    - host replication replicator 192.168.0.0/24 md5
+    - host all all 192.168.0.0/24 md5
   users:
     admin:
        password: admin
@@ -361,8 +472,20 @@ postgresql:
     superuser:
       username:   postgres
       password:     "B1qaz2wsx3edc"
-      parameters:
-      unix_socket_directories:  '.'
+   parameters:
+    unix_socket_directories: '.'
+    wal_level: replica
+    hot_standby: on
+    max_wal_senders: 10
+    wal_keep_size: 64
+    archive_mode: 'on'
+    archive_command: 'cp %p /var/lib/postgresql/wal_archive/%f'
+    log_destination: 'stderr'
+    logging_collector: 'on'
+    log_directory: 'pg_log'
+    log_filename: 'postgresql-%a.log'
+    log_rotation_age: '1d'
+    log_rotation_size: '100MB'
 tags:
    nofailover:   false
    noloadbalance:   false
@@ -370,6 +493,32 @@ tags:
    nosync:   false
 ```
 
+
+{: .important}
+> if you are running `etcd` as a multi node cluster change the below configs in /etc/patroni.yml
+>
+> From
+> ```bash
+> etcd:
+  > host: 192.168.0.179:2379
+> ```
+>
+> ```bash
+> etcd3:
+>  hosts: 192.168.0.179:2379,192.168.0.60:2379,192.168.0.35:2379
+> ```
+
+
+
+{: .important }
+> {: .note }
+> To enable software watchdog issue the following commands as root before starting Patroni:
+>
+> ```bash
+> modprobe softdog
+# Replace postgres with the user you will be running patroni under
+> chown postgres /dev/watchdog
+> ```
 
 ## 12. 📁 Create patroni data directory on `node1`,`node2` and `node3`:
 
@@ -642,5 +791,5 @@ root@node1:~# patronictl -c /etc/patroni.yml list
 
 > Patroni does not handle logical replication directly—it’s provided by PostgreSQL.
 
-
 <!-- https://medium.com/@murat.bilal/setting-up-a-postgresql-ha-cluster-0a4348fca444 -->
+<!-- https://github.com/patroni/patroni -->
