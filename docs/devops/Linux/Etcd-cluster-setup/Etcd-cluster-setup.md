@@ -122,6 +122,8 @@ ETCDCTL_API=3 etcdctl \
 
 Expected output: all members listed and reported as healthy.
 
+>> Check cluster membership
+
 ```bash
 etcdctl  member list
 
@@ -161,3 +163,7 @@ ETCDCTL_API=3 etcdctl get name3
 ```bash
 ETCDCTL_API=3 etcdctl get name1 name4 # lists range name1 to name 4 ETCDCTL_API=3 etcdctl get --prefix name # lists all keys with name prefix
 ```
+
+>> Get current leader
+
+etcdctl --endpoints=http://192.168.0.179:2379,http://192.168.0.60:2379,http://192.168.0.35:2379 endpoint status --write-out=table
