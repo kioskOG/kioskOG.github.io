@@ -781,7 +781,15 @@ root@node1:~# patronictl -c /etc/patroni.yml list
 +--------+---------------+---------+-----------+----+-----------+
 ```
 
-### CONCLUSION:
+## Patroni Restapis:-
+
+```bash
+curl -s http://192.168.0.248:8008/cluster|jq .
+curl -s http://192.168.0.248:8008/patroni | jq .
+curl -s http://192.168.0.248:8008/metrics
+curl -s http://192.168.0.248:8008/history |jq .
+curl -s http://192.168.0.248:8008/config |jq .
+```
 
 ## ✅ Conclusion
 
