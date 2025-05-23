@@ -235,7 +235,7 @@ DAEMON_ARGS = "--enable-v2=true"
 
 
 {: .important}
-> If you wanna setup etcd cluster in HA instead of just 1 etcd
+> If you wanna setup etcd cluster in HA instead of just 1 etcd node follow the below guide
 >
 > [ETCD HA Setup](https://kioskog.github.io/docs/devops/Linux/Etcd-cluster-setup/Etcd-cluster-setup/)
 
@@ -361,29 +361,29 @@ watchdog:
   mode: automatic
   device: /dev/watchdog
   safety_margin: 5
-bootstrap:
-  dcs:
-    ttl: 15
-    loop_wait: 5
-    retry_timeout: 10
-    maximum_lag_on_failover: 1048576
-    synchronous_mode: true
-    synchronous_node_count: 2
-    postgresql:
-      use_pg_rewind: true
-  initdb:
-    - encoding: UTF8
-    - data-checksums
-  pg_hba:
-    - host replication replicator 127.0.0.1/32 md5
-    - host replication replicator 192.168.0.0/24 md5
-    - host all all 192.168.0.0/24 md5
-  users:
-    admin:
-       password: admin
-       options:
-       - createrole
-       - createdb
+# bootstrap:
+#   dcs:
+#     ttl: 15
+#     loop_wait: 5
+#     retry_timeout: 10
+#     maximum_lag_on_failover: 1048576
+#     synchronous_mode: true
+#     synchronous_node_count: 2
+#     postgresql:
+#       use_pg_rewind: true
+#   initdb:
+#     - encoding: UTF8
+#     - data-checksums
+#   pg_hba:
+#     - host replication replicator 127.0.0.1/32 md5
+#     - host replication replicator 192.168.0.0/24 md5
+#     - host all all 192.168.0.0/24 md5
+#   users:
+#     admin:
+#        password: admin
+#        options:
+#        - createrole
+#        - createdb
 postgresql:
   listen: 192.168.0.248:5432
   connect_address: 192.168.0.248:5432
@@ -437,23 +437,23 @@ watchdog:
   mode: automatic
   device: /dev/watchdog
   safety_margin: 5
-bootstrap:
-  dcs:
-    ttl: 15
-    loop_wait: 5
-    retry_timeout: 10
-    maximum_lag_on_failover: 1048576
-    synchronous_mode: true
-    synchronous_node_count: 2
-    postgresql:
-      use_pg_rewind: true
-  initdb:
-    - encoding: UTF8
-    - data-checksums
-  pg_hba:
-    - host replication replicator 127.0.0.1/32 md5
-    - host replication replicator 192.168.0.0/24 md5
-    - host all all 192.168.0.0/24 md5
+# bootstrap:
+#   dcs:
+#     ttl: 15
+#     loop_wait: 5
+#     retry_timeout: 10
+#     maximum_lag_on_failover: 1048576
+#     synchronous_mode: true
+#     synchronous_node_count: 2
+#     postgresql:
+#       use_pg_rewind: true
+#   initdb:
+#     - encoding: UTF8
+#     - data-checksums
+#   pg_hba:
+#     - host replication replicator 127.0.0.1/32 md5
+#     - host replication replicator 192.168.0.0/24 md5
+#     - host all all 192.168.0.0/24 md5
   users:
     admin:
        password: admin
@@ -519,6 +519,45 @@ tags:
 # Replace postgres with the user you will be running patroni under
 > chown postgres /dev/watchdog
 > ```
+
+
+{: .warning }
+> {: .important}
+> if we use the `bootstarp` block on all nodes running patroni in `/etc/patroni.yml`, then it is possible 
+>
+> ```txt
+> LOG: waiting for WAL to become available at 0/E000040
+> WARNING: specified neither primary_conninfo nor restore_command
+> HINT: The database server will regularly poll the pg_wal subdirectory to check for files placed there.
+>```
+>
+> * Cannot stream WAL from the primary (missing primary_conninfo)
+>
+> * Cannot fetch archived WALs (missing restore_command)
+>
+> * So it is stuck waiting forever for WAL segment 00000001000000000000000E
+>
+> the problem arises when a `node boots` without seeing `cluster metadata in etcd`, or if `bootstrap:` is incorrectly triggered again.
+
+
+> To get-rid of this
+
+```bash
+# Stop Patroni
+systemctl stop patroni
+
+# Wipe local data
+rm -rf /data/patroni/*
+
+# Start Patroni again
+systemctl start patroni
+
+patronictl -c /etc/patroni.yml list
+```
+
+### 🧠 Prevention Tips
+>> * Ensure Patroni doesn't hit the `bootstrap:` block again after initial cluster creation.
+>> Avoid enabling both bootstrap: and initdb: on all nodes. It should run only once, from the initial node that forms the cluster.
 
 ## 12. 📁 Create patroni data directory on `node1`,`node2` and `node3`:
 
@@ -600,6 +639,9 @@ sudo systemctl restart haproxy
 
 ![haproxy](/docs/devops/Linux/Postgresql/images/haproxy.png)
 
+{: .important}
+> To setup Haproxy HA setup follow the below guide
+> [High Availability HAProxy Failover Setup with Keepalived and AWS Elastic IP](https://kioskog.github.io/docs/devops/Linux/HAProxy-cluster-setup/HAProxy-cluster-setup/)
 
 ## 18. 🔁 Test Failover
 
@@ -789,6 +831,32 @@ curl -s http://192.168.0.248:8008/patroni | jq .
 curl -s http://192.168.0.248:8008/metrics
 curl -s http://192.168.0.248:8008/history |jq .
 curl -s http://192.168.0.248:8008/config |jq .
+```
+
+```bash
+# View Etcd Keys Used by Patroni
+
+curl http://192.168.0.179:2379/v2/keys/?recursive=true | jq
+
+
+# List All v3 Keys (Useful for debugging)
+
+ETCDCTL_API=3 etcdctl \
+  --endpoints=http://192.168.0.179:2379 \
+  get '' --prefix --keys-only
+
+ETCDCTL_API=3 etcdctl \
+  --endpoints=http://192.168.0.179:2379,http://192.168.0.60:2379,http://192.168.0.35:2379 \
+  get /db/postgres/leader --prefix
+
+
+curl -s http://192.168.0.179:2379/v3/kv/range \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "key": "'$(echo -n "/db/postgres/leader" | base64)'"
+  }' | jq -r '.kvs[0].value' | base64 -d
+
 ```
 
 ## ✅ Conclusion

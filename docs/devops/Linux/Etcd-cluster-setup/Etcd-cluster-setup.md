@@ -166,4 +166,6 @@ ETCDCTL_API=3 etcdctl get name1 name4 # lists range name1 to name 4 ETCDCTL_API=
 
 >> Get current leader
 
+```bash
 etcdctl --endpoints=http://192.168.0.179:2379,http://192.168.0.60:2379,http://192.168.0.35:2379 endpoint status --write-out=table
+```
