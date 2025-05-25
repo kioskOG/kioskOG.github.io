@@ -1,12 +1,12 @@
 ---
-title: Accessing AWS Services from GKE Pods using Workload Identity
+title: Accessing AWS Services from GKE Pods using Workload Identity without AWS OIDC
 layout: home
 parent: Google Cloud Platform
 grand_parent: Cloud Projects
 nav_order: 3
 author: Jatin Sharma
 permalink: /docs/devops/Cloud/Gcp/Cross-cloud-identities-between-GCP-and-AWS/
-description: Documentation for Accessing AWS Services from GKE Pods using Workload Identity.
+description: Documentation for Accessing AWS Services from GKE Pods using Workload Identity without AWS OIDC.
 ---
 
 # Cross-cloud identities between GCP and AWS from GKE and/or EKS
