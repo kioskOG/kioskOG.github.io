@@ -67,7 +67,7 @@ Therefore, the application that was listening on the VIP associated with the sec
 ## 🛠️ Packages to Install (on both HAProxy nodes)
 
 ```bash
-apt install haproxy keepalived unzip -y
+apt install haproxy keepalived psmisc unzip -y
 ```
 
 ```bash
@@ -556,3 +556,6 @@ By combining **HAProxy**, **Keepalived**, and **AWS Elastic IP reassignment**, y
 * Failover and recovery are both OS and cloud-native.
 
 This approach provides a lightweight, infrastructure-aware method of high availability—perfect for PostgreSQL and other TCP services on EC2. Be sure to monitor logs and IAM permissions, and refine your health checks for production-grade resilience.
+
+
+<!-- https://kubesphere.io/docs/v3.4/installing-on-linux/high-availability-configurations/set-up-ha-cluster-using-keepalived-haproxy/ -->
