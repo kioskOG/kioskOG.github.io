@@ -67,7 +67,7 @@ Allow a GKE workload (Pod) to authenticate to AWS IAM without hardcoded credenti
 
 ### Step 6: Configure Trust Relationship in AWS
 
-* Use GCP’s workload identity OIDC URL **(container.googleapis.com/v1/projects/<PROJECT_ID>/locations/<CLUSTER_ZONE>/clusters/<CLUSTER_NAME>)** as identity provider.
+* Use GCP’s workload identity OIDC URL **(container.googleapis.com/v1/projects/\<PROJECT_ID>/locations/\<CLUSTER_ZONE>/clusters/\<CLUSTER_NAME>)** as identity provider.
 
 * Add a Condition to trust GSA’s identity via sub or aud.
 
