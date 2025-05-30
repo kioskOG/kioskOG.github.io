@@ -300,3 +300,5 @@ docker compose down -v
 ---
 
 Happy hacking! 💻🚀
+
+<!-- https://github.com/boschkundendienst/guacamole-docker-compose/blob/master/prepare.sh -->
