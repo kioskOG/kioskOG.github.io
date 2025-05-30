@@ -446,7 +446,7 @@ service:
 
 ## 7️⃣ Create Alloy Collector Config
 
-Create a file `otel-collector-config.yml` 
+Create a file `alloy-local-config.yaml` 
 
 ```yaml
 discovery.docker "flog_scrape" {
@@ -486,6 +486,36 @@ loki.write "default" {
 Create a file `tempo-config.yml`: 
 
 ```yaml
+discovery.docker "flog_scrape" {
+  host             = "unix:///var/run/docker.sock"
+  refresh_interval = "5s"
+}
+
+discovery.relabel "flog_scrape" {
+  targets = []
+
+  rule {
+    source_labels = ["__meta_docker_container_name"]
+    regex         = "/(.*)"
+    target_label  = "container"
+  }
+}
+
+loki.source.docker "flog_scrape" {
+  host             = "unix:///var/run/docker.sock"
+  targets          = discovery.docker.flog_scrape.targets
+  forward_to       = [loki.write.default.receiver]
+  relabel_rules    = discovery.relabel.flog_scrape.rules
+  refresh_interval = "5s"
+}
+
+loki.write "default" {
+  endpoint {
+    url       = "http://gateway:3100/loki/api/v1/push"
+    tenant_id = "tenant1"
+  }
+  external_labels = {}
+}
 stream_over_http_enabled: true
 
 server:
@@ -532,6 +562,13 @@ metrics_generator:
     external_labels:
       source: tempo
       cluster: docker-compose
+  processor:
+    service_graphs:
+      wait: 10s
+      max_items: 10000
+      histogram_buckets: [0.1, 0.2, 0.4, 0.8, 1.6, 3.2, 6.4, 12.8]
+    span_metrics:
+      histogram_buckets: [0.002, 0.004, 0.008, 0.016, 0.032, 0.064, 0.128, 0.256, 0.512, 1.024, 2.048, 4.096, 8.192, 16.384]
   storage:
     path: /var/tempo/generator/wal
     remote_write:
@@ -558,6 +595,7 @@ overrides:
       processor:
         service_graphs:
           enable_messaging_system_latency_histogram: true
+
 ```
 
 ## 9️⃣ Create Prometheus Config
