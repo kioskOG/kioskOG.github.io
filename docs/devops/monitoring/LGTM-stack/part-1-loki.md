@@ -1,9 +1,10 @@
 ---
 title: Grafana Loki
 layout: home
-parent: monitoring
-nav_order: 3
-permalink: /docs/devops/monitoring/LGTM-stack/
+parent: Taming the Digital Wilds with Grafana's LGTM Stack
+grand_parent: monitoring
+nav_order: 1
+permalink: /docs/devops/monitoring/LGTM-stack/part-1-loki/
 description: Introduction to Grafana Loki.
 ---
 
