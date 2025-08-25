@@ -25,4 +25,4 @@ This section provides documentation for various cloud projects. Select a project
 | [Accessing AWS Services from GKE Pods using Workload Identity without AWS OIDC](/docs/devops/Cloud/Gcp/Cross-cloud-identities-between-GCP-and-AWS/) | Cross-cloud identities between GCP and AWS from GKE and/or EKS.                                      | Done   |
 | [AWS vs. GCP Virtual Private Cloud (VPC) Networking Comparison](/docs/devops/Cloud/Gcp/Aws-and-GCP-vpc-comparision/) | Virtual Private Cloud (VPC) Networking Comparison.                                      | Done   |
 | [Accessing AWS Services from GKE using GCP Workload Identity and AWS OIDC](/docs/devops/Cloud/Gcp/Accessing-AWS-Services-from-GKE-using-Workload-Identity-and-Aws-oidc/) | Accessing AWS Services from GKE using Workload Identity and AWS OIDC.                                      | Done   |
-
+| [AWS Network Firewall Egress Filtering with Stateful Suricata Rules – Asymmetric Routing Trap](/docs/devops/Cloud/AWS/aws-firewal/) | AWS Network Firewall Egress Filtering with Stateful Suricata Rules – Asymmetric Routing Trap. | Done |
