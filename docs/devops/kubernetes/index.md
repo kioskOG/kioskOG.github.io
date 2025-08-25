@@ -33,3 +33,4 @@ This section provides documentation for various Kubernetes projects.
 | [Karpenter](/docs/devops/kubernetes/karpenter/) | Documentation on Karpenter  Introduction.                    | Done   |
 | [Setup Karpenter on Existing EKS Cluster](/docs/devops/kubernetes/karpenter/karpenter-setup-in-existing-eks-cluster/) | Documentation on karpenter serving Setup.                     | Done   |
 | [Monitoring Karpenter Using Prometheus & Grafana](/docs/devops/kubernetes/karpenter/karpenter-monitoring/) | Documentation on Karpenter monitoring Using prometheus & grafana.                     | Done   |
+| [AWS CloudWatch Logging with Fluent Bit on Kubernetes](/docs/devops/kubernetes/eks-logs-into-cloudwatch-using-fluentbit/) | Documentation on AWS CloudWatch Logging with Fluent Bit on Kubernetes.                     | Done   |
