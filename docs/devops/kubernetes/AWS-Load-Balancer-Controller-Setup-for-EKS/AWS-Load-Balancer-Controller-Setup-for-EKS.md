@@ -528,7 +528,7 @@ description: Documentation on AWS Load Balancer Controller Setup for EKS.
         </div>
 
         <p>
-            This guide outlines the steps to install and configure the **AWS Load Balancer Controller** in your Amazon EKS cluster. This controller allows you to use Application Load Balancers (ALBs) and Network Load Balancers (NLBs) directly from Kubernetes, enabling advanced traffic management and seamless integration with AWS services.
+            This guide outlines the steps to install and configure the <code>AWS Load Balancer Controller</code> in your Amazon EKS cluster. This controller allows you to use Application Load Balancers (ALBs) and Network Load Balancers (NLBs) directly from Kubernetes, enabling advanced traffic management and seamless integration with AWS services.
         </p>
 
         <hr>
