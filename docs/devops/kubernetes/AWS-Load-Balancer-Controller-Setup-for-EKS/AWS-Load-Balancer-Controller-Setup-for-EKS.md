@@ -614,7 +614,10 @@ description: Documentation on AWS Load Balancer Controller Setup for EKS.
                 "elasticloadbalancing:DescribeTargetGroups",
                 "elasticloadbalancing:DescribeTargetGroupAttributes",
                 "elasticloadbalancing:DescribeTargetHealth",
-                "elasticloadbalancing:DescribeTags"
+                "elasticloadbalancing:DescribeTags",
+                "elasticloadbalancing:AddTags",
+                "elasticloadbalancing:DescribeListenerAttributes",
+                "elasticloadbalancing:*"
             ],
             "Resource": "*"
         },
@@ -893,6 +896,71 @@ kubectl -n kube-system get secret aws-load-balancer-tls -o yaml</code></pre>
 
         <hr>
 
+        <p>
+        <code>IngressClass.yaml</code>
+        <pre><code>
+            apiVersion: networking.k8s.io/v1
+            kind: IngressClass
+            metadata:
+            name: aws
+            annotations:
+                ingressclass.kubernetes.io/is-default-class: "true"
+            spec:
+            controller: ingress.k8s.aws/alb
+            </code></pre>
+        
+        <code>Ingress.yaml</code>
+        
+            <pre><code>
+            apiVersion: networking.k8s.io/v1
+            kind: Ingress
+            metadata:
+            name: ingress-ui-svc
+            namespace: prod
+            labels:
+                app: ui
+            annotations:
+                #kubernetes.io/ingress.class: "alb" (OLD INGRESS CLASS NOTATION - STILL WORKS BUT RECOMMENDED TO USE IngressClass Resource)
+                # Ingress Core Settings
+                alb.ingress.kubernetes.io/scheme: internet-facing
+            alb.ingress.kubernetes.io/load-balancer-name: ShortUrl
+                # Health Check Settings
+                alb.ingress.kubernetes.io/healthcheck-protocol: HTTP 
+                alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+                alb.ingress.kubernetes.io/healthcheck-path: /health   
+                alb.ingress.kubernetes.io/healthcheck-interval-seconds: '15'
+                alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
+                alb.ingress.kubernetes.io/success-codes: '200'
+                alb.ingress.kubernetes.io/healthy-threshold-count: '2'
+                alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
+            spec:
+            ingressClassName: alb # Ingress Class
+            rules:
+                - http:
+                    paths:      
+                    - path: /
+                        pathType: Prefix
+                        backend:
+                        service:
+                            name: ui-svc
+                            port: 
+                            number: 5000
+                    - path: /r/
+                        pathType: Prefix
+                        backend:
+                        service:
+                            name: short-url-svc
+                            port: 
+                            number: 5000
+            </code></pre>
+
+            <pre><code>
+            # Get & Describe ingress
+            kubectl get ingress,ingressclass -n prod
+            kubectl describe ingress ingress-ui-svc -n prod
+            </code></pre>
+            </p>
+
         <section class="section">
             <h2>📚 Reference</h2>
             <p>For more detailed information, refer to the official AWS Load Balancer Controller documentation:</p>
@@ -906,3 +974,10 @@ kubectl -n kube-system get secret aws-load-balancer-tls -o yaml</code></pre>
     </div>
 </body>
 </html>
+
+
+
+
+IngressClass.yaml
+
+
