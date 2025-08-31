@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>URL Shortener</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
+<style>
+:root {
+  --accent: #3b5998;
+  --accent-dark: #2a478b;
+  --accent-light: #adc5f8;
+  --text-dark: #2d3748;
+  --text-light: #f1f1f1;
+  --radius: 1rem;
+  --shadow: 0 4px 28px rgba(42, 78, 163, 0.15);
+}
+* {margin:0; padding:0; box-sizing:border-box;}
+
+body {
+  font-family: 'Segoe UI','Inter', Arial, sans-serif;
+  min-height:100vh;
+  background:#f5f7fa;
+  color: var(--text-dark);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Background Image + Overlay */
+.bg-image {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  filter: blur(20px) brightness(0.9);
+  z-index:-2;
+}
+.bg-overlay {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: linear-gradient(to bottom right, rgba(173,197,248,0.35), rgba(59,89,152,0.25));
+  z-index:-1;
+  animation: floatBg 12s ease-in-out infinite alternate;
+}
+
+/* Dark mode */
+body.dark { background: #1f212a; color: var(--text-light); }
+body.dark .container { background: rgba(40,40,48,0.85); }
+body.dark .btn:hover {
+  box-shadow: 0 0 12px var(--accent-light), 0 0 24px var(--accent);
+}
+
+.dark-toggle{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:1.3rem;
+  cursor:pointer;
+  z-index:99;
+}
+
+/* Container */
+.container {
+  margin: 3rem auto;
+  padding: 3rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  width: 90%;
+  max-width: 480px;
+  text-align: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+  animation: fadeInScale 0.8s ease;
+}
+.container:hover { box-shadow: 0 10px 42px rgba(42, 78, 163, 0.25); }
+
+/* Logo with glow animation */
+.logo-img {
+  max-width: 150px;
+  border-radius: calc(var(--radius) / 2);
+  box-shadow: 0 2px 18px rgba(42, 78, 163, 0.15);
+  margin-bottom: 1.5rem;
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* Heading fade-in */
+h1 {
+  color: var(--accent);
+  font-size: 2.25rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  animation: fadeInUp 1s forwards;
+}
+
+/* Paragraph */
+p {
+  color: #4a5568;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* Buttons */
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+.btn {
+  flex: 1;
+  min-width: 140px;
+  background: var(--accent);
+  color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 18px rgba(42, 78, 163, 0.35);
+  position: relative;
+  overflow: hidden;
+  animation: pulse 2s infinite;
+}
+.btn:hover {
+  background: var(--accent-dark);
+  transform: translateY(-2px);
+  box-shadow:0 4px 24px rgba(42, 78, 163, 0.45);
+}
+.btn .icon { margin-right: 0.75rem; font-size: 1.2em; }
+
+/* Ripple effect on click */
+.btn::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 0;
+}
+.btn:active::after {
+  width: 300px; height: 300px;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transition: transform 0.6s, opacity 0.8s;
+}
+
+/* Sequential fade classes */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s forwards;
+}
+.fade-delay-1 { animation-delay: 0.2s; }
+.fade-delay-2 { animation-delay: 0.4s; }
+.fade-delay-3 { animation-delay: 0.6s; }
+
+/* Animations */
+@keyframes fadeInUp {
+  from {opacity:0; transform: translateY(20px);}
+  to {opacity:1; transform: translateY(0);}
+}
+@keyframes fadeInScale {
+  from {opacity:0; transform: scale(0.95);}
+  to {opacity:1; transform: scale(1);}
+}
+@keyframes fadeUp {
+  to {opacity:1; transform: translateY(0);}
+}
+@keyframes pulse {
+  0% { transform: scale(1);}
+  50% { transform: scale(1.05);}
+  100% { transform: scale(1);}
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 2px 18px rgba(42, 78, 163, 0.2);}
+  50% { box-shadow: 0 4px 28px rgba(42, 78, 163, 0.45);}
+}
+@keyframes floatBg {
+  from { transform: translate(0,0); }
+  to { transform: translate(8px, -8px); }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 1.5rem; margin-top: 2rem; }
+  .logo-img { max-width: 100px; }
+  h1 { font-size: 1.6rem; }
+  p { font-size: 1rem; }
+  .btn { flex: 1 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- Background -->
+<img src="{{ url_for('static', filename='bg-shorturl.png') }}" alt="Background" class="bg-image">
+<div class="bg-overlay"></div>
+
+<!-- Dark mode toggle -->
+<button class="dark-toggle" onclick="toggleDarkMode()"><i class="fas fa-adjust"></i></button>
+
+<!-- Main Card -->
+<div class="container fade-in fade-delay-1">
+  <div class="logo">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="URL Shortener Logo" class="logo-img fade-in fade-delay-1">
+  </div>
+  <h1 class="fade-in fade-delay-2">URL Shortener</h1>
+  <p class="fade-in fade-delay-3">Welcome to our URL Shortener service. Shorten your URLs quickly, easily, and securely in just one click.</p>
+  <div class="btn-group fade-in fade-delay-3">
+    <a href="/login" class="btn"><i class="fas fa-sign-in-alt icon"></i>Login</a>
+    <a href="/signup" class="btn"><i class="fas fa-user-plus icon"></i>Signup</a>
+  </div>
+</div>
+
+<script>
+function toggleDarkMode(){
+  document.body.classList.toggle('dark');
+  localStorage.setItem('darkmode', document.body.classList.contains('dark') ? 'true' : 'false');
+}
+if(localStorage.getItem('darkmode')==='true'){
+  document.body.classList.add('dark');
+}
+</script>
+
+</body>
+</html>

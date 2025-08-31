@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Login - URL Shortener</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+:root {
+  --accent: #ffb347;
+  --accent-light: #ffd97d;
+  --text-dark: #393e46;
+  --text-light: #f1f1f1;
+  --bg-dark: #1f212a;
+  --radius: 18px;
+  --shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+* {margin:0;padding:0;box-sizing:border-box;}
+
+body {
+  font-family: 'Segoe UI','Roboto',sans-serif;
+  color: var(--text-dark);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#f5f7fa;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Background Image */
+.bg-image {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  filter: blur(20px) brightness(0.9);
+  z-index:-2;
+}
+.bg-overlay {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: linear-gradient(to bottom right, rgba(255,179,71,0.15), rgba(39,50,85,0.25));
+  z-index:-1;
+  animation: floatBg 12s ease-in-out infinite alternate;
+}
+
+/* Dark mode */
+body.dark {
+  background: var(--bg-dark);
+  color: var(--text-light);
+}
+body.dark .container {
+  background: rgba(40,40,48,0.85);
+}
+body.dark input {
+  background: rgba(60,60,70,0.7);
+  border-color: rgba(200,200,200,0.2);
+  color: var(--text-light);
+}
+body.dark .btn {
+  color:#111;
+}
+
+/* Container glassmorphism */
+.container {
+  background: rgba(255,255,255,0.85);
+  padding: 40px 30px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 400px;
+  backdrop-filter: blur(8px);
+  animation: fadeInScale 0.8s ease;
+}
+.container:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+}
+
+/* Logo */
+.logo-img {
+  max-width: 100px;
+  display:block;
+  margin:0 auto 12px;
+  border-radius:14px;
+  box-shadow:0 0 12px rgba(255,179,71,0.35);
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* Heading */
+h1 {
+  text-align:center;
+  color: var(--accent);
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* Labels & Inputs */
+label {
+  display:block;
+  font-weight:500;
+  margin-bottom:6px;
+  margin-top: 16px;
+}
+input {
+  width:100%;
+  padding:14px 16px;
+  font-size:1rem;
+  border-radius: var(--radius);
+  border:2px solid rgba(192,203,214,0.5);
+  background: rgba(255,255,255,0.7);
+  transition: border 0.3s, box-shadow 0.3s;
+}
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255,179,71,0.3);
+  outline:none;
+}
+
+/* Button */
+.btn {
+  width:100%;
+  margin-top:20px;
+  padding:14px;
+  border:none;
+  border-radius: var(--radius);
+  font-size:1.1rem;
+  font-weight:600;
+  background: linear-gradient(90deg, var(--accent-light) 0%, var(--accent) 50%, var(--accent-light) 100%);
+  box-shadow:0 4px 18px rgba(255,179,71,0.4);
+  cursor:pointer;
+  transition:transform 0.2s, box-shadow 0.2s;
+  animation: pulse 2s infinite;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow:0 6px 22px rgba(255,179,71,0.6);
+}
+.btn i {margin-right:8px;}
+
+/* Signup link */
+.signup-link {
+  text-align:center;
+  margin-top:20px;
+  font-size:0.9rem;
+}
+.signup-link a {
+  color: var(--accent);
+  text-decoration:none;
+}
+.signup-link a:hover {text-decoration:underline;}
+
+/* Alert */
+.alert {
+  margin-top:20px;
+  padding:12px;
+  text-align:center;
+  border-radius: var(--radius);
+  font-weight:600;
+  background: rgba(197, 255, 200, 0.85);
+  color: #2e7d32;
+}
+
+/* Animations */
+@keyframes fadeInScale {
+  from {opacity:0; transform: scale(0.92);}
+  to {opacity:1;transform: scale(1);}
+}
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 108, 71, 0.5); }
+    70% { box-shadow: 0 0 0 15px rgba(255,179,71,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,179,71,0); }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 2px 18px rgba(42, 78, 163, 0.2);}
+  50% { box-shadow: 0 4px 28px rgba(42, 78, 163, 0.45);}
+}
+@keyframes floatBg {
+  from { transform: translate(0,0); }
+  to { transform: translate(8px, -8px); }
+}
+
+/* Dark mode toggle */
+.dark-toggle {
+  position:absolute;
+  top:20px; right:20px;
+  background:none;
+  border:none;
+  font-size:1.3rem;
+  cursor:pointer;
+  color:#fff;
+}
+
+@media (max-width:500px) {
+  .container { padding: 26px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Background -->
+<img src="{{ url_for('static', filename='bg-shorturl.png') }}"  alt="Background" class="bg-image">
+<div class="bg-overlay"></div>
+
+<!-- Dark mode toggle -->
+<button class="dark-toggle" onclick="toggleDarkMode()"><i class="fas fa-adjust"></i></button>
+
+<div class="container">
+  <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo-img">
+  <h1>Login</h1>
+
+  <form action="#" method="post">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" placeholder="Your username" required>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="Your password" required>
+
+    <button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i> Login</button>
+  </form>
+
+  <div class="signup-link">
+    Don't have an account? <a href="{{ url_for('register') }}">Sign up</a>
+  </div>
+
+  {% if msg %}
+  <div class="alert">
+    {{ msg }}
+  </div>
+  {% endif %}
+</div>
+
+<script>
+function toggleDarkMode(){
+  document.body.classList.toggle('dark');
+  localStorage.setItem('darkmode', document.body.classList.contains('dark') ? 'true' : 'false');
+}
+if(localStorage.getItem('darkmode') === 'true'){
+  document.body.classList.add('dark');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Link Shortener</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+:root {
+  --accent: #ffb347;
+  --accent-light: #ffd97d;
+  --text-dark: #393e46;
+  --text-light: #f1f1f1;
+  --bg-dark: #1f212a;
+  --radius: 18px;
+  --shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+* {margin:0;padding:0;box-sizing:border-box;}
+
+body {
+  font-family: 'Segoe UI','Roboto',sans-serif;
+  color: var(--text-dark);
+  min-height:100vh;
+  background:#f5f7fa;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Background Image + Overlay */
+.bg-image {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  filter: blur(20px) brightness(0.9);
+  z-index:-2;
+}
+.bg-overlay {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: linear-gradient(to bottom right, rgba(255,179,71,0.15), rgba(39,50,85,0.25));
+  z-index:-1;
+  animation: floatBg 12s ease-in-out infinite alternate;
+}
+
+/* Dark mode */
+body.dark {
+  background: var(--bg-dark);
+  color: var(--text-light);
+}
+body.dark .container {
+  background: rgba(40,40,48,0.85);
+}
+body.dark input {
+  background: rgba(60,60,70,0.7);
+  border-color: rgba(200,200,200,0.2);
+  color: var(--text-light);
+}
+body.dark .btn {
+  color:#111;
+}
+.dark-toggle {
+  margin-left: 10px;
+  background:none;
+  border:none;
+  font-size:1.2rem;
+  color:#fff;
+  cursor:pointer;
+}
+
+/* Nav */
+nav {
+  background: rgba(55, 61, 106, 0.85);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 12px rgba(44, 62, 80, 0.09);
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  padding: 0 5vw;
+  display: flex;
+  align-items: center;
+  height: 68px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+nav a {
+  color: #ecf0f1;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  height:100%;
+  transition: all 0.3s ease;
+}
+nav a:hover, nav a.active {
+  color: var(--accent);
+  background: rgba(39, 50, 85, 0.21);
+  border-bottom: 3px solid var(--accent);
+}
+.nav-right {
+  margin-left: auto;
+  display:flex;
+  align-items:center;
+}
+
+/* Container glassmorphism */
+.container {
+  margin: 60px auto;
+  padding: 48px 30px;
+  background: rgba(255,255,255,0.85);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  backdrop-filter: blur(6px);
+  animation: fadeInScale 0.8s ease;
+}
+.container:hover {
+  box-shadow: 0 16px 44px rgba(0,0,0,0.25);
+}
+
+/* Logo + Heading */
+.logo-img {
+  max-width: 140px;
+  border-radius: 14px;
+  box-shadow: 0 2px 18px rgba(255,179,71,0.2);
+  background: #fff;
+  margin-bottom: 14px;
+  animation: glow 3s ease-in-out infinite;
+}
+h1 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03rem;
+  animation: fadeInUp 1s ease;
+}
+p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+/* Form */
+form { width:100%; }
+input[type="text"] {
+  width:100%;
+  padding:16px;
+  margin: 12px 0 20px;
+  border: 2px solid rgba(192,203,214,0.5);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  background: rgba(255,255,255,0.7);
+  transition: all 0.3s ease;
+}
+input[type="text"]:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255,179,71,0.3);
+  outline:none;
+}
+
+/* Button */
+.btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background: linear-gradient(90deg, var(--accent-light) 0%, var(--accent) 50%, var(--accent-light) 100%);
+  color: #1d2329;
+  padding: 13px 34px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 600;
+  box-shadow: 0 2px 18px rgba(255,179,71,0.4);
+  border:none;
+  cursor:pointer;
+  transition: all 0.25s ease;
+  animation: pulse 2s infinite;
+}
+.btn i { margin-left: 8px; }
+.btn:hover {
+  box-shadow: 0 4px 24px rgba(255,179,71,0.6);
+  transform: translateY(-1px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {opacity:0; transform: translateY(20px);}
+  to {opacity:1; transform: translateY(0);}
+}
+@keyframes fadeInScale {
+  from {opacity:0; transform: scale(0.95);}
+  to {opacity:1; transform: scale(1);}
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 108, 71, 0.5); }
+  70% { box-shadow: 0 0 0 15px rgba(255,179,71,0);}
+  100% { box-shadow: 0 0 0 0 rgba(255,179,71,0);}
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 2px 18px rgba(42, 78, 163, 0.2);}
+  50% { box-shadow: 0 4px 28px rgba(42, 78, 163, 0.45);}
+}
+@keyframes floatBg {
+  from { transform: translate(0,0); }
+  to { transform: translate(8px, -8px); }
+}
+
+@media (max-width:600px) {
+  .container { padding: 28px 16px; }
+  .logo-img { max-width: 95px; }
+  h1 { font-size:1.4rem; }
+  .btn { font-size: 16px; padding: 10px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Background -->
+<img src="{{ url_for('static', filename='bg-shorturl.png') }}"  alt="Background" class="bg-image">
+<div class="bg-overlay"></div>
+
+<!-- Navigation -->
+<nav>
+  <a href="{{ url_for('home') }}">Home <i class="fas fa-home"></i></a>
+  <a href="{{ url_for('report') }}">Report <i class="fas fa-chart-bar"></i></a>
+  <div class="nav-right">
+    <a href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a>
+    <button class="dark-toggle" onclick="toggleDarkMode()">
+      <i class="fas fa-adjust"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Main Container -->
+<div class="container">
+  <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo-img">
+  <h1>Link Shortener</h1>
+  <p>Shorten your links easily and securely.</p>
+
+  <form method="POST" action="#">
+    <input type="text" name="long_url" placeholder="Enter your long URL" spellcheck="false" required>
+    <button type="submit" class="btn">
+      Shorten <i class="fas fa-link"></i>
+    </button>
+  </form>
+</div>
+
+<script>
+function toggleDarkMode(){
+  document.body.classList.toggle('dark');
+  localStorage.setItem('darkmode', document.body.classList.contains('dark') ? 'true' : 'false');
+}
+if(localStorage.getItem('darkmode') === 'true'){
+  document.body.classList.add('dark');
+}
+</script>
+
+</body>
+</html>

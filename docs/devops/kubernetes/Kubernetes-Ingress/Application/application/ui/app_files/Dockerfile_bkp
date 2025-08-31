@@ -1,0 +1,17 @@
+FROM python:3.10-slim
+WORKDIR /app
+COPY app.py requirements.txt /app/
+COPY  templates/ /app/templates/
+RUN pip install -r requirements.txt
+ENV PYTHONUNBUFFERED=1
+ENV OTEL_SERVICE_NAME="flask-ui"
+ENV OTEL_EXPORTER_OTLP_ENDPOINT=http://signoz-otel-collector.signoz.svc.cluster.local:4318
+ENV OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+ENV OTEL_LOGS_EXPORTER=otlp
+ENV OTEL_METRICS_EXPORTER=otlp
+EXPOSE 5000
+ENV FLASK_APP=app.py
+# CMD ["flask", "run", "--host", "0.0.0.0"]
+# ENTRYPOINT ["opentelemetry-instrument", "python", "app.py"]
+ENTRYPOINT ["opentelemetry-instrument", "--traces_exporter", "console,otlp", "python", "app.py"]
+

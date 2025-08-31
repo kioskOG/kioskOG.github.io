@@ -1,0 +1,7 @@
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-instrumentation-flask
+opentelemetry-exporter-otlp-proto-grpc
+prometheus-client
+Flask
+requests

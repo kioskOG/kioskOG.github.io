@@ -1,0 +1,150 @@
+version: '3.8'
+
+networks:
+  short_url:
+    driver: bridge
+
+volumes:
+  mysql-data:
+  redis-data:
+  prometheus-data:
+  grafana-data:
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password123
+      MYSQL_DATABASE: urlshortener
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - short_url
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - short_url
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+  auth:
+    build: ./application/auth/app_files/
+    ports:
+      - "5001:5000"
+    container_name: auth
+    networks:
+      - short_url
+    environment:
+      - MYSQL_SERVER_ENDPOINT=mysql
+      - MYSQL_SERVER_USERNAME=root
+      - MYSQL_SERVER_PASSWORD=password123
+      - MYSQL_SERVER_DATABASE=urlshortener
+    depends_on:
+      - mysql
+
+  uiapp:
+    build: ./application/ui/app_files/
+    ports:
+      - "5002:5000"
+    container_name: uiapp
+    networks:
+      - short_url
+    environment:
+      - SHORTURL_GENERATED_URL=localhost:5003
+      - SESSION_SECRET_KEY=1a2b3c4d5e6d7g8h9i10
+      - AUTH_SERVER_URL=http://auth:5000
+      - AUTH_SERVER_LOGIN_API=/api/v1/auth/login
+      - AUTH_SERVER_USER_API=/api/v1/auth/user
+      - AUTH_SERVER_REGISTER_API=/api/v1/auth/register
+      - SHORTURL_SERVER_URL=http://urlShort:5000
+      - SHORTURL_SERVER_URL_API=/api/url
+      - REPORT_SERVER_URL=http://report:5000
+      - REPORT_SERVER_REPORT_API=/report
+      - UI_SERVER_PORT=5000
+    depends_on:
+      - auth
+      - urlshort
+      - report
+
+  urlshort:
+    build: ./application/url_short/app_files/
+    ports:
+      - "5003:5000"
+    container_name: urlShort
+    networks:
+      - short_url
+    environment:
+      - MYSQL_SERVER_ENDPOINT=mysql
+      - MYSQL_SERVER_USERNAME=root
+      - MYSQL_SERVER_PASSWORD=password123
+      - MYSQL_SERVER_DATABASE=urlshortener
+      - MYSQL_SERVER_PORT=3306
+      - MYSQL_SERVER_CHARSET=utf8mb4
+      - REDIS_SERVER_ENDPOINT=redis
+      - REDIS_SERVER_PORT=6379
+      - REDIS_SERVER_CHARSET=utf-8
+      - REDIS_SERVER_SHORTURL_TIMEOUT=1800
+      - URLSHORT_SERVER_PORT=5000
+    depends_on:
+      - mysql
+      - redis
+
+  report:
+    build: ./application/report/app_files/
+    ports:
+      - "5004:5000"
+    container_name: report
+    networks:
+      - short_url
+    environment:
+      - MYSQL_SERVER_ENDPOINT=mysql
+      - MYSQL_SERVER_USERNAME=root
+      - MYSQL_SERVER_PASSWORD=password123
+      - MYSQL_SERVER_DATABASE=urlshortener
+      - MYSQL_SERVER_PORT=3306
+    depends_on:
+      - mysql
+      
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - short_url
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=yourpassword  # change this to a secure password
+    networks:
+      - short_url
+    depends_on:
+      - prometheus

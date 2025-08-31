@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-reportapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-reportapp
+  template:
+    metadata:
+      labels:
+        app: flask-reportapp    
+    spec:
+      containers:
+      - name: flask-reportapp
+        image: rkathal/su_report:v2
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MYSQL_SERVER_ENDPOINT
+          value: mysql
+        - name: MYSQL_SERVER_USERNAME
+          value: root
+        - name: MYSQL_SERVER_PASSWORD
+          value: password123
+        - name: MYSQL_SERVER_DATABASE
+          value: urlshortener   
+        - name: MYSQL_SERVER_PORT
+          value: "3306"                    
+        imagePullPolicy: Always

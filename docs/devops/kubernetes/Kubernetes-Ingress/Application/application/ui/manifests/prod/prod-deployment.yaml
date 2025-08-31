@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: flask-uiapp
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: flask-uiapp
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1      
+  template:
+    metadata:
+      labels:
+        app: flask-uiapp
+    spec:
+      containers:
+      - name: flask-uiapp
+        image: rkathal/su_user_interface:v2
+        ports:
+        - containerPort: 5000 
+        env:
+        - name: SHORTURL_GENERATED_URL
+          value: "shorturl.com"
+        - name: SESSION_SECRET_KEY
+          value: "1a2b3c4d5e6d7g8h9i10"
+        - name: AUTH_SERVER_URL
+          value: "http://flask-authapp:5000"
+        - name: AUTH_SERVER_LOGIN_API
+          value: "/api/v1/auth/login"   
+        - name: AUTH_SERVER_USER_API
+          value: "/api/v1/auth/user" 
+        - name: AUTH_SERVER_REGISTER_API
+          value: "/api/v1/auth/register"
+        - name: NOTIFY_SERVER_URL
+          value: "http://flask-notifyapp:5000"
+        - name: NOTIFY_USER_REGISTER_API
+          value: "/api/v1/notify/register"
+        - name: NOTIFY_USER_LOGIN_API
+          value: "/api/v1/notify/login"   
+        - name: NOTIFY_USER_ALLURLS_API
+          value: "/api/v1/notify/allurl"
+        - name: NOTIFY_USER_SHORTURLS_API
+          value: "/api/v1/notify/s/<shorturl>"   
+        - name: SHORTURL_SERVER_URL
+          value: "http://flask-shorturlapp:5000"   
+        - name: SHORTURL_SERVER_URL_API
+          value: "/api/url" 
+        - name: REPORT_SERVER_URL
+          value: "http://flask-reportapp:5000"    
+        - name: REPORT_SERVER_REPORT_API
+          value: "/report"    
+        - name: UI_SERVER_PORT
+          value: "5000"                                                                                         
+        imagePullPolicy: Always

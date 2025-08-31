@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-reportapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-reportapp
+  template:
+    metadata:
+      labels:
+        app: flask-reportapp
+    spec:
+      containers:
+      - name: flask-reportapp
+        image: 547580490325.dkr.ecr.ap-east-1.amazonaws.com/shorturl-ecr-repo-dev:report-9fe637fa0df59dab5a599f22309faa184003816a
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MYSQL_SERVER_ENDPOINT
+          value: mysql
+        - name: MYSQL_SERVER_USERNAME
+          value: root
+        - name: MYSQL_SERVER_PASSWORD
+          value: password123
+        - name: MYSQL_SERVER_DATABASE
+          value: urlshortener
+        - name: MYSQL_SERVER_PORT
+          value: "3306"
+        imagePullPolicy: Always

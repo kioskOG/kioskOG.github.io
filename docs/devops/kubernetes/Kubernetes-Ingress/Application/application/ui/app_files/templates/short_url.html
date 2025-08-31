@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortened URL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: linear-gradient(135deg, #f8fafc 0%, #e7eaf6 60%, #cfd9df 100%);
+            --glass: rgba(255, 255, 255, 0.85);
+            --glass-hover: rgba(255, 255, 255, 0.9);
+            --nav-bg: rgba(55, 61, 106, 0.85);
+            --nav-bg-hover: rgba(39, 50, 85, 0.21);
+            --text-primary: #393e46;
+            --text-secondary: #595f6e;
+            --text-accent: #ffb347;
+            --border-radius: 22px;
+            --shadow: 0 8px 40px rgba(44, 62, 80, 0.15);
+            --transition: all 0.3s ease;
+            --nav-height: 68px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: var(--nav-height);
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.09);
+            border-bottom-left-radius: var(--border-radius);
+            border-bottom-right-radius: var(--border-radius);
+            padding: 0 24px;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+        nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 0 24px;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+            border-bottom: 3px solid transparent;
+            transition:
+                color 0.3s,
+                background 0.2s,
+                border-bottom 0.3s;
+        }
+        nav a:hover, nav a.active {
+            color: var(--text-accent);
+            background: var(--nav-bg-hover);
+            border-bottom: 3px solid var(--text-accent);
+        }
+        .container {
+            margin: 0 auto;
+            padding: 44px 36px;
+            background: var(--glass);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            backdrop-filter: blur(6px);
+            transition: box-shadow 0.3s;
+        }
+        .container:hover {
+            box-shadow: 0 16px 44px rgba(44, 62, 80, 0.21);
+        }
+        .logo {
+            margin-bottom: 24px;
+        }
+        .logo-img {
+            max-width: 140px;
+            height: auto;
+            display: block;
+            margin: 0 auto 16px auto;
+            border-radius: 14px;
+            box-shadow: 0 2px 18px #ffb34730;
+            background: #fff;
+        }
+        h1 {
+            color: var(--text-accent);
+            font-size: 2rem;
+            margin-bottom: 24px;
+            font-weight: 700;
+            letter-spacing: 0.03rem;
+        }
+        p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            letter-spacing: 0.01em;
+        }
+        .shortened-link {
+            display: inline-block;
+            background: #f6f8fc;
+            padding: 12px 24px;
+            border-radius: 30px;
+            margin: 18px auto;
+            font-size: 1.08rem;
+            color: #3c71d0;
+            width: fit-content;
+            border: 2px solid rgba(41, 75, 135, 0.12);
+            transition: background 0.2s, border-color 0.2s;
+            cursor: pointer;
+        }
+        .shortened-link:hover {
+            background: #e5effd;
+            border-color: rgba(41, 75, 135, 0.24);
+        }
+        .shortened-link i {
+            margin-right: 8px;
+            color: #3c71d0;
+        }
+        footer {
+            margin-top: 36px;
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 26px 18px;
+            }
+            .logo-img {
+                max-width: 92px;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+            nav {
+                padding: 0 12px;
+            }
+            nav a {
+                font-size: 16px;
+                padding: 0 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a>
+        <a href="{{ url_for('report') }}"><i class="fas fa-chart-bar"></i> Report</a>
+    </nav>
+    <div class="container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="URL Shortener Logo" class="logo-img">
+        </div>
+        <h1>Shortened URL</h1>
+        <p>Here is your shortened link:</p>
+        <a href="{{ shortened_url }}" class="shortened-link"><i class="fas fa-link"></i>{{ shortened_url }}</a>
+        <footer>
+            <p>Bookmark or share your new link!</p>
+        </footer>
+    </div>
+</body>
+</html>

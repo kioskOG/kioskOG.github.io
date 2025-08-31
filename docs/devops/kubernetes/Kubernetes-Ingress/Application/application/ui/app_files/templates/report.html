@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>All URLs Report</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+:root {
+  --accent: #ffb347;
+  --accent-light: #ffd97d;
+  --text-dark: #393e46;
+  --text-light: #f1f1f1;
+  --bg-dark: #1f212a;
+  --radius: 14px;
+  --shadow: 0 8px 40px rgba(0,0,0,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body {
+  font-family:'Segoe UI','Roboto',sans-serif;
+  background:#f5f7fa;
+  color:var(--text-dark);
+  min-height:100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Background image */
+.bg-image {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  filter: blur(18px) brightness(0.95);
+  z-index:-2;
+}
+.bg-overlay {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:linear-gradient(to bottom right, rgba(255,179,71,0.13), rgba(39,50,85,0.25));
+  z-index:-1;
+}
+
+/* Dark mode */
+body.dark {
+  background: var(--bg-dark);
+  color: var(--text-light);
+}
+body.dark table {background:rgba(40,40,48,0.8); color: var(--text-light);}
+body.dark th {background: rgba(255,255,255,0.08);}
+body.dark td {border-color: rgba(255,255,255,0.1);}
+.dark-toggle {
+  margin-left: 10px;
+  background:none;
+  border:none;
+  font-size:1.2rem;
+  color:#fff;
+  cursor:pointer;
+}
+
+/* Nav */
+nav {
+  display:flex;
+  align-items:center;
+  background:rgba(55, 61, 106, 0.85);
+  backdrop-filter:blur(5px);
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  padding:0 24px;
+  height:68px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+nav a {
+  color:#fff;
+  text-decoration:none;
+  font-size:18px;
+  font-weight:500;
+  display:flex;
+  align-items:center;
+  padding:0 16px;
+  height:100%;
+  border-bottom:3px solid transparent;
+  transition: all 0.3s ease;
+}
+nav a:hover {
+  color:var(--accent);
+  background:rgba(39, 50, 85, 0.21);
+  border-bottom:3px solid var(--accent);
+}
+.nav-right {margin-left:auto;}
+
+/* Container */
+main {
+  max-width:1200px;
+  margin:2rem auto;
+  padding:0 16px;
+}
+#all-urls {
+  padding: 24px;
+  background: rgba(255,255,255,0.85);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter:blur(6px);
+  animation:fadeInScale 0.8s ease;
+}
+body.dark #all-urls {background:rgba(40,40,48,0.85);}
+#all-urls h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  border-bottom:2px solid rgba(255,179,71,0.3);
+  padding-bottom:8px;
+}
+
+/* Table */
+table {
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+th, td {
+  padding:14px 16px;
+  text-align:left;
+}
+th {
+  background:#f8f8f8;
+  font-weight:600;
+  letter-spacing:0.02em;
+}
+td {border-bottom:1px solid #eaeaea;}
+tr:hover {background: #fdf7f0;}
+body.dark tr:hover {background:rgba(255,255,255,0.05);}
+
+.error-message {
+  color: #ff4d4d;
+  padding:1rem;
+  border-radius: 8px;
+  background: #fff3f3;
+  border-left:4px solid #ff4d4d;
+}
+.empty-message {
+  color: #777;
+  padding: 1rem;
+  text-align:center;
+}
+
+/* Animations */
+@keyframes fadeInScale {
+  from {opacity:0; transform:scale(0.95);}
+  to {opacity:1; transform:scale(1);}
+}
+
+@media(max-width:768px) {
+  th, td {padding:10px; font-size:14px;}
+}
+</style>
+</head>
+<body>
+
+<img src="{{ url_for('static', filename='bg-shorturl.png') }}" alt="Background" class="bg-image">
+<div class="bg-overlay"></div>
+
+<nav>
+  <a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a>
+  <div class="nav-right">
+    <button class="dark-toggle" onclick="toggleDarkMode()"><i class="fas fa-adjust"></i></button>
+  </div>
+</nav>
+
+<main>
+<section id="all-urls">
+  {% if data %}
+    <h2><i class="fas fa-folder-open"></i> All URLs</h2>
+    <table>
+      <thead>
+        <tr>
+          <th><i class="fas fa-id-badge"></i> ID</th>
+          <th><i class="fas fa-link"></i> Long URL</th>
+          <th><i class="fas fa-share"></i> Short URL</th>
+          <th><i class="fas fa-users"></i> Visitors</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in data %}
+        <tr>
+          <td>{{ item.id }}</td>
+          <td>{{ item.link }}</td>
+          <td>{{ item.short_url }}</td>
+          <td>{{ item.visitors }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% elif error %}
+    <p class="error-message"><i class="fas fa-exclamation-circle"></i> {{ error }}</p>
+  {% else %}
+    <p class="empty-message">No data available.</p>
+  {% endif %}
+</section>
+</main>
+
+<script>
+function toggleDarkMode(){
+  document.body.classList.toggle('dark');
+  localStorage.setItem('darkmode', document.body.classList.contains('dark') ? 'true' : 'false');
+}
+if(localStorage.getItem('darkmode')==='true'){
+  document.body.classList.add('dark');
+}
+</script>
+
+</body>
+</html>

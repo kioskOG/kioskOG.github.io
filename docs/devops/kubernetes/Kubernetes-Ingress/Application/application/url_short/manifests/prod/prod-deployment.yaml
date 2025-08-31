@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-shorturlapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-shorturlapp
+  template:
+    metadata:
+      labels:
+        app: flask-shorturlapp    
+    spec:
+      containers:
+      - name: flask-shorturlapp
+        image: rkathal/su_shorturl_app:v2
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MYSQL_SERVER_ENDPOINT
+          value: mysql
+        - name: MYSQL_SERVER_USERNAME
+          value: root
+        - name: MYSQL_SERVER_PASSWORD
+          value: password123
+        - name: MYSQL_SERVER_DATABASE
+          value: urlshortener   
+        - name: MYSQL_SERVER_PORT
+          value: "3306"   
+        - name: MYSQL_SERVER_CHARSET
+          value: utf8mb4
+        - name: REDIS_SERVER_ENDPOINT
+          value: redis
+        - name: REDIS_SERVER_PORT
+          value: "6379"
+        - name: REDIS_SERVER_CHARSET
+          value: utf-8   
+        - name: REDIS_SERVER_SHORTURL_TIMEOUT
+          value: "1800" 
+        - name: URLSHORT_SERVER_PORT
+          value: "5000"                               
+        imagePullPolicy: Always
