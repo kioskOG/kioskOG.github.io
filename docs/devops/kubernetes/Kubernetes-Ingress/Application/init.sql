@@ -1,0 +1,16 @@
+CREATE DATABASE IF NOT EXISTS urlshortener;
+USE urlshortener;
+
+CREATE TABLE IF NOT EXISTS users(
+  email VARCHAR(100) PRIMARY KEY, 
+  username VARCHAR(100), 
+  password VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS urls(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  link VARCHAR(250),
+  short_url VARCHAR(100) UNIQUE,
+  visitors INT DEFAULT 0,
+  email VARCHAR(50)
+);

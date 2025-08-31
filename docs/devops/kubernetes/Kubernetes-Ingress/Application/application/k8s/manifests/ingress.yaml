@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+    - host: short-url.dev.linuxforall.in
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: flask-uiapp
+                port:
+                  number: 5000
+          - path: /r/
+            pathType: Prefix
+            backend:
+              service:
+                name: flask-shorturlapp
+                port:
+                  number: 5000
+  tls:
+    - hosts:
+      - short-url.dev.linuxforall.in
+      secretName: cert-manager-prod-secret

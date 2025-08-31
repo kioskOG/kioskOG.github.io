@@ -1,0 +1,88 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "iteration": 1653501,
+  "links": [],
+  "panels": [
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "req/s"
+        },
+        "overrides": []
+      },
+      "gridPos": {"h":8,"w":12,"x":0,"y":0},
+      "id": 1,
+      "title": "Total Request Rate by Endpoint/Method",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by (endpoint, method) (rate(uiapp_requests_total[1m]))",
+          "legendFormat": "{{endpoint}} {{method}}"
+        }
+      ]
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        }, "overrides": []
+      },
+      "gridPos": {"h":8,"w":12,"x":12,"y":0},
+      "id": 2,
+      "title": "Request Latency p95 by Endpoint",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(uiapp_request_latency_seconds_bucket[5m])) by (endpoint, le))",
+          "legendFormat": "{{endpoint}} p95"
+        }
+      ]
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {"defaults": {"unit": "none"},"overrides":[]},
+      "gridPos": {"h":6,"w":6,"x":0,"y":8},
+      "id": 3,
+      "title": "In Progress Requests",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "sum by (endpoint) (uiapp_inprogress_requests)",
+          "legendFormat": "{{endpoint}}"
+        }
+      ]
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {"defaults": {"unit": "none"},"overrides":[]},
+      "gridPos": {"h":6,"w":18,"x":6,"y":8},
+      "id": 4,
+      "title": "Failures by Endpoint & Reason",
+      "type": "barchart",
+      "targets": [
+        {
+          "expr": "sum by (endpoint, reason) (increase(uiapp_failures_total[5m]))",
+          "legendFormat": "{{endpoint}} - {{reason}}"
+        }
+      ]
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["flask", "prometheus"],
+  "templating": {"list":[]},
+  "time": {"from":"now-30m","to":"now"},
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Flask UIApp Prometheus Metrics",
+  "version": 1
+}

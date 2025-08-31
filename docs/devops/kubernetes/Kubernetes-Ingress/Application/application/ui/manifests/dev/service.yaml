@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-uiapp
+spec:
+  selector:
+    app: flask-uiapp
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000         

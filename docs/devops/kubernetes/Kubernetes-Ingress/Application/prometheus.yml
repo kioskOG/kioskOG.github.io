@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'auth-service'
+    static_configs:
+      - targets: ['auth:5000']
+
+  - job_name: 'urlshort-service'
+    static_configs:
+      - targets: ['urlShort:5000']
+
+  - job_name: 'report-service'
+    static_configs:
+      - targets: ['report:5000']
+
+  - job_name: 'uiapp-service'
+    static_configs:
+      - targets: ['uiapp:5000']

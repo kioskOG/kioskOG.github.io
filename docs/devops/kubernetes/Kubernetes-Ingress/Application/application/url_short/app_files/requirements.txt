@@ -1,0 +1,10 @@
+PyMySQL
+redis
+Flask
+Flask-Cors
+simplejson
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-instrumentation-flask
+opentelemetry-exporter-otlp-proto-grpc
+prometheus-client

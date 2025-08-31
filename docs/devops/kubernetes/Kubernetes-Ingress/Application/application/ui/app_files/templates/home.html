@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #ffb347;
+            --bg-dark: #1e1f26;
+            --text-dark: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            background: #f5f7fa;
+            color: #393e46;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* DARK MODE */
+        body.dark {
+            background: var(--bg-dark);
+            color: var(--text-dark);
+        }
+        body.dark nav {
+            background: rgba(20, 20, 30, 0.85);
+        }
+        body.dark .container {
+            background: rgba(40, 40, 48, 0.85);
+        }
+        body.dark .btn {
+            color: #1d2329;
+        }
+
+        /* Background image */
+        .bg-image {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            object-fit: cover;
+            z-index: -3;
+            filter: blur(24px) brightness(0.98) saturate(1.2);
+            opacity: 0.65;
+            pointer-events: none;
+        }
+
+        /* Overlay for better contrast */
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(to bottom right, rgba(255,179,71,0.15), rgba(39,50,85,0.25));
+            z-index: -2;
+            animation: floatBg 12s ease-in-out infinite alternate;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(55, 61, 106, 0.85);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.09);
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            padding: 0 5vw;
+            display: flex;
+            align-items: center;
+            height: 68px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 0 24px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            border-bottom: 3px solid transparent;
+            transition: color 0.3s, border-bottom 0.3s, background 0.2s;
+        }
+        nav a:hover, nav a.active {
+            color: #ffb347;
+            background: rgba(39, 50, 85, 0.21);
+            border-bottom: 3px solid #ffb347;
+        }
+        .nav-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Dark mode button */
+        .dark-toggle {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Container card */
+        .container {
+            margin: 60px auto;
+            padding: 48px 30px 40px 30px;
+            background: rgba(255,255,255,0.85);
+            border-radius: 22px;
+            box-shadow: 0 8px 40px 0 rgba(44, 62, 80, 0.15);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            backdrop-filter: blur(6px);
+            transition: box-shadow 0.3s, background 0.3s;
+            animation: fadeInScale 0.8s ease forwards;
+        }
+        .container:hover {
+            box-shadow: 0 16px 44px 0 rgba(44, 62, 80, .21);
+        }
+
+        /* Logo */
+        .logo {
+            margin-bottom: 18px;
+        }
+        .logo-img {
+            max-width: 140px;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px auto;
+            border-radius: 14px;
+            box-shadow: 0 2px 18px #ffb34730;
+            background: #fff;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        /* Heading animation */
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 0.03rem;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        p {
+            font-size: 19px;
+            margin-bottom: 28px;
+            letter-spacing: 0.01em;
+        }
+
+        /* Button with pulse */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(90deg, #ffd97d 0%, #ffb347 50%, #ffd97d 100%);
+            color: #1d2329;
+            padding: 13px 34px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            box-shadow: 0 2px 18px #ffd97d60;
+            border: none;
+            outline: none;
+            transition: background 0.24s, color 0.15s, box-shadow 0.21s;
+            animation: pulse 2s infinite;
+        }
+        .btn i {
+            margin-left: 9px;
+            font-size: 1.16em;
+        }
+        .btn:hover, .btn:focus {
+            background: linear-gradient(90deg, #ffb347 0%, #ffd97d 60%, #ffb347 100%);
+            color: #23272f;
+            box-shadow: 0 4px 24px #ffb34790;
+        }
+
+        /* Features section */
+        .features {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .features div {
+            text-align: center;
+            max-width: 120px;
+        }
+        .features i {
+            color: #ffb347;
+            margin-bottom: 6px;
+            font-size: 1.4rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+        footer a {
+            color: #ffb347;
+            text-decoration: none;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 108, 71, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(255,179,71,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,179,71,0); }
+        }
+
+        @keyframes glow {
+        0%, 100% { box-shadow: 0 2px 18px rgba(42, 78, 163, 0.2);}
+        50% { box-shadow: 0 4px 28px rgba(42, 78, 163, 0.45);}
+        }
+        @keyframes floatBg {
+        from { transform: translate(0,0); }
+        to { transform: translate(8px, -8px); }
+        }
+        @media (max-width: 600px) {
+            .container { padding: 23px 10px 25px 10px; }
+            .logo-img { max-width: 92px; }
+            h1 { font-size: 1.25rem; }
+            .btn { font-size: 16px; padding: 10px 20px; }
+            nav { padding: 0 2vw; }
+            nav a { font-size: 15px; padding: 0 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <img src="{{ url_for('static', filename='bg-shorturl.png') }}" alt="ShortURL Background" class="bg-image"/>
+    <div class="bg-overlay"></div>
+
+    <nav>
+        <a href="{{ url_for('home') }}">Home <i class="fas fa-home"></i></a>
+        <a href="{{ url_for('report') }}">Report <i class="fas fa-chart-bar"></i></a>
+        <div class="nav-right">
+            <a href="/logout">Logout <i class="fas fa-sign-out-alt"></i></a>
+            <!-- Dark mode toggle button -->
+            <button class="dark-toggle" onclick="document.body.classList.toggle('dark')">
+                <i class="fas fa-adjust"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="URL Shortener Logo" class="logo-img">
+        </div>
+        <h1>Welcome to URL Shortener</h1>
+        <p>Quickly shorten long links, manage your URLs, and view reports in a fast, secure, and elegant interface.</p>
+        <a href="{{ url_for('short') }}" class="btn">
+            Go to URL Shortener <i class="fas fa-link"></i>
+        </a>
+
+        <div class="features">
+            <div><i class="fas fa-bolt"></i><br>Fast Shortening</div>
+            <div><i class="fas fa-chart-line"></i><br>Track Clicks</div>
+            <div><i class="fas fa-lock"></i><br>Secure Links</div>
+        </div>
+    </div>
+</body>
+</html>

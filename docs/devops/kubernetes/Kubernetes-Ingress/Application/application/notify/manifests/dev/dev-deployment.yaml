@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-notifyapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-notifyapp
+  template:
+    metadata:
+      labels:
+        app: flask-notifyapp
+    spec:
+      containers:
+        - name: flask-notifyapp
+          image: 547580490325.dkr.ecr.ap-east-1.amazonaws.com/shorturl-ecr-repo-dev:notify-3c508691fa0207283a2a860a73f8340652cda300
+          env:
+            - name: SENDER_EMAIL
+              value: bhupender.singh@opstree.com
+            - name: GOOGLE_API_SCOPE
+              value: '["https://www.googleapis.com/auth/gmail.send"]'
+            - name: GMAIL_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: gmail-api-secret
+                  key: gmail_api_token
+          imagePullPolicy: Always

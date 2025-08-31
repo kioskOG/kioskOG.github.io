@@ -1,0 +1,5 @@
+docker run --name urldb -e MYSQL_ROOT_PASSWORD=password123 -p 3306:3306 -d mysql
+mysql -h 127.0.0.1 -P 3306 -u root -p password123
+
+
+

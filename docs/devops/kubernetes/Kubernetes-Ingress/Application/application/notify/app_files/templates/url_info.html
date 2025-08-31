@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Add some spacing and border to make the table look nicer */
+        table {
+            border-collapse: collapse;
+            width: 50%;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+        /* Header styles */
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        /* Zebra striping for rows */
+        tr:nth-child(even) {background-color: #f2f2f2;}
+        /* Hover effect for rows */
+        tr:hover {background-color: #ddd;}
+    </style>
+</head>
+<body>
+<h2>Hi {{ templateInput.firstNameVar }} {{ templateInput.lastNameVar }} !! </h2>
+<table>
+  <tr>
+    <th>Main URL</th>
+    <th>Short URL</th>
+    <th>Visitors</th>
+  </tr>
+  <tr>
+    <td>{{ templateInput.dataVar.main_url }}</td>
+    <td>{{ templateInput.dataVar.short_url }}</td>
+    <td>{{ templateInput.dataVar.visitors }}</td>
+  </tr>
+</table>
+</body>
+</html>

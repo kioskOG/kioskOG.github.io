@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-authapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-authapp
+  template:
+    metadata:
+      labels:
+        app: flask-authapp
+    spec:
+      containers:
+      - name: flask-authapp
+        image: 547580490325.dkr.ecr.ap-east-1.amazonaws.com/shorturl-ecr-repo-dev:auth-371d401c69705736bb63af1660e3bf578e18c58e
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MYSQL_SERVER_ENDPOINT
+          value: mysql
+        - name: MYSQL_SERVER_USERNAME
+          value: root
+        - name: MYSQL_SERVER_PASSWORD
+          value: password123
+        - name: MYSQL_SERVER_DATABASE
+          value: urlshortener
+        imagePullPolicy: Always
