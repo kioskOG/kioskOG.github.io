@@ -3,24 +3,25 @@ title: Routing in NGINX Ingress Controller
 layout: default
 parent: Understanding Ingress Controllers
 grand_parent: Kubernetes Projects
-nav_order: 1.5
+nav_order: 2.5
 permalink: /docs/devops/kubernetes/Routing-in-NGINX-Ingress-Controller/
 description: Documentation on Routing in NGINX Ingress Controller
 ---
 
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NGINX Ingress Routing Examples (urlshortner) — EKS</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
   <meta name="description" content="Hands‑on routing patterns with NGINX Ingress Controller on EKS: basic, path, host, wildcard, regex, and canary using a urlshortner app." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
   <style>
-    /* === Theme aligned with your blog (orange/purple) === */
+    /* === Theme aligned to your site (same color coding) === */
     :root {
       --primary-color: #ffb347;           /* main accent */
       --light-primary-shade: #ffd97d;     /* lighter accent */
       --bg-dark: #070708;                 /* page bg */
+      --panel: rgba(25,25,34,0.6);        /* hero/panel tint */
       --card-bg-dark: rgba(25,25,34,0.7); /* cards */
       --section-bg-dark: rgba(25,25,34,0.6);
       --text-dark: #e0e0e0;               /* text */
@@ -31,75 +32,103 @@ description: Documentation on Routing in NGINX Ingress Controller
       --code-bg-dark: rgba(13,13,16,0.7); /* code blocks */
     }
 
-    body { background-color: var(--bg-dark); color: var(--text-dark); font-family: 'Inter', Arial, sans-serif; margin: 0; padding: 0; text-align: center; line-height: 1.6; min-height: 100vh; background-image: radial-gradient(circle at top left, #2f0a5d 0%, transparent 50%), radial-gradient(circle at bottom right, #004d40 0%, transparent 50%); background-blend-mode: screen; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background-color: var(--bg-dark);
+      background-image: radial-gradient(circle at top left, #2f0a5d 0%, transparent 50%),
+                        radial-gradient(circle at bottom right, #004d40 0%, transparent 50%);
+      background-blend-mode: screen;
+      color: var(--text-dark);
+      font: 16px/1.65 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-    .container { max-width: 980px; margin: 40px auto; padding: 40px 20px; border-radius: 15px; background-color: var(--card-bg-dark); backdrop-filter: blur(15px) saturate(180%); border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(0,0,0,0.37); }
+    .wrap { max-width: 980px; margin: 40px auto 64px; padding: 0 20px; }
 
-    .gradient-header { background: linear-gradient(270deg, var(--primary-color), #ff8c00, var(--primary-color)); background-size: 600% 600%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientMove 8s ease infinite; margin-bottom: .5em; font-size: 2.4em; font-weight: 800; text-shadow: 0 0 10px rgba(0,198,255,0.3); }
+    .hero {
+      background: linear-gradient(180deg, rgba(156,39,176,.10), rgba(255,179,71,.06));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.32);
+    }
+
+    .eyebrow { color: var(--primary-color); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: 12px; }
+
+    .h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.15; margin: 8px 0; font-weight: 800;
+      background: linear-gradient(270deg, var(--primary-color), #ff8c00, var(--primary-color));
+      background-size: 600% 600%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: gradientMove 8s ease infinite; }
+
     @keyframes gradientMove { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
 
-    h2 { color: var(--primary-color); margin: 28px 0 14px; font-size: 1.9em; text-align: left; }
-    h3 { color: var(--accent-purple); margin: 24px 0 10px; font-size: 1.35em; text-align: left; }
-    p, li { text-align: left; font-size: 1.05em; }
+    .subtitle { color: var(--muted); font-size: 16px; max-width: 70ch; }
+
+    .toc { margin: 26px 0 16px; border-left: 3px solid var(--primary-color); padding: 10px 0 10px 16px; background: rgba(255,179,71,.09); border-radius: 8px; }
+    .toc a { color: var(--text-dark); text-decoration: none; }
+    .toc a:hover { color: var(--primary-color); }
+
+    h2 { font-size: clamp(22px, 2.6vw, 28px); margin: 28px 0 8px; color: var(--primary-color); }
+    h3 { font-size: 18px; margin: 22px 0 6px; color: var(--accent-purple); }
+    p { margin: 10px 0; }
+    ul, ol { padding-left: 20px; }
 
     .section { background-color: var(--section-bg-dark); backdrop-filter: blur(10px) saturate(150%); padding: 28px; border-radius: 12px; margin-top: 28px; border: 1px solid var(--border); box-shadow: 0 4px 16px rgba(0,0,0,0.25); text-align: left; }
 
     .callout { display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: start; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: linear-gradient(180deg, rgba(156,39,176,.10), rgba(255,179,71,.06)); margin: 14px 0; }
     .callout strong { color: var(--accent-purple); }
 
-    pre { background-color: var(--code-bg-dark); color: #d1d1d1; padding: 15px; border-radius: 8px; overflow-x: auto; font-family: 'Fira Code','Cascadia Code','Consolas',monospace; font-size: 0.9em; margin: 18px 0; border: 1px solid rgba(255,179,71,0.2); text-align: left; box-shadow: 0 2px 7px rgba(0,0,0,0.35); }
-    code { background-color: rgba(255,179,71,.1); color: var(--primary-color); padding: 2px 4px; border-radius: 4px; font-family: 'Fira Code','Cascadia Code','Consolas',monospace; }
+    pre { background: var(--code-bg-dark); color: #e2e8f0; border-radius: 12px; padding: 14px 16px; overflow: auto; border: 1px solid rgba(255,179,71,.22); box-shadow: 0 2px 10px rgba(0,0,0,.35); }
+    code { background: rgba(255,179,71,.10); padding: .15em .4em; border-radius: 6px; color: var(--primary-color); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace; }
 
     a { color: var(--primary-color); }
-    hr { border: none; border-top: 1px solid rgba(255,179,71,.5); margin: 32px 0 16px; }
-
-    .toc { margin-top: 8px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 10px; background: linear-gradient(180deg, rgba(156,39,176,.08), rgba(255,179,71,.06)); }
-    .toc ul { margin: 0; padding-left: 18px; }
-    .toc a { color: var(--text-dark); text-decoration: none; }
-    .toc a:hover { color: var(--primary-color); }
-
-    @media (max-width: 768px) { .container { margin: 24px 10px; padding: 28px 14px; } .section { padding: 20px; } }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="gradient-header">🧭 NGINX Ingress Routing (urlshortner) — Practical Examples</h1>
-    <p>We’ll explore how routing works in the <strong>NGINX Ingress Controller</strong> using a <code>urlshortner</code> application, with hands‑on manifests for each pattern.</p>
+  <main class="wrap">
+    <header class="hero" id="top">
+      <div class="eyebrow">Networking · Kubernetes</div>
+      <h1 class="h1">🧭 NGINX Ingress Routing (urlshortner) — Practical Examples</h1>
+      <p class="subtitle">Explore routing with NGINX Ingress on EKS: basic, path, host, wildcard, regex, and canary. Includes copy‑paste manifests and Route 53 tips.</p>
 
-    <div class="section toc">
-      <strong>On this page</strong>
-      <ul>
-        <li><a href="#deploy">Deploy the apps</a></li>
-        <li><a href="#basic">1) Basic Routing</a></li>
-        <li><a href="#path">2) Path‑Based Routing</a></li>
-        <li><a href="#host">3) Host‑Based Routing</a></li>
-        <li><a href="#wildcard">4) Wildcard Routing</a></li>
-        <li><a href="#regex">5) Regex‑Based Routing</a></li>
-        <li><a href="#canary">6) Canary Routing</a></li>
-        <li><a href="#end">Conclusion</a></li>
-      </ul>
-    </div>
+      <nav class="toc">
+        <strong>On this page</strong>
+        <ul>
+          <li><a href="#intro">What is NGINX Ingress routing?</a></li>
+          <li><a href="#deploy">Deploy the apps</a></li>
+          <li><a href="#basic">1) Basic Routing</a></li>
+          <li><a href="#path">2) Path‑Based Routing</a></li>
+          <li><a href="#host">3) Host‑Based Routing</a></li>
+          <li><a href="#wildcard">4) Wildcard Routing</a></li>
+          <li><a href="#regex">5) Regex‑Based Routing</a></li>
+          <li><a href="#canary">6) Canary Routing</a></li>
+          <li><a href="#end">Conclusion</a></li>
+        </ul>
+      </nav>
+    </header>
 
     <section class="section" id="intro">
       <h2><i class="fas fa-info-circle"></i> What is NGINX Ingress routing?</h2>
-      <p>NGINX Ingress sits at the cluster edge and routes HTTP/HTTPS traffic to Services based on rules that match <em>path</em>, <em>host</em>, <em>headers</em>, or custom conditions. It consolidates access behind a single IP/DNS (your LB), enables TLS termination, and supports strategies like canaries and authentication.</p>
+      <p>NGINX Ingress sits at the cluster edge and routes HTTP/HTTPS traffic to Services based on <em>path</em>, <em>host</em>, <em>headers</em>, or other conditions. It consolidates access behind one IP/DNS, enables TLS termination, and supports strategies like canaries and authentication.</p>
       <p><strong>App code:</strong> <a href="Application/application" target="_blank" rel="noopener">urlshortner</a></p>
     </section>
 
     <section class="section" id="deploy">
       <h2><i class="fas fa-rocket"></i> Deploy the app components</h2>
-      <div class="callout"><div aria-hidden="true">📝</div><div><strong>Note:</strong> You can deploy via <code>kubectl apply</code> or Helm. Both resources are included in the codebase.</div></div>
+      <div class="callout"><div aria-hidden="true">📝</div><div><strong>Note:</strong> You can deploy via <code>kubectl apply</code> or Helm. Both sets of resources exist in the repo.</div></div>
       <pre><code>kubectl apply -f Application/application/auth/manifests/prod
 kubectl apply -f Application/application/report/manifests/prod
 kubectl apply -f Application/application/ui/manifests/prod
 kubectl apply -f Application/application/url_short/manifests/prod</code></pre>
-      <p>Verify both apps are running; all Services expose <code>targetPort: 5000</code>:</p>
+      <p>Verify Services and Pods (all Services expose <code>targetPort: 5000</code>):</p>
       <pre><code>kubectl get svc,pod -n default</code></pre>
     </section>
 
     <section class="section" id="basic">
       <h2>1) Basic Routing</h2>
-      <p>All requests (any host/path) go to a single backend — ideal for one web app or a common landing UI.</p>
+      <p>All requests go to a single backend — ideal for a single web app or common landing UI.</p>
       <pre><code>apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -230,13 +259,13 @@ kubectl get ingress -n default</code></pre>
 
     <section class="section" id="regex">
       <h2>5) Regex‑Based Routing</h2>
-      <p>Use powerful regex paths when URL structures are complex or optional. Requires <code>use-regex: "true"</code> and appropriate <code>pathType</code>.</p>
-      <div class="callout"><div aria-hidden="true">⚠️</div><div><strong>Note:</strong> Dummy YAML for illustration — not wired for the <code>urlshortner</code> app.</div></div>
+      <p>Use regex paths when URL structures are complex or optional. Requires <code>use-regex: "true"</code> and appropriate <code>pathType</code>.</p>
+      <div class="callout"><div aria-hidden="true">⚠️</div><div><strong>Note:</strong> Example only — adapt to your app’s paths before use.</div></div>
       <pre><code>apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-ui-svc
-  namespace: prod
+  namespace: default
   labels:
     app: ui
   annotations:
@@ -321,10 +350,12 @@ kubectl get ingress -A</code></pre>
     <section class="section" id="end">
       <h2><i class="fas fa-check-circle"></i> Conclusion</h2>
       <p>We walked through the major NGINX Ingress routing strategies — from basic and path/host rules to wildcard, regex, and canaries — using EKS patterns and Route 53 for DNS. Mastering these gives you fine‑grained, production‑ready traffic control for microservices.</p>
+      <p class="footer"><a class="pill" href="#top">Back to top ↑</a></p>
     </section>
-  </div>
+  </main>
 </body>
 </html>
+
 
 
 <!-- Now, we’ll explore how routing works in the NGINX Ingress Controller with practical examples using a `urlshortner` application:
