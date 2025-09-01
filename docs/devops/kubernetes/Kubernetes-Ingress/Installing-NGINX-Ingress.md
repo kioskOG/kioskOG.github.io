@@ -3,6 +3,7 @@ title: Installing NGINX Ingress
 layout: default
 parent: Understanding Ingress Controllers
 grand_parent: Kubernetes Projects
+ancestor: Kubernetes Projects
 nav_order: 1.5
 permalink: /docs/devops/kubernetes/Installing-NGINX-Ingress/
 description: Documentation on Installing NGINX Ingress
@@ -136,6 +137,9 @@ helm repo update
 helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
   --namespace ingress-nginx --create-namespace \
   --set controller.service.type=LoadBalancer \
+  --set controller.metrics.enabled=true \
+  --set-string controller.metrics.service.annotations."prometheus\.io/port"="10254" \
+  --set-string controller.metrics.service.annotations."prometheus\.io/scrape"="true" \
   --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-type"="nlb"</code></pre>
 
       <h3><i class="fas fa-clipboard-check"></i> Sample Output</h3>
