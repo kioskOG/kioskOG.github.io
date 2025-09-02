@@ -5,49 +5,252 @@ nav_order: 3
 permalink: /docs/devops/
 ---
 
-# DevOps Projects
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DevOps Projects — Docs</title>
+  <style>
+    :root {
+      --primary-color: #ffb347;
+      --bg-dark: #070708;
+      --card-bg-dark: rgba(25,25,34,0.7);
+      --text-dark: #e0e0e0;
+      --muted: #a7a7a7;
+      --accent-purple: #9c27b0;
+      --border: rgba(156,39,176,0.28);
+      --code-bg-dark: rgba(13,13,16,0.7);
+    }
+    body {
+      margin: 0;
+      background-color: var(--bg-dark);
+      background-image: radial-gradient(circle at top left, #2f0a5d 0%, transparent 50%),
+                        radial-gradient(circle at bottom right, #004d40 0%, transparent 50%);
+      background-blend-mode: screen;
+      color: var(--text-dark);
+      font: 16px/1.65 'Inter', system-ui, sans-serif;
+    }
+    .wrap { max-width: 1150px; margin: 40px auto; padding: 0 20px; }
+    .hero {
+      background: linear-gradient(180deg, rgba(156,39,176,.10), rgba(255,179,71,.06));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.32);
+      margin-bottom: 28px;
+    }
+    .h1 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      margin: 0 0 12px;
+      background: linear-gradient(270deg, var(--primary-color), #ff8c00, var(--primary-color));
+      background-size: 600% 600%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 8s ease infinite;
+    }
+    @keyframes gradientMove {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    .subtitle { color: var(--muted); font-size: 16px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: var(--code-bg-dark);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,.35);
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+      color: var(--text-dark);
+    }
+    th {
+      background: rgba(156,39,176,.30);
+      color: var(--primary-color);
+    }
+    tr:nth-child(odd) td { background: rgba(156,39,176,.08); }
+    a { color: var(--primary-color); text-decoration: none; }
+    a:hover { color: var(--accent-purple); }
+    details { margin: 6px 0; }
+    summary { cursor: pointer; font-weight: 600; color: var(--accent-purple); }
+    summary:hover { color: var(--primary-color); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <h1 class="h1">⚙️ DevOps Projects</h1>
+      <p class="subtitle">An overview of Docker, Kubernetes, Linux, Python, Monitoring, Cloud, and System Design projects in this documentation.</p>
+    </header>
+
+    <section>
+      <table>
+        <thead>
+          <tr>
+            <th>Technology/Area</th>
+            <th>Description</th>
+            <th>Sub-Projects / Related Pages</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="/docs/devops/docker">Docker</a></td>
+            <td>Containerization technology for packaging and running apps in isolated environments.</td>
+            <td>
+              <details><summary>View Projects</summary>
+                1. <a href="/docs/devops/docker/Netbird/">Netbird VPN Server</a><br>
+                2. <a href="/docs/devops/docker/traefik/">Traefik Setup</a><br>
+                3. <a href="/docs/devops/docker/uptime-kuma/">Uptime Kuma</a><br>
+                4. <a href="/docs/devops/docker/Atlasian/">Atlasian</a><br>
+                5. <a href="/docs/devops/docker/Authentik/">Authentik</a><br>
+                6. <a href="/docs/devops/docker/hashicorp-vault/">HashiCorp Vault</a><br>
+                7. <a href="/docs/devops/docker/Wazuh/">Wazuh</a><br>
+                8. <a href="/docs/devops/docker/keycloak/">Keycloak</a><br>
+                9. <a href="/docs/devops/docker/minio/">MinIO Intro</a><br>
+                10. <a href="/docs/devops/docker/minio-limits/">MinIO Limits</a>
+              </details>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="/docs/devops/kubernetes">Kubernetes</a></td>
+            <td>Orchestrating, scaling, and managing containerized applications.</td>
+            <td>
+              <details><summary>View Projects</summary>
+                1. <a href="/docs/devops/kubernetes/velaro/">Velaro</a><br>
+                2. <a href="/docs/devops/kubernetes/Traefik/">Traefik</a><br>
+                3. <a href="/docs/devops/kubernetes/Cert-manager/">Cert-manager</a><br>
+                4. <a href="/docs/devops/kubernetes/coredns-custom-domains/">CoreDNS Custom Domains</a><br>
+                5. <a href="/docs/devops/kubernetes/debug-containers/">Debug Containers</a><br>
+                6. <a href="/docs/devops/kubernetes/Grafana-password-reset/">Grafana Password Reset</a><br>
+                7. <a href="/docs/devops/kubernetes/cilium/cilium-intro/">Cilium & Hubble Intro</a><br>
+                8. <a href="/docs/devops/kubernetes/cilium/cilium-installation-on-eks/">Install Cilium & Hubble on EKS</a><br>
+                9. <a href="/docs/devops/kubernetes/prometheus-grafana/">Prometheus & Grafana on EKS</a><br>
+                10. <a href="/docs/devops/kubernetes/cilium/cilium-monitoring/">Cilium Monitoring</a><br>
+                11. <a href="/docs/devops/kubernetes/helm">Helm Intro</a><br>
+                12. <a href="/docs/devops/kubernetes/AWS-ECS-to-EKS-Migration/">ECS → EKS Migration (POC)</a><br>
+                13. <a href="/docs/devops/kubernetes/Kubernetes-NodePort-and-iptables-rules/">NodePort & iptables</a><br>
+                14. <a href="/docs/devops/kubernetes/Kubernetes-Traffic-Policies/">Traffic Policies</a><br>
+                15. <a href="/docs/devops/kubernetes/knative/">Knative Intro</a><br>
+                16. <a href="/docs/devops/kubernetes/knative/knative-serving/">Knative Serving</a><br>
+                17. <a href="/docs/devops/kubernetes/knative/knative-serving-monitoring/">Knative Monitoring</a><br>
+                18. <a href="/docs/devops/kubernetes/karpenter/">Karpenter Intro</a><br>
+                19. <a href="/docs/devops/kubernetes/karpenter/karpenter-setup-in-existing-eks-cluster/">Setup Karpenter</a><br>
+                20. <a href="/docs/devops/kubernetes/karpenter/karpenter-monitoring/">Karpenter Monitoring</a><br>
+                21. <a href="/docs/devops/kubernetes/eks-logs-into-cloudwatch-using-fluentbit/">CloudWatch Logging (Fluent Bit)</a><br>
+                22. <a href="/docs/devops/kubernetes/AWS-Load-Balancer-Controller-Setup-for-EKS/">AWS LB Controller on EKS</a>
+                23. <a href="/docs/devops/kubernetes/Understanding-Ingress-Controllers/">Understanding Ingress Controllers</a>
+                24. <a href="/docs/devops/kubernetes/Installing-NGINX-Ingress/">Installing NGINX Ingress</a>
+                25. <a href="/docs/devops/kubernetes/Routing-in-NGINX-Ingress-Controller/">Routing in NGINX Ingress</a>
+                26. <a href="/docs/devops/kubernetes/Basic-Authentication-using-NGINX-Ingress/">Basic Authentication in NGINX Ingress</a>
+                27. <a href="/docs/devops/kubernetes/secure-your-app-with-https-using-self-signed-tls-certificates/">Ingress Self-Signed TLS for Apps</a>
+              </details>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="/docs/devops/Linux">Linux</a></td>
+            <td>System administration, security, SIEM/XDR, networking, and HA setups.</td>
+            <td>
+              <details><summary>View Projects</summary>
+                1. <a href="/docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/">Wazuh Intro</a><br>
+                2. <a href="/docs/devops/Linux/SIEM-And-XDR/wazuh-indexer-setup/">Wazuh Indexer Setup</a><br>
+                3. <a href="/docs/devops/Linux/SIEM-And-XDR/wazuh-server-setup/">Wazuh Server Setup</a><br>
+                4. <a href="/docs/devops/Linux/SIEM-And-XDR/wazuh-dashboard-setup/">Wazuh Dashboard</a><br>
+                5. <a href="/docs/devops/Linux/SIEM-And-XDR/FIM/">File Integrity Monitoring</a><br>
+                6. <a href="/docs/devops/Linux/SIEM-And-XDR/malware-detection-and-deletion-and-slack-intergarion/">Malware Detection + Slack</a><br>
+                7. <a href="/docs/devops/Linux/SIEM-And-XDR/wazuh-sso-using-keycloak/">Wazuh + Keycloak SSO</a><br>
+                8. <a href="/docs/devops/Linux/SIEM-And-XDR/wazuh-to-monitor-docker/">Wazuh + Docker Monitoring</a><br>
+                9. <a href="/docs/devops/Linux/SIEM-And-XDR/wazuh-monitoring-container-runtime/">Wazuh + Container Runtime</a><br>
+                10. <a href="/docs/devops/Linux/Iptables/iptables/">Linux iptables Intro</a><br>
+                11. <a href="/docs/devops/Linux/Iptables/ipvs-loadbalancer/">IPVS LB with NGINX</a><br>
+                12. <a href="/docs/devops/Linux/vpn/vpn/">VPN Intro</a><br>
+                13. <a href="/docs/devops/Linux/vpn/openvpn-vs-netbird/">OpenVPN vs NetBird</a><br>
+                14. <a href="/docs/devops/Linux/kernel/kernel/">Linux Kernel Intro</a><br>
+                15. <a href="/docs/devops/Linux/eBPF/">eBPF Importance</a><br>
+                16. <a href="/docs/devops/Linux/Postgresql/SETTING-UP-A-POSTGRESQL-HA-CLUSTER/">PostgreSQL HA Cluster</a><br>
+                17. <a href="/docs/devops/Linux/Etcd-cluster-setup/Etcd-cluster-setup/">etcd 3-Node Cluster</a><br>
+                18. <a href="/docs/devops/Linux/HAProxy-cluster-setup/HAProxy-cluster-setup/">HAProxy + Keepalived</a>
+              </details>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="/docs/devops/python">Python</a></td>
+            <td>Automation, scripts, and tooling for DevOps workflows.</td>
+            <td>
+              <details><summary>View Projects</summary>
+                1. <a href="/docs/devops/python/netbird-python-utility/">Netbird Utility</a><br>
+                2. <a href="/docs/devops/python/docker-container-memory-cpu-monitoring/">Docker CPU/Mem Monitoring</a><br>
+                3. <a href="/docs/devops/python/docker-container-monitoring-script/">Docker Monitoring Script</a><br>
+                4. <a href="/docs/devops/python/greythr-selenium/README/">Greythr Automation</a><br>
+                5. <a href="/docs/devops/python/aws-cloudmap-controller/">EKS CloudMap Controller</a><br>
+                6. <a href="/docs/devops/python/GitHub-Secrets-Scanner/github-secret-scanner/">GitHub Secrets Scanner</a>
+              </details>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="/docs/devops/monitoring">Monitoring</a></td>
+            <td>Real-time monitoring and observability tools.</td>
+            <td>
+              <details><summary>View Projects</summary>
+                1. <a href="/docs/devops/monitoring/Apache-HertzBeat/">Apache HertzBeat Overview</a><br>
+                2. <a href="/docs/devops/monitoring/Apache-HertzBeat-docker/">HertzBeat Docker</a><br>
+                3. <a href="/docs/devops/monitoring/Apache-HertzBeat-docker-compose/">HertzBeat Compose</a><br>
+                4. <a href="/docs/devops/monitoring/grafana_tempo/">Grafana Tempo Intro</a><br>
+                5. <a href="/docs/devops/monitoring/grafana_tempo/Grafana-Tempo-Docker/">Grafana Tempo Docker</a><br>
+                6. <a href="/docs/devops/monitoring/grafana_tempo/grafana-tempo-sample-app/">Python App with OTel</a><br>
+                7. <a href="/docs/devops/monitoring/grafana_tempo/grafana-tempo-loki-promtail-and-prometheus/">OTel + Loki + Promtail</a>
+              </details>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="/docs/devops/Cloud">Cloud</a></td>
+            <td>AWS, GCP, and multi-cloud patterns for DevOps.</td>
+            <td>
+              <details><summary>View Projects</summary>
+                1. <a href="/docs/devops/Cloud/tf-state-locking/">Terraform State Locking</a><br>
+                2. <a href="/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/">Save 40L/year for client</a><br>
+                3. <a href="/docs/devops/Cloud/Gcp/Secure-Connectivity-to-SAP-HANA-Private-Cloud-via-Cars24-GCP-Project/">SAP HANA Secure Connectivity</a><br>
+                4. <a href="/docs/devops/Cloud/Gcp/Implementation-SAP-HANA-PCE-Access-via-Cars24-GCP/">SAP HANA PCE Access</a><br>
+                5. <a href="/docs/devops/Cloud/Gcp/Accessing-GCS-from-GKE-Pods-using-Workload-Identity/">GCS from GKE</a><br>
+                6. <a href="/docs/devops/Cloud/Gcp/Cross-cloud-identities-between-GCP-and-AWS/">Cross-Cloud GCP↔AWS</a><br>
+                7. <a href="/docs/devops/Cloud/Gcp/Aws-and-GCP-vpc-comparision/">AWS vs GCP VPC</a><br>
+                8. <a href="/docs/devops/Cloud/Gcp/Accessing-AWS-Services-from-GKE-using-Workload-Identity-and-Aws-oidc/">AWS Services from GKE</a><br>
+                9. <a href="/docs/devops/Cloud/AWS/aws-firewal/">AWS Firewall Egress Filtering</a>
+              </details>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="/docs/devops/System-Design/">System Design</a></td>
+            <td>Concepts, roadmaps, and scalability principles for designing systems.</td>
+            <td>
+              <details><summary>View Projects</summary>
+                1. <a href="/docs/devops/System-Design/">Intro to System Design</a><br>
+                2. <a href="/docs/devops/System-Design/Roadmap/">System Design Roadmap</a><br>
+                3. <a href="/docs/devops/System-Design/Scaleability/">Scalability</a>
+              </details>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>
+
+
+
+<!-- # DevOps Projects
 
 Select a project to view details.
 
-<!-- - [Docker](/docs/devops/docker)
-- [Kubernetes](/docs/devops/kubernetes)
-- [Linux](/docs/devops/Linux)
-- [Python](/docs/devops/python)
-- [Monitoring](/docs/devops/monitoring)
-- [Cloud](/docs/devops/Cloud) -->
-
 This section provides an overview of various DevOps-related projects and technologies covered in this documentation.
 
-<!-- | Technology/Area | Description                                                                                             | Sub-Projects/Related Pages                                                                                                                                                                                                                                                           |
-|-------------------|---------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Docker](/docs/devops/docker) | Containerization technology for packaging and running applications in isolated environments. | [Netbird VPN Server](/docs/devops/docker/Netbird/)<br>[Traefik Setup with Docker](/docs/devops/docker/traefik/)<br>[Uptime Kuma Monitoring](/docs/devops/docker/uptime-kuma/)<br>[Atlasian](/docs/devops/docker/Atlasian/)<br>[Authentik](/docs/devops/docker/Authentik/)<br>[hashicorp-vault](/docs/devops/docker/hashicorp-vault/)<br>[Wazuh](/docs/devops/docker/Wazuh/)<br>[keycloak](/docs/devops/docker/keycloak/) |
-| [Kubernetes](/docs/devops/kubernetes) | Container orchestration platform for automating deployment, scaling, and management of containerized applications. | [Velaro](/docs/devops/kubernetes/velaro/)<br>[Traefik](/docs/devops/kubernetes/Traefik/)<br>[Cert-manager](/docs/devops/kubernetes/Cert-manager/)<br>[coredns-custom-domains](/docs/devops/kubernetes/coredns-custom-domains/)<br>[debug-containers](/docs/devops/kubernetes/debug-containers/)<br>[Grafana-password-reset](/docs/devops/kubernetes/Grafana-password-reset/) |
-| [Linux](/docs/devops/Linux) | The foundation for many DevOps tools and infrastructure. Includes topics on system administration, security, and more. | [Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/)<br>[Wazuh Indexer Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-indexer-setup/)<br>[Wazuh Server Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-server-setup/)<br>[Wazuh Dashboard Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-dashboard-setup/)<br>[FIM](/docs/devops/Linux/SIEM-And-XDR/FIM/)<br>[Malware Detection and Deletion with Slack Integration](/docs/devops/Linux/SIEM-And-XDR/malware-detection-and-deletion-and-slack-intergarion/)<br>[Wazuh SSO Using Keycloak](/docs/devops/Linux/SIEM-And-XDR/wazuh-sso-using-keycloak/)<br>[Monitor Docker Environment Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-to-monitor-docker/)<br>[Monitoring Container Runtime Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-monitoring-container-runtime/) |
-| [Python](/docs/devops/python) | A versatile programming language widely used in DevOps for automation, scripting, and tooling. | [Netbird Python Utility](/docs/devops/python/netbird-python-utility/)<br>[Docker Container Memory/CPU Monitoring](/docs/devops/python/docker-container-memory-cpu-monitoring/)<br>[Docker Container Monitoring Script](/docs/devops/python/docker-container-monitoring-script/) |
-| [Monitoring](/docs/devops/monitoring) | Tools and techniques for monitoring infrastructure and applications. | [Overview of Apache HertzBeat](/docs/devops/monitoring/Apache-HertzBeat/)<br>[Apache HertzBeat Docker Deployment](/docs/devops/monitoring/Apache-HertzBeat-docker/)<br>[Apache HertzBeat Docker Compose Deployment](/docs/devops/monitoring/Apache-HertzBeat-docker-compose/) |
-| [Cloud](/docs/devops/Cloud) | Cloud computing platforms and services, such as AWS, Azure, or GCP. | [Terraform State File Locking](/docs/devops/Cloud/tf-state-locking/) | -->
-
-
-<!-- | Technology/Area | Description                                                                                             | Sub-Projects/Related Pages                                                                                                                                                                                                                                                           |
-|-------------------|---------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Docker](/docs/devops/docker) | Containerization technology for packaging and running applications in isolated environments. | <details>[Netbird VPN Server](/docs/devops/docker/Netbird/)<br>[Traefik Setup with Docker](/docs/devops/docker/traefik/)<br>[Uptime Kuma Monitoring](/docs/devops/docker/uptime-kuma/)<br>[Atlasian](/docs/devops/docker/Atlasian/)<br>[Authentik](/docs/devops/docker/Authentik/)<br>[hashicorp-vault](/docs/devops/docker/hashicorp-vault/)<br>[Wazuh](/docs/devops/docker/Wazuh/)<br>[keycloak](/docs/devops/docker/keycloak/)</details> |
-| [Kubernetes](/docs/devops/kubernetes) | Container orchestration platform for automating deployment, scaling, and management of containerized applications. | <details>[Velaro](/docs/devops/kubernetes/velaro/)<br>[Traefik](/docs/devops/kubernetes/Traefik/)<br>[Cert-manager](/docs/devops/kubernetes/Cert-manager/)<br>[coredns-custom-domains](/docs/devops/kubernetes/coredns-custom-domains/)<br>[debug-containers](/docs/devops/kubernetes/debug-containers/)<br>[Grafana-password-reset](/docs/devops/kubernetes/Grafana-password-reset/)</details> |
-| [Linux](/docs/devops/Linux) | The foundation for many DevOps tools and infrastructure. Includes topics on system administration, security, and more. | <details>[Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/)<br>[Wazuh Indexer Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-indexer-setup/)<br>[Wazuh Server Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-server-setup/)<br>[Wazuh Dashboard Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-dashboard-setup/)<br>[FIM](/docs/devops/Linux/SIEM-And-XDR/FIM/)<br>[Malware Detection and Deletion with Slack Integration](/docs/devops/Linux/SIEM-And-XDR/malware-detection-and-deletion-and-slack-intergarion/)<br>[Wazuh SSO Using Keycloak](/docs/devops/Linux/SIEM-And-XDR/wazuh-sso-using-keycloak/)<br>[Monitor Docker Environment Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-to-monitor-docker/)<br>[Monitoring Container Runtime Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-monitoring-container-runtime/)</details> |
-| [Python](/docs/devops/python) | A versatile programming language widely used in DevOps for automation, scripting, and tooling. | <details>[Netbird Python Utility](/docs/devops/python/netbird-python-utility/)<br>[Docker Container Memory/CPU Monitoring](/docs/devops/python/docker-container-memory-cpu-monitoring/)<br>[Docker Container Monitoring Script](/docs/devops/python/docker-container-monitoring-script/)</details> |
-| [Monitoring](/docs/devops/monitoring) | Tools and techniques for monitoring infrastructure and applications. | <details>[Overview of Apache HertzBeat](/docs/devops/monitoring/Apache-HertzBeat/)<br>[Apache HertzBeat Docker Deployment](/docs/devops/monitoring/Apache-HertzBeat-docker/)<br>[Apache HertzBeat Docker Compose Deployment](/docs/devops/monitoring/Apache-HertzBeat-docker-compose/)</details> |
-| [Cloud](/docs/devops/Cloud) | Cloud computing platforms and services, such as AWS, Azure, or GCP. | <details>[Terraform State File Locking](/docs/devops/Cloud/tf-state-locking/)</details> | -->
-
-
-
-
-<!-- | Technology/Area | Description                                                                                             | Sub-Projects/Related Pages                                                                                                                                                                                                                                                           |
-|-------------------|---------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Docker](/docs/devops/docker) | Containerization technology for packaging and running applications in isolated environments. | <details> * [Netbird VPN Server](/docs/devops/docker/Netbird/) *[Traefik Setup with Docker](/docs/devops/docker/traefik/) *[Uptime Kuma Monitoring](/docs/devops/docker/uptime-kuma/) *[Atlasian](/docs/devops/docker/Atlasian/) *[Authentik](/docs/devops/docker/Authentik/) *[hashicorp-vault](/docs/devops/docker/hashicorp-vault/) *[Wazuh](/docs/devops/docker/Wazuh/) *[keycloak](/docs/devops/docker/keycloak/)</details> |
-| [Kubernetes](/docs/devops/kubernetes) | Container orchestration platform for automating deployment, scaling, and management of containerized applications. | <details><ol><li>[Velaro](/docs/devops/kubernetes/velaro/)*[Traefik](/docs/devops/kubernetes/Traefik/)*[Cert-manager](/docs/devops/kubernetes/Cert-manager/)*[coredns-custom-domains](/docs/devops/kubernetes/coredns-custom-domains/)*[debug-containers](/docs/devops/kubernetes/debug-containers/)*[Grafana-password-reset](/docs/devops/kubernetes/Grafana-password-reset/)</details> |
-| [Linux](/docs/devops/Linux) | The foundation for many DevOps tools and infrastructure. Includes topics on system administration, security, and more. | <details><ol><li>[Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/)*[Wazuh Indexer Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-indexer-setup/)*[Wazuh Server Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-server-setup/)*[Wazuh Dashboard Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-dashboard-setup/)*[FIM](/docs/devops/Linux/SIEM-And-XDR/FIM/)*[Malware Detection and Deletion with Slack Integration](/docs/devops/Linux/SIEM-And-XDR/malware-detection-and-deletion-and-slack-intergarion/)*[Wazuh SSO Using Keycloak](/docs/devops/Linux/SIEM-And-XDR/wazuh-sso-using-keycloak/)*[Monitor Docker Environment Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-to-monitor-docker/)*[Monitoring Container Runtime Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-monitoring-container-runtime/)</details> |
-| [Python](/docs/devops/python) | A versatile programming language widely used in DevOps for automation, scripting, and tooling. | <details><ol><li>[Netbird Python Utility](/docs/devops/python/netbird-python-utility/)*[Docker Container Memory/CPU Monitoring](/docs/devops/python/docker-container-memory-cpu-monitoring/)*[Docker Container Monitoring Script](/docs/devops/python/docker-container-monitoring-script/)</details> |
-| [Monitoring](/docs/devops/monitoring) | Tools and techniques for monitoring infrastructure and applications. | <details><ol><li>[Overview of Apache HertzBeat](/docs/devops/monitoring/Apache-HertzBeat/)*[Apache HertzBeat Docker Deployment](/docs/devops/monitoring/Apache-HertzBeat-docker/)*[Apache HertzBeat Docker Compose Deployment](/docs/devops/monitoring/Apache-HertzBeat-docker-compose/)</details> |
-| [Cloud](/docs/devops/Cloud) | Cloud computing platforms and services, such as AWS, Azure, or GCP. | <details><ol><li>[Terraform State File Locking](/docs/devops/Cloud/tf-state-locking/)</details> | -->
 
 
 | Technology/Area       | Description                                                                                         | Sub-Projects/Related Pages                                                                                                                                                                                                                          |
@@ -65,4 +268,4 @@ This section provides an overview of various DevOps-related projects and technol
 | [Cloud](/docs/devops/Cloud) | Cloud computing platforms and services, such as AWS, Azure, or GCP. | <details>1. [Terraform State File Locking](/docs/devops/Cloud/tf-state-locking/) <br>2. [How we have saved 40 Lac per year for our client](/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/) <br>3. [Secure Connectivity to SAP HANA Private Cloud via Cars24 GCP Project](/docs/devops/Cloud/Gcp/Secure-Connectivity-to-SAP-HANA-Private-Cloud-via-Cars24-GCP-Project/) <br>4. [Implementating SAP HANA PCE Access via Cars24 GCP (Solution 2)](/docs/devops/Cloud/Gcp/Implementation-SAP-HANA-PCE-Access-via-Cars24-GCP/) <br>5. [Accessing GCS from GKE Pods using Workload Identity](/docs/devops/Cloud/Gcp/Accessing-GCS-from-GKE-Pods-using-Workload-Identity/) <br>6. [Accessing AWS Services from GKE Pods using Workload Identity without AWS OIDC](/docs/devops/Cloud/Gcp/Cross-cloud-identities-between-GCP-and-AWS/) <br>7. [AWS vs. GCP Virtual Private Cloud (VPC) Networking Comparison](/docs/devops/Cloud/Gcp/Aws-and-GCP-vpc-comparision/) <br>8. [Accessing AWS Services from GKE using GCP Workload Identity and AWS OIDC](/docs/devops/Cloud/Gcp/Accessing-AWS-Services-from-GKE-using-Workload-Identity-and-Aws-oidc/) <br>9. [[AWS Network Firewall Egress Filtering with Stateful Suricata Rules – Asymmetric Routing Trap](/docs/devops/Cloud/AWS/aws-firewal/) </details> |
 
 | [System Design](/docs/devops/System-Design/) | System Design. | <details>1. [Introduction to System Design](/docs/devops/System-Design/)  <br>2. [System Design Roadmap](/docs/devops/System-Design/Roadmap/) <br>3. [System Design - What is Scalability?](/docs/devops/System-Design/Scaleability/) </details> |
-
+ -->
