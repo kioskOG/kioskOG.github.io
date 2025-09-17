@@ -16,6 +16,7 @@ aux_links:
   Repository: https://github.com/kioskOG/kioskOG.github.io
 
 aux_links_new_tab: true
+search_enabled: true
 
 search:
   focus_shortcut_key: 'k'

@@ -34,7 +34,9 @@ social_html: |
     <div class="card-link" tabindex="0">
       <div class="project-head">
         <h3 class="project-title">Containerization</h3>
-        <span class="project-open">View Docs</span>
+        <a class="project-open" href="/docs/devops/docker/" aria-label="View Docker docs">
+          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+        </a>
       </div>
       <p class="project-desc">Containerization technology for packaging and running apps in isolated environments.</p>
       <div class="tags">
@@ -60,7 +62,9 @@ social_html: |
     <div class="card-link" tabindex="0">
       <div class="project-head">
         <h3 class="project-title">Orchestration & Platform</h3>
-        <span class="project-open">View Docs</span>
+        <a class="project-open" href="/docs/devops/kubernetes/" aria-label="View Docker docs">
+          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+        </a>
       </div>
       <p class="project-desc">Orchestrating, scaling, and managing containerized applications.</p>
       <div class="tags">
@@ -103,7 +107,9 @@ social_html: |
     <div class="card-link" tabindex="0">
       <div class="project-head">
         <h3 class="project-title">Admin, Security & HA</h3>
-        <span class="project-open">View Docs</span>
+        <a class="project-open" href="/docs/devops/linux/" aria-label="View Docker docs">
+          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+        </a>
       </div>
       <p class="project-desc">System administration, security, SIEM/XDR, networking, and HA setups.</p>
       <div class="tags">
@@ -137,7 +143,9 @@ social_html: |
     <div class="card-link" tabindex="0">
       <div class="project-head">
         <h3 class="project-title">Automation & Tooling</h3>
-        <span class="project-open">View Docs</span>
+        <a class="project-open" href="/docs/devops/python/" aria-label="View Docker docs">
+          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+        </a>
       </div>
       <p class="project-desc">Automation, scripts, and tooling for DevOps workflows.</p>
       <div class="tags">
@@ -159,7 +167,9 @@ social_html: |
     <div class="card-link" tabindex="0">
       <div class="project-head">
         <h3 class="project-title">Observability</h3>
-        <span class="project-open">View Docs</span>
+        <a class="project-open" href="/docs/devops/monitoring/" aria-label="View Docker docs">
+          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+        </a>
       </div>
       <p class="project-desc">Real-time monitoring and observability tools.</p>
       <div class="tags">
@@ -182,7 +192,9 @@ social_html: |
     <div class="card-link" tabindex="0">
       <div class="project-head">
         <h3 class="project-title">AWS, GCP & Multi-Cloud</h3>
-        <span class="project-open">View Docs</span>
+        <a class="project-open" href="/docs/devops/cloud/" aria-label="View Docker docs">
+          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+        </a>
       </div>
       <p class="project-desc">AWS, GCP, and multi-cloud patterns for DevOps.</p>
       <div class="tags">
@@ -207,13 +219,35 @@ social_html: |
     <div class="card-link" tabindex="0">
       <div class="project-head">
         <h3 class="project-title">Concepts & Roadmaps</h3>
-        <span class="project-open">View Docs</span>
+        <a class="project-open" href="/docs/devops/System-Design/" aria-label="View Docker docs">
+          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+        </a>
       </div>
       <p class="project-desc">Concepts, roadmaps, and scalability principles for designing systems.</p>
       <div class="tags">
         <a class="tag" href="/docs/devops/System-Design/">Intro to System Design</a>
         <a class="tag" href="/docs/devops/System-Design/Roadmap/">System Design Roadmap</a>
         <a class="tag" href="/docs/devops/System-Design/Scaleability/">Scalability</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+
+<!-- Networking -->
+<section class="projects-section reveal" aria-labelledby="sd-heading">
+  <h2 id="sd-heading"> Networking Concepts </h2>
+  <article class="project-card card-gold reveal">
+    <div class="card-link" tabindex="0">
+      <div class="project-head">
+        <h3 class="project-title">Concepts & Roadmaps</h3>
+        <a class="project-open" href="/docs/devops/Networking/" aria-label="View Docker docs">
+          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p class="project-desc">Networking.</p>
+      <div class="tags">
+        <a class="tag" href="/docs/devops/Networking/How-NAT-Saved-the-Internet/">How NAT Saved the Internet</a>
       </div>
     </div>
   </article>
