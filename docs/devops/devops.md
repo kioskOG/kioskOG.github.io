@@ -1,6 +1,232 @@
 ---
+layout: full-bleed-glass
+title: DevOps | Jatin Sharma
+nav_order: 3
+permalink: /docs/devops/
+hero_title: "⚙️ DevOps Projects"
+hero_intro: >
+  <p>An overview of Docker, Kubernetes, Linux, Python, Monitoring, Cloud, and System Design projects in this documentation.</p>
+
+nav_buttons:
+  - href: /docs/about/
+    label: "About Me"
+    icon: "fas fa-user-circle"
+  - href: /docs/about/contact/
+    label: "Get in Touch"
+    icon: "fas fa-envelope"
+
+social_html: |
+  <a href="mailto:jatinvashishtha110@gmail.com" title="Email Jatin via Gmail" aria-label="Email Jatin via Gmail">
+    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail Badge" loading="lazy"/>
+  </a>
+  <a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener" title="LinkedIn" aria-label="Visit Jatin on LinkedIn">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge" loading="lazy"/>
+  </a>
+  <a href="https://github.com/kioskog" target="_blank" rel="noopener" title="GitHub" aria-label="Visit Jatin on GitHub">
+    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Badge" loading="lazy"/>
+  </a>
+---
+
+<!-- Docker -->
+<section class="projects-section reveal" aria-labelledby="docker-heading">
+  <h2 id="docker-heading">🐳 Docker</h2>
+  <article class="project-card card-coral reveal">
+    <div class="card-link" tabindex="0">
+      <div class="project-head">
+        <h3 class="project-title">Containerization</h3>
+        <span class="project-open">View Docs</span>
+      </div>
+      <p class="project-desc">Containerization technology for packaging and running apps in isolated environments.</p>
+      <div class="tags">
+        <a class="tag" href="/docs/devops/docker/Netbird/">Netbird VPN Server</a>
+        <a class="tag" href="/docs/devops/docker/traefik/">Traefik Setup</a>
+        <a class="tag" href="/docs/devops/docker/uptime-kuma/">Uptime Kuma</a>
+        <a class="tag" href="/docs/devops/docker/Atlasian/">Atlasian</a>
+        <a class="tag" href="/docs/devops/docker/Authentik/">Authentik</a>
+        <a class="tag" href="/docs/devops/docker/hashicorp-vault/">HashiCorp Vault</a>
+        <a class="tag" href="/docs/devops/docker/Wazuh/">Wazuh</a>
+        <a class="tag" href="/docs/devops/docker/keycloak/">Keycloak</a>
+        <a class="tag" href="/docs/devops/docker/minio/">MinIO Intro</a>
+        <a class="tag" href="/docs/devops/docker/minio-limits/">MinIO Limits</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- Kubernetes -->
+<section class="projects-section reveal" aria-labelledby="k8s-heading">
+  <h2 id="k8s-heading">☸️ Kubernetes</h2>
+  <article class="project-card card-teal reveal">
+    <div class="card-link" tabindex="0">
+      <div class="project-head">
+        <h3 class="project-title">Orchestration & Platform</h3>
+        <span class="project-open">View Docs</span>
+      </div>
+      <p class="project-desc">Orchestrating, scaling, and managing containerized applications.</p>
+      <div class="tags">
+        <a class="tag" href="/docs/devops/kubernetes/velaro/">Velaro</a>
+        <a class="tag" href="/docs/devops/kubernetes/Traefik/">Traefik</a>
+        <a class="tag" href="/docs/devops/kubernetes/Cert-manager/">cert-manager</a>
+        <a class="tag" href="/docs/devops/kubernetes/coredns-custom-domains/">CoreDNS Custom Domains</a>
+        <a class="tag" href="/docs/devops/kubernetes/debug-containers/">Debug Containers</a>
+        <a class="tag" href="/docs/devops/kubernetes/Grafana-password-reset/">Grafana Password Reset</a>
+        <a class="tag" href="/docs/devops/kubernetes/cilium/cilium-intro/">Cilium & Hubble Intro</a>
+        <a class="tag" href="/docs/devops/kubernetes/cilium/cilium-installation-on-eks/">Install Cilium on EKS</a>
+        <a class="tag" href="/docs/devops/kubernetes/prometheus-grafana/">Prometheus & Grafana on EKS</a>
+        <a class="tag" href="/docs/devops/kubernetes/cilium/cilium-monitoring/">Cilium Monitoring</a>
+        <a class="tag" href="/docs/devops/kubernetes/helm">Helm Intro</a>
+        <a class="tag" href="/docs/devops/kubernetes/AWS-ECS-to-EKS-Migration/">ECS → EKS Migration (POC)</a>
+        <a class="tag" href="/docs/devops/kubernetes/Kubernetes-NodePort-and-iptables-rules/">NodePort & iptables</a>
+        <a class="tag" href="/docs/devops/kubernetes/Kubernetes-Traffic-Policies/">Traffic Policies</a>
+        <a class="tag" href="/docs/devops/kubernetes/knative/">Knative Intro</a>
+        <a class="tag" href="/docs/devops/kubernetes/knative/knative-serving/">Knative Serving</a>
+        <a class="tag" href="/docs/devops/kubernetes/knative/knative-serving-monitoring/">Knative Monitoring</a>
+        <a class="tag" href="/docs/devops/kubernetes/karpenter/">Karpenter Intro</a>
+        <a class="tag" href="/docs/devops/kubernetes/karpenter/karpenter-setup-in-existing-eks-cluster/">Setup Karpenter</a>
+        <a class="tag" href="/docs/devops/kubernetes/karpenter/karpenter-monitoring/">Karpenter Monitoring</a>
+        <a class="tag" href="/docs/devops/kubernetes/eks-logs-into-cloudwatch-using-fluentbit/">Fluent Bit → CloudWatch</a>
+        <a class="tag" href="/docs/devops/kubernetes/AWS-Load-Balancer-Controller-Setup-for-EKS/">AWS LB Controller</a>
+        <a class="tag" href="/docs/devops/kubernetes/Understanding-Ingress-Controllers/">Ingress Controllers</a>
+        <a class="tag" href="/docs/devops/kubernetes/Installing-NGINX-Ingress/">NGINX Ingress Install</a>
+        <a class="tag" href="/docs/devops/kubernetes/Routing-in-NGINX-Ingress-Controller/">NGINX Routing</a>
+        <a class="tag" href="/docs/devops/kubernetes/Basic-Authentication-using-NGINX-Ingress/">NGINX Basic Auth</a>
+        <a class="tag" href="/docs/devops/kubernetes/secure-your-app-with-https-using-self-signed-tls-certificates/">Ingress Self-Signed TLS</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- Linux -->
+<section class="projects-section reveal" aria-labelledby="linux-heading">
+  <h2 id="linux-heading">🐧 Linux</h2>
+  <article class="project-card card-brown reveal">
+    <div class="card-link" tabindex="0">
+      <div class="project-head">
+        <h3 class="project-title">Admin, Security & HA</h3>
+        <span class="project-open">View Docs</span>
+      </div>
+      <p class="project-desc">System administration, security, SIEM/XDR, networking, and HA setups.</p>
+      <div class="tags">
+        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/">Wazuh Intro</a>
+        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-indexer-setup/">Wazuh Indexer</a>
+        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-server-setup/">Wazuh Server</a>
+        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-dashboard-setup/">Wazuh Dashboard</a>
+        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/FIM/">File Integrity Monitoring</a>
+        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/malware-detection-and-deletion-and-slack-intergarion/">Malware + Slack</a>
+        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-sso-using-keycloak/">Wazuh + Keycloak SSO</a>
+        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-to-monitor-docker/">Wazuh + Docker</a>
+        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-monitoring-container-runtime/">Container Runtime</a>
+        <a class="tag" href="/docs/devops/Linux/Iptables/iptables/">iptables Intro</a>
+        <a class="tag" href="/docs/devops/Linux/Iptables/ipvs-loadbalancer/">IPVS LB + NGINX</a>
+        <a class="tag" href="/docs/devops/Linux/vpn/vpn/">VPN Intro</a>
+        <a class="tag" href="/docs/devops/Linux/vpn/openvpn-vs-netbird/">OpenVPN vs NetBird</a>
+        <a class="tag" href="/docs/devops/Linux/kernel/kernel/">Linux Kernel</a>
+        <a class="tag" href="/docs/devops/Linux/eBPF/">eBPF Importance</a>
+        <a class="tag" href="/docs/devops/Linux/Postgresql/SETTING-UP-A-POSTGRESQL-HA-CLUSTER/">PostgreSQL HA</a>
+        <a class="tag" href="/docs/devops/Linux/Etcd-cluster-setup/Etcd-cluster-setup/">etcd 3-Node</a>
+        <a class="tag" href="/docs/devops/Linux/HAProxy-cluster-setup/HAProxy-cluster-setup/">HAProxy + Keepalived</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- Python -->
+<section class="projects-section reveal" aria-labelledby="python-heading">
+  <h2 id="python-heading">🐍 Python</h2>
+  <article class="project-card card-gold reveal">
+    <div class="card-link" tabindex="0">
+      <div class="project-head">
+        <h3 class="project-title">Automation & Tooling</h3>
+        <span class="project-open">View Docs</span>
+      </div>
+      <p class="project-desc">Automation, scripts, and tooling for DevOps workflows.</p>
+      <div class="tags">
+        <a class="tag" href="/docs/devops/python/netbird-python-utility/">Netbird Utility</a>
+        <a class="tag" href="/docs/devops/python/docker-container-memory-cpu-monitoring/">Docker CPU/Mem Monitoring</a>
+        <a class="tag" href="/docs/devops/python/docker-container-monitoring-script/">Docker Monitoring Script</a>
+        <a class="tag" href="/docs/devops/python/greythr-selenium/README/">Greythr Automation</a>
+        <a class="tag" href="/docs/devops/python/aws-cloudmap-controller/">EKS CloudMap Controller</a>
+        <a class="tag" href="/docs/devops/python/GitHub-Secrets-Scanner/github-secret-scanner/">GitHub Secrets Scanner</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- Monitoring -->
+<section class="projects-section reveal" aria-labelledby="monitoring-heading">
+  <h2 id="monitoring-heading">📊 Monitoring</h2>
+  <article class="project-card card-purple reveal">
+    <div class="card-link" tabindex="0">
+      <div class="project-head">
+        <h3 class="project-title">Observability</h3>
+        <span class="project-open">View Docs</span>
+      </div>
+      <p class="project-desc">Real-time monitoring and observability tools.</p>
+      <div class="tags">
+        <a class="tag" href="/docs/devops/monitoring/Apache-HertzBeat/">Apache HertzBeat Overview</a>
+        <a class="tag" href="/docs/devops/monitoring/Apache-HertzBeat-docker/">HertzBeat Docker</a>
+        <a class="tag" href="/docs/devops/monitoring/Apache-HertzBeat-docker-compose/">HertzBeat Compose</a>
+        <a class="tag" href="/docs/devops/monitoring/grafana_tempo/">Grafana Tempo Intro</a>
+        <a class="tag" href="/docs/devops/monitoring/grafana_tempo/Grafana-Tempo-Docker/">Tempo Docker</a>
+        <a class="tag" href="/docs/devops/monitoring/grafana_tempo/grafana-tempo-sample-app/">Python App + OTel</a>
+        <a class="tag" href="/docs/devops/monitoring/grafana_tempo/grafana-tempo-loki-promtail-and-prometheus/">OTel + Loki + Promtail</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- Cloud -->
+<section class="projects-section reveal" aria-labelledby="cloud-heading">
+  <h2 id="cloud-heading">☁️ Cloud</h2>
+  <article class="project-card card-teal reveal">
+    <div class="card-link" tabindex="0">
+      <div class="project-head">
+        <h3 class="project-title">AWS, GCP & Multi-Cloud</h3>
+        <span class="project-open">View Docs</span>
+      </div>
+      <p class="project-desc">AWS, GCP, and multi-cloud patterns for DevOps.</p>
+      <div class="tags">
+        <a class="tag" href="/docs/devops/Cloud/tf-state-locking/">Terraform State Locking</a>
+        <a class="tag" href="/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/">Save 40L/year for client</a>
+        <a class="tag" href="/docs/devops/Cloud/Gcp/Secure-Connectivity-to-SAP-HANA-Private-Cloud-via-Cars24-GCP-Project/">SAP HANA Secure Connectivity</a>
+        <a class="tag" href="/docs/devops/Cloud/Gcp/Implementation-SAP-HANA-PCE-Access-via-Cars24-GCP/">SAP HANA PCE Access</a>
+        <a class="tag" href="/docs/devops/Cloud/Gcp/Accessing-GCS-from-GKE-Pods-using-Workload-Identity/">GCS from GKE</a>
+        <a class="tag" href="/docs/devops/Cloud/Gcp/Cross-cloud-identities-between-GCP-and-AWS/">Cross-Cloud GCP↔AWS</a>
+        <a class="tag" href="/docs/devops/Cloud/Gcp/Aws-and-GCP-vpc-comparision/">AWS vs GCP VPC</a>
+        <a class="tag" href="/docs/devops/Cloud/Gcp/Accessing-AWS-Services-from-GKE-using-Workload-Identity-and-Aws-oidc/">AWS from GKE (OIDC)</a>
+        <a class="tag" href="/docs/devops/Cloud/AWS/aws-firewal/">AWS Firewall Egress</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- System Design -->
+<section class="projects-section reveal" aria-labelledby="sd-heading">
+  <h2 id="sd-heading">🧩 System Design</h2>
+  <article class="project-card card-gold reveal">
+    <div class="card-link" tabindex="0">
+      <div class="project-head">
+        <h3 class="project-title">Concepts & Roadmaps</h3>
+        <span class="project-open">View Docs</span>
+      </div>
+      <p class="project-desc">Concepts, roadmaps, and scalability principles for designing systems.</p>
+      <div class="tags">
+        <a class="tag" href="/docs/devops/System-Design/">Intro to System Design</a>
+        <a class="tag" href="/docs/devops/System-Design/Roadmap/">System Design Roadmap</a>
+        <a class="tag" href="/docs/devops/System-Design/Scaleability/">Scalability</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+
+
+
+
+
+<!-- ---
 title: Devops
-layout: home
+layout: full-bleed #home
 nav_order: 3
 permalink: /docs/devops/
 ---
@@ -241,31 +467,5 @@ permalink: /docs/devops/
     </section>
   </main>
 </body>
-</html>
+</html> -->
 
-
-
-<!-- # DevOps Projects
-
-Select a project to view details.
-
-This section provides an overview of various DevOps-related projects and technologies covered in this documentation.
-
-
-
-| Technology/Area       | Description                                                                                         | Sub-Projects/Related Pages                                                                                                                                                                                                                          |
-|-----------------------|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Docker](/docs/devops/docker) | Containerization technology for packaging and running applications in isolated environments. | <details>1. [Netbird VPN Server](/docs/devops/docker/Netbird/) <br>2. [Traefik Setup with Docker](/docs/devops/docker/traefik/) <br>3. [Uptime Kuma Monitoring](/docs/devops/docker/uptime-kuma/) <br>4. [Atlasian](/docs/devops/docker/Atlasian/) <br>5. [Authentik](/docs/devops/docker/Authentik/) <br>6. [hashicorp-vault](/docs/devops/docker/hashicorp-vault/) <br>7. [Wazuh](/docs/devops/docker/Wazuh/) <br>8. [keycloak](/docs/devops/docker/keycloak/) <br>9. [Minio Introduction](/docs/devops/docker/minio/) <br>10. [Minio limits](/docs/devops/docker/minio-limits/) </details> |
-
-| [Kubernetes](/docs/devops/kubernetes) | Container orchestration platform for automating deployment, scaling, and management of containerized applications. | <details>1. [Velaro](/docs/devops/kubernetes/velaro/) <br>2. [Traefik](/docs/devops/kubernetes/Traefik/) <br>3. [Cert-manager](/docs/devops/kubernetes/Cert-manager/) <br>4. [coredns-custom-domains](/docs/devops/kubernetes/coredns-custom-domains/) <br>5. [debug-containers](/docs/devops/kubernetes/debug-containers/) <br>6. [Grafana-password-reset](/docs/devops/kubernetes/Grafana-password-reset/) <br>7. [Introduction to Cilium & Hubble](/docs/devops/kubernetes/cilium/cilium-intro/) <br>8. [Install Cilium & Hubble on EKS](/docs/devops/kubernetes/cilium/cilium-installation-on-eks/) <br>9. [Install Prometheus & Grafana on EKS](/docs/devops/kubernetes/prometheus-grafana/) <br>10. [Cilium Monitoring using Prometheus & Grafana](/docs/devops/kubernetes/cilium/cilium-monitoring/) <br>11. [Helm Introduction](/docs/devops/kubernetes/helm) <br>12. [ECS to EKS Migration (POC](/docs/devops/kubernetes/AWS-ECS-to-EKS-Migration/) <br>13. [Kubernetes NodePort and iptables rules](/docs/devops/kubernetes/Kubernetes-NodePort-and-iptables-rules/) <br>14. [Kubernetes Service Traffic Routing & Traffic Policies](/docs/devops/kubernetes/Kubernetes-Traffic-Policies/) <br>15. [Knative](/docs/devops/kubernetes/knative/) <br>16. [Knative Serving](/docs/devops/kubernetes/knative/knative-serving/) <br>17. [Knative Serving Monitoring](/docs/devops/kubernetes/knative/knative-serving-monitoring/) <br>18. [Karpenter](/docs/devops/kubernetes/karpenter/) <br>19. [Setup Karpenter on Existing EKS Cluster](/docs/devops/kubernetes/karpenter/karpenter-setup-in-existing-eks-cluster/) <br>20. [Monitoring Karpenter Using Prometheus & Grafana](/docs/devops/kubernetes/karpenter/karpenter-monitoring/) <br>21. [AWS CloudWatch Logging with Fluent Bit on Kubernetes](/docs/devops/kubernetes/eks-logs-into-cloudwatch-using-fluentbit/) <br>22. [AWS Load Balancer Controller Setup for EKS](/docs/devops/kubernetes/AWS-Load-Balancer-Controller-Setup-for-EKS/) </details> |
-
-| [Linux](/docs/devops/Linux) | The foundation for many DevOps tools and infrastructure. Includes topics on system administration, security, and more. | <details>1. [Wazuh Introduction](/docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/) <br>2. [Wazuh Indexer Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-indexer-setup/) <br>3. [Wazuh Server Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-server-setup/) <br>4. [Wazuh Dashboard Setup](/docs/devops/Linux/SIEM-And-XDR/wazuh-dashboard-setup/) <br>5. [FIM](/docs/devops/Linux/SIEM-And-XDR/FIM/) <br>6. [Malware Detection and Deletion with Slack Integration](/docs/devops/Linux/SIEM-And-XDR/malware-detection-and-deletion-and-slack-intergarion/) <br>7. [Wazuh SSO Using Keycloak](/docs/devops/Linux/SIEM-And-XDR/wazuh-sso-using-keycloak/) <br>8. [Monitor Docker Environment Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-to-monitor-docker/) <br>9. [Monitoring Container Runtime Using Wazuh](/docs/devops/Linux/SIEM-And-XDR/wazuh-monitoring-container-runtime/) <br>10. [Quick Introduction to Linux iptables](/docs/devops/Linux/Iptables/iptables/)  <br>11. [Setting up IPVS Load Balancer with NGINX Application Servers](/docs/devops/Linux/Iptables/ipvs-loadbalancer/) <br>12. [Introduction to VPN](/docs/devops/Linux/vpn/vpn/) <br>13. [Documentation for Differences Between OpenVPN and NetBird.](/docs/devops/Linux/vpn/openvpn-vs-netbird/) <br>14. [Linux Krenel Introduction.](/docs/devops/Linux/kernel/kernel/) <br>15. [What is eBPF and Why is it Important?](/docs/devops/Linux/eBPF/) <br>16. [Setting Up a High Availability (HA) PostgreSQL Cluster with Patroni, etcd, and HAProxy](/docs/devops/Linux/Postgresql/SETTING-UP-A-POSTGRESQL-HA-CLUSTER/) <br>17. [Setting Up a Highly Available 3-Node etcd Cluster on Ubuntu](/docs/devops/Linux/Etcd-cluster-setup/Etcd-cluster-setup/) <br>18. [High Availability HAProxy Failover Setup with Keepalived and AWS Elastic IP](/docs/devops/Linux/HAProxy-cluster-setup/HAProxy-cluster-setup/) </details> |
-
-| [Python](/docs/devops/python) | A versatile programming language widely used in DevOps for automation, scripting, and tooling. | <details>1. [Netbird Python Utility](/docs/devops/python/netbird-python-utility/) <br>2. [Docker Container Memory/CPU Monitoring](/docs/devops/python/docker-container-memory-cpu-monitoring/) <br>3. [Docker Container Monitoring Script](/docs/devops/python/docker-container-monitoring-script/) <br>4. [Greythr Attendance Automation](/docs/devops/python/greythr-selenium/README/) <br>5. [EKS Cloudmap controller](/docs/devops/python/aws-cloudmap-controller/) <br>6. [GitHub Secrets Scanner](/docs/devops/python/GitHub-Secrets-Scanner/github-secret-scanner/) </details> |
-
-| [Monitoring](/docs/devops/monitoring) | Tools and techniques for monitoring infrastructure and applications. | <details>1. [Overview of Apache HertzBeat](/docs/devops/monitoring/Apache-HertzBeat/) <br>2. [Apache HertzBeat Docker Deployment](/docs/devops/monitoring/Apache-HertzBeat-docker/) <br>3. [Apache HertzBeat Docker Compose Deployment](/docs/devops/monitoring/Apache-HertzBeat-docker-compose/) <br>4. [Introduction to Distributed Tracing & Grafana Tempo](/docs/devops/monitoring/grafana_tempo/) <br>5. [Setting Up Grafana Tempo via Docker](/docs/devops/monitoring/grafana_tempo/Grafana-Tempo-Docker/) <br>6. [Setting Up Python application using OpenTelemetry](/docs/devops/monitoring/grafana_tempo/grafana-tempo-sample-app/) <br>7. [Setting Up Python application using OpenTelemetry & Tracing with Logging (Loki)](/docs/devops/monitoring/grafana_tempo/grafana-tempo-loki-promtail-and-prometheus/) </details> |
-
-| [Cloud](/docs/devops/Cloud) | Cloud computing platforms and services, such as AWS, Azure, or GCP. | <details>1. [Terraform State File Locking](/docs/devops/Cloud/tf-state-locking/) <br>2. [How we have saved 40 Lac per year for our client](/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/) <br>3. [Secure Connectivity to SAP HANA Private Cloud via Cars24 GCP Project](/docs/devops/Cloud/Gcp/Secure-Connectivity-to-SAP-HANA-Private-Cloud-via-Cars24-GCP-Project/) <br>4. [Implementating SAP HANA PCE Access via Cars24 GCP (Solution 2)](/docs/devops/Cloud/Gcp/Implementation-SAP-HANA-PCE-Access-via-Cars24-GCP/) <br>5. [Accessing GCS from GKE Pods using Workload Identity](/docs/devops/Cloud/Gcp/Accessing-GCS-from-GKE-Pods-using-Workload-Identity/) <br>6. [Accessing AWS Services from GKE Pods using Workload Identity without AWS OIDC](/docs/devops/Cloud/Gcp/Cross-cloud-identities-between-GCP-and-AWS/) <br>7. [AWS vs. GCP Virtual Private Cloud (VPC) Networking Comparison](/docs/devops/Cloud/Gcp/Aws-and-GCP-vpc-comparision/) <br>8. [Accessing AWS Services from GKE using GCP Workload Identity and AWS OIDC](/docs/devops/Cloud/Gcp/Accessing-AWS-Services-from-GKE-using-Workload-Identity-and-Aws-oidc/) <br>9. [[AWS Network Firewall Egress Filtering with Stateful Suricata Rules – Asymmetric Routing Trap](/docs/devops/Cloud/AWS/aws-firewal/) </details> |
-
-| [System Design](/docs/devops/System-Design/) | System Design. | <details>1. [Introduction to System Design](/docs/devops/System-Design/)  <br>2. [System Design Roadmap](/docs/devops/System-Design/Roadmap/) <br>3. [System Design - What is Scalability?](/docs/devops/System-Design/Scaleability/) </details> |
- -->

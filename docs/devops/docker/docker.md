@@ -1,6 +1,6 @@
 ---
 title: Docker Projects
-layout: home
+layout: full-bleed #home
 parent: Devops
 nav_order: 1
 permalink: /docs/devops/docker/
