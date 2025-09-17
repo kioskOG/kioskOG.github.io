@@ -1,0 +1,56 @@
+---
+# Standalone layout for glass pages
+---
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ page.title | default: site.title }}</title>
+  <meta name="theme-color" content="#0b0c10" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  {% if page.preload_image %}
+  <link rel="preload" as="image" href="{{ page.preload_image | relative_url }}">
+  {% endif %}
+  <link rel="stylesheet" href="{{ '/assets/glass.css' | relative_url }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="gradient-header" align="center">
+        <h1 class="welcome-gradient">{{ page.hero_title | default: "🌟 Welcome to My Digital Space 🌟" }}</h1>
+      </div>
+
+      {% if page.profile_image %}
+        <img src="{{ page.profile_image | relative_url }}" alt="{{ page.profile_alt | default: 'Profile' }}"
+             class="profile-img" loading="lazy" width="150" height="150"/>
+      {% endif %}
+
+      {% if page.hero_intro %}
+        {{ page.hero_intro }}
+      {% endif %}
+
+      {% if page.nav_buttons %}
+      <nav aria-label="Primary">
+        {% for b in page.nav_buttons %}
+          <a href="{{ b.href | relative_url }}" class="btn">{{ b.label }}{% if b.icon %} <i class="{{ b.icon }}" aria-hidden="true"></i>{% endif %}</a>
+        {% endfor %}
+      </nav>
+      {% endif %}
+
+      {% if page.social_html %}
+        <div class="social-icons" role="list">{{ page.social_html }}</div>
+      {% endif %}
+    </div>
+  </header>
+
+  <main>
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <small>© <span id="year"></span> {{ page.footer_name | default: site.title | default: 'Jatin Sharma' }}</small>
+  </footer>
+
+  <script src="{{ '/assets/glass.js' | relative_url }}"></script>
+</body>
+</html>
