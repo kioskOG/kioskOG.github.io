@@ -14,10 +14,34 @@
   <link rel="stylesheet" href="{{ '/assets/glass.css' | relative_url }}">
 </head>
 <body>
+
+<!--Home page button-->
+  <a
+  class="home-fab"
+  href="{{ page.home_href | default: '/' | relative_url }}"
+  aria-label="Go to Home"
+  title="Home"
+  >
+    <i class="fas fa-home" aria-hidden="true"></i>
+  </a>
+
+<!--Search button-->
+  <button
+  class="search-fab"
+  type="button"
+  aria-label="Search the site"
+  title="Search (Press /)"
+  data-search-url="{{ '/search/' | relative_url }}"
+  >
+    <i class="fas fa-search" aria-hidden="true"></i>
+  </button>
+
+
+
   <header class="site-header">
     <div class="container">
       <div class="gradient-header" align="center">
-        <h1 class="welcome-gradient">{{ page.hero_title | default: "🌟 Welcome to My Digital Space 🌟" }}</h1>
+        <h1 class="welcome-gradient">{{ page.hero_title | default: "⚡ Automate, Scale, Innovate 💡" }}</h1>
       </div>
 
       {% if page.profile_image %}
@@ -48,9 +72,15 @@
   </main>
 
   <footer class="site-footer">
-    <small>© <span id="year"></span> {{ page.footer_name | default: site.title | default: 'Jatin Sharma' }}</small>
+    <nav aria-label="Primary">
+        <a href="/docs/devops/" class="btn">DevOps Learning <i class="fas fa-project-diagram" aria-hidden="true"></i></a>
+      </nav>
+    <small>© <span id="year"></span> {{ page.footer_name | default: 'Jatin Sharma' }}</small>
   </footer>
 
   <script src="{{ '/assets/glass.js' | relative_url }}"></script>
+
+  <script src="{{ '/assets/js/vendor/lunr.min.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/just-the-docs.js' | relative_url }}"></script>
 </body>
 </html>

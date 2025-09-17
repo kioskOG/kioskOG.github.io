@@ -1,0 +1,23 @@
+# _data/global_nav.yml
+- href: /docs/about/
+  label: "About Me"
+  icon: "fas fa-user-circle"
+
+- href: /docs/about/contact/
+  label: "Get in Touch"
+  icon: "fas fa-envelope"
+
+- href: /docs/devops/
+  label: "DevOps"
+  icon: "fas fa-project-diagram"
+
+# Optional deep links for quick access (add/remove freely)
+- href: /docs/devops/docker/
+  label: "Docker"
+  icon: "fab fa-docker"
+- href: /docs/devops/kubernetes/
+  label: "Kubernetes"
+  icon: "fas fa-network-wired"
+- href: /docs/devops/monitoring/
+  label: "Monitoring"
+  icon: "fas fa-chart-line"
