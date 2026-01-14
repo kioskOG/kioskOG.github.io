@@ -490,7 +490,7 @@ spec:
   amiSelectorTerms:
     - id: "ami-0a991ffa1379f681b"
     - id: "ami-03fcb7c9c1ca36b4d"
-  role: arn:aws:iam::271268512135:role/KarpenterNodeRole-eksdemo1
+  role: arn:aws:iam::xxxxxxxxx:role/KarpenterNodeRole-eksdemo1
   blockDeviceMappings:
     - deviceName: /dev/xvda
       ebs:

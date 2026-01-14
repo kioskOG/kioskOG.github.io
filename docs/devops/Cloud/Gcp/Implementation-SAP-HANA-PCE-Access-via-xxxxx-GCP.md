@@ -1,16 +1,16 @@
 ---
-title: Implementating SAP HANA PCE Access via Cars24 GCP (Solution 2)
-layout: home
-parent: How we have saved 40 Lac per year for our client
-grand_parent: Google Cloud Platform
-nav_order: 2
-permalink: /docs/devops/Cloud/Gcp/Implementation-SAP-HANA-PCE-Access-via-Cars24-GCP/
-description: Documentation for Implementation SAP HANA PCE Access via Cars24 GCP (Solution 2).
+# title: Implementating SAP HANA PCE Access via xxxxx GCP (Solution 2)
+# layout: home
+# parent: How we have saved 40 Lac per year for our client
+# grand_parent: Google Cloud Platform
+# nav_order: 2
+# permalink: /docs/devops/Cloud/Gcp/Implementation-SAP-HANA-PCE-Access-via-xxxxx-GCP/
+# description: Documentation for Implementation SAP HANA PCE Access via xxxxx GCP (Solution 2).
 ---
 
-# 🛠️ Implementation: SAP HANA PCE Access via Cars24 GCP (Solution 2)
+# 🛠️ Implementation: SAP HANA PCE Access via xxxxx GCP (Solution 2)
 
-This document captures the **practical implementation** of Solution 2 for accessing SAP HANA Private Cloud Edition (PCE) securely using a VPN and DNS system hosted on the Cars24 GCP Project.
+This document captures the **practical implementation** of Solution 2 for accessing SAP HANA Private Cloud Edition (PCE) securely using a VPN and DNS system hosted on the xxxxx GCP Project.
 
 ---
 
@@ -20,7 +20,7 @@ This section briefly outlines what was built:
 
 - Self-hosted VPN server on GCP VM
 - Bind9 DNS servers configured to resolve SAP internal domains
-- VPC peering between Cars24 GCP VPC and SAP HANA PCE VPC
+- VPC peering between xxxxx GCP VPC and SAP HANA PCE VPC
 - Centralized access for both office and remote users
 
 ---
@@ -77,9 +77,9 @@ Routing Mode: Global
 ```yaml
 Container Node IP to be allowed:
 
-vhvretyo2csna-ha.tyo2.sap.cars24.team: /10.60.0.13
-vhvretyo2csnb-ha.tyo2.sap.cars24.team: /10.60.0.29
-vhvretyo2csnc-ha.tyo2.sap.cars24.team: /10.60.0.45
+vhvretyo2csna-ha.tyo2.sap.xxxxx.team: /10.60.0.13
+vhvretyo2csnb-ha.tyo2.sap.xxxxx.team: /10.60.0.29
+vhvretyo2csnc-ha.tyo2.sap.xxxxx.team: /10.60.0.45
 ```
 
 ```yaml
@@ -123,28 +123,28 @@ Ports on demand:
 ### GCP CloudDNS Config
 
 ```yaml
-DNS Name: sap.cars24.team.
+DNS Name: sap.xxxxx.team.
 Type:      Private
 ```
 
 | DNS Name                                  | Type | TTL (seconds) | Record Data                                                                      |
 |-------------------------------------------|------|---------------|----------------------------------------------------------------------------------|
-| sap.cars24.team.                          | SOA  | 21600         | ns-gcp-private.googledomains.com. cloud-dns-hostmaster.google.com. 1 21600 3600 259200 300 |
-| sap.cars24.team.                          | NS   | 21600         | ns-gcp-private.googledomains.com.                                                |
-| vhvretyo2csna-ha.tyo2.sap.cars24.team.    | A    | 60            | 10.60.0.13                                                                       |
-| vhvretyo2csnb-ha.tyo2.sap.cars24.team.    | A    | 60            | 10.60.0.29                                                                       |
-| vhvretyo2csnc-ha.tyo2.sap.cars24.team.    | A    | 60            | 10.60.0.45                                                                       |
+| sap.xxxxx.team.                          | SOA  | 21600         | ns-gcp-private.googledomains.com. cloud-dns-hostmaster.google.com. 1 21600 3600 259200 300 |
+| sap.xxxxx.team.                          | NS   | 21600         | ns-gcp-private.googledomains.com.                                                |
+| vhvretyo2csna-ha.tyo2.sap.xxxxx.team.    | A    | 60            | 10.60.0.13                                                                       |
+| vhvretyo2csnb-ha.tyo2.sap.xxxxx.team.    | A    | 60            | 10.60.0.29                                                                       |
+| vhvretyo2csnc-ha.tyo2.sap.xxxxx.team.    | A    | 60            | 10.60.0.45                                                                       |
 | abc.example.com.                      | A    | 60            | 34.47.194.181                                                                          |
 
 ### DNS VM
 ```yaml
 Instance Name: bind-dns
 Internal IPs: 10.10.0.10
-Zones: sap.cars24.team, tyo2.sap.cars24.team
+Zones: sap.xxxxx.team, tyo2.sap.xxxxx.team
 
 Instance Name: bind-dns-2
 Internal IPs: 10.10.0.10
-Zones: sap.cars24.team, tyo2.sap.cars24.team
+Zones: sap.xxxxx.team, tyo2.sap.xxxxx.team
 ```
 
 ---
@@ -152,8 +152,8 @@ Zones: sap.cars24.team, tyo2.sap.cars24.team
 ### DNS Zone transfer configuration
 
 ```yaml
-Zone name 1: tyo2.sap.cars24.team
-Zone name 2: sap.cars24.team
+Zone name 1: tyo2.sap.xxxxx.team
+Zone name 2: sap.xxxxx.team
 ```
 
 ### Bind9 Zone Config
@@ -179,17 +179,17 @@ options {
 // Consider adding the 1918 zones here, if they are not used in your
 // organization
 //include "/etc/bind/zones.rfc1918";
-zone "sap.cars24.team" {
+zone "sap.xxxxx.team" {
     type slave;
-    file "/var/cache/bind/sap.cars24.team.db";
+    file "/var/cache/bind/sap.xxxxx.team.db";
     masters { 10.60.0.13; 10.60.0.29; 10.60.0.45; };
     allow-notify { 10.60.0.13; 10.60.0.29; 10.60.0.45; };
     allow-query { any; };
 };
 
-zone "tyo2.sap.cars24.team" {
+zone "tyo2.sap.xxxxx.team" {
     type slave;
-    file "/var/cache/bind/tyo2.sap.cars24.team.db";
+    file "/var/cache/bind/tyo2.sap.xxxxx.team.db";
     masters { 10.60.0.13; 10.60.0.29; 10.60.0.45; };
     allow-notify { 10.60.0.13; 10.60.0.29; 10.60.0.45; };
     allow-query { any; };
@@ -200,8 +200,8 @@ zone "tyo2.sap.cars24.team" {
 ```bash
 systemctl restart bind9
 systemctl status bind9
-dig @10.60.0.13 sap.cars24.team AXFR
-dig @127.0.0.1 vhvredclcc01.sap.cars24.team.
+dig @10.60.0.13 sap.xxxxx.team AXFR
+dig @127.0.0.1 vhvredclcc01.sap.xxxxx.team.
 ls /var/cache/bind/
 nc -vz 10.60.0.13 53
 ```
@@ -301,7 +301,7 @@ docker ps
 - Connect to VPN from corporate/personal network
 - Login using keys or identity provider.
 - DNS resolves SAP domains via 10.10.0.10 / 10.10.0.20
-- Access `abc.sap.cars24.team`, `def.sap.cars24.team`
+- Access `abc.sap.xxxxx.team`, `def.sap.xxxxx.team`
 - Access internal SAP services securely
 
 ---
