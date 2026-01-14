@@ -148,7 +148,7 @@ credentials:
 serviceAccount:
   server:
     annotations:
-      eks.amazonaws.com/role-arn: "arn:aws:iam::547580490325:role/Velero-testing"
+      eks.amazonaws.com/role-arn: "arn:aws:iam::xxxxxxxx:role/Velero-testing"
 ```
 
 {: .note}

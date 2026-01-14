@@ -1,18 +1,18 @@
 ---
-title: Secure Connectivity to SAP HANA Private Cloud via Cars24 GCP Project
-layout: home
-parent: How we have saved 40 Lac per year for our client
-grand_parent: Google Cloud Platform
-nav_order: 1
-permalink: /docs/devops/Cloud/Gcp/Secure-Connectivity-to-SAP-HANA-Private-Cloud-via-Cars24-GCP-Project
-description: Documentation for Secure Connectivity to SAP HANA Private Cloud via Cars24 GCP Project.
+# title: Secure Connectivity to SAP HANA Private Cloud via xxxxx GCP Project
+# layout: home
+# parent: How we have saved 40 Lac per year for our client
+# grand_parent: Google Cloud Platform
+# nav_order: 1
+# permalink: /docs/devops/Cloud/Gcp/Secure-Connectivity-to-SAP-HANA-Private-Cloud-via-xxxxx-GCP-Project
+# description: Documentation for Secure Connectivity to SAP HANA Private Cloud via xxxxx GCP Project.
 ---
 
-# Secure Connectivity to SAP HANA Private Cloud via Cars24 GCP Project
+# Secure Connectivity to SAP HANA Private Cloud via xxxxx GCP Project
 
 
 ## 🚀 Overview
-This proof-of-concept (PoC) document outlines Solution 2 for securely accessing SAP HANA Private Cloud (PCE) resources through the Cars24 GCP Project, leveraging self-hosted VPN and DNS for centralized control and ease of management.
+This proof-of-concept (PoC) document outlines Solution 2 for securely accessing SAP HANA Private Cloud (PCE) resources through the xxxxx GCP Project, leveraging self-hosted VPN and DNS for centralized control and ease of management.
 
 The solution enables both on-premise (office) and remote users to securely access SAP services over a private network, without exposing the SAP HANA environment publicly.
 
@@ -23,13 +23,13 @@ The solution enables both on-premise (office) and remote users to securely acces
 
 | Component             | Description                                                                                               | Internal Users | Remote Users | GCP Project | SAP HANA PCE | Self-Hosted VPN | Bind9 DNS | VPC Peering                 |
 |-----------------------|-----------------------------------------------------------------------------------------------------------|----------------|--------------|-------------|--------------|-----------------|-----------|-----------------------------|
-| **Cars24 Office** | Internal users (user1, user2) who access SAP via VPN                                                      | Yes            | No           | No          | No           | No              | Yes       | No                          |
+| **xxxxx Office** | Internal users (user1, user2) who access SAP via VPN                                                      | Yes            | No           | No          | No           | No              | Yes       | No                          |
 | **Remote User** | External users (e.g., support or consultants) connecting via VPN                                          | No             | Yes          | No          | No           | No              | Yes       | No                          |
-| **Cars24 GCP Project**| Acts as a transit hub and houses DNS + VPN services                                                      | Yes            | Yes          | Yes         | No           | Yes             | Yes       | Connects to SAP HANA PCE    |
-| **SAP HANA PCE** | Private SAP environment with DNS cluster and application stack                                            | Yes            | Yes          | No          | Yes          | No              | Yes       | Connected to Cars24 GCP     |
+| **xxxxx GCP Project**| Acts as a transit hub and houses DNS + VPN services                                                      | Yes            | Yes          | Yes         | No           | Yes             | Yes       | Connects to SAP HANA PCE    |
+| **SAP HANA PCE** | Private SAP environment with DNS cluster and application stack                                            | Yes            | Yes          | No          | Yes          | No              | Yes       | Connected to xxxxx GCP     |
 | **Self-Hosted VPN** | Runs on a GCP VM to handle all client-to-site VPN connections                                            | Yes            | Yes          | Yes         | No           | Yes             | No        | No                          |
 | **Bind9 DNS** | Custom DNS servers configured for internal name resolution                                              | Yes            | Yes          | Yes         | Yes          | No              | Yes       | Used by both GCP & SAP PCE |
-| **VPC Peering** | Connects Cars24 GCP with SAP HANA PCE (10.0.0.0/16 ↔ 10.1.0.0/16)                                        | Yes            | Yes          | Yes         | Yes          | No              | Yes       | Yes                         |
+| **VPC Peering** | Connects xxxxx GCP with SAP HANA PCE (10.0.0.0/16 ↔ 10.1.0.0/16)                                        | Yes            | Yes          | Yes         | Yes          | No              | Yes       | Yes                         |
 
 ---
 
@@ -39,11 +39,11 @@ The solution enables both on-premise (office) and remote users to securely acces
 
 ✅ Establish **VPC Peering** between GCP and SAP PCE networks
 
-✅ Centralize **DNS resolution** in GCP for internal SAP domains (`*.sap.cars24.team`)
+✅ Centralize **DNS resolution** in GCP for internal SAP domains (`*.sap.xxxxx.team`)
 
 ✅ Isolate access—users get **access only via VPN**, nothing exposed publicly
 
-✅ Test domain resolution and service access (e.g., `abc.sap.cars24.team`, `def.sap.cars24.team`)
+✅ Test domain resolution and service access (e.g., `abc.sap.xxxxx.team`, `def.sap.xxxxx.team`)
 
 
 
@@ -51,7 +51,7 @@ The solution enables both on-premise (office) and remote users to securely acces
 **Step-by-Step Breakdown**
 
 ### 1. VPN Setup (Client-to-Site)
-Users (office or remote) connect to a **Self-Hosted VPN** running in the Cars24 GCP project.
+Users (office or remote) connect to a **Self-Hosted VPN** running in the xxxxx GCP project.
 
 ### 2. DNS Resolution
 VPN clients receive the internal DNS IPs (e.g., `10.0.0.10`, `10.0.0.20`) via configuration. These DNS servers are configured using `Bind9` to resolve SAP internal domains.
@@ -62,9 +62,9 @@ The GCP VPC (10.0.0.0/16) is peered with the SAP PCE VPC (10.1.0.0/16), allowing
 ### 4. Service Access
 Once connected, users can access internal SAP services like:
 
-* `abc.sap.cars24.team`
+* `abc.sap.xxxxx.team`
 
-* `def.sap.cars24.team` These resolve via DNS and route through the peered VPC.
+* `def.sap.xxxxx.team` These resolve via DNS and route through the peered VPC.
 
 
 
@@ -87,7 +87,7 @@ Once connected, users can access internal SAP services like:
 
 * Custom zones for:
 
-   * `sap.cars24.team`
+   * `sap.xxxxx.team`
 
    * Reverse DNS (PTR) for SAP IP ranges
 
@@ -101,7 +101,7 @@ Once connected, users can access internal SAP services like:
 | Test Description                                  | Expected Result                                            |
 |---------------------------------------------------|------------------------------------------------------------|
 | VPN client connects                               | Assigned IP from 10.0.0.0/16                             |
-| DNS lookup for abc.sap.cars24.team                | Resolves to private SAP IP (10.1.x.x)                      |
+| DNS lookup for abc.sap.xxxxx.team                | Resolves to private SAP IP (10.1.x.x)                      |
 | Access SAP HANA dashboard via browser             | UI loads successfully                                      |
 | DNS lookup from VPN client                        | Uses 10.0.0.10/10.0.0.20 successfully                      |
 

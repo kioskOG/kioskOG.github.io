@@ -357,16 +357,16 @@ terraform {
     bucket   = "terraform-state-lock-poc"
     key      = "demo.tfstate"
     region   = "me-jeddah-1"
-    endpoint = "https://axegchrnyazu.compat.objectstorage.me-jeddah-1.oraclecloud.com"
+    endpoint = "https://xxxxxxxxxxx.compat.objectstorage.me-jeddah-1.oraclecloud.com"
     #shared_credentials_file     = "~/.aws/credentials"
-    access_key = "b5600d5655b4f95e9e8f3c9a16fe5d67c6757aa6"
-    secret_key = "a2ne3tJDVM2yFrtYW/HZeTGv5b5/VS8z9y+xiB5CEVU="
+    access_key = "xxxxxxxxxxx"
+    secret_key = "xxxxxxxxxxx"
     profile = "default"
     skip_region_validation      = true
     skip_credentials_validation = true
     skip_metadata_api_check     = true
     force_path_style            = true
-    dynamodb_endpoint = "https://dgbkqtv6jnxw4bdhbahcnmnvjq.apigateway.me-jeddah-1.oci.customer-oci.com"
+    dynamodb_endpoint = "https://xxxxxxxxxxxxx.apigateway.me-jeddah-1.oci.customer-oci.com"
     dynamodb_table = "terraform-state-lock-poc"
   }
 }
