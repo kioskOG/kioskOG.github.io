@@ -1,0 +1,8 @@
+---
+layout: none
+permalink: /assets/search-index.json
+---
+[{% assign all_docs = site.pages | concat: site.documents %}{% assign first = true %}{% for p in all_docs %}{% if p.title and p.title != "" and p.url and p.layout and p.layout != "none" %}{% unless p.url contains '/assets/' or p.url contains '.json' or p.url contains '.xml' or p.url contains '.txt' %}{% if first == false %},{% endif %}{% assign first = false %}
+{"id":{{ forloop.index | jsonify }},"title":{{ p.title | jsonify }},"url":{{ p.url | relative_url | jsonify }},"content":{{ p.content | strip_html | normalize_whitespace | truncatewords: 80 | jsonify }},"tags":{% if p.tags %}{{ p.tags | join: " " | jsonify }}{% else %}""{% endif %},"parent":{% if p.parent %}{{ p.parent | jsonify }}{% else %}""{% endif %},"section":{% if p.hero_tag %}{{ p.hero_tag | jsonify }}{% elsif p.parent %}{{ p.parent | jsonify }}{% else %}"Docs"{% endif %}}{% endunless %}{% endif %}{% endfor %}
+
+]

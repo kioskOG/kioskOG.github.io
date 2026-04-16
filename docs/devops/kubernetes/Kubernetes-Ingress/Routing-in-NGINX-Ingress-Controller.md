@@ -1,6 +1,6 @@
 ---
 title: Routing in NGINX Ingress Controller
-layout: default
+layout: doc-page
 parent: Understanding Ingress Controllers
 grand_parent: Kubernetes Projects
 nav_order: 2.5

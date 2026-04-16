@@ -1,6 +1,6 @@
 ---
 title: Netbird Setup
-layout: home
+layout: doc-page
 parent: Docker Projects
 nav_order: 1
 description: A setup guide for Netbird VPN Server

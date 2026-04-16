@@ -1,6 +1,6 @@
 ---
 title: Grafana password reset
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 6
 permalink: /docs/devops/kubernetes/Grafana-password-reset/

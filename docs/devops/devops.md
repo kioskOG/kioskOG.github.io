@@ -3,6 +3,7 @@ layout: full-bleed-glass
 title: DevOps | Jatin Sharma
 nav_order: 3
 permalink: /docs/devops/
+hero_tag: DevOps Projects
 hero_title: "⚙️ DevOps Projects"
 hero_intro: >
   <p>An overview of Docker, Kubernetes, Linux, Python, Monitoring, Cloud, and System Design projects in this documentation.</p>
@@ -260,7 +261,7 @@ social_html: |
 
 <!-- ---
 title: Devops
-layout: full-bleed #home
+layout: full-bleed-glass
 nav_order: 3
 permalink: /docs/devops/
 ---

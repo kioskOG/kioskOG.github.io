@@ -1,6 +1,6 @@
 ---
 title: Minio Introduction
-layout: home
+layout: doc-page
 parent: Docker Projects
 nav_order: 9
 description: Minio Introduction

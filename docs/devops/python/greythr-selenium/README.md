@@ -1,6 +1,6 @@
 ---
 title: Greythr Attendance Automation
-layout: home
+layout: doc-page
 parent: python
 nav_order: 3
 permalink: /docs/devops/python/greythr-selenium/README/

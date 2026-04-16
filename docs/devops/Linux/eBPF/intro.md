@@ -1,6 +1,6 @@
 ---
 title: What is eBPF and Why is it Important?
-layout: home
+layout: doc-page
 parent: Linux Projects
 nav_order: 5
 permalink: /docs/devops/Linux/eBPF/

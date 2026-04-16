@@ -1,6 +1,6 @@
 ---
 title: Wazuh Setup
-layout: home
+layout: doc-page
 parent: Docker Projects
 nav_order: 7
 description: A setup guide for Wazuh

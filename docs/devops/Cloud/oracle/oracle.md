@@ -1,6 +1,6 @@
 ---
 title: oracle
-layout: home
+layout: doc-page
 parent: Cloud Projects
 nav_order: 1
 permalink: /docs/devops/Cloud/oracle/oracle/

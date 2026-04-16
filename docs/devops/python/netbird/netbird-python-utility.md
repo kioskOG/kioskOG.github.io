@@ -1,6 +1,6 @@
 ---
 title: Netbird Management Utility
-layout: home
+layout: doc-page
 parent: python
 nav_order: 2
 permalink: /docs/devops/python/netbird-python-utility/

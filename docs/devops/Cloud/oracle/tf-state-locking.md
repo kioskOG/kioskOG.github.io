@@ -1,6 +1,6 @@
 ---
 title: Terraform State File Locking
-layout: home
+layout: doc-page
 parent: oracle
 grand_parent: Cloud Projects
 nav_order: 1

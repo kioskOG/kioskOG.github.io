@@ -1,6 +1,6 @@
 ---
 title: ECS to EKS Migration
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 10
 permalink: /docs/devops/kubernetes/AWS-ECS-to-EKS-Migration/

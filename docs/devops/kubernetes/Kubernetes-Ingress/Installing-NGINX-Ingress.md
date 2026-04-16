@@ -1,6 +1,6 @@
 ---
 title: Installing NGINX Ingress
-layout: default
+layout: doc-page
 parent: Understanding Ingress Controllers
 grand_parent: Kubernetes Projects
 ancestor: Kubernetes Projects

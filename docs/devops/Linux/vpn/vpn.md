@@ -1,6 +1,6 @@
 ---
 title: VPN
-layout: home
+layout: doc-page
 parent: Linux Projects
 nav_order: 3
 permalink: /docs/devops/Linux/vpn/vpn/

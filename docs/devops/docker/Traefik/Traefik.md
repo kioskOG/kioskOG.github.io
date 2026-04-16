@@ -1,6 +1,6 @@
 ---
 title: Traefik Setup
-layout: home
+layout: doc-page
 parent: Docker Projects
 nav_order: 2
 description: A setup guide for Traefik with Docker and Nginx

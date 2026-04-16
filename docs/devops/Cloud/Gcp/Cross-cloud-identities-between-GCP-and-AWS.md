@@ -1,6 +1,6 @@
 ---
 title: Accessing AWS Services from GKE Pods using Workload Identity without AWS OIDC
-layout: home
+layout: doc-page
 parent: Google Cloud Platform
 grand_parent: Cloud Projects
 nav_order: 3

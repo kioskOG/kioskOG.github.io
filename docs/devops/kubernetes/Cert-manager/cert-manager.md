@@ -1,6 +1,6 @@
 ---
 title: Certmanager
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 3
 permalink: /docs/devops/kubernetes/Cert-manager/

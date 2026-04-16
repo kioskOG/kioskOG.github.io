@@ -1,6 +1,6 @@
 ---
 title: 🐛 Debugging Containers in Kubernetes
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 5
 permalink: /docs/devops/kubernetes/debug-containers/

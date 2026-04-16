@@ -1,6 +1,6 @@
 ---
 title: Vault Setup
-layout: home
+layout: doc-page
 parent: Docker Projects
 nav_order: 6
 description: A setup guide for Vault

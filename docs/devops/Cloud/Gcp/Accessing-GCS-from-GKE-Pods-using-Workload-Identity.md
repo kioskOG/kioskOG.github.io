@@ -1,6 +1,6 @@
 ---
 title: Accessing GCS from GKE Pods using Workload Identity
-layout: home
+layout: doc-page
 parent: Google Cloud Platform
 grand_parent: Cloud Projects
 nav_order: 2

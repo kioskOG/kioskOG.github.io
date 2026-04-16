@@ -1,6 +1,6 @@
 ---
 title: System Design Roadmap
-layout: home
+layout: doc-page
 parent: Introduction to System Design
 grand_parent: Devops
 nav_order: 1

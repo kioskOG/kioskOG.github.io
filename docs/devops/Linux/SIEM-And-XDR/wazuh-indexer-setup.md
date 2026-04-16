@@ -1,6 +1,6 @@
 ---
 title: Wazuh Indexer Installation
-layout: home
+layout: doc-page
 parent: Wazuh
 grand_parent: Linux Projects
 nav_order: 1

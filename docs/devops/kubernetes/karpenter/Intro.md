@@ -1,6 +1,6 @@
 ---
 title: Karpenter
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 13
 permalink: /docs/devops/kubernetes/karpenter/

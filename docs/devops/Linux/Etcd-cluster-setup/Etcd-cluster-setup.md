@@ -1,6 +1,6 @@
 ---
 title: 🧩 Setting Up a Highly Available 3-Node etcd Cluster on Ubuntu
-layout: home
+layout: doc-page
 parent: Linux Projects
 nav_order: 7
 permalink: /docs/devops/Linux/Etcd-cluster-setup/Etcd-cluster-setup/

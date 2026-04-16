@@ -1,6 +1,6 @@
 ---
 title: Knative Developer Overview
-layout: home
+layout: doc-page
 parent: Knative
 grand_parent: Kubernetes Projects
 nav_order: 1

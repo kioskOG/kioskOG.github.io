@@ -1,6 +1,6 @@
 ---
 title: Traefik
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 2
 permalink: /docs/devops/kubernetes/Traefik/

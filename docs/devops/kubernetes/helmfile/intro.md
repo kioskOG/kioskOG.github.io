@@ -1,6 +1,6 @@
 ---
 title: Helmfile
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 14
 permalink: /docs/devops/kubernetes/helmfile/

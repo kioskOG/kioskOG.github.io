@@ -1,6 +1,6 @@
 ---
 title: Docker-Based Monitoring Setup with Prometheus, Grafana, and cAdvisor
-layout: home
+layout: doc-page
 parent: Docker Projects
 nav_order: 10
 description: A setup guide for Vault

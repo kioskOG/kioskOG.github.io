@@ -1,6 +1,6 @@
 ---
 title: Docker Container Monitoring Script
-layout: home
+layout: doc-page
 parent: python
 nav_order: 1
 permalink: /docs/devops/python/docker-container-memory-cpu-monitoring/

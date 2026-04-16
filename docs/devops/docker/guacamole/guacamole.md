@@ -1,6 +1,6 @@
 ---
 title: Apache Guacamole with HAProxy
-layout: home
+layout: doc-page
 parent: Docker Projects
 nav_order: 10
 description: Apache Guacamole with HAProxy

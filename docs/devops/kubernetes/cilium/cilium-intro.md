@@ -1,6 +1,6 @@
 ---
 title: Introduction to Cilium & Hubble
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 7
 permalink: /docs/devops/kubernetes/cilium/cilium-intro/

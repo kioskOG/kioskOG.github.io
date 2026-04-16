@@ -1,6 +1,6 @@
 ---
 title: How we have saved 40 Lac per year for our client
-layout: home
+layout: doc-page
 parent: Google Cloud Platform
 grand_parent: Cloud Projects
 nav_order: 1

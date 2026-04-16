@@ -1,6 +1,6 @@
 ---
 title: AWS CloudWatch Logging with Fluent Bit on Kubernetes
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 15
 permalink: /docs/devops/kubernetes/eks-logs-into-cloudwatch-using-fluentbit/

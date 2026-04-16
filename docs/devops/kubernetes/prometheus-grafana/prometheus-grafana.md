@@ -1,6 +1,6 @@
 ---
 title: Prometheus & Grafana
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 8
 permalink: /docs/devops/kubernetes/prometheus-grafana/
