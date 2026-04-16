@@ -1,15 +1,12 @@
-<div style="text-align:center; 
-    background: linear-gradient(270deg, #00c6ff, #9c27b0, #ff0080);
-    background-size: 600% 600%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientMove 8s ease infinite;">
+<!-- Terminal header — matches homepage hero palette (#3b82f6 blue → #10b981 green) -->
+<div align="center">
 
-  <h1>🌟 Infrastructure Repo – Centralized Helm CD 🌟</h1>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=22&duration=3500&pause=1000&color=3B82F6&center=true&vCenter=true&width=700&lines=jatin%40devops%3A~%24+whoami;DevOps+%26+Platform+Engineer;jatin%40devops%3A~%24+cat+knowledge-base.md;100%2B+real-world+production+guides..." alt="Terminal typing animation" />
 
-  <a href="https://github.com/kioskOG/kioskOG.github.io">
-    <img src="https://readme-typing-svg.demolab.com?font=italic&weight=700&size=18&duration=4000&pause=1000&color=FFD700&width=600&lines=+--+Personal+DevOps+Knowledge+Base+Documentation+--" alt="Typing SVG" />
-  </a>
+<br/>
+
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=500&size=15&duration=4000&pause=800&color=10B981&center=true&vCenter=true&width=700&lines=Kubernetes+%E2%80%A2+Docker+%E2%80%A2+Linux+%E2%80%A2+AWS+%E2%80%A2+GCP+%E2%80%A2+Monitoring+%E2%80%A2+SIEM+%E2%80%A2+Python;Infrastructure+at+scale+%E2%80%94+documented+from+production." alt="Tech stack typing" />
+
 </div>
 
 
@@ -17,8 +14,6 @@
 <div align="center">
 
 # [kioskOG.github.io](https://blog.jatinog.com/) 🚀
-
-**Personal DevOps Knowledge Base & Portfolio Documentation Site**
 
 [![GitHub Pages](https://img.shields.io/badge/Deployed%20on-GitHub%20Pages-222222?logo=github)](https://kioskOG.github.io)
 [![Jekyll](https://img.shields.io/badge/Built%20with-Jekyll-CC0000?logo=jekyll)](https://jekyllrb.com)
