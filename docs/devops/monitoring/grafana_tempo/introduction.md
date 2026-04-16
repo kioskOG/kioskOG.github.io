@@ -1,6 +1,6 @@
 ---
 title: Introduction to Distributed Tracing & Grafana Tempo
-layout: home
+layout: doc-page
 parent: monitoring
 nav_order: 2
 permalink: /docs/devops/monitoring/grafana_tempo/

@@ -1,6 +1,6 @@
 ---
 title: Daily Docker Container Usage Summary Script
-layout: home
+layout: doc-page
 parent: Docker Container Monitoring Script
 grand_parent: python
 nav_order: 1

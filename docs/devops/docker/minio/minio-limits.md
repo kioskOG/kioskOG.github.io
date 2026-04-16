@@ -1,6 +1,6 @@
 ---
 title: Minio limits
-layout: home
+layout: doc-page
 parent: Minio Introduction
 grand_parent: Docker Projects
 nav_order: 1

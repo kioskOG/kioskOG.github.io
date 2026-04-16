@@ -1,6 +1,6 @@
 ---
 title: AWS Network Firewall Egress Filtering with Stateful Suricata Rules – Asymmetric Routing Trap
-layout: home
+layout: doc-page
 parent: AWS Cloud Platform
 grand_parent: Cloud Projects
 nav_order: 1

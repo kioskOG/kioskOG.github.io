@@ -1,6 +1,6 @@
 ---
 title: Understanding Ingress Controllers
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 17
 permalink: /docs/devops/kubernetes/Understanding-Ingress-Controllers/

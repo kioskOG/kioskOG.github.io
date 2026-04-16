@@ -1,6 +1,6 @@
 ---
 title: Kubernetes Service Traffic Routing & Traffic Policies
-layout: home
+layout: doc-page
 parent: Kubernetes NodePort and iptables rules
 nav_order: 1
 grand_parent: Kubernetes Projects

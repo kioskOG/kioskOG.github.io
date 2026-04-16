@@ -1,6 +1,6 @@
 ---
 title: 🔁 High Availability HAProxy Failover Setup with Keepalived and AWS Elastic IP
-layout: home
+layout: doc-page
 parent: Linux Projects
 nav_order: 8
 permalink: /docs/devops/Linux/HAProxy-cluster-setup/HAProxy-cluster-setup/

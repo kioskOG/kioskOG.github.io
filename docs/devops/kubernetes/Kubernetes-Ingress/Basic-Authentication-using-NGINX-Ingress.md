@@ -1,6 +1,6 @@
 ---
 title: Basic Authentication using NGINX Ingress
-layout: home
+layout: doc-page
 parent: Understanding Ingress Controllers
 grand_parent: Kubernetes Projects
 nav_order: 3.5

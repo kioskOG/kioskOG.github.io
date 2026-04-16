@@ -1,6 +1,6 @@
 ---
 title: Setting Up Grafana Tempo via Docker
-layout: home
+layout: doc-page
 parent: Introduction to Distributed Tracing & Grafana Tempo
 grand_parent: monitoring
 nav_order: 1

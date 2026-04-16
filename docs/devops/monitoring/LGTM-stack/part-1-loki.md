@@ -1,6 +1,6 @@
 ---
 title: Grafana Loki
-layout: home
+layout: doc-page
 parent: Taming the Digital Wilds with Grafana's LGTM Stack
 grand_parent: monitoring
 nav_order: 1

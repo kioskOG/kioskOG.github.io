@@ -1,6 +1,6 @@
 ---
 title: Setting up IPVS Load Balancer with NGINX Application Servers
-layout: home
+layout: doc-page
 parent: Quick Introduction to Linux iptables
 nav_order: 1
 grand_parent: Linux Projects

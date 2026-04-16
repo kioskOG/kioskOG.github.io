@@ -1,6 +1,6 @@
 ---
 title: Monitoring AWS CloudWatch Logs Using Wazuh
-layout: default
+layout: doc-page
 parent: Wazuh
 grand_parent: Linux Projects
 nav_order: 10

@@ -1,6 +1,6 @@
 ---
 title: Google Cloud Platform
-layout: home
+layout: doc-page
 parent: Cloud Projects
 nav_order: 1
 permalink: /docs/devops/Cloud/Gcp/gcp/

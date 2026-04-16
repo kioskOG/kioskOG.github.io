@@ -1,6 +1,6 @@
 ---
 title: Netbird Windows Peer Cleaner
-layout: home
+layout: doc-page
 parent: Netbird Setup
 nav_order: 1
 grand_parent: Docker Projects

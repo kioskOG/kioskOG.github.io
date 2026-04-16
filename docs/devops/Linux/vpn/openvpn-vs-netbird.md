@@ -1,6 +1,6 @@
 ---
 title: OpenVPN vs NetBird
-layout: home
+layout: doc-page
 grand_parent: Linux Projects
 parent: VPN
 nav_order: 1

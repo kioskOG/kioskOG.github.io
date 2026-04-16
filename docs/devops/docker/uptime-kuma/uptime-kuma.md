@@ -1,6 +1,6 @@
 ---
 title: Uptime Kuma
-layout: home
+layout: doc-page
 parent: Docker Projects
 nav_order: 3
 permalink: /docs/devops/docker/uptime-kuma/

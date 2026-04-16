@@ -1,6 +1,6 @@
 ---
 title: Knative Serving Monitoring
-layout: home
+layout: doc-page
 parent: Knative
 grand_parent: Kubernetes Projects
 nav_order: 2

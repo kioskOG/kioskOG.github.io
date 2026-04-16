@@ -1,6 +1,6 @@
 ---
 title: Cilium Monitoring using Prometheus & Grafana
-layout: home
+layout: doc-page
 parent: Introduction to Cilium & Hubble
 grand_parent: Kubernetes Projects
 nav_order: 2

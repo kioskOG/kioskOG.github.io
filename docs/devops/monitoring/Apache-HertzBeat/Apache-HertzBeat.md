@@ -1,6 +1,6 @@
 ---
 title: Apache HertzBeat Quickstart
-layout: home
+layout: doc-page
 parent: monitoring
 nav_order: 1
 permalink: /docs/devops/monitoring/apache-hertzbeat/

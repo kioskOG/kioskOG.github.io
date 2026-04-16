@@ -1,0 +1,590 @@
+---
+# doc-page.html — Article / tutorial reading layout
+# Used by all individual doc pages under docs/devops/
+# Renders markdown content with the same nav, footer, and design system as the homepage.
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ page.title | default: site.title }} — kioskOG</title>
+  <meta name="description" content="{{ page.description | default: site.description }}" />
+  <meta name="author" content="Jatin Sharma" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#3b82f6" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <!-- Shared Portfolio CSS -->
+  <link rel="stylesheet" href="{{ '/assets/portfolio.css' | relative_url }}" />
+
+  <style>
+  /* ---- Doc-page specific: article prose reading styles ---- */
+  .doc-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 0;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 24px;
+    min-height: calc(100vh - var(--nav-h) - 200px);
+  }
+
+  /* Sidebar TOC */
+  .doc-sidebar {
+    position: sticky;
+    top: calc(var(--nav-h) + 24px);
+    height: calc(100vh - var(--nav-h) - 48px);
+    overflow-y: auto;
+    padding: 24px 20px 24px 0;
+    border-right: 1px solid var(--border);
+    align-self: start;
+  }
+  .doc-sidebar::-webkit-scrollbar { width: 4px; }
+  .doc-sidebar::-webkit-scrollbar-track { background: transparent; }
+  .doc-sidebar::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
+
+  .sidebar-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .sidebar-back {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    background: rgba(59,130,246,0.07);
+    border: 1px solid rgba(59,130,246,0.15);
+    color: var(--accent-blue);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 20px;
+    transition: background 0.15s, transform 0.15s;
+  }
+  .sidebar-back:hover {
+    background: rgba(59,130,246,0.12);
+    transform: translateX(-2px);
+  }
+  .sidebar-toc { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+  .sidebar-toc a {
+    display: block;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s, background 0.15s;
+    line-height: 1.4;
+  }
+  .sidebar-toc a:hover {
+    color: var(--accent-blue);
+    background: rgba(59,130,246,0.07);
+  }
+  .sidebar-toc .toc-h3 { padding-left: 20px; font-size: 0.78rem; }
+  .sidebar-toc .toc-h4 { padding-left: 32px; font-size: 0.75rem; }
+
+  /* Main article */
+  .doc-article {
+    padding: 36px 0 80px 40px;
+    min-width: 0;
+  }
+
+  /* Breadcrumb */
+  .doc-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .doc-breadcrumb a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .doc-breadcrumb a:hover { color: var(--accent-blue); }
+  .doc-breadcrumb .sep { opacity: 0.4; }
+  .doc-breadcrumb .current { color: var(--text-body); font-weight: 500; }
+
+  /* Article title */
+  .doc-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 800;
+    color: var(--text-heading);
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .doc-meta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgba(59,130,246,0.07);
+    border: 1px solid rgba(59,130,246,0.14);
+    color: var(--accent-blue);
+    font-weight: 600;
+    font-size: 0.75rem;
+  }
+
+  /* Prose / markdown content */
+  .doc-prose {
+    color: var(--text-body);
+    line-height: 1.8;
+    font-size: 0.975rem;
+  }
+  .doc-prose h1, .doc-prose h2, .doc-prose h3,
+  .doc-prose h4, .doc-prose h5, .doc-prose h6 {
+    color: var(--text-heading);
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 2em 0 0.6em;
+    scroll-margin-top: calc(var(--nav-h) + 16px);
+  }
+  .doc-prose h1 { font-size: 1.9rem; }
+  .doc-prose h2 {
+    font-size: 1.35rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .doc-prose h2::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: var(--grad-primary);
+    border-radius: 2px;
+    opacity: 0.20;
+  }
+  .doc-prose h3 { font-size: 1.1rem; }
+  .doc-prose h4 { font-size: 1rem; color: var(--text-body); }
+
+  .doc-prose p { margin-bottom: 1.1em; }
+
+  .doc-prose a {
+    color: var(--accent-blue);
+    text-decoration: underline;
+    text-decoration-color: rgba(59,130,246,0.3);
+    text-underline-offset: 2px;
+    transition: color 0.15s, text-decoration-color 0.15s;
+  }
+  .doc-prose a:hover {
+    color: var(--accent-green);
+    text-decoration-color: var(--accent-green);
+  }
+
+  .doc-prose strong { color: var(--text-heading); font-weight: 700; }
+  .doc-prose em { color: var(--accent-purple); font-style: italic; }
+
+  .doc-prose ul, .doc-prose ol {
+    padding-left: 1.5em;
+    margin-bottom: 1.1em;
+  }
+  .doc-prose li { margin-bottom: 4px; }
+  .doc-prose li > ul, .doc-prose li > ol { margin-bottom: 0; margin-top: 4px; }
+
+  .doc-prose blockquote {
+    margin: 1.4em 0;
+    padding: 14px 18px;
+    border-left: 3px solid var(--accent-blue);
+    background: rgba(59,130,246,0.05);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .doc-prose blockquote p { margin: 0; }
+
+  /* Inline code */
+  .doc-prose code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.845em;
+    padding: 2px 7px;
+    border-radius: 5px;
+    background: rgba(15,23,42,0.07);
+    border: 1px solid rgba(15,23,42,0.09);
+    color: #e11d48;
+    white-space: nowrap;
+  }
+
+  /* Code blocks */
+  .doc-prose pre {
+    margin: 1.4em 0;
+    border-radius: var(--radius-md);
+    background: #0f172a;
+    border: 1px solid rgba(255,255,255,0.07);
+    box-shadow: var(--shadow-md);
+    overflow-x: auto;
+    position: relative;
+  }
+  .doc-prose pre code {
+    display: block;
+    padding: 20px 22px;
+    font-size: 0.855rem;
+    line-height: 1.7;
+    background: none;
+    border: none;
+    color: #e2e8f0;
+    white-space: pre;
+    border-radius: 0;
+  }
+
+  /* Tables */
+  .doc-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.4em 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    font-size: 0.9rem;
+  }
+  .doc-prose th {
+    background: linear-gradient(90deg, rgba(59,130,246,0.12), rgba(16,185,129,0.08));
+    color: var(--text-heading);
+    font-weight: 700;
+    padding: 11px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .doc-prose td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-body);
+  }
+  .doc-prose tr:last-child td { border-bottom: none; }
+  .doc-prose tr:nth-child(even) td { background: rgba(248,250,252,0.6); }
+  .doc-prose tr:hover td { background: rgba(59,130,246,0.04); }
+
+  /* Images */
+  .doc-prose img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    margin: 1.2em 0;
+    border: 1px solid var(--border);
+  }
+
+  /* HR */
+  .doc-prose hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2em 0;
+  }
+
+  /* details/summary callouts */
+  .doc-prose details {
+    margin: 1em 0;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .doc-prose summary {
+    padding: 12px 16px;
+    background: rgba(59,130,246,0.05);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--accent-blue);
+    list-style: none;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .doc-prose summary:hover { background: rgba(59,130,246,0.10); }
+  .doc-prose details[open] summary { border-bottom: 1px solid var(--border); }
+  .doc-prose details > *:not(summary) { padding: 6px 16px 12px; }
+
+  /* Page nav (prev / next) */
+  .doc-page-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 36px;
+    margin-top: 40px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .doc-page-nav a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text-heading);
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+    max-width: 48%;
+  }
+  .doc-page-nav a:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .doc-page-nav .next { margin-left: auto; }
+
+  /* Mobile: hide sidebar, full width */
+  @media (max-width: 900px) {
+    .doc-layout { grid-template-columns: 1fr; }
+    .doc-sidebar { display: none; }
+    .doc-article { padding: 24px 0 60px; }
+  }
+  @media (max-width: 640px) {
+    .doc-article { padding: 16px 0 48px; }
+    .doc-page-nav a { max-width: 100%; }
+  }
+  </style>
+</head>
+<body>
+
+<div class="bg-blobs" aria-hidden="true"></div>
+
+<div class="page-wrap">
+
+  <!-- NAV -->
+  <nav class="site-nav" role="navigation" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="nav-logo" href="{{ '/' | relative_url }}">kioskOG /&gt;</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="{{ '/' | relative_url }}">Home</a></li>
+        <li><a href="{{ '/docs/about/' | relative_url }}" {% if page.url contains '/docs/about/' %}class="nav-active"{% endif %}>About</a></li>
+        <li><a href="{{ '/docs/devops/' | relative_url }}" {% if page.url contains '/docs/devops/' %}class="nav-active"{% endif %}>DevOps</a></li>
+        <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i class="fas fa-external-link-alt" style="font-size:0.7em;opacity:0.7"></i></a></li>
+        <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta">Get in Touch</a></li>
+      </ul>
+      <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
+        <i class="fas fa-search" aria-hidden="true"></i>
+        <span>Search</span>
+        <span class="search-kbd">⌘K</span>
+      </button>
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ARTICLE LAYOUT -->
+  <main>
+    <div class="doc-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="doc-sidebar" aria-label="Table of contents">
+        <a class="sidebar-back" href="{{ page.parent_url | default: '/docs/devops/' | relative_url }}">
+          <i class="fas fa-arrow-left" aria-hidden="true"></i>
+          {% if page.parent %}{{ page.parent }}{% else %}DevOps{% endif %}
+        </a>
+        <div class="sidebar-label">On this page</div>
+        <ul class="sidebar-toc" id="toc-list">
+          <!-- Populated by JS -->
+        </ul>
+      </aside>
+
+      <!-- ARTICLE -->
+      <article class="doc-article">
+
+        <!-- Breadcrumb -->
+        <nav class="doc-breadcrumb" aria-label="Breadcrumb">
+          <a href="{{ '/' | relative_url }}">Home</a>
+          <span class="sep">/</span>
+          <a href="{{ '/docs/devops/' | relative_url }}">DevOps</a>
+          {% if page.grand_parent %}
+            <span class="sep">/</span>
+            <a href="{{ page.grand_parent_url | default: '/docs/devops/' | relative_url }}">{{ page.grand_parent }}</a>
+          {% endif %}
+          {% if page.parent %}
+            <span class="sep">/</span>
+            <a href="{{ page.parent_url | default: '/docs/devops/' | relative_url }}">{{ page.parent }}</a>
+          {% endif %}
+          <span class="sep">/</span>
+          <span class="current">{{ page.title }}</span>
+        </nav>
+
+        <!-- Title -->
+        <h1 class="doc-title">{{ page.title }}</h1>
+
+        <!-- Meta -->
+        <div class="doc-meta">
+          {% if page.parent %}
+          <span class="doc-meta-pill"><i class="fas fa-folder" aria-hidden="true"></i> {{ page.parent }}</span>
+          {% endif %}
+          {% if page.nav_order %}
+          <span><i class="fas fa-list-ol" aria-hidden="true"></i> Part {{ page.nav_order }}</span>
+          {% endif %}
+          <span><i class="fas fa-book-open" aria-hidden="true"></i> DevOps Docs</span>
+        </div>
+
+        <!-- Content -->
+        <div class="doc-prose">
+          {{ content }}
+        </div>
+
+        <!-- Prev/Next page nav -->
+        <nav class="doc-page-nav" aria-label="Page navigation">
+          <a href="{{ '/docs/devops/' | relative_url }}">
+            <i class="fas fa-th-large" aria-hidden="true"></i> All DevOps Topics
+          </a>
+          <a class="next" href="{{ '/docs/about/contact/' | relative_url }}">
+            Get in Touch <i class="fas fa-envelope" aria-hidden="true"></i>
+          </a>
+        </nav>
+
+      </article>
+
+    </div>
+  </main>
+
+  <div class="divider"></div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer-main" role="contentinfo">
+    <div class="footer-inner-main">
+      <div class="footer-brand-main">
+        <a class="nav-logo" href="{{ '/' | relative_url }}">kioskOG /&gt;</a>
+        <p>DevOps Engineer &amp; Platform Architect building scalable cloud-native systems. Passionate about automation, observability, and GitOps.</p>
+        <div class="footer-socials-main">
+          <a class="social-pill" href="https://github.com/kioskOG" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+          <a class="social-pill" href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+          <a class="social-pill" href="mailto:jatinvashishtha110@gmail.com" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <div class="footer-col-main">
+        <h4>Quick Links</h4>
+        <ul class="footer-links-main">
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/docs/about/' | relative_url }}">About</a></li>
+          <li><a href="{{ '/docs/devops/' | relative_url }}">DevOps Docs</a></li>
+          <li><a href="{{ '/docs/about/contact/' | relative_url }}">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col-main">
+        <h4>Resources</h4>
+        <ul class="footer-links-main">
+          <li><a href="https://github.com/kioskOG" target="_blank" rel="noopener">GitHub Profile</a></li>
+          <li><a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="{{ '/search/' | relative_url }}">Search Docs</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom-main">
+      <span>&copy; <span id="year"></span> Jatin Sharma. All rights reserved.</span>
+      <span>Built with &#10084;&#65039; &amp; deployed on GitHub Pages</span>
+    </div>
+  </footer>
+
+</div><!-- .page-wrap -->
+
+<script>
+(function () {
+  'use strict';
+
+  // Year
+  var y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+
+  // Mobile nav toggle
+  var ham = document.getElementById('hamburger');
+  var navLinks = document.getElementById('nav-links');
+  if (ham && navLinks) {
+    ham.addEventListener('click', function () {
+      var open = navLinks.classList.toggle('open');
+      ham.setAttribute('aria-expanded', String(open));
+    });
+    navLinks.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+        ham.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  // Auto-generate TOC from article headings
+  var toc = document.getElementById('toc-list');
+  var prose = document.querySelector('.doc-prose');
+  if (toc && prose) {
+    var headings = prose.querySelectorAll('h2, h3, h4');
+    headings.forEach(function(h, i) {
+      // Ensure each heading has an id
+      if (!h.id) {
+        h.id = 'heading-' + i + '-' + h.textContent.trim()
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-|-$/g, '');
+      }
+      var li = document.createElement('li');
+      var cls = 'toc-' + h.tagName.toLowerCase();
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent.replace(/^#+\s*/, '').replace(/🚀|☸️|🐳|🐧|🐍|📊|☁️|🧩|⚙️|💡|✨|🤝|📂|✅|❌|🔑|📋|📌|🎯|🔧|🛠️|🌩|🖥️/g, '').trim();
+      li.className = cls;
+      li.appendChild(a);
+      toc.appendChild(li);
+    });
+    if (headings.length === 0) {
+      toc.parentElement.style.display = 'none';
+    }
+  }
+
+  // Highlight active TOC link on scroll
+  var tocLinks = toc ? toc.querySelectorAll('a') : [];
+  if (tocLinks.length > 0 && 'IntersectionObserver' in window) {
+    var headingEls = Array.from(prose.querySelectorAll('h2, h3, h4'));
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(function(a) { a.style.color = ''; a.style.fontWeight = ''; });
+          var active = toc.querySelector('a[href="#' + entry.target.id + '"]');
+          if (active) { active.style.color = 'var(--accent-blue)'; active.style.fontWeight = '600'; }
+        }
+      });
+    }, { rootMargin: '-80px 0px -75% 0px' });
+    headingEls.forEach(function(h) { io.observe(h); });
+  }
+
+  // Scroll reveal
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var revealIO = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.06 });
+    reveals.forEach(function(el) { revealIO.observe(el); });
+  } else {
+    reveals.forEach(function(el) { el.classList.add('visible'); });
+  }
+})();
+</script>
+
+<!-- Lunr.js + Search -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" crossorigin="anonymous"></script>
+<script src="{{ '/assets/search.js' | relative_url }}"></script>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 ---
 title: Knative
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 12
 permalink: /docs/devops/kubernetes/knative/

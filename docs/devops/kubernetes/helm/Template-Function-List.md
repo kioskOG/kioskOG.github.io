@@ -1,6 +1,6 @@
 ---
 title: Helm Template Function List
-layout: home
+layout: doc-page
 parent: What is HELM | Why We Need HELM | Create HELM Chart?
 grand_parent: Kubernetes Projects
 nav_order: 4

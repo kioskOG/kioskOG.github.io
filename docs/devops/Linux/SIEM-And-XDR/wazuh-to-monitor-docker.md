@@ -1,6 +1,6 @@
 ---
 title: Monitor Docker Environment Using Wazuh
-layout: default
+layout: doc-page
 parent: Wazuh
 grand_parent: Linux Projects
 nav_order: 8

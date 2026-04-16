@@ -1,6 +1,6 @@
 ---
 title: Setup Karpenter on Existing EKS Cluster
-layout: home
+layout: doc-page
 parent: Karpenter
 grand_parent: Kubernetes Projects
 nav_order: 1

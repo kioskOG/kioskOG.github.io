@@ -1,172 +1,99 @@
 ---
-title: Cloud Projects
-layout: full-bleed-glass #home
+layout: full-bleed-glass
+title: "☁️ Cloud Projects"
 parent: Devops
 nav_order: 6
 permalink: /docs/devops/Cloud/
+hero_tag: Cloud
+hero_title: "☁️ Cloud Projects"
+hero_intro: >
+  <p>AWS, GCP, Oracle Cloud, and multi-cloud architecture patterns. IaC, cross-cloud identity, workload identity, VPC comparisons, and cost optimization guides.</p>
+nav_buttons:
+  - href: /docs/devops/
+    label: "All DevOps Topics"
+    icon: "fas fa-th-large"
+  - href: /docs/about/contact/
+    label: "Get in Touch"
+    icon: "fas fa-envelope"
 ---
 
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Linux Projects — Docs</title>
-  <style>
-    :root{
-      /* Same tokens as Home/About */
-      --primary-color:#ffb347;
-      --light-primary-shade:#ffd97d;
-      --contact-secondary-purple:#9c27b0;
+<section class="projects-section reveal" aria-labelledby="cloud-gcp">
+  <h2 id="cloud-gcp">🌐 GCP Projects</h2>
 
-      --bg-dark:#070708;
-      --text-dark:#e0e0e0;
+  <article class="project-card card-teal reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">SAP HANA — Save 40L/year</h3>
+        <a class="project-open" href="/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Architectural solution that saved a client ₹40L/year in SAP HANA cloud costs using GCP.</p>
+      <div class="tags"><span class="tag">GCP</span><span class="tag">SAP HANA</span><span class="tag">Cost Optimization</span></div>
+    </div>
+  </article>
 
-      /* glass */
-      --glass-bg: rgba(255,255,255,0.06);
-      --glass-stroke: rgba(255,255,255,0.20);
-      --glass-shadow: 0 10px 40px rgba(0,0,0,0.45);
-      --glass-blur: 24px;
-      --glass-sat: 160%;
+  <article class="project-card card-purple reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">Cross-Cloud Identity — GCP ↔ AWS</h3>
+        <a class="project-open" href="/docs/devops/Cloud/Gcp/Cross-cloud-identities-between-GCP-and-AWS/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Setting up Workload Identity Federation for cross-cloud identity between GCP and AWS.</p>
+      <div class="tags"><span class="tag">GCP</span><span class="tag">AWS</span><span class="tag">OIDC</span><span class="tag">Workload Identity</span></div>
+    </div>
+  </article>
 
-      --muted:#a7a7a7;
-    }
+  <article class="project-card card-gold reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">GKE Workload Identity</h3>
+        <a class="project-open" href="/docs/devops/Cloud/Gcp/Accessing-GCS-from-GKE-Pods-using-Workload-Identity/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Accessing GCS and AWS services from GKE pods using Workload Identity without static credentials.</p>
+      <div class="tags">
+        <a class="tag" href="/docs/devops/Cloud/Gcp/Accessing-GCS-from-GKE-Pods-using-Workload-Identity/">GCS from GKE</a>
+        <a class="tag" href="/docs/devops/Cloud/Gcp/Accessing-AWS-Services-from-GKE-using-Workload-Identity-and-Aws-oidc/">AWS from GKE (OIDC)</a>
+      </div>
+    </div>
+  </article>
 
-    /* Base + ambient (same as Home) */
-    body{
-      margin:0; color:var(--text-dark);
-      background:#070708;
-      background-image:
-        radial-gradient(circle at top left, #2f0a5d 0%, transparent 50%),
-        radial-gradient(circle at bottom right, #004d40 0%, transparent 50%);
-      background-blend-mode:screen;
-      font:16px/1.65 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
-    body::before{
-      content:"";
-      position:fixed; inset:auto auto 10% -10%;
-      width:55vmax; height:55vmax; border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,180,70,.35), transparent 45%),
-                  radial-gradient(circle at 70% 60%, rgba(156,39,176,.28), transparent 50%);
-      filter: blur(60px) saturate(140%);
-      opacity:.45; z-index:-1; animation: floaty 18s ease-in-out infinite;
-    }
-    @keyframes floaty{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(6%,-4%) scale(1.06)}}
+  <article class="project-card card-coral reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">AWS vs GCP VPC Comparison</h3>
+        <a class="project-open" href="/docs/devops/Cloud/Gcp/Aws-and-GCP-vpc-comparision/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Side-by-side comparison of AWS and GCP networking concepts and VPC architecture.</p>
+      <div class="tags"><span class="tag">AWS</span><span class="tag">GCP</span><span class="tag">VPC</span><span class="tag">Networking</span></div>
+    </div>
+  </article>
+</section>
 
-    .wrap{ max-width:1100px; margin:40px auto; padding:0 20px; }
+<section class="projects-section reveal" aria-labelledby="cloud-aws">
+  <h2 id="cloud-aws">☁️ AWS Projects</h2>
 
-    /* HERO (glass) */
-    .hero{
-      background:
-        radial-gradient(120% 160% at 0% 0%, rgba(255,255,255,0.08), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04)),
-        var(--glass-bg);
-      backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
-      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
-      border: 1px solid color-mix(in srgb, var(--contact-secondary-purple) 28%, white 0%);
-      box-shadow: var(--glass-shadow);
-      border-radius:18px; padding:32px 28px; margin-bottom:28px; position:relative; overflow:hidden;
-    }
-    .hero::before{
-      content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.12) 18%, rgba(255,255,255,0.06) 35%, transparent 55%);
-      mask: radial-gradient(130% 60% at 50% -20%, black 40%, transparent 60%);
-    }
-    .h1{
-      font-size:clamp(28px,4vw,40px); margin:0 0 10px; font-weight:800;
-      background: linear-gradient(270deg, var(--primary-color), #ff8c00, var(--primary-color));
-      background-size:600% 600%;
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      animation: gradientMove 8s ease infinite;
-      text-shadow: 0 0 12px rgba(255,140,0,.25), 0 0 28px rgba(255,179,71,.2);
-    }
-    @keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    .subtitle{ color:var(--muted); margin:0; }
+  <article class="project-card card-orange reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">AWS Firewall Egress Filtering</h3>
+        <a class="project-open" href="/docs/devops/Cloud/AWS/aws-firewal/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Implementing AWS Network Firewall for egress traffic filtering and inspection.</p>
+      <div class="tags"><span class="tag">AWS</span><span class="tag">Firewall</span><span class="tag">Security</span><span class="tag">Egress</span></div>
+    </div>
+  </article>
+</section>
 
-    /* Section (glass) */
-    .section-glass{
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04)),
-        var(--glass-bg);
-      backdrop-filter: blur(calc(var(--glass-blur) - 6px)) saturate(var(--glass-sat));
-      -webkit-backdrop-filter: blur(calc(var(--glass-blur) - 6px)) saturate(var(--glass-sat));
-      border: 1px solid var(--glass-stroke);
-      border-radius:14px;
-      padding:18px 16px 10px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.32);
-    }
-    .section-title{
-      display:flex; align-items:center; gap:10px; margin:0 0 8px 6px;
-      color:var(--primary-color); font-weight:800; letter-spacing:.2px;
-    }
+<section class="projects-section reveal" aria-labelledby="cloud-iac">
+  <h2 id="cloud-iac">🛠️ IaC &amp; Multi-Cloud</h2>
 
-    /* Table */
-    .table-wrap{ overflow:auto; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.35); }
-    table{ width:100%; border-collapse:collapse; min-width:720px; background: rgba(13,13,16,0.7); }
-    thead th{
-      position:sticky; top:0; z-index:1; text-align:left; font-weight:800;
-      padding:12px 14px; color:#16181f;
-      background: linear-gradient(90deg, var(--light-primary-shade), var(--primary-color));
-      border-bottom:1px solid color-mix(in srgb, var(--contact-secondary-purple) 35%, white 0%);
-    }
-    tbody td{
-      padding:12px 14px; color:var(--text-dark);
-      border-top:1px solid color-mix(in srgb, var(--contact-secondary-purple) 28%, white 0%);
-    }
-    tbody tr:nth-child(odd) td{ background: rgba(156,39,176,.08); }
-    tbody tr:hover td{ background: rgba(156,39,176,.14); }
-
-    a{ color:var(--primary-color); text-decoration:none; font-weight:700; }
-    a:hover{ color:#ffcd76; text-decoration:underline; }
-
-    /* Mobile: card rows */
-    @media (max-width:720px){
-      thead{ display:none; }
-      table{ min-width:0; }
-      tbody tr{
-        display:block; margin:12px; border:1px solid color-mix(in srgb, var(--contact-secondary-purple) 28%, white 0%);
-        border-radius:12px; overflow:hidden; background:rgba(255,255,255,.03);
-        box-shadow:0 4px 12px rgba(0,0,0,.25);
-      }
-      tbody td{ display:flex; gap:10px; border:none !important; padding:10px 12px; }
-      tbody td::before{
-        content: attr(data-th);
-        flex:none; width:42%; color:var(--light-primary-shade); font-weight:800;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
-  </style>
-</head>
-<body>
-  <main class="wrap">
-    <header class="hero">
-      <h1 class="h1">☁️ Cloud Projects</h1>
-      <p class="subtitle">Documentation for various cloud projects including AWS, GCP, Terraform, and cross-cloud identity setups.</p>
-    </header>
-
-    <section>
-      <h2><i class="fas fa-list"></i> Available Guides</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Deployment Method</th>
-            <th>Description</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><a href="/docs/devops/Cloud/tf-state-locking/">Terraform State File Locking</a></td><td>Managing state file locking in Terraform projects.</td><td>✅ Done</td></tr>
-          <tr><td><a href="/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/">How we saved 40 Lac/year for a client</a></td><td>SAP HANA access problem & solution.</td><td>✅ Done</td></tr>
-          <tr><td><a href="/docs/devops/Cloud/Gcp/Secure-Connectivity-to-SAP-HANA-Private-Cloud-via-Cars24-GCP-Project/">SAP HANA Private Cloud via Cars24 GCP Project</a></td><td>Secure connectivity to SAP HANA Private Cloud via Cars24 GCP Project.</td><td>✅ Done</td></tr>
-          <tr><td><a href="/docs/devops/Cloud/Gcp/Implementation-SAP-HANA-PCE-Access-via-Cars24-GCP/">SAP HANA PCE Access (Solution 2)</a></td><td>Implementing SAP HANA PCE access via GCP (Solution 2).</td><td>✅ Done</td></tr>
-          <tr><td><a href="/docs/devops/Cloud/Gcp/Accessing-GCS-from-GKE-Pods-using-Workload-Identity/">Accessing GCS from GKE Pods</a></td><td>Using Workload Identity to access GCS from GKE pods.</td><td>✅ Done</td></tr>
-          <tr><td><a href="/docs/devops/Cloud/Gcp/Cross-cloud-identities-between-GCP-and-AWS/">Cross-Cloud Identities GCP⇆AWS</a></td><td>Accessing AWS services from GKE pods using Workload Identity without AWS OIDC.</td><td>✅ Done</td></tr>
-          <tr><td><a href="/docs/devops/Cloud/Gcp/Aws-and-GCP-vpc-comparision/">AWS vs. GCP VPC Networking</a></td><td>Virtual Private Cloud (VPC) networking comparison.</td><td>✅ Done</td></tr>
-          <tr><td><a href="/docs/devops/Cloud/Gcp/Accessing-AWS-Services-from-GKE-using-Workload-Identity-and-Aws-oidc/">AWS Services from GKE (Workload Identity + OIDC)</a></td><td>Accessing AWS services from GKE using Workload Identity and AWS OIDC.</td><td>✅ Done</td></tr>
-          <tr><td><a href="/docs/devops/Cloud/AWS/aws-firewal/">AWS Network Firewall Egress Filtering</a></td><td>Egress filtering with Suricata stateful rules & asymmetric routing trap.</td><td>✅ Done</td></tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
-</body>
-</html>
+  <article class="project-card card-brown reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">Terraform State Locking</h3>
+        <a class="project-open" href="/docs/devops/Cloud/tf-state-locking/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Implementing remote state locking for Terraform to prevent concurrent state corruption.</p>
+      <div class="tags"><span class="tag">Terraform</span><span class="tag">IaC</span><span class="tag">S3</span><span class="tag">DynamoDB</span></div>
+    </div>
+  </article>
+</section>

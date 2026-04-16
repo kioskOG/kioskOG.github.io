@@ -1,6 +1,6 @@
 ---
 title: Linux Kernel
-layout: home
+layout: doc-page
 parent: Linux Projects
 nav_order: 4
 permalink: /docs/devops/Linux/kernel/kernel/

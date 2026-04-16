@@ -1,6 +1,6 @@
 ---
 title: EKS Cloudmap controller
-layout: home
+layout: doc-page
 parent: python
 nav_order: 4
 permalink: /docs/devops/python/aws-cloudmap-controller/

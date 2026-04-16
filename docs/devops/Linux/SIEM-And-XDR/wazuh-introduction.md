@@ -1,6 +1,6 @@
 ---
 title: Wazuh
-layout: home
+layout: doc-page
 parent: Linux Projects
 nav_order: 1
 permalink: /docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/

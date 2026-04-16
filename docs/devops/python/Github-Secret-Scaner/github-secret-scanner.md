@@ -1,6 +1,6 @@
 ---
 title: GitHub Secrets Scanner
-layout: home
+layout: doc-page
 parent: python
 nav_order: 5
 permalink: /docs/devops/python/GitHub-Secrets-Scanner/github-secret-scanner/

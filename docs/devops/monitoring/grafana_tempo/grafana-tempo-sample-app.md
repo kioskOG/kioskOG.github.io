@@ -1,6 +1,6 @@
 ---
 title: Setting Up Python application using OpenTelemetry
-layout: home
+layout: doc-page
 parent: Introduction to Distributed Tracing & Grafana Tempo
 grand_parent: monitoring
 nav_order: 2

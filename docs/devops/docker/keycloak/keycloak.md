@@ -1,6 +1,6 @@
 ---
 title: Keycloak Setup
-layout: home
+layout: doc-page
 parent: Docker Projects
 nav_order: 8
 description: A setup guide for Keycloak

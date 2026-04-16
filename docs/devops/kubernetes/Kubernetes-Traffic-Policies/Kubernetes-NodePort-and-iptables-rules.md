@@ -1,6 +1,6 @@
 ---
 title: Kubernetes NodePort and iptables rules
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 11
 permalink: /docs/devops/kubernetes/Kubernetes-NodePort-and-iptables-rules/

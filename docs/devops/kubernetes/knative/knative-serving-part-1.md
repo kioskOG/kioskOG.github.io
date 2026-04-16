@@ -1,6 +1,6 @@
 ---
 title: Knative Serving Part-1
-layout: home
+layout: doc-page
 parent: Knative Developer Overview
 grand_parent: Knative
 ancestor: Kubernetes Projects

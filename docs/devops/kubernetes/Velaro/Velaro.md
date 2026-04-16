@@ -1,6 +1,6 @@
 ---
 title: Velaro
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 1
 permalink: /docs/devops/kubernetes/velaro/

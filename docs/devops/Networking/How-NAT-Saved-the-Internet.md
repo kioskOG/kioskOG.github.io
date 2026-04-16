@@ -1,6 +1,6 @@
 ---
 title: How NAT Saved the Internet
-layout: home
+layout: doc-page
 parent: Networking
 grand_parent: Devops
 nav_order: 1

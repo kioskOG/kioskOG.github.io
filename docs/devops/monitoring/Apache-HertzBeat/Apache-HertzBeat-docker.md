@@ -1,6 +1,6 @@
 ---
 title: Install HertzBeat via Docker
-layout: home
+layout: doc-page
 parent: Apache HertzBeat Quickstart
 grand_parent: monitoring
 nav_order: 1

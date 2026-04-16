@@ -1,86 +1,184 @@
 ---
-# Standalone layout for glass pages
+# Inner-page layout — matches the homepage design system exactly.
+# Used by: about.md, contact.md, devops.md
 ---
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ page.title | default: site.title }}</title>
-  <meta name="theme-color" content="#0b0c10" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  {% if page.preload_image %}
-  <link rel="preload" as="image" href="{{ page.preload_image | relative_url }}">
-  {% endif %}
-  <link rel="stylesheet" href="{{ '/assets/glass.css' | relative_url }}">
+  <meta name="description" content="{{ page.description | default: site.description }}" />
+  <meta name="author" content="Jatin Sharma" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#3b82f6" />
+  <meta property="og:title" content="{{ page.title | default: site.title }}" />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <!-- Shared Portfolio CSS -->
+  <link rel="stylesheet" href="{{ '/assets/portfolio.css' | relative_url }}" />
 </head>
 <body>
 
-<!--Home page button-->
-  <a
-  class="home-fab"
-  href="{{ page.home_href | default: '/' | relative_url }}"
-  aria-label="Go to Home"
-  title="Home"
-  >
-    <i class="fas fa-home" aria-hidden="true"></i>
-  </a>
+<div class="bg-blobs" aria-hidden="true"></div>
 
-<!--Search button-->
-  <button
-  class="search-fab"
-  type="button"
-  aria-label="Search the site"
-  title="Search (Press /)"
-  data-search-url="{{ '/search/' | relative_url }}"
-  >
-    <i class="fas fa-search" aria-hidden="true"></i>
-  </button>
+<div class="page-wrap">
 
+  <!-- NAV -->
+  <nav class="site-nav" role="navigation" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="nav-logo" href="{{ '/' | relative_url }}">kioskOG /&gt;</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="nav-active"{% endif %}>Home</a></li>
+        <li><a href="{{ '/docs/about/' | relative_url }}" {% if page.url contains '/docs/about/' %}class="nav-active"{% endif %}>About</a></li>
+        <li><a href="{{ '/docs/devops/' | relative_url }}" {% if page.url contains '/docs/devops/' %}class="nav-active"{% endif %}>DevOps</a></li>
+        <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i class="fas fa-external-link-alt" style="font-size:0.7em;opacity:0.7"></i></a></li>
+        <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta" {% if page.url contains 'contact' %}style="opacity:0.85"{% endif %}>Get in Touch</a></li>
+      </ul>
+      <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
+        <i class="fas fa-search" aria-hidden="true"></i>
+        <span>Search</span>
+        <span class="search-kbd">⌘K</span>
+      </button>
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
 
-
-  <header class="site-header">
-    <div class="container">
-      <div class="gradient-header" align="center">
-        <h1 class="welcome-gradient">{{ page.hero_title | default: "⚡ Automate, Scale, Innovate 💡" }}</h1>
-      </div>
+  <!-- PAGE HERO -->
+  <header class="page-hero" aria-labelledby="page-hero-title">
+    <div class="page-hero-inner">
 
       {% if page.profile_image %}
-        <img src="{{ page.profile_image | relative_url }}" alt="{{ page.profile_alt | default: 'Profile' }}"
-             class="profile-img" loading="lazy" width="150" height="150"/>
+      <div class="hero-avatar-ring">
+        <img src="{{ page.profile_image | relative_url }}" alt="{{ page.profile_alt | default: 'Jatin Sharma' }}" width="140" height="140" loading="eager" />
+      </div>
       {% endif %}
 
+      <div class="page-hero-tag"><span class="dot"></span> {{ page.hero_tag | default: 'Portfolio' }}</div>
+
+      <h1 id="page-hero-title">{{ page.hero_title | default: page.title }}</h1>
+
       {% if page.hero_intro %}
-        {{ page.hero_intro }}
+      <div class="page-hero-intro">{{ page.hero_intro }}</div>
       {% endif %}
 
       {% if page.nav_buttons %}
-      <nav aria-label="Primary">
+      <div class="hero-actions">
         {% for b in page.nav_buttons %}
-          <a href="{{ b.href | relative_url }}" class="btn">{{ b.label }}{% if b.icon %} <i class="{{ b.icon }}" aria-hidden="true"></i>{% endif %}</a>
+          <a href="{{ b.href | relative_url }}" class="btn-primary">
+            <i class="{{ b.icon }}" aria-hidden="true"></i> {{ b.label }}
+          </a>
         {% endfor %}
-      </nav>
+      </div>
       {% endif %}
 
       {% if page.social_html %}
-        <div class="social-icons" role="list">{{ page.social_html }}</div>
+      <div class="hero-socials" role="list" aria-label="Social links">
+        {{ page.social_html }}
+      </div>
       {% endif %}
+
     </div>
   </header>
 
+  <div class="divider"></div>
+
+  <!-- MAIN CONTENT -->
   <main>
-    {{ content }}
+    <div class="page-content">
+      {{ content }}
+    </div>
   </main>
 
-  <footer class="site-footer">
-    <nav aria-label="Primary">
-        <a href="/docs/devops/" class="btn">DevOps Learning <i class="fas fa-project-diagram" aria-hidden="true"></i></a>
-      </nav>
-    <small>© <span id="year"></span> {{ page.footer_name | default: 'Jatin Sharma' }}</small>
+  <div class="divider"></div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer-main" role="contentinfo">
+    <div class="footer-inner-main">
+      <div class="footer-brand-main">
+        <a class="nav-logo" href="{{ '/' | relative_url }}">kioskOG /&gt;</a>
+        <p>DevOps Engineer &amp; Platform Architect building scalable cloud-native systems. Passionate about automation, observability, and GitOps.</p>
+        <div class="footer-socials-main">
+          <a class="social-pill" href="https://github.com/kioskOG" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+          <a class="social-pill" href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+          <a class="social-pill" href="mailto:jatinvashishtha110@gmail.com" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <div class="footer-col-main">
+        <h4>Quick Links</h4>
+        <ul class="footer-links-main">
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/docs/about/' | relative_url }}">About</a></li>
+          <li><a href="{{ '/docs/devops/' | relative_url }}">DevOps Docs</a></li>
+          <li><a href="{{ '/docs/about/contact/' | relative_url }}">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col-main">
+        <h4>Resources</h4>
+        <ul class="footer-links-main">
+          <li><a href="https://github.com/kioskOG" target="_blank" rel="noopener">GitHub Profile</a></li>
+          <li><a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="{{ '/search/' | relative_url }}">Search Docs</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom-main">
+      <span>&copy; <span id="year"></span> Jatin Sharma. All rights reserved.</span>
+      <span>Built with &#10084;&#65039; &amp; deployed on GitHub Pages</span>
+    </div>
   </footer>
 
-  <script src="{{ '/assets/glass.js' | relative_url }}"></script>
+</div><!-- .page-wrap -->
 
-  <script src="{{ '/assets/js/vendor/lunr.min.js' | relative_url }}"></script>
-  <script src="{{ '/assets/js/just-the-docs.js' | relative_url }}"></script>
+<script>
+(function () {
+  'use strict';
+
+  // Year
+  var y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+
+  // Mobile nav
+  var ham = document.getElementById('hamburger');
+  var nav = document.getElementById('nav-links');
+  if (ham && nav) {
+    ham.addEventListener('click', function () {
+      var open = nav.classList.toggle('open');
+      ham.setAttribute('aria-expanded', String(open));
+    });
+    nav.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function () {
+        nav.classList.remove('open');
+        ham.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  // Scroll reveal
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(function(el) { io.observe(el); });
+  } else {
+    reveals.forEach(function(el) { el.classList.add('visible'); });
+  }
+})();
+</script>
+
+<!-- Lunr.js + Search -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" crossorigin="anonymous"></script>
+<script src="{{ '/assets/search.js' | relative_url }}"></script>
 </body>
 </html>

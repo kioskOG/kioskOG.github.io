@@ -1,6 +1,6 @@
 ---
 title: Introduction to System Design
-layout: home
+layout: doc-page
 parent: Devops
 nav_order: 7
 permalink: /docs/devops/System-Design/

@@ -2,12 +2,12 @@
 layout: full-bleed-glass
 title: About Me | Jatin Sharma
 permalink: /docs/about/
-preload_image: /assets/images/profile-image.png
-profile_image: /assets/images/profile-image.png
+hero_tag: About Me
+profile_image: /profile-image.png
 profile_alt: Jatin Sharma
-hero_title: "👋 About Jatin Sharma 👋"
+hero_title: "👋 Jatin Sharma"
 hero_intro: >
-  <p>Hello! I’m <strong>Jatin Sharma</strong>, a passionate <strong>DevOps Engineer</strong> focused on building robust, scalable, and automated cloud solutions.</p>
+  <p>Hello! I'm <strong>Jatin Sharma</strong>, a passionate <strong>DevOps Engineer</strong> focused on building robust, scalable, and automated cloud solutions.</p>
   <p>I specialize in <strong>infrastructure automation</strong>, <strong>CI/CD pipelines</strong>, and <strong>cloud integrations</strong>.</p>
 
 nav_buttons:

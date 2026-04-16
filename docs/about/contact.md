@@ -4,13 +4,12 @@ title: Contact Me | Jatin Sharma
 parent: About Me
 nav_order: 1
 permalink: /docs/about/contact/
-preload_image: /assets/images/profile-image.png
-profile_image: /assets/images/profile-image.png
+hero_tag: Contact
+profile_image: /profile-image.png
 profile_alt: Jatin Sharma
-hero_title: "👋 About Jatin Sharma 👋"
-hero_title: "✉️ Get in Touch ✉️"
+hero_title: "✉️ Get in Touch"
 hero_intro: >
-  <p>I’d love to hear from you! Whether you have a question, want to collaborate, or just want to say hi, feel free to reach out.</p>
+  <p>I'd love to hear from you! Whether you have a question, want to collaborate, or just want to say hi, feel free to reach out.</p>
 
 nav_buttons:
   - href: /docs/about/

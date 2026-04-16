@@ -1,6 +1,6 @@
 ---
 title: Custom domain names using Kubernetes CoreDNS
-layout: default
+layout: doc-page
 parent: Kubernetes Projects
 nav_order: 4
 permalink: /docs/devops/kubernetes/coredns-custom-domains/
