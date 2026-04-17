@@ -1,0 +1,283 @@
+---
+# Machine Learning Theme Layout (Data-Centric & Modern)
+# Used by: docs/ml/ml.md
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% seo %}
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous" />
+  <!-- Shared Portfolio CSS -->
+  <link rel="stylesheet" href="{{ '/assets/portfolio.css' | relative_url }}" />
+
+  <style>
+    :root {
+      --bg: #0f1115;
+      --bg-accent: #161a1f;
+      --text-main: #f1f5f9;
+      --text-dim: #94a3b8;
+      --ai-accent: #10b981; /* Changed to Emerald for ML */
+      --ai-accent-soft: rgba(16, 185, 129, 0.1);
+      --border: rgba(255, 255, 255, 0.06);
+      --radius: 12px;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+      /* Subtle noise texture */
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      background-blend-mode: overlay;
+      opacity: 0.98;
+    }
+
+    /* Navigation - Clean & Minimal */
+    .site-nav {
+      background: rgba(15, 17, 21, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-weight: 800;
+      letter-spacing: -1px;
+      font-size: 1.2rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      color: var(--text-dim);
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.nav-active {
+      color: #fff;
+    }
+
+    /* Hero - Editorial Focus */
+    .page-hero {
+      padding: 120px 24px 80px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .hero-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--ai-accent);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: #fff;
+      margin-bottom: 28px;
+    }
+
+    .hero-intro {
+      font-size: 1.25rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      max-width: 650px;
+      margin-bottom: 40px;
+    }
+
+    .ink-underline {
+      background-image: linear-gradient(120deg, var(--ai-accent-soft) 0%, var(--ai-accent-soft) 100%);
+      background-repeat: no-repeat;
+      background-size: 100% 0.3em;
+      background-position: 0 88%;
+    }
+
+    /* Modern Buttons */
+    .btn-human {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      background: #fff;
+      color: #000;
+      font-weight: 600;
+      font-size: 0.93rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+    }
+
+    .btn-human:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .btn-text:hover {
+      color: var(--ai-accent);
+    }
+
+    /* Content Cards - Structured & Clean */
+    .page-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-bottom: 100px;
+    }
+
+    .project-card {
+      background: var(--bg-accent);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      transition: border-color 0.3s, transform 0.3s;
+      margin-bottom: 24px;
+    }
+
+    .project-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .project-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .project-desc {
+      font-size: 1rem;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    .site-footer-main {
+      border-top: 1px solid var(--border);
+      padding: 60px 24px;
+      background: var(--bg);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 24px;
+    }
+
+    @media (max-width: 768px) {
+      .page-hero {
+        padding: 80px 24px 60px;
+      }
+
+      .hero-title {
+        font-size: 2.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-wrap">
+    <!-- NAV -->
+    <nav class="site-nav" role="navigation">
+      <div class="nav-inner">
+        <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma</a>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/docs/about/' | relative_url }}">About</a></li>
+          <li><a href="{{ '/docs/devops/' | relative_url }}">DevOps</a></li>
+          <li><a href="{{ '/docs/ml/' | relative_url }}" class="nav-active">ML</a></li>
+          <li><a href="{{ '/docs/ai/' | relative_url }}">AI</a></li>
+          <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio</a></li>
+        </ul>
+        <button class="nav-search-btn" data-search-trigger type="button">
+          <i class="fas fa-search" aria-hidden="true"></i>
+          <span>Search</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="page-hero">
+      <span class="hero-label">// Protocol: {{ page.hero_tag | default: 'Machine Learning' }}</span>
+      <h1 class="hero-title">
+        Deploying <span class="ink-underline">Predictive Models</span> at scale.
+      </h1>
+      <p class="hero-intro">
+        Optimizing algorithms, building data pipelines, and exploring the intersection of data engineering and machine learning operations.
+      </p>
+      <div class="hero-actions">
+        <a href="#content" class="btn-human">Explore Documentation <i class="fas fa-arrow-right"></i></a>
+        <a href="{{ '/docs/about/contact/' | relative_url }}" class="btn-text">Get in Touch</a>
+      </div>
+    </header>
+
+    <div class="divider"></div>
+
+    <!-- MAIN CONTENT -->
+    <main id="content">
+      <div class="page-content">
+        {{ content }}
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer-main">
+      <div class="footer-inner-main">
+        <div class="footer-brand-main">
+          <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma</a>
+          <p>Modern Platform Engineering for the Intelligent Era.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/assets/search.js"></script>
+</body>
+
+</html>

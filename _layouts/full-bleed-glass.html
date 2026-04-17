@@ -39,6 +39,10 @@
               {% endif %}>About</a></li>
           <li><a href="{{ '/docs/devops/' | relative_url }}" {% if page.url contains '/docs/devops/'
               %}class="nav-active" {% endif %}>DevOps</a></li>
+          <li><a href="{{ '/docs/ml/' | relative_url }}" {% if page.url contains '/docs/ml/'
+              %}class="nav-active" {% endif %}>ML</a></li>
+          <li><a href="{{ '/docs/ai/' | relative_url }}" {% if page.url contains '/docs/ai/'
+              %}class="nav-active" {% endif %}>AI</a></li>
           <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i
                 class="fas fa-external-link-alt" style="font-size:0.7em;opacity:0.7"></i></a></li>
           <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta" {% if page.url contains 'contact'
@@ -126,6 +130,8 @@
             <li><a href="{{ '/' | relative_url }}">Home</a></li>
             <li><a href="{{ '/docs/about/' | relative_url }}">About</a></li>
             <li><a href="{{ '/docs/devops/' | relative_url }}">DevOps Docs</a></li>
+            <li><a href="{{ '/docs/ml/' | relative_url }}">ML Models</a></li>
+            <li><a href="{{ '/docs/ai/' | relative_url }}">AI Systems</a></li>
             <li><a href="{{ '/docs/about/contact/' | relative_url }}">Contact</a></li>
           </ul>
         </div>
