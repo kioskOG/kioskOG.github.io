@@ -1,16 +1,27 @@
 # title: Home
-title: My Portfolio
+title: Jatin Sharma | DevOps & MLOps Blog
 logo: "./site-icon.webp"
 # favicon_ico: "./favicon.ico"
-description: 🌟 Welcome to My Portfolio - Showcasing expertise in Cloud, DevOps, Automation, and Cutting-Edge Technologies! 🚀
+description: "Expert insights on DevOps, Platform Engineering, MLOps, and Kubernetes. Scaling infrastructure with automation and observability."
 author: Jatin Sharma
 github_username: kioskOG
+twitter_username: kioskOG
 theme: just-the-docs
 color_scheme: dark
+lang: en
+
+url: https://blog.jatinog.com
+baseurl: ""
+
+# SEO Configuration
+social:
+  name: Jatin Sharma
+  links:
+    - https://github.com/kioskOG
+    - https://www.linkedin.com/in/jatin-devops/
+
 sass:
   quiet_deps: true
-
-url: https://github.com/kioskOG/kioskOG.github.io
 
 aux_links:
   Repository: https://github.com/kioskOG/kioskOG.github.io
