@@ -174,9 +174,9 @@ social_html: |
       </div>
       <p class="project-desc">Real-time monitoring and observability tools.</p>
       <div class="tags">
-        <a class="tag" href="/docs/devops/monitoring/Apache-HertzBeat/">Apache HertzBeat Overview</a>
-        <a class="tag" href="/docs/devops/monitoring/Apache-HertzBeat-docker/">HertzBeat Docker</a>
-        <a class="tag" href="/docs/devops/monitoring/Apache-HertzBeat-docker-compose/">HertzBeat Compose</a>
+        <a class="tag" href="/docs/devops/monitoring/apache-hertzbeat/">Apache HertzBeat Overview</a>
+        <a class="tag" href="/docs/devops/monitoring/apache-hertzbeat/Apache-HertzBeat-docker/">HertzBeat Docker</a>
+        <a class="tag" href="/docs/devops/monitoring/apache-hertzbeat/Apache-HertzBeat-docker-compose/">HertzBeat Compose</a>
         <a class="tag" href="/docs/devops/monitoring/grafana_tempo/">Grafana Tempo Intro</a>
         <a class="tag" href="/docs/devops/monitoring/grafana_tempo/Grafana-Tempo-Docker/">Tempo Docker</a>
         <a class="tag" href="/docs/devops/monitoring/grafana_tempo/grafana-tempo-sample-app/">Python App + OTel</a>
