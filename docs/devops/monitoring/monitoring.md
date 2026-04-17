@@ -63,13 +63,13 @@ nav_buttons:
     <div class="card-link">
       <div class="project-head">
         <h3 class="project-title">Apache HertzBeat</h3>
-        <a class="project-open" href="/docs/devops/monitoring/Apache-HertzBeat/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+        <a class="project-open" href="/docs/devops/monitoring/apache-hertzbeat/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
       </div>
       <p class="project-desc">Overview, Docker deployment, and Docker Compose setup for Apache HertzBeat monitoring platform.</p>
       <div class="tags">
-        <a class="tag" href="/docs/devops/monitoring/Apache-HertzBeat/">HertzBeat Overview</a>
-        <a class="tag" href="/docs/devops/monitoring/Apache-HertzBeat-docker/">HertzBeat Docker</a>
-        <a class="tag" href="/docs/devops/monitoring/Apache-HertzBeat-docker-compose/">HertzBeat Compose</a>
+        <a class="tag" href="/docs/devops/monitoring/apache-hertzbeat/">HertzBeat Overview</a>
+        <a class="tag" href="/docs/devops/monitoring/apache-hertzbeat/Apache-HertzBeat-docker/">HertzBeat Docker</a>
+        <a class="tag" href="/docs/devops/monitoring/apache-hertzbeat/Apache-HertzBeat-docker-compose/">Install HertzBeat via Docker Compose</a>
       </div>
     </div>
   </article>
