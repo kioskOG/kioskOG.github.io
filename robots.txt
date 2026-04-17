@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://blog.jatinog.com/sitemap.xml
