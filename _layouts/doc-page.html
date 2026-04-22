@@ -523,9 +523,19 @@
 
         <!-- SIDEBAR -->
         <aside class="doc-sidebar" aria-label="Table of contents">
-          <a class="sidebar-back" href="{{ page.parent_url | default: '/docs/devops/' | relative_url }}">
+          {% if page.url contains '/docs/ai/' %}
+            {% assign cat_name = "AI" %}
+            {% assign cat_url = "/docs/ai/" %}
+          {% elsif page.url contains '/docs/ml/' %}
+            {% assign cat_name = "ML" %}
+            {% assign cat_url = "/docs/ml/" %}
+          {% else %}
+            {% assign cat_name = "DevOps" %}
+            {% assign cat_url = "/docs/devops/" %}
+          {% endif %}
+          <a class="sidebar-back" href="{{ page.parent_url | default: cat_url | relative_url }}">
             <i class="fas fa-arrow-left" aria-hidden="true"></i>
-            {% if page.parent %}{{ page.parent }}{% else %}DevOps{% endif %}
+            {% if page.parent %}{{ page.parent }}{% else %}{{ cat_name }}{% endif %}
           </a>
           <div class="sidebar-label">On this page</div>
           <ul class="sidebar-toc" id="toc-list">
@@ -540,7 +550,7 @@
           <nav class="doc-breadcrumb" aria-label="Breadcrumb">
             <a href="{{ '/' | relative_url }}">Home</a>
             <span class="sep">/</span>
-            <a href="{{ '/docs/devops/' | relative_url }}">DevOps</a>
+            <a href="{{ cat_url | relative_url }}">{{ cat_name }}</a>
             {% if page.grand_parent %}
             <span class="sep">/</span>
             <a href="{{ page.grand_parent_url | default: '/docs/devops/' | relative_url }}">{{ page.grand_parent }}</a>
@@ -564,7 +574,7 @@
             {% if page.nav_order %}
             <span><i class="fas fa-list-ol" aria-hidden="true"></i> Part {{ page.nav_order }}</span>
             {% endif %}
-            <span><i class="fas fa-book-open" aria-hidden="true"></i> DevOps Docs</span>
+            <span><i class="fas fa-book-open" aria-hidden="true"></i> {{ cat_name }} Docs</span>
           </div>
 
           <!-- Content -->
@@ -574,8 +584,8 @@
 
           <!-- Prev/Next page nav -->
           <nav class="doc-page-nav" aria-label="Page navigation">
-            <a href="{{ '/docs/devops/' | relative_url }}">
-              <i class="fas fa-th-large" aria-hidden="true"></i> All DevOps Topics
+            <a href="{{ cat_url | relative_url }}">
+              <i class="fas fa-th-large" aria-hidden="true"></i> All {{ cat_name }} Topics
             </a>
             <a class="next" href="{{ '/docs/about/contact/' | relative_url }}">
               Get in Touch <i class="fas fa-envelope" aria-hidden="true"></i>
