@@ -55,3 +55,18 @@ callouts:
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-feed
+
+# exclude:
+#   - README.md
+#   - Gemfile
+#   - Gemfile.lock
+#   - .sass-cache/
+#   - .jekyll-cache/
+#   - .jekyll-metadata
+#   - gemfiles/
+#   - Gemfile
+#   - Gemfile.lock
+#   - vendor/
+
+timezone: Asia/Kolkata

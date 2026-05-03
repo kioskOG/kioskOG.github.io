@@ -1,0 +1,94 @@
+---
+# Error layout — Clean chrome for 404/500 pages
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% seo %}
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous" />
+  <!-- Shared Portfolio CSS -->
+  <link rel="stylesheet" href="{{ '/assets/portfolio.css' | relative_url }}" />
+</head>
+
+<body>
+
+  <div class="bg-blobs" aria-hidden="true"></div>
+
+  <div class="page-wrap">
+
+    <!-- NAV -->
+    <nav class="site-nav" role="navigation" aria-label="Primary navigation">
+      <div class="nav-inner">
+        <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma /&gt;</a>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/docs/about/' | relative_url }}">About</a></li>
+          <li><a href="{{ '/docs/devops/' | relative_url }}">DevOps</a></li>
+          <li><a href="{{ '/docs/ml/' | relative_url }}">ML</a></li>
+          <li><a href="{{ '/docs/ai/' | relative_url }}">AI</a></li>
+          <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i
+                class="fas fa-external-link-alt" style="font-size:0.7em;opacity:0.7"></i></a></li>
+          <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta">Get in Touch</a></li>
+        </ul>
+        <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
+          <i class="fas fa-search" aria-hidden="true"></i>
+          <span>Search</span>
+          <span class="search-kbd">⌘K</span>
+        </button>
+        <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      {{ content }}
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer-main" role="contentinfo">
+      <div class="footer-inner-main">
+        <div class="footer-brand-main">
+          <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma /&gt;</a>
+          <p>DevOps Engineer &amp; Platform Architect building scalable cloud-native systems.</p>
+        </div>
+      </div>
+      <div class="footer-bottom-main">
+        <span>&copy; <span id="year"></span> Jatin Sharma. All rights reserved.</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+      var y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+      var ham = document.getElementById('hamburger');
+      var nav = document.getElementById('nav-links');
+      if (ham && nav) {
+        ham.addEventListener('click', function () {
+          var open = nav.classList.toggle('open');
+          ham.setAttribute('aria-expanded', String(open));
+        });
+      }
+    })();
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" crossorigin="anonymous"></script>
+  <script src="{{ '/assets/search.js' | relative_url }}"></script>
+</body>
+
+</html>
