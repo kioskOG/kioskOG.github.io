@@ -116,4 +116,3 @@ social_html: |
   <a href="{{ '/docs/ml/' | relative_url }}" class="btn">ML Projects <i class="fas fa-microscope" aria-hidden="true"></i></a>
   <a href="{{ '/docs/ai/' | relative_url }}" class="btn">AI Projects <i class="fas fa-robot" aria-hidden="true"></i></a>
 </section>
-
