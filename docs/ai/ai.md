@@ -43,7 +43,8 @@ social_html: |
       <p class="project-desc">Standardizing how AI models connect to data and tools. Exploring the paradigm shift in AI integration.</p>
       <div class="tags">
         <a class="tag" href="/docs/ai/MCP/why-mcp/">Why MCP?</a>
-        <!-- <a class="tag" href="/docs/ai/MCP/">MCP Concepts</a> -->
+        <a class="tag" href="/docs/ai/MCP/MCP-Lifecycle/">MCP Lifecycle</a>
+        <a class="tag" href="/docs/ai/MCP/Build-local-mcp-server/">Build Local MCP Server</a>
       </div>
     </div>
   </article>
