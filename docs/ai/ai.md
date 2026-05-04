@@ -48,4 +48,22 @@ social_html: |
       </div>
     </div>
   </article>
+
+  <article class="project-card card-gold reveal">
+    <div class="card-link" tabindex="0">
+      <div class="project-head">
+        <h3 class="project-title">LangChain</h3>
+        <a class="project-open" href="/docs/ai/LangChain/" aria-label="View LangChain docs">
+          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+        </a>
+      </div>
+      <p class="project-desc">LangChain is a development framework for building applications powered by language models. It provides the tools and abstractions needed to connect LLMs to other data sources, services, and systems, enabling developers to create more powerful, reliable, and customized AI applications.</p>
+      <div class="tags">
+        <a class="tag" href="/docs/ai/LangChain/Introduction-to-LangChain/">Introduction to LangChain</a>
+        <a class="tag" href="/docs/ai/LangChain/Langchain-Components/">LangChain Components</a>
+        <a class="tag" href="/docs/ai/LangChain/Langchain-models/">LangChain Models</a>
+        <a class="tag" href="/docs/ai/LangChain/Langchain-models-via-coding-examples/">LangChain Models - Hands-on Coding Guide</a>
+      </div>
+    </div>
+  </article>
 </section>
