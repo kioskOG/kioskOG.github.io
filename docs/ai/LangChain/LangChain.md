@@ -75,4 +75,15 @@ nav_buttons:
     </div>
   </article>
 
+  <article class="project-card card-gold reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">LangChain Chains — The Pipeline Architecture of AI Applications</h3>
+        <a class="project-open" href="/docs/ai/LangChain/Chains-in-LangChain/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">LangChain Chains — The Pipeline Architecture of AI Applications.</p>
+      <div class="tags"><span class="tag">LangChain</span><span class="tag">Chains</span><span class="tag">The Pipeline Architecture of AI Applications</span></div>
+    </div>
+  </article>
+
 </section>

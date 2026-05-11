@@ -1003,116 +1003,277 @@
       line-height: 1.4;
     }
 
-    /* =============================================
-       SKILLS
-    ============================================= */
+    /* /* =============================================
+   MODERN SKILLS SECTION — 2026 UI
+============================================= */
+
     .skills-header-bar {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 14px 20px;
-      border-radius: var(--radius-md);
-      background: rgba(15, 23, 42, 0.04);
-      border: 1px solid var(--border);
-      margin-bottom: 40px;
+      padding: 16px 22px;
+      border-radius: 18px;
+
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      margin-bottom: 42px;
+
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--text-muted);
+
+      box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
     }
 
     .skills-header-bar .cmd {
       color: var(--accent-green);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .skills-header-bar .flag {
       color: var(--accent-blue);
     }
 
+    /* =========================
+   GRID
+========================= */
+
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
+      gap: 22px;
     }
+
+    /* =========================
+   CARD
+========================= */
 
     .skill-card {
-      padding: 22px;
-      border-radius: var(--radius-md);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
       position: relative;
       overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-      backdrop-filter: blur(12px);
+
+      padding: 24px;
+      border-radius: 22px;
+
+      background:
+        linear-gradient(145deg,
+          rgba(255, 255, 255, 0.045),
+          rgba(255, 255, 255, 0.015));
+
+      border: 1px solid rgba(255, 255, 255, 0.08);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      transition:
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.45s ease,
+        border-color 0.35s ease,
+        background 0.35s ease;
+
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
     }
 
-    .skill-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--border-hover);
-    }
-
+    /* Animated gradient glow */
     .skill-card::before {
       content: '';
       position: absolute;
+      inset: 0;
+
+      background:
+        radial-gradient(circle at top left,
+          rgba(59, 130, 246, 0.18),
+          transparent 45%),
+        radial-gradient(circle at bottom right,
+          rgba(168, 85, 247, 0.12),
+          transparent 45%);
+
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      pointer-events: none;
+    }
+
+    /* Top animated border */
+    .skill-card::after {
+      content: '';
+      position: absolute;
+
       top: 0;
       left: 0;
-      right: 0;
+
+      width: 100%;
       height: 3px;
-      background: var(--grad-primary);
-      border-radius: 3px 3px 0 0;
+
+      background: linear-gradient(90deg,
+          #3b82f6,
+          #8b5cf6,
+          #06b6d4);
+
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 0.25s ease;
+
+      transition: transform 0.4s ease;
+    }
+
+    /* Hover */
+    .skill-card:hover {
+      transform: translateY(-12px) scale(1.025);
+
+      border-color: rgba(59, 130, 246, 0.45);
+
+      background:
+        linear-gradient(145deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.025));
+
+      box-shadow:
+        0 12px 30px rgba(59, 130, 246, 0.12),
+        0 24px 60px rgba(59, 130, 246, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset;
     }
 
     .skill-card:hover::before {
+      opacity: 1;
+    }
+
+    .skill-card:hover::after {
       transform: scaleX(1);
     }
 
+    .skill-card:hover {
+      box-shadow:
+        0 12px 30px rgba(59, 130, 246, 0.16),
+        0 24px 60px rgba(6, 182, 212, 0.18),
+        0 0 40px rgba(20, 184, 166, 0.08);
+    }
+
+    /* =========================
+   CATEGORY TAG
+========================= */
+
     .skill-cat-tag {
       position: absolute;
-      top: 16px;
-      right: 16px;
-      padding: 4px 10px;
+      top: 18px;
+      right: 18px;
+
+      padding: 5px 12px;
       border-radius: 999px;
-      font-size: 0.7rem;
+
+      font-size: 0.68rem;
       font-weight: 700;
-      background: rgba(59, 130, 246, 0.10);
-      color: var(--accent-blue);
-      border: 1px solid rgba(59, 130, 246, 0.18);
+      letter-spacing: 0.6px;
       text-transform: uppercase;
-      letter-spacing: 0.3px;
+
+      background: rgba(59, 130, 246, 0.12);
+
+      border: 1px solid rgba(59, 130, 246, 0.2);
+
+      color: #60a5fa;
+
+      backdrop-filter: blur(10px);
     }
+
+    /* =========================
+   ICON
+========================= */
 
     .skill-icon {
-      font-size: 1.6rem;
-      margin-bottom: 10px;
+      font-size: 1.9rem;
+      margin-bottom: 14px;
+
+      transition:
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.45s ease;
     }
 
-    .skill-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text-heading);
-      margin-bottom: 8px;
+    .skill-card:hover .skill-icon {
+      transform: scale(1.14) rotate(-4deg);
+
+      filter:
+        drop-shadow(0 0 12px rgba(59, 130, 246, 0.45));
     }
+
+    /* =========================
+   TITLE
+========================= */
+
+    .skill-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+
+      color: var(--text-heading);
+
+      margin-bottom: 10px;
+
+      letter-spacing: -0.02em;
+    }
+
+    /* =========================
+   TAGS
+========================= */
 
     .skill-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 10px;
+      gap: 8px;
+      margin-top: 14px;
     }
 
     .skill-tag {
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 999px;
-      font-size: 0.73rem;
+
+      font-size: 0.72rem;
       font-weight: 600;
-      background: rgba(15, 23, 42, 0.04);
-      border: 1px solid var(--border);
-      color: var(--text-body);
+
+      color: rgba(47, 149, 203, 0.952);
+
+      background: rgba(255, 255, 255, 0.04);
+
+      border: 1px solid rgba(255, 255, 255, 0.08);
+
+      backdrop-filter: blur(10px);
+
+      transition:
+        background 0.3s ease,
+        transform 0.3s ease,
+        border-color 0.3s ease;
+    }
+
+    .skill-tag:hover {
+      background: rgba(59, 130, 246, 0.12);
+
+      border-color: rgba(59, 130, 246, 0.28);
+
+      transform: translateY(-2px);
+    }
+
+    /* =========================
+   RESPONSIVE
+========================= */
+
+    @media (max-width: 1100px) {
+      .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-card {
+        padding: 20px;
+      }
     }
 
     /* =============================================
@@ -1736,7 +1897,7 @@
         <div class="skills-grid">
           <!-- 1. Container & Orchestration -->
           <div class="skill-card reveal"><span class="skill-cat-tag">Orchestration</span>
-            <div class="skill-icon">☸️</div>
+            <div class="skill-icon"><i class="fab fa-kubernetes" style="color: #326ce5;"></i></div>
             <div class="skill-title">Kubernetes &amp; Containers</div>
             <div class="skill-tags">
               <span class="skill-tag">Kubernetes</span><span class="skill-tag">Docker</span>
@@ -1749,7 +1910,7 @@
           </div>
           <!-- 2. Cloud Platforms -->
           <div class="skill-card reveal reveal-delay-1"><span class="skill-cat-tag">Cloud</span>
-            <div class="skill-icon">☁️</div>
+            <div class="skill-icon"><i class="fas fa-cloud" style="color: var(--accent-blue);"></i></div>
             <div class="skill-title">Cloud Platforms</div>
             <div class="skill-tags">
               <span class="skill-tag">AWS</span><span class="skill-tag">GCP</span>
@@ -1762,7 +1923,7 @@
           </div>
           <!-- 3. CI/CD & GitOps -->
           <div class="skill-card reveal reveal-delay-2"><span class="skill-cat-tag">GitOps</span>
-            <div class="skill-icon">🔄</div>
+            <div class="skill-icon"><i class="fas fa-sync-alt" style="color: var(--accent-green);"></i></div>
             <div class="skill-title">CI/CD &amp; GitOps</div>
             <div class="skill-tags">
               <span class="skill-tag">GitHub Actions</span><span class="skill-tag">ArgoCD</span>
@@ -1772,7 +1933,7 @@
           </div>
           <!-- 4. IaC -->
           <div class="skill-card reveal"><span class="skill-cat-tag">IaC</span>
-            <div class="skill-icon">🔧</div>
+            <div class="skill-icon"><i class="fas fa-code" style="color: var(--accent-purple);"></i></div>
             <div class="skill-title">Infrastructure as Code</div>
             <div class="skill-tags">
               <span class="skill-tag">Terraform</span><span class="skill-tag">Terragrunt</span>
@@ -1781,7 +1942,7 @@
           </div>
           <!-- 5. Observability -->
           <div class="skill-card reveal reveal-delay-1"><span class="skill-cat-tag">Monitoring</span>
-            <div class="skill-icon">📊</div>
+            <div class="skill-icon"><i class="fas fa-chart-line" style="color: #e6522c;"></i></div>
             <div class="skill-title">Observability Stack</div>
             <div class="skill-tags">
               <span class="skill-tag">Grafana</span><span class="skill-tag">Prometheus</span>
@@ -1793,7 +1954,7 @@
           </div>
           <!-- 6. Security -->
           <div class="skill-card reveal reveal-delay-2"><span class="skill-cat-tag">Security</span>
-            <div class="skill-icon">🔒</div>
+            <div class="skill-icon"><i class="fas fa-shield-alt" style="color: #10b981;"></i></div>
             <div class="skill-title">Security &amp; Compliance</div>
             <div class="skill-tags">
               <span class="skill-tag">TruffleHog</span><span class="skill-tag">Falco</span>
@@ -1805,7 +1966,7 @@
           </div>
           <!-- 7. Scripting -->
           <div class="skill-card reveal"><span class="skill-cat-tag">Scripting</span>
-            <div class="skill-icon">🐍</div>
+            <div class="skill-icon"><i class="fab fa-python" style="color: #3776ab;"></i></div>
             <div class="skill-title">Programming &amp; Scripting</div>
             <div class="skill-tags">
               <span class="skill-tag">Python</span><span class="skill-tag">Bash</span>
@@ -1815,7 +1976,7 @@
           </div>
           <!-- 8. Networking & Service Mesh -->
           <div class="skill-card reveal reveal-delay-1"><span class="skill-cat-tag">Networking</span>
-            <div class="skill-icon">🌐</div>
+            <div class="skill-icon"><i class="fas fa-network-wired" style="color: #00bcd4;"></i></div>
             <div class="skill-title">Networking &amp; Service Mesh</div>
             <div class="skill-tags">
               <span class="skill-tag">Cilium</span><span class="skill-tag">Istio</span>
@@ -1826,7 +1987,7 @@
           </div>
           <!-- 9. MLOps -->
           <div class="skill-card reveal reveal-delay-2"><span class="skill-cat-tag">MLOps</span>
-            <div class="skill-icon">🤖</div>
+            <div class="skill-icon"><i class="fas fa-robot" style="color: var(--accent-purple);"></i></div>
             <div class="skill-title">MLOps &amp; AI Platforms</div>
             <div class="skill-tags">
               <span class="skill-tag">MLflow</span><span class="skill-tag">DVC</span>
@@ -1837,7 +1998,7 @@
           </div>
           <!-- 10. OS -->
           <div class="skill-card reveal"><span class="skill-cat-tag">OS</span>
-            <div class="skill-icon">🐧</div>
+            <div class="skill-icon"><i class="fab fa-linux" style="color: #333;"></i></div>
             <div class="skill-title">Operating Systems</div>
             <div class="skill-tags">
               <span class="skill-tag">Linux</span><span class="skill-tag">Ubuntu</span>
@@ -1847,7 +2008,7 @@
           </div>
           <!-- 11. Databases & Messaging -->
           <div class="skill-card reveal reveal-delay-1"><span class="skill-cat-tag">Data</span>
-            <div class="skill-icon">📨</div>
+            <div class="skill-icon"><i class="fas fa-database" style="color: #336791;"></i></div>
             <div class="skill-title">Databases &amp; Messaging</div>
             <div class="skill-tags">
               <span class="skill-tag">Kafka</span><span class="skill-tag">Redis</span>
@@ -1858,7 +2019,7 @@
           </div>
           <!-- 12. Other Tools -->
           <div class="skill-card reveal reveal-delay-2"><span class="skill-cat-tag">Tools</span>
-            <div class="skill-icon">🛠️</div>
+            <div class="skill-icon"><i class="fas fa-toolbox" style="color: var(--text-muted);"></i></div>
             <div class="skill-title">DevOps Toolbox</div>
             <div class="skill-tags">
               <span class="skill-tag">Velero</span><span class="skill-tag">Apicurio</span>

@@ -537,6 +537,26 @@
             <i class="fas fa-arrow-left" aria-hidden="true"></i>
             {% if page.parent %}{{ page.parent }}{% else %}{{ cat_name }}{% endif %}
           </a>
+
+          <!-- Dynamic Sibling Navigation -->
+          {% if page.parent %}
+            {% assign siblings = site.pages | where: "parent", page.parent | sort: "nav_order" %}
+            {% if siblings.size > 1 %}
+              <div class="sidebar-label">In this Section</div>
+              <ul class="sidebar-toc" style="margin-bottom: 24px;">
+                {% for sibling in siblings %}
+                  <li>
+                    <a href="{{ sibling.url | relative_url }}" 
+                       {% if sibling.url == page.url %}style="color: var(--accent-blue); font-weight: 700; background: rgba(59, 130, 246, 0.08); border-left: 2px solid var(--accent-blue);"{% endif %}>
+                      <i class="fas fa-file-lines" style="margin-right: 6px; opacity: 0.6; font-size: 0.9em;"></i>
+                      {{ sibling.title }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          {% endif %}
+
           <div class="sidebar-label">On this page</div>
           <ul class="sidebar-toc" id="toc-list">
             <!-- Populated by JS -->
@@ -584,9 +604,15 @@
 
           <!-- Prev/Next page nav -->
           <nav class="doc-page-nav" aria-label="Page navigation">
+            {% if page.parent %}
+            <a href="{{ page.parent_url | default: cat_url | relative_url }}">
+              <i class="fas fa-folder-open" aria-hidden="true"></i> Back to {{ page.parent }}
+            </a>
+            {% else %}
             <a href="{{ cat_url | relative_url }}">
               <i class="fas fa-th-large" aria-hidden="true"></i> All {{ cat_name }} Topics
             </a>
+            {% endif %}
             <a class="next" href="{{ '/docs/about/contact/' | relative_url }}">
               Get in Touch <i class="fas fa-envelope" aria-hidden="true"></i>
             </a>
