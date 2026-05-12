@@ -86,4 +86,15 @@ nav_buttons:
     </div>
   </article>
 
+    <article class="project-card card-gold reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">LangChain Models - Hands-on Coding Guide</h3>
+        <a class="project-open" href="/docs/ai/LangChain/Langchain-models-via-coding-examples/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">LangChain Models - Hands-on Coding Guide.</p>
+      <div class="tags"><span class="tag">LangChain</span><span class="tag">Models</span><span class="tag">Hands-on Coding Guide</span></div>
+    </div>
+  </article>
+
 </section>

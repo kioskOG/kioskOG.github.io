@@ -64,6 +64,7 @@ social_html: |
         <a class="tag" href="/docs/ai/LangChain/Langchain-models/">LangChain Models</a>
         <a class="tag" href="/docs/ai/LangChain/Langchain-models-via-coding-examples/">LangChain Models - Hands-on Coding Guide</a>
         <a class="tag" href="/docs/ai/LangChain/Chains-in-LangChain/">LangChain Chains — The Pipeline Architecture of AI Applications</a>
+        <a class="tag" href="/docs/ai/LangChain/LangChain-Chains-Hands-on-Coding-Guide/">LangChain Chains - Hands-on Coding Guide</a>
       </div>
     </div>
   </article>
