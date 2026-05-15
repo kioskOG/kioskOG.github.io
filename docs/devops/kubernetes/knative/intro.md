@@ -2,6 +2,7 @@
 title: Knative
 layout: doc-page
 parent: Kubernetes Projects
+has_children: true
 nav_order: 12
 permalink: /docs/devops/kubernetes/knative/
 description: Documentation on knative Introduction.

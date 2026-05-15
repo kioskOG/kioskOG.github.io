@@ -3,7 +3,6 @@ title: Installing NGINX Ingress
 layout: doc-page
 parent: Understanding Ingress Controllers
 grand_parent: Kubernetes Projects
-ancestor: Kubernetes Projects
 nav_order: 1.5
 permalink: /docs/devops/kubernetes/Installing-NGINX-Ingress/
 description: Documentation on Installing NGINX Ingress

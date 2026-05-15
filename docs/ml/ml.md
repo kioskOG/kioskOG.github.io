@@ -22,7 +22,7 @@ hero_intro: >
       </div>
       <p class="project-desc">Content covering machine learning models, deployment patterns, and optimization techniques will be populated here.</p>
       <div class="tags">
-        <a class="tag" href="#">Coming Soon</a>
+        <a class="tag" href="/docs/ml/building-a-dataset-pipeline/">MLOps Step 1: Building a Dataset Pipeline</a>
       </div>
     </div>
   </article>
