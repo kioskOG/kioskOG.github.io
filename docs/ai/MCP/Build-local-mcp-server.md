@@ -3,7 +3,7 @@ title: Build Local MCP Server
 layout: doc-page
 parent: MCP
 parent_url: /docs/ai/MCP/
-nav_order: 2
+nav_order: 3
 permalink: /docs/ai/MCP/Build-local-mcp-server/
 description: How to build local MCP Server using FastMCP
 ---

@@ -1,10 +1,9 @@
 ---
 title: Knative Serving Part-1
 layout: doc-page
-parent: Knative Developer Overview
-grand_parent: Knative
-ancestor: Kubernetes Projects
-nav_order: 1.5
+parent: Knative
+grand_parent: Kubernetes Projects
+nav_order: 3
 permalink: /docs/devops/kubernetes/knative/knative-serving-part-1/
 description: Documentation on knative serving
 ---

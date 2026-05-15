@@ -502,6 +502,10 @@
               {% endif %}>About</a></li>
           <li><a href="{{ '/docs/devops/' | relative_url }}" {% if page.url contains '/docs/devops/'
               %}class="nav-active" {% endif %}>DevOps</a></li>
+          <li><a href="{{ '/docs/ml/' | relative_url }}" {% if page.url contains '/docs/ml/' %}class="nav-active" {%
+              endif %}>ML</a></li>
+          <li><a href="{{ '/docs/ai/' | relative_url }}" {% if page.url contains '/docs/ai/' %}class="nav-active" {%
+              endif %}>AI</a></li>
           <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i
                 class="fas fa-external-link-alt" style="font-size:0.7em;opacity:0.7"></i></a></li>
           <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta">Get in Touch</a></li>
@@ -524,14 +528,14 @@
         <!-- SIDEBAR -->
         <aside class="doc-sidebar" aria-label="Table of contents">
           {% if page.url contains '/docs/ai/' %}
-            {% assign cat_name = "AI" %}
-            {% assign cat_url = "/docs/ai/" %}
+          {% assign cat_name = "AI" %}
+          {% assign cat_url = "/docs/ai/" %}
           {% elsif page.url contains '/docs/ml/' %}
-            {% assign cat_name = "ML" %}
-            {% assign cat_url = "/docs/ml/" %}
+          {% assign cat_name = "ML" %}
+          {% assign cat_url = "/docs/ml/" %}
           {% else %}
-            {% assign cat_name = "DevOps" %}
-            {% assign cat_url = "/docs/devops/" %}
+          {% assign cat_name = "DevOps" %}
+          {% assign cat_url = "/docs/devops/" %}
           {% endif %}
           <a class="sidebar-back" href="{{ page.parent_url | default: cat_url | relative_url }}">
             <i class="fas fa-arrow-left" aria-hidden="true"></i>
@@ -540,21 +544,22 @@
 
           <!-- Dynamic Sibling Navigation -->
           {% if page.parent %}
-            {% assign siblings = site.pages | where: "parent", page.parent | sort: "nav_order" %}
-            {% if siblings.size > 1 %}
-              <div class="sidebar-label">In this Section</div>
-              <ul class="sidebar-toc" style="margin-bottom: 24px;">
-                {% for sibling in siblings %}
-                  <li>
-                    <a href="{{ sibling.url | relative_url }}" 
-                       {% if sibling.url == page.url %}style="color: var(--accent-blue); font-weight: 700; background: rgba(59, 130, 246, 0.08); border-left: 2px solid var(--accent-blue);"{% endif %}>
-                      <i class="fas fa-file-lines" style="margin-right: 6px; opacity: 0.6; font-size: 0.9em;"></i>
-                      {{ sibling.title }}
-                    </a>
-                  </li>
-                {% endfor %}
-              </ul>
-            {% endif %}
+          {% assign siblings = site.pages | where: "parent", page.parent | sort: "nav_order" %}
+          {% if siblings.size > 1 %}
+          <div class="sidebar-label">In this Section</div>
+          <ul class="sidebar-toc" style="margin-bottom: 24px;">
+            {% for sibling in siblings %}
+            <li>
+              <a href="{{ sibling.url | relative_url }}" {% if sibling.url==page.url
+                %}style="color: var(--accent-blue); font-weight: 700; background: rgba(59, 130, 246, 0.08); border-left: 2px solid var(--accent-blue);"
+                {% endif %}>
+                <i class="fas fa-file-lines" style="margin-right: 6px; opacity: 0.6; font-size: 0.9em;"></i>
+                {{ sibling.title }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
           {% endif %}
 
           <div class="sidebar-label">On this page</div>
@@ -647,6 +652,8 @@
             <li><a href="{{ '/' | relative_url }}">Home</a></li>
             <li><a href="{{ '/docs/about/' | relative_url }}">About</a></li>
             <li><a href="{{ '/docs/devops/' | relative_url }}">DevOps Docs</a></li>
+            <li><a href="{{ '/docs/ml/' | relative_url }}">ML Docs</a></li>
+            <li><a href="{{ '/docs/ai/' | relative_url }}">AI Docs</a></li>
             <li><a href="{{ '/docs/about/contact/' | relative_url }}">Contact</a></li>
           </ul>
         </div>

@@ -84,7 +84,8 @@ social_html: |
         <a class="tag" href="/docs/devops/kubernetes/Kubernetes-NodePort-and-iptables-rules/">NodePort & iptables</a>
         <a class="tag" href="/docs/devops/kubernetes/Kubernetes-Traffic-Policies/">Traffic Policies</a>
         <a class="tag" href="/docs/devops/kubernetes/knative/">Knative Intro</a>
-        <a class="tag" href="/docs/devops/kubernetes/knative/knative-serving/">Knative Serving</a>
+        <a class="tag" href="/docs/devops/kubernetes/knative/knative-serving-part-1/">Knative Serving Part 1</a>
+        <a class="tag" href="/docs/devops/kubernetes/knative/knative-serving-part-2/">Knative Serving Part 2</a>
         <a class="tag" href="/docs/devops/kubernetes/knative/knative-serving-monitoring/">Knative Monitoring</a>
         <a class="tag" href="/docs/devops/kubernetes/karpenter/">Karpenter Intro</a>
         <a class="tag" href="/docs/devops/kubernetes/karpenter/karpenter-setup-in-existing-eks-cluster/">Setup Karpenter</a>
