@@ -495,24 +495,19 @@
     <!-- NAV -->
     <nav class="site-nav" role="navigation" aria-label="Primary navigation">
       <div class="nav-inner">
-        <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma /&gt;</a>
+        <a class="nav-logo" href="{{ '/' | relative_url }}" style="font-family: 'Cinzel', serif;">The Citadel /&gt;</a>
         <ul class="nav-links" id="nav-links">
-          <li><a href="{{ '/' | relative_url }}">Home</a></li>
-          <li><a href="{{ '/docs/about/' | relative_url }}" {% if page.url contains '/docs/about/' %}class="nav-active"
-              {% endif %}>About</a></li>
-          <li><a href="{{ '/docs/devops/' | relative_url }}" {% if page.url contains '/docs/devops/'
-              %}class="nav-active" {% endif %}>DevOps</a></li>
-          <li><a href="{{ '/docs/ml/' | relative_url }}" {% if page.url contains '/docs/ml/' %}class="nav-active" {%
-              endif %}>ML</a></li>
-          <li><a href="{{ '/docs/ai/' | relative_url }}" {% if page.url contains '/docs/ai/' %}class="nav-active" {%
-              endif %}>AI</a></li>
-          <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i
-                class="fas fa-external-link-alt" style="font-size:0.7em;opacity:0.7"></i></a></li>
-          <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta">Get in Touch</a></li>
+          <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="nav-active" {% endif %}>The Realm</a></li>
+          <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">The Archives</a></li>
+          <li><a href="{{ '/docs/devops/' | relative_url }}" {% if page.url contains '/docs/devops/' %}class="nav-active" {% endif %}>The Chronicles</a></li>
+          <li><a href="{{ '/docs/ml/' | relative_url }}" {% if page.url contains '/docs/ml/' %}class="nav-active" {% endif %}>The Citadel</a></li>
+          <li><a href="{{ '/docs/ai/' | relative_url }}" {% if page.url contains '/docs/ai/' %}class="nav-active" {% endif %}>Dragonstone</a></li>
+          <li><a href="{{ '/docs/about/' | relative_url }}" {% if page.url contains '/docs/about/' and page.url != '/docs/about/contact/' %}class="nav-active" {% endif %}>The Maester</a></li>
+          <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta">The Raven</a></li>
         </ul>
         <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
           <i class="fas fa-search" aria-hidden="true"></i>
-          <span>Search</span>
+          <span>Consult...</span>
           <span class="search-kbd">⌘K</span>
         </button>
         <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -634,9 +629,11 @@
     <footer class="site-footer-main" role="contentinfo">
       <div class="footer-inner-main">
         <div class="footer-brand-main">
-          <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma /&gt;</a>
-          <p>DevOps Engineer &amp; Platform Architect building scalable cloud-native systems. Passionate about
-            automation, observability, and GitOps.</p>
+          <a class="nav-logo" href="{{ '/' | relative_url }}" style="font-family: 'Cinzel', serif;">The Citadel /&gt;</a>
+          <p style="font-style: italic; margin-bottom: 12px; color: var(--text-heading); font-family: 'Cinzel', serif; font-size: 0.95rem;">
+            "Knowledge is the sword of the mind."
+          </p>
+          <p>Grand Maester Jatin Sharma's archives of platform architecture, cloud systems, observabilities, and MLOps.</p>
           <div class="footer-socials-main">
             <a class="social-pill" href="https://github.com/kioskOG" target="_blank" rel="noopener"
               aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
@@ -647,28 +644,28 @@
           </div>
         </div>
         <div class="footer-col-main">
-          <h4>Quick Links</h4>
+          <h4>The Realms</h4>
           <ul class="footer-links-main">
-            <li><a href="{{ '/' | relative_url }}">Home</a></li>
-            <li><a href="{{ '/docs/about/' | relative_url }}">About</a></li>
-            <li><a href="{{ '/docs/devops/' | relative_url }}">DevOps Docs</a></li>
-            <li><a href="{{ '/docs/ml/' | relative_url }}">ML Docs</a></li>
-            <li><a href="{{ '/docs/ai/' | relative_url }}">AI Docs</a></li>
-            <li><a href="{{ '/docs/about/contact/' | relative_url }}">Contact</a></li>
+            <li><a href="{{ '/' | relative_url }}">The Realm</a></li>
+            <li><a href="{{ '/docs/about/' | relative_url }}">The Maester</a></li>
+            <li><a href="{{ '/docs/devops/' | relative_url }}">The Chronicles</a></li>
+            <li><a href="{{ '/docs/ml/' | relative_url }}">The Citadel</a></li>
+            <li><a href="{{ '/docs/ai/' | relative_url }}">Dragonstone</a></li>
+            <li><a href="{{ '/docs/about/contact/' | relative_url }}">The Raven</a></li>
           </ul>
         </div>
         <div class="footer-col-main">
           <h4>Resources</h4>
           <ul class="footer-links-main">
             <li><a href="https://github.com/kioskOG" target="_blank" rel="noopener">GitHub Profile</a></li>
-            <li><a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener">LinkedIn</a></li>
-            <li><a href="javascript:void(0)" data-search-trigger>Search Docs</a></li>
+            <li><a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener">LinkedIn Profile</a></li>
+            <li><a href="javascript:void(0)" data-search-trigger>Search Archives</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom-main">
         <span>&copy; <span id="year"></span> Jatin Sharma. All rights reserved.</span>
-        <span>Built with &#10084;&#65039; &amp; deployed on GitHub Pages</span>
+        <span>Forged &amp; deployed on GitHub Pages</span>
       </div>
     </footer>
 
@@ -752,6 +749,33 @@
         reveals.forEach(function (el) { revealIO.observe(el); });
       } else {
         reveals.forEach(function (el) { el.classList.add('visible'); });
+      }
+
+      // Medieval Code Copy Button
+      if (prose) {
+        var pres = prose.querySelectorAll('pre');
+        pres.forEach(function (pre) {
+          if (pre.querySelector('.medieval-copy-btn')) return;
+          var btn = document.createElement('button');
+          btn.className = 'medieval-copy-btn';
+          btn.setAttribute('aria-label', 'Copy record');
+          btn.innerHTML = '<i class="fas fa-scroll"></i>';
+          btn.addEventListener('click', function () {
+            var code = pre.querySelector('code');
+            var text = code ? code.textContent : pre.textContent;
+            navigator.clipboard.writeText(text).then(function () {
+              btn.innerHTML = '<i class="fas fa-check"></i> Transcribed';
+              btn.classList.add('copied');
+              setTimeout(function () {
+                btn.innerHTML = '<i class="fas fa-scroll"></i>';
+                btn.classList.remove('copied');
+              }, 2000);
+            }).catch(function (err) {
+              console.error('Failed to copy: ', err);
+            });
+          });
+          pre.appendChild(btn);
+        });
       }
     })();
   </script>

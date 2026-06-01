@@ -30,7 +30,7 @@
       '    <div class="ks-search-header">',
       '      <div class="ks-search-icon"><i class="fas fa-search" aria-hidden="true"></i></div>',
       '      <input id="ks-search-input" class="ks-search-input" type="search"',
-      '        placeholder="Search pages, docs, topics…" autocomplete="off" spellcheck="false"',
+      '        placeholder="Consult The Citadel..." autocomplete="off" spellcheck="false"',
       '        aria-label="Search the site" />',
       '      <button id="ks-search-close" class="ks-search-close" aria-label="Close search">',
       '        <span class="ks-kbd">ESC</span>',
@@ -98,6 +98,11 @@
     document.body.style.overflow = 'hidden';
     setTimeout(function () { searchInput.focus(); }, 60);
     if (!indexLoaded) loadIndex();
+    
+    // Play magical search chime
+    if (window.CitadelAudio && typeof window.CitadelAudio.playSearchOpen === 'function') {
+      window.CitadelAudio.playSearchOpen();
+    }
   }
 
   function closeSearch() {
@@ -107,6 +112,11 @@
     searchInput.value = '';
     resultsList.innerHTML = '';
     statusEl.textContent = '';
+    
+    // Play closing click
+    if (window.CitadelAudio && typeof window.CitadelAudio.playClick === 'function') {
+      window.CitadelAudio.playClick();
+    }
   }
 
   /* ─── Index loading ──────────────────────────────────────────── */

@@ -3,17 +3,17 @@ layout: full-bleed-glass
 title: AI | Jatin Sharma
 nav_order: 5
 permalink: /docs/ai/
-hero_tag: Artificial Intelligence
-hero_title: "🤖 Artificial Intelligence"
+hero_tag: Dragonstone
+hero_title: "🔥 Dragonstone (AI Systems)"
 hero_intro: >
   <p>Building autonomous systems and scalable AI agents that think like humans.</p>
 
 nav_buttons:
   - href: /docs/about/
-    label: "About Me"
+    label: "The Maester"
     icon: "fas fa-user-circle"
   - href: /docs/about/contact/
-    label: "Get in Touch"
+    label: "Send a Raven"
     icon: "fas fa-envelope"
 
 social_html: |
@@ -30,7 +30,7 @@ social_html: |
 
 <!-- Artificial Intelligence Projects -->
 <section class="projects-section reveal" aria-labelledby="ai-heading">
-  <h2 id="ai-heading">🤖 AI Systems & Workflows</h2>
+  <h2 id="ai-heading">🔥 Dragonstone (AI Systems & Workflows)</h2>
 
   <article class="project-card card-gold reveal">
     <div class="card-link" tabindex="0">

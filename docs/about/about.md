@@ -2,20 +2,20 @@
 layout: full-bleed-glass
 title: About Me | Jatin Sharma
 permalink: /docs/about/
-hero_tag: About Me
+hero_tag: The Maester
 profile_image: /profile-image.png
 profile_alt: Jatin Sharma
-hero_title: "👋 Jatin Sharma"
+hero_title: "⚔️ Grand Maester Jatin Sharma"
 hero_intro: >
-  <p>Hello! I'm <strong>Jatin Sharma</strong>, a passionate <strong>DevOps Engineer</strong> focused on building robust, scalable, and automated cloud solutions.</p>
+  <p>Hello! I'm <strong>Jatin Sharma</strong>, a passionate <strong>Grand Maester of Engineering</strong> focused on building robust, scalable, and automated cloud systems.</p>
   <p>I specialize in <strong>infrastructure automation</strong>, <strong>CI/CD pipelines</strong>, and <strong>cloud integrations</strong>.</p>
 
 nav_buttons:
   - href: /docs/about/contact/
-    label: "Get in Touch"
+    label: "Send a Raven"
     icon: "fas fa-envelope"
   - href: /docs/devops/
-    label: "DevOps Learning"
+    label: "The Chronicles"
     icon: "fas fa-project-diagram"
 
 social_html: |
@@ -32,13 +32,13 @@ social_html: |
 
 <!-- About sections use the same glass styling as projects -->
 <section class="projects-section reveal" aria-labelledby="skills-heading">
-  <h2 id="skills-heading">🌐 Skills & Expertise</h2>
+  <h2 id="skills-heading">📚 Tome of Mastery (Skills & Expertise)</h2>
 
   <!-- Cloud Platforms -->
   <article class="project-card card-teal reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
-        <h3 class="project-title">🌩 Cloud Platforms</h3>
+        <h3 class="project-title">👑 King's Landing (Cloud Platforms)</h3>
         <span class="project-open">Core Stack</span>
       </div>
       <p class="project-desc">Hands-on across AWS, GCP, and Oracle Cloud with production workloads and IaC.</p>
@@ -66,7 +66,7 @@ social_html: |
   <article class="project-card card-brown reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
-        <h3 class="project-title">🖥️ Operating Systems</h3>
+        <h3 class="project-title">🏰 Strongholds & Keeps (Operating Systems)</h3>
         <span class="project-open">Daily Drivers</span>
       </div>
       <div class="tags">
@@ -80,7 +80,7 @@ social_html: |
   <article class="project-card card-gold reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
-        <h3 class="project-title">🛠️ Config Management & IaC</h3>
+        <h3 class="project-title">Reach Forge (IaC & Config)</h3>
         <span class="project-open">Automate Everything</span>
       </div>
       <div class="tags">
@@ -94,7 +94,7 @@ social_html: |
   <article class="project-card card-orange reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
-        <h3 class="project-title">🚢 Containers & Orchestration</h3>
+        <h3 class="project-title">❄️ The Wall & Fleets (Containers & Orchestration)</h3>
         <span class="project-open">Platform</span>
       </div>
       <div class="tags">
@@ -110,7 +110,7 @@ social_html: |
   <article class="project-card card-purple reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
-        <h3 class="project-title">🚀 CI/CD</h3>
+        <h3 class="project-title">🏹 War Horns (CI/CD Pipelines)</h3>
         <span class="project-open">Pipelines</span>
       </div>
       <div class="tags">
@@ -124,7 +124,7 @@ social_html: |
   <article class="project-card card-teal reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
-        <h3 class="project-title">📊 Monitoring & Logging</h3>
+        <h3 class="project-title">👁️ The Three-Eyed Raven (Observability)</h3>
         <span class="project-open">Observability</span>
       </div>
       <div class="tags">
@@ -140,7 +140,7 @@ social_html: |
   <article class="project-card card-coral reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
-        <h3 class="project-title">🧑‍💻 Programming & Scripting</h3>
+        <h3 class="project-title">📜 High Valyrian (Programming & Scripting)</h3>
         <span class="project-open">Languages</span>
       </div>
       <div class="tags">
@@ -153,7 +153,7 @@ social_html: |
   <article class="project-card card-brown reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
-        <h3 class="project-title">🌟 Version Control & Collaboration</h3>
+        <h3 class="project-title">🤝 Alliance & Banners (Version Control)</h3>
         <span class="project-open">Code Hosting</span>
       </div>
       <div class="tags">
@@ -166,7 +166,7 @@ social_html: |
   <article class="project-card card-red reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
-        <h3 class="project-title">🗄️ Databases</h3>
+        <h3 class="project-title">💎 Gold Mines & Vaults (Databases)</h3>
         <span class="project-open">Storage</span>
       </div>
       <div class="tags">
@@ -179,7 +179,7 @@ social_html: |
   <article class="project-card card-gold reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
-        <h3 class="project-title">🎯 Platforms & Tools</h3>
+        <h3 class="project-title">🛠️ Citadel Workshops (Platforms & Tools)</h3>
         <span class="project-open">Ecosystem</span>
       </div>
       <div class="tags">
@@ -199,7 +199,7 @@ social_html: |
 
 <!-- Journey -->
 <section class="projects-section reveal" aria-labelledby="journey-heading">
-  <h2 id="journey-heading">🚀 My Journey</h2>
+  <h2 id="journey-heading">⚔️ The Maester's Pilgrimage (My Journey)</h2>
   <article class="project-card card-purple reveal">
     <div class="card-link" tabindex="0">
       <p class="project-desc">
@@ -211,7 +211,7 @@ social_html: |
 
 <!-- Philosophy -->
 <section class="projects-section reveal" aria-labelledby="philosophy-heading">
-  <h2 id="philosophy-heading">💡 Personal Philosophy</h2>
+  <h2 id="philosophy-heading">💡 The Order's Vow (Personal Philosophy)</h2>
   <article class="project-card card-teal reveal">
     <div class="card-link" tabindex="0">
       <p class="project-desc">
@@ -223,7 +223,7 @@ social_html: |
 
 <!-- Hobbies -->
 <section class="projects-section reveal" aria-labelledby="hobbies-heading">
-  <h2 id="hobbies-heading">✨ Hobbies</h2>
+  <h2 id="hobbies-heading">✨ Scrolls & Revelry (Hobbies)</h2>
   <article class="project-card card-coral reveal">
     <div class="card-link" tabindex="0">
       <p class="project-desc">
@@ -235,8 +235,8 @@ social_html: |
 
 <!-- CTA -->
 <section class="projects-section reveal" aria-labelledby="cta-heading" style="text-align:center">
-  <h2 id="cta-heading">🤝 Let’s Connect!</h2>
+  <h2 id="cta-heading">🤝 Send a Raven</h2>
   <p class="project-desc" style="text-align:center">Feel free to reach out or browse my DevOps notes.</p>
-  <a href="{{ '/docs/about/contact/' | relative_url }}" class="btn">Get in Touch <i class="fas fa-envelope" aria-hidden="true"></i></a>
-  <a href="{{ '/docs/devops/' | relative_url }}" class="btn">DevOps Projects <i class="fas fa-project-diagram" aria-hidden="true"></i></a>
+  <a href="/docs/about/contact/" class="btn">Send a Raven <i class="fas fa-paper-plane" aria-hidden="true"></i></a>
+  <a href="/docs/devops/" class="btn">The Chronicles <i class="fas fa-project-diagram" aria-hidden="true"></i></a>
 </section>

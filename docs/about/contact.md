@@ -4,19 +4,19 @@ title: Contact Me | Jatin Sharma
 parent: About Me
 nav_order: 1
 permalink: /docs/about/contact/
-hero_tag: Contact
+hero_tag: The Raven
 profile_image: /profile-image.png
 profile_alt: Jatin Sharma
-hero_title: "✉️ Get in Touch"
+hero_title: "✉️ Send a Raven"
 hero_intro: >
-  <p>I'd love to hear from you! Whether you have a question, want to collaborate, or just want to say hi, feel free to reach out.</p>
+  <p>I'd love to hear from you! Whether you have a question, want to collaborate, or just want to say hi, feel free to dispatch a raven.</p>
 
 nav_buttons:
   - href: /docs/about/
-    label: "About Me"
+    label: "The Maester"
     icon: "fas fa-user-circle"
   - href: /docs/devops/
-    label: "DevOps Projects"
+    label: "The Chronicles"
     icon: "fas fa-project-diagram"
 
 social_html: |
@@ -33,7 +33,7 @@ social_html: |
 
 <!-- Contact Details -->
 <section class="projects-section reveal" aria-labelledby="contact-details">
-  <h2 id="contact-details">📇 Contact Details</h2>
+  <h2 id="contact-details">📇 Citadel Register (Contact Details)</h2>
 
   <article class="project-card card-teal reveal">
     <div class="card-link" tabindex="0">
@@ -49,7 +49,7 @@ social_html: |
 
 <!-- Collaboration -->
 <section class="projects-section reveal" aria-labelledby="collab">
-  <h2 id="collab">🤝 Looking to Collaborate?</h2>
+  <h2 id="collab">🤝 Forge an Alliance (Collaborate)</h2>
 
   <article class="project-card card-purple reveal">
     <div class="card-link" tabindex="0">
@@ -68,7 +68,7 @@ social_html: |
 
 <!-- Quick Message Form -->
 <section class="projects-section reveal" aria-labelledby="quick-message">
-  <h2 id="quick-message">📝 Quick Message</h2>
+  <h2 id="quick-message">📝 Write a Scroll</h2>
 
   <article class="project-card card-gold reveal">
     <div class="card-link" tabindex="0">
@@ -96,7 +96,7 @@ social_html: |
           <!-- Where to redirect after success (optional) -->
           <!-- <input type="hidden" name="_next" value="https://yourdomain/thanks/" /> -->
 
-          <button type="submit" class="btn" style="align-self:center">Send Message <i class="fas fa-paper-plane" aria-hidden="true"></i></button>
+          <button type="submit" class="btn" style="align-self:center">Dispatch Raven <i class="fas fa-paper-plane" aria-hidden="true"></i></button>
         </div>
       </form>
 
@@ -111,8 +111,8 @@ social_html: |
 
 <!-- CTA -->
 <section class="projects-section reveal" aria-labelledby="cta" style="text-align:center">
-  <h2 id="cta">📂 Or browse my work</h2>
-  <a href="{{ '/docs/devops/' | relative_url }}" class="btn">DevOps Projects <i class="fas fa-project-diagram" aria-hidden="true"></i></a>
-  <a href="{{ '/docs/ml/' | relative_url }}" class="btn">ML Projects <i class="fas fa-microscope" aria-hidden="true"></i></a>
-  <a href="{{ '/docs/ai/' | relative_url }}" class="btn">AI Projects <i class="fas fa-robot" aria-hidden="true"></i></a>
+  <h2 id="cta">📂 Explore the Realms</h2>
+  <a href="/docs/devops/" class="btn">The Chronicles <i class="fas fa-project-diagram" aria-hidden="true"></i></a>
+  <a href="/docs/ml/" class="btn">The Citadel <i class="fas fa-microscope" aria-hidden="true"></i></a>
+  <a href="/docs/ai/" class="btn">Dragonstone <i class="fas fa-robot" aria-hidden="true"></i></a>
 </section>

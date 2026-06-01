@@ -10,526 +10,498 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {% seo %}
 
-
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500;700&display=swap">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     crossorigin="anonymous" />
+  <!-- Shared Portfolio CSS -->
+  <link rel="stylesheet" href="{{ '/assets/portfolio.css' | relative_url }}" />
 
   <style>
     /* =============================================
-       DESIGN TOKENS
-    ============================================= */
-    :root {
-      --bg: #f8fafc;
-      --bg-alt: #f1f5f9;
-      --surface: rgba(255, 255, 255, 0.72);
-      --surface-hover: rgba(255, 255, 255, 0.92);
-      --border: rgba(15, 23, 42, 0.08);
-      --border-hover: rgba(59, 130, 246, 0.35);
-      --text-heading: #0f172a;
-      --text-body: #334155;
-      --text-muted: #64748b;
-      --accent-blue: #3b82f6;
-      --accent-green: #10b981;
-      --accent-purple: #8b5cf6;
-      --accent-amber: #f59e0b;
-      --grad-primary: linear-gradient(135deg, #3b82f6, #10b981);
-      --grad-hero: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #10b981 100%);
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
-      --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.10), 0 4px 14px rgba(0, 0, 0, 0.06);
-      --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.12);
-      --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 20px;
-      --radius-xl: 28px;
-      --nav-h: 68px;
-    }
+       HOMEPAGE SPECIFIC GAME-UI STYLING
+       ============================================= */
 
-    /* =============================================
-       RESET & BASE
-    ============================================= */
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    /* Scroll behaviors & background */
     html {
       scroll-behavior: smooth;
-      font-size: 16px;
     }
-
     body {
-      background-color: var(--bg);
+      background-color: #050505;
       color: var(--text-body);
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
-      min-height: 100vh;
+      font-family: 'EB Garamond', serif;
       overflow-x: hidden;
-      background-image: radial-gradient(circle, rgba(99, 102, 241, 0.12) 1px, transparent 1px);
-      background-size: 28px 28px;
     }
 
-    /* =============================================
-       FLOATING DECORATION BLOBS
-    ============================================= */
-    .bg-blobs {
-      position: fixed;
-      inset: 0;
+    /* Map viewport container relative to allow scrolling */
+    .citadel-viewport-home {
+      position: relative !important;
+      width: 100% !important;
+      height: 100vh !important;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #0e0d0b 0%, #030303 90%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Strong glowing neon filter definitions */
+    .map-realm {
+      fill: rgba(10, 9, 8, 0.85) !important;
+      stroke: rgba(139, 106, 50, 0.4) !important;
+      stroke-dasharray: none !important;
+      transition: all 0.4s ease;
+    }
+
+    /* Animated connecting network lines between regions */
+    .network-line {
+      stroke: rgba(139, 106, 50, 0.22);
+      stroke-width: 1.5;
+      stroke-dasharray: 6, 6;
+      animation: flowLine 30s linear infinite;
+    }
+
+    .network-line-pulse {
+      stroke: var(--border-hover);
+      stroke-width: 1.5;
+      stroke-dasharray: 80, 240;
+      stroke-dashoffset: 0;
+      animation: pulseLine 7s linear infinite;
+      filter: drop-shadow(0 0 5px var(--border-hover));
+    }
+
+    @keyframes flowLine {
+      to { stroke-dashoffset: -360; }
+    }
+    @keyframes pulseLine {
+      0% { stroke-dashoffset: 320; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    /* Constellation Sub-node connections */
+    .sub-connection-line {
+      stroke: rgba(139, 106, 50, 0.15);
+      stroke-width: 0.75;
+      stroke-dasharray: 2, 4;
+      transition: all 0.4s ease;
+    }
+
+    .realm-group:hover .sub-connection-line {
+      stroke: rgba(212, 175, 55, 0.55);
+      stroke-width: 1;
+      stroke-dasharray: none;
+      filter: drop-shadow(0 0 3px rgba(212, 175, 55, 0.4));
+    }
+
+    /* Rotating orbit rings around main nodes */
+    .rotating-ring {
+      stroke: rgba(212, 175, 55, 0.12);
+      stroke-width: 0.75;
+      stroke-dasharray: 4, 6;
+      fill: none;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: spinRing 24s linear infinite;
+      transition: all 0.4s ease;
+    }
+
+    .realm-group:hover .rotating-ring {
+      stroke: rgba(212, 175, 55, 0.55);
+      stroke-width: 1;
+      filter: drop-shadow(0 0 4px var(--border-hover));
+    }
+
+    @keyframes spinRing {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Node pin and sub-node styling */
+    .realm-node-pin {
+      fill: #080808 !important;
+      stroke: var(--border) !important;
+      stroke-width: 1.5 !important;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 0 4px rgba(0,0,0,0.8));
+    }
+
+    .sub-node {
+      fill: #060606;
+      stroke: rgba(139, 106, 50, 0.4);
+      stroke-width: 1;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 0 3px rgba(0,0,0,0.9));
+    }
+
+    .realm-group:hover .sub-node {
+      stroke: var(--border-hover);
+      fill: var(--border-hover);
+      filter: drop-shadow(0 0 8px var(--border-hover));
+    }
+
+    /* Faint sub-node labels that glow on hover */
+    .sub-node-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      fill: var(--text-muted);
+      text-anchor: middle;
+      opacity: 0.25;
+      transition: all 0.3s ease;
       pointer-events: none;
-      z-index: 0;
+      letter-spacing: 0.5px;
+    }
+
+    .realm-group:hover .sub-node-label {
+      opacity: 0.95;
+      fill: #ffffff;
+      text-shadow: 0 0 4px rgba(255,255,255,0.7);
+    }
+
+    /* Realm Group Hover Highlights */
+    .realm-group {
+      cursor: pointer;
+    }
+    
+    .realm-group:hover .map-realm,
+    .realm-group.active .map-realm {
+      fill: rgba(212, 175, 55, 0.08) !important;
+      stroke: var(--border-hover) !important;
+      filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.75)) !important;
+    }
+    
+    .realm-group:hover .realm-label,
+    .realm-group.active .realm-label {
+      opacity: 1 !important;
+      fill: #ffffff !important;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+    }
+    
+    .realm-group:hover .realm-node-pin,
+    .realm-group.active .realm-node-pin {
+      fill: var(--accent-green) !important;
+      stroke: #ffffff !important;
+      r: 8.5 !important;
+      filter: drop-shadow(0 0 10px rgba(255, 140, 66, 0.95));
+    }
+
+    /* HUD Maester Status Card */
+    .hud-maester-panel {
+      position: absolute;
+      top: 100px;
+      right: 40px;
+      width: 290px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 50;
+      background: rgba(8, 8, 8, 0.93);
+    }
+
+    .hud-maester-profile {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hud-maester-avatar {
+      position: relative;
+      width: 64px;
+      height: 64px;
+    }
+
+    .hud-maester-avatar::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      background: var(--grad-primary);
+      opacity: 0.8;
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+    }
+
+    .hud-maester-avatar img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #050505;
+    }
+
+    .hud-maester-meta h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: #ffffff;
+      margin: 0 0 4px 0;
+      text-shadow: 0 0 6px rgba(212, 175, 55, 0.3);
+    }
+
+    .hud-maester-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.88rem;
+      color: var(--text-heading);
+      display: block;
+      font-weight: 600;
+    }
+
+    .hud-maester-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .hud-maester-status .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 6px #10b981;
+      display: inline-block;
+      animation: statusBlink 1.8s ease-in-out infinite;
+    }
+
+    @keyframes statusBlink {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    .hud-maester-panel p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: var(--text-body);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .hud-maester-socials {
+      display: flex;
+      gap: 8px;
+    }
+
+    .hud-maester-socials a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 4px;
+      border: 1px solid rgba(139, 106, 50, 0.3);
+      background: rgba(0,0,0,0.3);
+      color: var(--text-body);
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .hud-maester-socials a:hover {
+      border-color: var(--border-hover);
+      color: #ffffff;
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .hud-maester-panel .hud-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: var(--grad-primary);
+      border: none;
+      border-radius: 4px;
+      color: #ffffff;
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    .hud-maester-panel .hud-btn:hover {
+      filter: brightness(1.1);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+      color: #ffffff;
+    }
+
+    /* Scroll Down Indicator HUD widget */
+    .hud-scroll-indicator {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      pointer-events: none;
+      animation: bounceIndicator 2.2s ease-in-out infinite;
+      z-index: 45;
+    }
+
+    @keyframes bounceIndicator {
+      0%, 100% { transform: translate(-50%, 0); opacity: 0.5; }
+      50% { transform: translate(-50%, 8px); opacity: 1; }
+    }
+
+    .hud-scroll-indicator i {
+      font-size: 1rem;
+      color: var(--border-hover);
+    }
+
+    /* Lore Card Styles inside scroll drawer */
+    .lore-card {
+      border: 1px solid var(--border);
+      background: rgba(14, 12, 10, 0.96);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.95), inset 0 0 20px rgba(139, 106, 50, 0.15);
+      padding: 24px;
+      border-radius: 6px;
+      position: relative;
       overflow: hidden;
     }
 
-    .bg-blobs::before {
+    .lore-card::before {
       content: '';
       position: absolute;
-      top: -15%;
-      right: -10%;
-      width: 50vw;
-      height: 50vw;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
-      animation: floatBlob 20s ease-in-out infinite;
+      top: 5px; left: 5px; right: 5px; bottom: 5px;
+      border: 1px solid rgba(139, 106, 50, 0.15);
+      pointer-events: none;
     }
 
-    .bg-blobs::after {
-      content: '';
-      position: absolute;
-      bottom: -10%;
-      left: -5%;
-      width: 40vw;
-      height: 40vw;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.10) 0%, transparent 70%);
-      animation: floatBlob 25s ease-in-out infinite reverse;
+    .realm-drawer-header {
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(139, 106, 50, 0.25);
+      padding-bottom: 16px;
     }
 
-    @keyframes floatBlob {
-
-      0%,
-      100% {
-        transform: translateY(0) scale(1);
-      }
-
-      50% {
-        transform: translateY(-5%) scale(1.05);
-      }
-    }
-
-    .page-wrap {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* =============================================
-       NAVIGATION
-    ============================================= */
-    .site-nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      height: var(--nav-h);
-      display: flex;
+    .realm-drawer-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      color: var(--border-hover);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      display: inline-flex;
       align-items: center;
-      background: rgba(248, 250, 252, 0.82);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
+      gap: 8px;
+      margin-bottom: 8px;
     }
 
-    .nav-inner {
-      max-width: 1180px;
-      margin: 0 auto;
-      width: 100%;
-      padding: 0 24px;
+    .realm-drawer-header h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      color: #ffffff;
+      margin: 0 0 10px 0;
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+    }
+
+    .realm-drawer-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .realm-drawer-projects, .realm-drawer-docs {
+      margin-bottom: 24px;
+    }
+
+    .realm-drawer-projects h5, .realm-drawer-docs h5 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      color: var(--text-heading);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+      border-bottom: 1px dashed rgba(139, 106, 50, 0.25);
+      padding-bottom: 6px;
+    }
+
+    .realm-project-card {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(139, 106, 50, 0.3);
+      padding: 16px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .realm-project-card:hover {
+      border-color: var(--border-hover);
+      background: rgba(0, 0, 0, 0.7);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .realm-project-card h6 {
+      font-size: 1rem;
+      margin: 0 0 8px 0;
+      font-family: 'Cinzel', serif;
+    }
+
+    .realm-project-card h6 a {
+      color: #ffffff;
+      text-decoration: none;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .nav-logo {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.1rem;
-      font-weight: 700;
-      background: var(--grad-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-decoration: none;
-      letter-spacing: -0.5px;
+    .realm-project-card h6 a:hover {
+      color: var(--border-hover);
     }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      display: block;
-      padding: 7px 14px;
-      border-radius: var(--radius-sm);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--text-body);
-      transition: color 0.16s, background 0.16s;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent-blue);
-      background: rgba(59, 130, 246, 0.08);
-    }
-
-    .nav-cta {
-      padding: 9px 22px !important;
-      background: var(--grad-primary) !important;
-      color: white !important;
-      border-radius: 999px !important;
-      font-weight: 600 !important;
-      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35) !important;
-      transition: transform 0.18s, box-shadow 0.18s !important;
-    }
-
-    .nav-cta:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.45) !important;
-    }
-
-    .nav-hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 6px;
-      background: none;
-      border: none;
-    }
-
-    .nav-hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--text-heading);
-      border-radius: 2px;
-      transition: 0.3s;
-    }
-
-    /* --- NAV SEARCH BUTTON --- */
-    .nav-search-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 14px;
-      border-radius: var(--radius-sm);
-      background: rgba(15, 23, 42, 0.04);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      color: var(--text-muted);
-      font-size: 0.82rem;
-      font-weight: 500;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      transition: background 0.16s, border-color 0.16s, color 0.16s;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .nav-search-btn:hover {
-      background: rgba(59, 130, 246, 0.07);
-      border-color: rgba(59, 130, 246, 0.25);
-      color: var(--accent-blue);
-    }
-
-    .nav-search-btn .search-kbd {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 6px;
-      border-radius: 5px;
-      background: rgba(15, 23, 42, 0.07);
-      font-size: 0.72rem;
-      font-family: 'JetBrains Mono', monospace;
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-
-    /* --- SEARCH MODAL OVERLAY --- */
-    .ks-search-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 80px;
-      background: rgba(15, 23, 42, 0.45);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.18s ease;
-    }
-
-    .ks-search-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .ks-search-box {
-      width: 100%;
-      max-width: 640px;
-      margin: 0 16px;
-      background: rgba(255, 255, 255, 0.97);
-      border: 1px solid rgba(59, 130, 246, 0.18);
-      border-radius: 20px;
-      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.22), 0 8px 32px rgba(59, 130, 246, 0.12);
-      overflow: hidden;
-      transform: translateY(-16px);
-      transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .ks-search-overlay.open .ks-search-box {
-      transform: translateY(0);
-    }
-
-    .ks-search-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 18px;
-      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-      background: rgba(248, 250, 252, 0.70);
-    }
-
-    .ks-search-icon {
-      color: #64748b;
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-
-    .ks-search-input {
-      flex: 1;
-      border: none;
-      background: transparent;
-      font-size: 1rem;
-      font-family: 'Inter', sans-serif;
-      color: #0f172a;
-      outline: none;
-      caret-color: #3b82f6;
-    }
-
-    .ks-search-input::placeholder {
-      color: #94a3b8;
-    }
-
-    .ks-search-close {
-      display: inline-flex;
-      align-items: center;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-    }
-
-    .ks-kbd {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 5px;
-      background: rgba(15, 23, 42, 0.07);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      font-size: 0.72rem;
-      font-family: 'JetBrains Mono', monospace;
-      color: #64748b;
-      line-height: 1.5;
-    }
-
-    .ks-search-status {
-      padding: 6px 18px;
-      font-size: 0.78rem;
-      color: #64748b;
-      min-height: 26px;
-    }
-
-    .ks-search-results {
-      list-style: none;
-      max-height: 380px;
-      overflow-y: auto;
-      scroll-behavior: smooth;
-    }
-
-    .ks-search-results::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .ks-search-results::-webkit-scrollbar-thumb {
-      background: rgba(15, 23, 42, 0.08);
-      border-radius: 4px;
-    }
-
-    .ks-result-item {
-      transition: background 0.12s;
-    }
-
-    .ks-result-item.ks-result-active,
-    .ks-result-item:hover {
-      background: rgba(59, 130, 246, 0.06);
-    }
-
-    .ks-result-link {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 13px 18px;
-      text-decoration: none;
-      color: inherit;
-      border-top: 1px solid rgba(15, 23, 42, 0.07);
-    }
-
-    .ks-result-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      background: rgba(59, 130, 246, 0.08);
-      color: #3b82f6;
-      font-size: 0.85rem;
-      flex-shrink: 0;
-    }
-
-    .ks-result-body {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .ks-result-title {
+    .realm-project-card p {
       font-size: 0.9rem;
-      font-weight: 600;
-      color: #0f172a;
-      margin-bottom: 3px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .ks-result-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .ks-result-section {
-      font-size: 0.75rem;
-      color: #3b82f6;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .ks-result-excerpt {
-      font-size: 0.76rem;
-      color: #64748b;
+      color: var(--text-body);
+      margin-bottom: 10px;
       line-height: 1.5;
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
     }
 
-    .ks-result-arrow {
-      color: #94a3b8;
-      font-size: 0.75rem;
-      flex-shrink: 0;
-      opacity: 0;
-      transition: opacity 0.12s;
+    .drawer-doc-links {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 10px;
     }
 
-    .ks-result-item.ks-result-active .ks-result-arrow,
-    .ks-result-item:hover .ks-result-arrow {
-      opacity: 1;
-      color: #3b82f6;
-    }
-
-    .ks-highlight {
-      background: linear-gradient(120deg, rgba(59, 130, 246, 0.22), rgba(16, 185, 129, 0.15));
-      color: #3b82f6;
-      font-weight: 700;
-      border-radius: 3px;
-      padding: 0 2px;
-    }
-
-    .ks-search-footer {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      padding: 10px 18px;
-      border-top: 1px solid rgba(15, 23, 42, 0.08);
-      background: rgba(248, 250, 252, 0.70);
-      font-size: 0.73rem;
-      color: #64748b;
-      flex-wrap: wrap;
-    }
-
-    .ks-search-footer kbd {
-      display: inline-block;
-      padding: 2px 6px;
+    .drawer-doc-links li a {
+      display: block;
+      padding: 8px 12px;
+      background: rgba(139, 106, 50, 0.05);
+      border: 1px solid rgba(139, 106, 50, 0.15);
       border-radius: 4px;
-      background: rgba(15, 23, 42, 0.07);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      font-size: 0.7rem;
-      font-family: 'JetBrains Mono', monospace;
-      color: #334155;
-      margin-right: 3px;
+      color: var(--text-body);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: all 0.2s ease;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
     }
 
-    .ks-search-footer-brand {
-      margin-left: auto;
-      opacity: 0.55;
+    .drawer-doc-links li a:hover {
+      background: rgba(139, 106, 50, 0.12);
+      border-color: var(--border-hover);
+      color: #ffffff;
+      transform: translateX(4px);
     }
 
-    @media (max-width: 640px) {
-      .nav-search-btn .search-kbd {
-        display: none;
-      }
-
-      .nav-search-btn span:not(.search-kbd) {
-        display: none;
-      }
-
-      .ks-search-overlay {
-        padding-top: 20px;
-      }
-
-      .ks-search-box {
-        margin: 0 8px;
-        border-radius: 14px;
-      }
-
-      .ks-search-results {
-        max-height: calc(100dvh - 200px);
-      }
-
-      .ks-search-footer {
-        display: none;
-      }
-    }
-
+    /* Responsive scaling adjustments */
     /* =============================================
-       SHARED SECTION LAYOUT
-    ============================================= */
+       SCROLLABLE HOMEPAGE SECTIONS LAYOUTS
+       ============================================= */
+
+    /* Shared Section & Header Styles */
     .section {
       max-width: 1180px;
       margin: 0 auto;
@@ -542,13 +514,14 @@
       gap: 8px;
       padding: 6px 16px;
       border-radius: 999px;
-      background: rgba(59, 130, 246, 0.08);
-      border: 1px solid rgba(59, 130, 246, 0.18);
-      font-family: 'JetBrains Mono', monospace;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      font-family: 'Cinzel', serif;
       font-size: 0.8rem;
       font-weight: 600;
-      color: var(--accent-blue);
+      color: var(--text-heading);
       margin-bottom: 20px;
+      letter-spacing: 1px;
     }
 
     .section-tag .dot {
@@ -558,26 +531,22 @@
       background: var(--accent-green);
       animation: blink 1.8s ease-in-out infinite;
       display: inline-block;
+      box-shadow: 0 0 6px var(--accent-green);
     }
 
     @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0.3;
-      }
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
     }
 
     .section-title {
+      font-family: 'Cinzel', serif;
       font-size: clamp(1.8rem, 3.5vw, 2.6rem);
       font-weight: 800;
       color: var(--text-heading);
       line-height: 1.2;
       margin-bottom: 14px;
+      text-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
     }
 
     .gradient-text {
@@ -588,7 +557,8 @@
     }
 
     .section-subtitle {
-      font-size: 1.05rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
       color: var(--text-muted);
       max-width: 600px;
       line-height: 1.7;
@@ -604,431 +574,386 @@
     .divider {
       width: 100%;
       height: 1px;
-      background: linear-gradient(to right, transparent, rgba(59, 130, 246, 0.25), transparent);
+      background: linear-gradient(to right, transparent, rgba(139, 106, 50, 0.3), transparent);
     }
 
-    /* =============================================
-       HERO
-    ============================================= */
-    .hero {
-      min-height: calc(100vh - var(--nav-h));
-      display: flex;
-      align-items: center;
-      padding: 80px 24px 60px;
-    }
-
-    .hero-inner {
-      max-width: 1180px;
-      margin: 0 auto;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .hero-terminal-prompt {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--accent-green);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hero-terminal-prompt::before {
-      content: '$ ';
-      opacity: 0.5;
-      color: var(--text-muted);
-    }
-
-    .hero-heading {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 700;
-      color: var(--text-heading);
-      line-height: 1.15;
-      margin-bottom: 8px;
-    }
-
-    .hero-heading .at {
-      color: var(--accent-blue);
-    }
-
-    .hero-heading .path {
-      color: var(--accent-green);
-    }
-
-    .hero-heading .prompt {
-      color: var(--text-muted);
-    }
-
-    .hero-role-line {
-      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-      font-weight: 600;
-      color: var(--text-body);
-      margin-bottom: 6px;
-      min-height: 2em;
-    }
-
-    .hero-role-line .role-typing {
-      background: var(--grad-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 2px;
-      height: 1.1em;
-      background: var(--accent-blue);
-      border-radius: 1px;
-      vertical-align: text-bottom;
-      animation: cursorBlink 1s step-end infinite;
-    }
-
-    @keyframes cursorBlink {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0;
-      }
-    }
-
-    .hero-desc {
-      font-size: 1rem;
-      color: var(--text-muted);
-      max-width: 520px;
-      line-height: 1.75;
-      margin-bottom: 36px;
-    }
-
-    .hero-ctas {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 30px;
-      border-radius: 999px;
-      background: var(--grad-primary);
-      color: white;
-      font-weight: 700;
-      font-size: 0.95rem;
-      text-decoration: none;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.38);
-      transition: transform 0.18s, box-shadow 0.18s;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(59, 130, 246, 0.48);
-    }
-
-    .btn-outline {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 13px 28px;
-      border-radius: 999px;
-      background: transparent;
-      color: var(--text-heading);
-      font-weight: 600;
-      font-size: 0.95rem;
-      text-decoration: none;
-      border: 1.5px solid var(--border-hover);
-      transition: border-color 0.18s, background 0.18s, transform 0.18s;
-    }
-
-    .btn-outline:hover {
-      border-color: var(--accent-blue);
-      background: rgba(59, 130, 246, 0.06);
-      transform: translateY(-2px);
-    }
-
-    .hero-socials {
-      display: flex;
-      gap: 12px;
-    }
-
-    .social-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-body);
-      font-size: 1rem;
-      text-decoration: none;
-      box-shadow: var(--shadow-sm);
-      transition: transform 0.18s, border-color 0.18s, color 0.18s, box-shadow 0.18s;
-      backdrop-filter: blur(8px);
-    }
-
-    .social-pill:hover {
-      transform: translateY(-3px);
-      border-color: var(--accent-blue);
-      color: var(--accent-blue);
-      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.20);
-    }
-
-    .hero-avatar-panel {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .hero-avatar-ring {
-      position: relative;
-      width: 240px;
-      height: 240px;
-    }
-
-    .hero-avatar-ring::before {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      background: var(--grad-hero);
-      animation: ringPulse 4s ease-in-out infinite;
-      opacity: 0.7;
-    }
-
-    @keyframes ringPulse {
-
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 0.7;
-      }
-
-      50% {
-        transform: scale(1.04);
-        opacity: 1;
-      }
-    }
-
-    .hero-avatar-ring img {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid white;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .hero-status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 18px;
-      border-radius: 999px;
-      background: rgba(16, 185, 129, 0.10);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #059669;
-      white-space: nowrap;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #10b981;
-      animation: blink 1.5s ease-in-out infinite;
-      display: inline-block;
-    }
-
-    /* =============================================
-       STATS STRIP
-    ============================================= */
+    /* Stats Strip (Circular Medallions) */
     .stats-strip {
-      background: var(--surface);
+      background: rgba(8, 8, 8, 0.65);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .stats-inner {
-      max-width: 1180px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 36px 24px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
+      padding: 40px 24px;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 30px;
     }
 
     .stat-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
       text-align: center;
-      padding: 16px;
-      border-radius: var(--radius-md);
-      background: rgba(255, 255, 255, 0.5);
-      border: 1px solid var(--border);
-      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      width: 165px;
+      height: 165px;
+      border-radius: 50% !important;
+      background: rgba(12, 11, 10, 0.8) !important;
+      border: 1.5px solid var(--border) !important;
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.7), inset 0 0 15px rgba(139,106,50,0.15);
+    }
+
+    /* We use class specificity to override the global square corners from portfolio.css */
+    .stats-strip .stat-item::before {
+      display: block !important;
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50% !important;
+      border: 1px dashed rgba(212, 175, 55, 0.25) !important;
+      animation: spinRing 20s linear infinite;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      background: none !important;
+      top: auto !important; left: auto !important; width: auto !important; height: auto !important;
+    }
+    
+    .stats-strip .stat-item::after {
+      display: block !important;
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border-radius: 50% !important;
+      border: 1px double rgba(139, 106, 50, 0.35) !important;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      background: none !important;
+      bottom: auto !important; right: auto !important; width: auto !important; height: auto !important;
     }
 
     .stat-item:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-      background: white;
+      transform: translateY(-4px) scale(1.03);
+      border-color: var(--border-hover) !important;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4) !important;
+    }
+    
+    .stat-item:hover::before {
+      inset: -9px;
+      border-color: var(--border-hover) !important;
+      border-style: solid !important;
+      opacity: 0.7;
+    }
+    
+    .stat-item:hover::after {
+      border-color: #fff !important;
+      opacity: 0.5;
     }
 
     .stat-num {
-      font-size: 2rem;
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
       font-weight: 800;
-      background: var(--grad-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text-heading);
       line-height: 1;
+      text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+      margin-bottom: 4px;
+      z-index: 2;
     }
 
     .stat-label {
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--text-muted);
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-body);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
+      max-width: 120px;
+      line-height: 1.3;
+      z-index: 2;
     }
 
-    /* =============================================
-       ABOUT
-    ============================================= */
+    /* About Section Grid columns */
     .about-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 60px;
       align-items: start;
     }
 
     .about-body p {
-      font-size: 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
       color: var(--text-body);
       line-height: 1.8;
       margin-bottom: 16px;
     }
 
+    /* Expertise Chips (Runic Perk Tags) */
     .about-expertise-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      flex-wrap: wrap;
       gap: 12px;
-      margin-top: 28px;
+      margin-top: 24px;
     }
 
     .expertise-chip {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 16px;
-      border-radius: var(--radius-sm);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-heading);
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      padding: 8px 16px !important;
+      border-radius: 24px !important; /* Rounded perk pill shape */
+      background: rgba(12, 11, 10, 0.75) !important;
+      border: 1px solid var(--border) !important;
+      font-family: 'Cinzel', serif !important;
+      font-size: 0.78rem !important;
+      font-weight: 600 !important;
+      color: var(--text-heading) !important;
+      transition: all 0.3s ease !important;
+      cursor: pointer;
+      position: relative;
       box-shadow: var(--shadow-sm);
-      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+    
+    /* Disable default square corner ornaments from portfolio.css */
+    .about-expertise-grid .expertise-chip::before, 
+    .about-expertise-grid .expertise-chip::after {
+      display: none !important;
+      content: none !important;
     }
 
     .expertise-chip:hover {
-      border-color: var(--accent-blue);
-      box-shadow: var(--shadow-md);
+      border-color: var(--border-hover) !important;
+      background: rgba(212, 175, 55, 0.09) !important;
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.3) !important;
+      transform: translateY(-2px);
     }
 
     .expertise-chip i {
-      color: var(--accent-blue);
-      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px dashed rgba(212, 175, 55, 0.4);
+      color: var(--border-hover) !important;
+      transition: all 0.3s ease;
+      font-size: 0.82rem;
+    }
+    
+    .expertise-chip:hover i {
+      border-color: var(--border-hover);
+      box-shadow: 0 0 6px var(--border-hover);
+      transform: rotate(360deg);
+      border-style: solid;
     }
 
+    /* Proven Impact Section (Lore Cards with Circular Dials) */
     .impact-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 16px;
     }
 
     .impact-card {
-      padding: 22px;
-      border-radius: var(--radius-md);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      transition: transform 0.18s, box-shadow 0.18s;
-      backdrop-filter: blur(12px);
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center !important;
+      padding: 26px 20px !important;
+      border-radius: 4px !important;
+      background: rgba(12, 11, 10, 0.8) !important;
+      border: 1px solid var(--border) !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      position: relative;
     }
+    
+    .impact-card::before, .impact-card::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border: 1.5px solid var(--border-hover) !important;
+      pointer-events: none;
+      opacity: 0.3;
+      transition: all 0.3s ease;
+    }
+    .impact-card::before { top: 3px; left: 3px; border-right: none !important; border-bottom: none !important; }
+    .impact-card::after { bottom: 3px; right: 3px; border-left: none !important; border-top: none !important; }
 
     .impact-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-md);
+      transform: translateY(-4px) !important;
+      border-color: var(--border-hover) !important;
+      background: rgba(212, 175, 55, 0.08) !important;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.35) !important;
+    }
+    .impact-card:hover::before, .impact-card:hover::after {
+      opacity: 1;
     }
 
     .impact-pct {
-      font-size: 2.2rem;
+      font-family: 'Cinzel', serif;
+      font-size: 2.1rem;
       font-weight: 800;
-      background: var(--grad-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text-heading);
       line-height: 1.1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1.5px dashed rgba(212, 175, 55, 0.35);
+      margin-bottom: 14px;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+    }
+    
+    .impact-card:hover .impact-pct {
+      border-color: var(--border-hover);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+      transform: scale(1.05);
+      border-style: solid;
     }
 
     .impact-desc {
-      font-size: 0.82rem;
-      color: var(--text-muted);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: var(--text-body);
       margin-top: 4px;
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
-    /* /* =============================================
-   MODERN SKILLS SECTION — 2026 UI
-============================================= */
+    /* HUD Audio Settings Panel */
+    .hud-audio-control-wrap {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .audio-settings-dropdown {
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      width: 230px;
+      background: rgba(12, 10, 8, 0.97);
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.9), inset 0 0 15px rgba(139,106,50,0.25);
+      border-radius: 4px;
+      padding: 16px;
+      z-index: 110;
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .hud-audio-control-wrap:hover .audio-settings-dropdown,
+    .hud-audio-control-wrap:focus-within .audio-settings-dropdown {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    
+    .audio-settings-dropdown::before, .audio-settings-dropdown::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border: 1px solid var(--border-hover) !important;
+      pointer-events: none;
+    }
+    .audio-settings-dropdown::before { top: 3px; left: 3px; border-right: none !important; border-bottom: none !important; }
+    .audio-settings-dropdown::after { bottom: 3px; right: 3px; border-left: none !important; border-top: none !important; }
+    
+    .dropdown-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      border-bottom: 1px dashed rgba(139, 106, 50, 0.25);
+      padding-bottom: 6px;
+      text-align: center;
+    }
+    
+    .audio-control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      color: var(--text-body);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    
+    .audio-control-row:last-child {
+      margin-bottom: 0;
+    }
+    
+    .audio-control-row input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 110px;
+      height: 4px;
+      background: rgba(139, 106, 50, 0.25);
+      border: 1px solid rgba(139, 106, 50, 0.5);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+    }
+    
+    .audio-control-row input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border-hover);
+      box-shadow: 0 0 6px var(--border-hover);
+      transition: all 0.15s ease;
+    }
+    
+    .audio-control-row input[type="range"]::-webkit-slider-thumb:hover {
+      background: #fff;
+      box-shadow: 0 0 10px #fff;
+      transform: scale(1.2);
+    }
+    
+    .audio-control-row input[type="checkbox"] {
+      accent-color: var(--border-hover);
+      cursor: pointer;
+    }
 
+    /* Skills Domain Matrix Grid styling */
     .skills-header-bar {
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 16px 22px;
-      border-radius: 18px;
-
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-
+      border-radius: var(--radius-sm);
+      background: rgba(11, 11, 11, 0.75);
+      border: 1px solid var(--border);
       margin-bottom: 42px;
-
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
-
-      box-shadow:
-        0 4px 20px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
     }
 
     .skills-header-bar .cmd {
@@ -1040,342 +965,145 @@
       color: var(--accent-blue);
     }
 
-    /* =========================
-   GRID
-========================= */
-
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 22px;
     }
 
-    /* =========================
-   CARD
-========================= */
-
     .skill-card {
       position: relative;
       overflow: hidden;
-
       padding: 24px;
-      border-radius: 22px;
-
-      background:
-        linear-gradient(145deg,
-          rgba(255, 255, 255, 0.045),
-          rgba(255, 255, 255, 0.015));
-
-      border: 1px solid rgba(255, 255, 255, 0.08);
-
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-
-      transition:
-        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-        box-shadow 0.45s ease,
-        border-color 0.35s ease,
-        background 0.35s ease;
-
-      box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      border-radius: var(--radius-sm);
+      background: rgba(11, 11, 11, 0.7);
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
     }
-
-    /* Animated gradient glow */
-    .skill-card::before {
+    
+    .skill-card::before, .skill-card::after {
       content: '';
       position: absolute;
-      inset: 0;
-
-      background:
-        radial-gradient(circle at top left,
-          rgba(59, 130, 246, 0.18),
-          transparent 45%),
-        radial-gradient(circle at bottom right,
-          rgba(168, 85, 247, 0.12),
-          transparent 45%);
-
-      opacity: 0;
-      transition: opacity 0.45s ease;
+      width: 8px;
+      height: 8px;
+      border: 1.5px solid var(--border-hover);
       pointer-events: none;
+      opacity: 0.25;
+      transition: all 0.3s ease;
     }
+    .skill-card::before { top: 3px; left: 3px; border-right: none; border-bottom: none; }
+    .skill-card::after { bottom: 3px; right: 3px; border-left: none; border-top: none; }
 
-    /* Top animated border */
-    .skill-card::after {
-      content: '';
-      position: absolute;
-
-      top: 0;
-      left: 0;
-
-      width: 100%;
-      height: 3px;
-
-      background: linear-gradient(90deg,
-          #3b82f6,
-          #8b5cf6,
-          #06b6d4);
-
-      transform: scaleX(0);
-      transform-origin: left;
-
-      transition: transform 0.4s ease;
-    }
-
-    /* Hover */
     .skill-card:hover {
-      transform: translateY(-12px) scale(1.025);
-
-      border-color: rgba(59, 130, 246, 0.45);
-
-      background:
-        linear-gradient(145deg,
-          rgba(255, 255, 255, 0.06),
-          rgba(255, 255, 255, 0.025));
-
-      box-shadow:
-        0 12px 30px rgba(59, 130, 246, 0.12),
-        0 24px 60px rgba(59, 130, 246, 0.18),
-        0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+      transform: translateY(-6px);
+      border-color: var(--border-hover);
+      background: rgba(212, 175, 55, 0.05);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
     }
-
-    .skill-card:hover::before {
+    .skill-card:hover::before, .skill-card:hover::after {
       opacity: 1;
     }
-
-    .skill-card:hover::after {
-      transform: scaleX(1);
-    }
-
-    .skill-card:hover {
-      box-shadow:
-        0 12px 30px rgba(59, 130, 246, 0.16),
-        0 24px 60px rgba(6, 182, 212, 0.18),
-        0 0 40px rgba(20, 184, 166, 0.08);
-    }
-
-    /* =========================
-   CATEGORY TAG
-========================= */
 
     .skill-cat-tag {
       position: absolute;
       top: 18px;
       right: 18px;
-
-      padding: 5px 12px;
+      padding: 3px 10px;
       border-radius: 999px;
-
-      font-size: 0.68rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
       font-weight: 700;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
-
-      background: rgba(59, 130, 246, 0.12);
-
-      border: 1px solid rgba(59, 130, 246, 0.2);
-
-      color: #60a5fa;
-
-      backdrop-filter: blur(10px);
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      color: var(--text-heading);
     }
-
-    /* =========================
-   ICON
-========================= */
 
     .skill-icon {
-      font-size: 1.9rem;
+      font-size: 2rem;
       margin-bottom: 14px;
-
-      transition:
-        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-        filter 0.45s ease;
+      color: var(--text-heading);
     }
-
-    .skill-card:hover .skill-icon {
-      transform: scale(1.14) rotate(-4deg);
-
-      filter:
-        drop-shadow(0 0 12px rgba(59, 130, 246, 0.45));
-    }
-
-    /* =========================
-   TITLE
-========================= */
 
     .skill-title {
+      font-family: 'Cinzel', serif;
       font-size: 1.05rem;
-      font-weight: 800;
-
+      font-weight: 700;
       color: var(--text-heading);
-
       margin-bottom: 10px;
-
-      letter-spacing: -0.02em;
     }
-
-    /* =========================
-   TAGS
-========================= */
 
     .skill-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
       margin-top: 14px;
     }
 
     .skill-tag {
-      padding: 5px 12px;
-      border-radius: 999px;
-
-      font-size: 0.72rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
       font-weight: 600;
-
-      color: rgba(47, 149, 203, 0.952);
-
-      background: rgba(255, 255, 255, 0.04);
-
-      border: 1px solid rgba(255, 255, 255, 0.08);
-
-      backdrop-filter: blur(10px);
-
-      transition:
-        background 0.3s ease,
-        transform 0.3s ease,
-        border-color 0.3s ease;
+      color: var(--text-body);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.2s ease;
     }
 
     .skill-tag:hover {
-      background: rgba(59, 130, 246, 0.12);
-
-      border-color: rgba(59, 130, 246, 0.28);
-
-      transform: translateY(-2px);
+      background: rgba(212, 175, 55, 0.12);
+      border-color: var(--border-hover);
+      color: #ffffff;
     }
 
-    /* =========================
-   RESPONSIVE
-========================= */
-
-    @media (max-width: 1100px) {
-      .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .skill-card {
-        padding: 20px;
-      }
-    }
-
-    /* =============================================
-       TECH ECOSYSTEM
-    ============================================= */
-    .eco-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .eco-card {
-      padding: 22px;
-      border-radius: var(--radius-md);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      backdrop-filter: blur(12px);
-      transition: transform 0.18s, box-shadow 0.18s;
-    }
-
-    .eco-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .eco-card-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .eco-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      display: inline-block;
-    }
-
-    .eco-title {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text-heading);
-    }
-
-    .eco-tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .eco-tool {
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      background: rgba(15, 23, 42, 0.05);
-      border: 1px solid var(--border);
-      color: var(--text-body);
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .eco-tool:hover {
-      background: rgba(59, 130, 246, 0.08);
-      color: var(--accent-blue);
-    }
-
-    /* =============================================
-       PROJECTS
-    ============================================= */
+    /* Featured Projects Grid Layout */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      gap: 24px;
     }
 
     .project-card {
       position: relative;
-      border-radius: var(--radius-lg);
-      background: var(--surface);
+      border-radius: var(--radius-sm);
+      background: rgba(11, 11, 11, 0.7);
       border: 1px solid var(--border);
-      box-shadow: var(--shadow-md);
       overflow: hidden;
-      transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
-      backdrop-filter: blur(16px);
+      transition: all 0.3s ease;
     }
+    
+    .project-card::before, .project-card::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border: 1.5px solid var(--border-hover);
+      pointer-events: none;
+      opacity: 0.2;
+      transition: all 0.3s ease;
+    }
+    .project-card::before { top: 3px; left: 3px; border-right: none; border-bottom: none; z-index: 5; }
+    .project-card::after { bottom: 3px; right: 3px; border-left: none; border-top: none; z-index: 5; }
 
     .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-xl);
       border-color: var(--border-hover);
+      background: rgba(212, 175, 55, 0.05);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+    }
+    .project-card:hover::before, .project-card:hover::after {
+      opacity: 1;
     }
 
     .project-card-accent {
-      height: 4px;
+      height: 3px;
       background: var(--card-accent, var(--grad-primary));
     }
 
     .project-card-body {
-      padding: 22px 22px 20px;
+      padding: 22px;
     }
 
     .project-card-top {
@@ -1383,12 +1111,13 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .project-title {
-      font-size: 1rem;
-      font-weight: 800;
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
       color: var(--text-heading);
       line-height: 1.35;
     }
@@ -1397,29 +1126,31 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: var(--grad-primary);
-      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      color: var(--text-heading);
       font-size: 0.78rem;
+      font-family: 'Cinzel', serif;
       font-weight: 700;
       text-decoration: none;
-      white-space: nowrap;
-      flex-shrink: 0;
-      box-shadow: 0 3px 10px rgba(59, 130, 246, 0.30);
-      transition: transform 0.15s, box-shadow 0.15s;
+      transition: all 0.2s ease;
     }
 
     .project-link-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 5px 16px rgba(59, 130, 246, 0.42);
+      background: var(--grad-primary);
+      color: #ffffff;
+      border-color: var(--border-hover);
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.35);
     }
 
     .project-desc {
-      font-size: 0.88rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
       color: var(--text-muted);
       line-height: 1.6;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .project-tags {
@@ -1429,59 +1160,76 @@
     }
 
     .project-tag {
-      padding: 4px 11px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      background: rgba(15, 23, 42, 0.05);
-      border: 1px solid var(--border);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
       color: var(--text-body);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    /* =============================================
-       CONTACT CTA
-    ============================================= */
+    /* Contact CTA Centered card styles */
     .contact-cta {
       text-align: center;
-      padding: 80px 24px;
+      padding: 90px 24px;
     }
 
     .cta-card {
-      max-width: 700px;
+      max-width: 780px;
       margin: 0 auto;
       padding: 56px 48px;
-      border-radius: var(--radius-xl);
-      background: var(--surface);
+      border-radius: var(--radius-sm);
+      background: rgba(11, 11, 11, 0.75);
       border: 1px solid var(--border);
       box-shadow: var(--shadow-xl);
-      backdrop-filter: blur(20px);
       position: relative;
       overflow: hidden;
+    }
+    
+    .cta-card::before, .cta-card::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--border-hover);
+      pointer-events: none;
+      opacity: 0.3;
+      transition: all 0.3s ease;
+    }
+    .cta-card::before { top: 4px; left: 4px; border-right: none; border-bottom: none; }
+    .cta-card::after { bottom: 4px; right: 4px; border-left: none; border-top: none; }
+
+    .cta-card:hover::before, .cta-card:hover::after {
+      opacity: 1;
+      box-shadow: 0 0 8px var(--border-hover);
     }
 
     .cta-card::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.04), rgba(16, 185, 129, 0.04));
+      background: radial-gradient(circle at center, rgba(212, 175, 55, 0.04) 0%, transparent 70%);
       pointer-events: none;
     }
 
     .cta-card h2 {
+      font-family: 'Cinzel', serif;
       font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 800;
+      font-weight: 700;
       color: var(--text-heading);
       margin-bottom: 14px;
-      position: relative;
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
     }
 
     .cta-card p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
       color: var(--text-muted);
-      font-size: 1.02rem;
-      max-width: 480px;
+      max-width: 500px;
       margin: 0 auto 32px;
       line-height: 1.7;
-      position: relative;
     }
 
     .cta-btns {
@@ -1489,17 +1237,13 @@
       gap: 14px;
       justify-content: center;
       flex-wrap: wrap;
-      position: relative;
     }
 
-    /* =============================================
-       FOOTER
-    ============================================= */
+    /* Footers */
     .site-footer {
-      background: rgba(15, 23, 42, 0.03);
+      background: rgba(8, 8, 8, 0.80);
       border-top: 1px solid var(--border);
     }
-
     .footer-inner {
       max-width: 1180px;
       margin: 0 auto;
@@ -1508,749 +1252,1116 @@
       grid-template-columns: 1.4fr 1fr 1fr;
       gap: 40px;
     }
-
     .footer-brand .nav-logo {
       display: inline-block;
       margin-bottom: 10px;
     }
-
     .footer-brand p {
-      font-size: 0.875rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
       color: var(--text-muted);
-      line-height: 1.7;
+      line-height: 1.6;
       margin-bottom: 16px;
     }
-
     .footer-socials {
       display: flex;
       gap: 10px;
     }
-
     .footer-col h4 {
-      font-size: 0.875rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
       font-weight: 700;
       color: var(--text-heading);
       margin-bottom: 14px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-
     .footer-links {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 8px;
+      padding: 0;
     }
-
     .footer-links a {
-      font-size: 0.875rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
       color: var(--text-muted);
       text-decoration: none;
       transition: color 0.15s;
     }
-
     .footer-links a:hover {
-      color: var(--accent-blue);
+      color: var(--border-hover);
     }
-
     .footer-bottom {
       max-width: 1180px;
       margin: 0 auto;
       padding: 20px 24px;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid rgba(139, 106, 50, 0.15);
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 0.82rem;
       color: var(--text-muted);
+      font-family: 'Cormorant Garamond', serif;
     }
 
-    /* =============================================
-       SCROLL REVEAL
-    ============================================= */
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
+    /* Responsive scaling media queries */
+    @media (max-width: 1100px) {
+      .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    .reveal-delay-1 {
-      transition-delay: 0.10s;
-    }
-
-    .reveal-delay-2 {
-      transition-delay: 0.20s;
-    }
-
-    .reveal-delay-3 {
-      transition-delay: 0.30s;
-    }
-
-    /* =============================================
-       RESPONSIVE
-    ============================================= */
     @media (max-width: 900px) {
-      .hero-inner {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 40px;
-      }
-
-      .hero-avatar-panel {
-        order: -1;
-      }
-
-      .hero-avatar-ring {
-        width: 180px;
-        height: 180px;
-      }
-
-      .hero-ctas,
-      .hero-socials {
-        justify-content: center;
-      }
-
-      .hero-terminal-prompt {
-        justify-content: center;
-      }
-
-      .hero-desc {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
       .about-grid {
         grid-template-columns: 1fr;
         gap: 40px;
       }
-
-      .skills-grid,
-      .eco-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .stats-inner {
+        gap: 20px;
       }
-
       .projects-grid {
         grid-template-columns: 1fr;
       }
-
-      .stats-inner {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
       .footer-inner {
         grid-template-columns: 1fr 1fr;
       }
-
       .footer-brand {
         grid-column: 1 / -1;
+      }
+      .hud-helper-widget {
+        display: none;
+      }
+      .hud-maester-panel {
+        display: none !important;
       }
     }
 
     @media (max-width: 640px) {
-      .nav-links {
-        display: none;
-      }
-
-      .nav-links.open {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        top: var(--nav-h);
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(248, 250, 252, 0.97);
-        backdrop-filter: blur(20px);
-        padding: 24px;
-        z-index: 99;
-        gap: 4px;
-      }
-
-      .nav-hamburger {
-        display: flex;
-      }
-
-      .section {
-        padding: 60px 16px;
-      }
-
-      .skills-grid,
-      .eco-grid {
+      .skills-grid {
         grid-template-columns: 1fr;
       }
-
-      .about-expertise-grid,
+      .about-expertise-grid {
+        justify-content: center;
+      }
       .impact-cards {
         grid-template-columns: 1fr;
       }
-
       .stats-inner {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        gap: 16px;
+        padding: 30px 16px;
       }
-
-      .footer-inner {
-        grid-template-columns: 1fr;
-      }
-
       .cta-card {
         padding: 36px 24px;
       }
-
-      .hero-avatar-ring {
-        width: 150px;
-        height: 150px;
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-      }
-    }
   </style>
 </head>
 
 <body>
 
-  <div class="bg-blobs" aria-hidden="true"></div>
+  <!-- Cinematic Prologue Loader -->
+  <div class="citadel-intro" id="citadel-intro">
+    <div class="intro-emblem-wrap">
+      <!-- Magical sigil / compass emblem -->
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor">
+        <circle cx="50" cy="50" r="45" stroke-width="0.75" stroke-dasharray="3, 3" />
+        <circle cx="50" cy="50" r="41" stroke-width="1.2" />
+        <path d="M 50 10 L 53 44 L 87 50 L 53 56 L 50 90 L 47 56 L 13 50 L 47 44 Z" fill="rgba(212, 175, 55, 0.12)" stroke-width="1" />
+        <path d="M 50 20 L 52 47 L 78 50 L 52 53 L 50 80 L 48 53 L 22 50 L 48 47 Z" stroke-dasharray="1,1" stroke-width="0.75" />
+        <circle cx="50" cy="50" r="8" fill="none" stroke-width="1" />
+        <circle cx="50" cy="50" r="2.5" fill="var(--border-hover)" />
+      </svg>
+    </div>
+    <div class="intro-title-wrap">
+      <h2 class="intro-title">The Citadel</h2>
+      <p class="intro-subtitle">Order of Platform &amp; MLOps Maesters</p>
+    </div>
+    <button class="intro-skip-btn" id="intro-skip">Skip Prologue</button>
+  </div>
 
-  <div class="page-wrap">
+  <!-- Viewport Camera and Parallax Stack -->
+  <div class="citadel-viewport-home" id="citadel-viewport">
+    
+    <!-- Camera world center container -->
+    <div class="citadel-world" id="citadel-world">
+      
+      <!-- 1. Background sky layer -->
+      <div class="parallax-layer sky-bg-layer" id="sky-bg-layer">
+        <!-- Living Ember Particle Network Canvas -->
+        <canvas id="citadel-canvas-particles" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.55;"></canvas>
+        
+        <!-- Mountain and Tower silhouettes -->
+        <div class="castle-backdrop" aria-hidden="true">
+          <svg viewBox="0 0 1000 300" preserveAspectRatio="none" style="width:100%; height:100%; fill:#020202; opacity: 0.55;">
+            <path d="M 0 300 L 0 210 L 120 160 L 260 230 L 440 130 L 580 190 L 720 150 L 880 240 L 1000 170 L 1000 300 Z" />
+            <!-- Castle tower shapes -->
+            <path d="M 440 130 L 440 90 L 448 90 L 448 80 L 458 80 L 458 90 L 466 90 L 466 130 Z" />
+            <path d="M 115 165 L 115 125 L 120 125 L 120 110 L 128 110 L 128 125 L 133 125 L 133 165 Z" />
+            <path d="M 715 155 L 715 115 L 720 115 L 720 100 L 728 100 L 728 115 L 733 115 L 733 155 Z" />
+          </svg>
+        </div>
+      </div>
 
-    <!-- NAV -->
-    <nav class="site-nav" role="navigation" aria-label="Primary navigation">
-      <div class="nav-inner">
-        <a class="nav-logo" href="/">Jatin Sharma /&gt;</a>
-        <ul class="nav-links" id="nav-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/docs/about/">About</a></li>
-          <li><a href="/docs/devops/">DevOps</a></li>
-          <li><a href="/docs/ml/">ML</a></li>
-          <li><a href="/docs/ai/">AI</a></li>
-          <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i
-                class="fas fa-external-link-alt" style="font-size:0.7em;opacity:0.7"></i></a></li>
-          <li><a href="/docs/about/contact/" class="nav-cta">Get in Touch</a></li>
+      <!-- 2. Middle Kingdom Map layer -->
+      <div class="parallax-layer kingdom-map-layer" id="kingdom-map-layer">
+        <div class="map-svg-container" id="map-svg-container">
+          
+          <!-- Detailed Vector Fantasy Constellation Map -->
+          <svg viewBox="0 0 1000 650" xmlns="http://www.w3.org/2000/svg" aria-label="Constellation map of Jatin's engineering realms">
+            <defs>
+              <filter id="super-glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            
+            <!-- Map grid background decoration -->
+            <g stroke="rgba(139, 106, 50, 0.06)" stroke-width="0.5" fill="none" aria-hidden="true">
+              <line x1="50" y1="0" x2="50" y2="650" />
+              <line x1="150" y1="0" x2="150" y2="650" />
+              <line x1="250" y1="0" x2="250" y2="650" />
+              <line x1="350" y1="0" x2="350" y2="650" />
+              <line x1="450" y1="0" x2="450" y2="650" />
+              <line x1="550" y1="0" x2="550" y2="650" />
+              <line x1="650" y1="0" x2="650" y2="650" />
+              <line x1="750" y1="0" x2="750" y2="650" />
+              <line x1="850" y1="0" x2="850" y2="650" />
+              <line x1="950" y1="0" x2="950" y2="650" />
+              
+              <line x1="0" y1="50" x2="1000" y2="50" />
+              <line x1="0" y1="150" x2="1000" y2="150" />
+              <line x1="0" y1="250" x2="1000" y2="250" />
+              <line x1="0" y1="350" x2="1000" y2="350" />
+              <line x1="0" y1="450" x2="1000" y2="450" />
+              <line x1="0" y1="550" x2="1000" y2="550" />
+              
+              <circle cx="500" cy="325" r="280" stroke-dasharray="4,12" />
+              <circle cx="500" cy="325" r="140" stroke-dasharray="2,6" />
+            </g>
+
+            <!-- GORGEOUS GLOWING CONNECTION LINES (Inter-Realm Networks) -->
+            <g fill="none" aria-hidden="true">
+              <!-- Wall to North -->
+              <path d="M 500 92 L 480 180" class="network-line" />
+              <path d="M 500 92 L 480 180" class="network-line-pulse" />
+              
+              <!-- North to Reach -->
+              <path d="M 480 180 Q 420 280 380 370" class="network-line" />
+              <path d="M 480 180 Q 420 280 380 370" class="network-line-pulse" />
+              
+              <!-- North to Kings Landing -->
+              <path d="M 480 180 Q 600 250 720 350" class="network-line" />
+              <path d="M 480 180 Q 600 250 720 350" class="network-line-pulse" />
+              
+              <!-- Kings Landing to Dragonstone -->
+              <path d="M 720 350 L 870 330" class="network-line" />
+              <path d="M 720 350 L 870 330" class="network-line-pulse" />
+              
+              <!-- Kings Landing to Stormlands -->
+              <path d="M 720 350 L 700 480" class="network-line" />
+              <path d="M 720 350 L 700 480" class="network-line-pulse" />
+              
+              <!-- Stormlands to Citadel -->
+              <path d="M 700 480 Q 490 520 280 530" class="network-line" />
+              <path d="M 700 480 Q 490 520 280 530" class="network-line-pulse" />
+              
+              <!-- Citadel to Reach -->
+              <path d="M 280 530 L 380 370" class="network-line" />
+              <path d="M 280 530 L 380 370" class="network-line-pulse" />
+            </g>
+
+            <!-- Realm Interactive Constellations -->
+            
+            <!-- 1. The Wall (Security) -->
+            <g class="realm-group" data-id="the-wall" data-x="500" data-y="90" role="button" aria-label="The Wall (Security)">
+              <!-- Territory Outlines -->
+              <path class="map-realm" d="M 120 70 L 880 70 L 880 100 L 120 100 Z" />
+              <!-- Rotating Orbit -->
+              <circle cx="500" cy="92" r="14" class="rotating-ring" />
+              <!-- Local Connections -->
+              <line x1="500" y1="92" x2="430" y2="92" class="sub-connection-line" />
+              <line x1="500" y1="92" x2="570" y2="92" class="sub-connection-line" />
+              <line x1="500" y1="92" x2="500" y2="56" class="sub-connection-line" />
+              <!-- Sub-nodes -->
+              <circle cx="430" cy="92" r="3.5" class="sub-node" />
+              <text x="430" y="84" class="sub-node-label">TruffleHog</text>
+              <circle cx="570" cy="92" r="3.5" class="sub-node" />
+              <text x="570" y="84" class="sub-node-label">Vault</text>
+              <circle cx="500" cy="56" r="3.5" class="sub-node" />
+              <text x="500" y="48" class="sub-node-label">Gatekeeper</text>
+              <!-- Main Node -->
+              <circle class="realm-node-pin" cx="500" cy="92" r="6" />
+              <text class="realm-label" x="500" y="118">The Wall (Security)</text>
+            </g>
+            
+            <!-- 2. The North (Kubernetes) -->
+            <g class="realm-group" data-id="the-north" data-x="480" data-y="180" role="button" aria-label="The North (Kubernetes)">
+              <!-- Territory Outlines -->
+              <path class="map-realm" d="M 150 100 L 850 100 L 820 230 L 680 250 L 520 220 L 350 250 L 180 230 Z" />
+              <!-- Rotating Orbit -->
+              <circle cx="480" cy="180" r="15" class="rotating-ring" />
+              <!-- Local Connections -->
+              <line x1="480" y1="180" x2="410" y2="150" class="sub-connection-line" />
+              <line x1="480" y1="180" x2="550" y2="160" class="sub-connection-line" />
+              <line x1="480" y1="180" x2="440" y2="220" class="sub-connection-line" />
+              <line x1="480" y1="180" x2="520" y2="210" class="sub-connection-line" />
+              <!-- Sub-nodes -->
+              <circle cx="410" cy="150" r="3.5" class="sub-node" />
+              <text x="410" y="142" class="sub-node-label">Helm</text>
+              <circle cx="550" cy="160" r="3.5" class="sub-node" />
+              <text x="550" y="152" class="sub-node-label">Ingress</text>
+              <circle cx="440" cy="220" r="3.5" class="sub-node" />
+              <text x="440" y="232" class="sub-node-label">Karpenter</text>
+              <circle cx="520" cy="210" r="3.5" class="sub-node" />
+              <text x="520" y="222" class="sub-node-label">KEDA</text>
+              <!-- Main Node -->
+              <circle class="realm-node-pin" cx="480" cy="180" r="6" />
+              <text class="realm-label" x="480" y="132">The North (Kubernetes)</text>
+            </g>
+            
+            <!-- 3. King's Landing (AWS & Cloud Platforms) -->
+            <g class="realm-group" data-id="kings-landing" data-x="720" data-y="350" role="button" aria-label="King's Landing (AWS & Cloud Platforms)">
+              <!-- Territory Outlines -->
+              <path class="map-realm" d="M 680 250 L 820 230 L 840 380 L 730 420 L 650 380 L 610 320 Z" />
+              <!-- Rotating Orbit -->
+              <circle cx="720" cy="350" r="16" class="rotating-ring" />
+              <!-- Local Connections -->
+              <line x1="720" y1="350" x2="660" y2="320" class="sub-connection-line" />
+              <line x1="720" y1="350" x2="780" y2="320" class="sub-connection-line" />
+              <line x1="720" y1="350" x2="750" y2="400" class="sub-connection-line" />
+              <!-- Sub-nodes -->
+              <circle cx="660" cy="320" r="3.5" class="sub-node" />
+              <text x="660" y="312" class="sub-node-label">GCP</text>
+              <circle cx="780" cy="320" r="3.5" class="sub-node" />
+              <text x="780" y="312" class="sub-node-label">Serverless</text>
+              <circle cx="750" cy="400" r="3.5" class="sub-node" />
+              <text x="750" y="412" class="sub-node-label">OCI</text>
+              <!-- Main Node -->
+              <circle class="realm-node-pin" cx="720" cy="350" r="6" />
+              <text class="realm-label" x="720" y="295">King's Landing (AWS &amp; Cloud)</text>
+            </g>
+            
+            <!-- 4. Dragonstone (AI & LLMs) -->
+            <g class="realm-group" data-id="dragonstone" data-x="870" data-y="330" role="button" aria-label="Dragonstone (AI & LLMs)">
+              <!-- Territory Outlines -->
+              <path class="map-realm" d="M 850 280 L 910 290 L 930 360 L 860 380 L 830 330 Z" />
+              <!-- Rotating Orbit -->
+              <circle cx="870" cy="330" r="14" class="rotating-ring" />
+              <!-- Local Connections -->
+              <line x1="870" y1="330" x2="830" y2="300" class="sub-connection-line" />
+              <line x1="870" y1="330" x2="910" y2="300" class="sub-connection-line" />
+              <line x1="870" y1="330" x2="900" y2="370" class="sub-connection-line" />
+              <!-- Sub-nodes -->
+              <circle cx="830" cy="300" r="3.5" class="sub-node" />
+              <text x="830" y="292" class="sub-node-label">MCP</text>
+              <circle cx="910" cy="300" r="3.5" class="sub-node" />
+              <text x="910" y="292" class="sub-node-label">Python</text>
+              <circle cx="900" cy="370" r="3.5" class="sub-node" />
+              <text x="900" y="382" class="sub-node-label">FastAPI</text>
+              <!-- Main Node -->
+              <circle class="realm-node-pin" cx="870" cy="330" r="6" />
+              <text class="realm-label" x="870" y="275">Dragonstone (AI / LLMs)</text>
+            </g>
+            
+            <!-- 5. The Reach (Terraform & IaC) -->
+            <g class="realm-group" data-id="the-reach" data-x="380" data-y="370" role="button" aria-label="The Reach (Terraform & IaC)">
+              <!-- Territory Outlines -->
+              <path class="map-realm" d="M 180 230 L 350 250 L 520 220 L 610 320 L 550 440 L 350 450 L 220 400 Z" />
+              <!-- Rotating Orbit -->
+              <circle cx="380" cy="370" r="15" class="rotating-ring" />
+              <!-- Local Connections -->
+              <line x1="380" y1="370" x2="320" y2="340" class="sub-connection-line" />
+              <line x1="380" y1="370" x2="440" y2="340" class="sub-connection-line" />
+              <line x1="380" y1="370" x2="350" y2="410" class="sub-connection-line" />
+              <!-- Sub-nodes -->
+              <circle cx="320" cy="340" r="3.5" class="sub-node" />
+              <text x="320" y="332" class="sub-node-label">Terragrunt</text>
+              <circle cx="440" cy="340" r="3.5" class="sub-node" />
+              <text x="440" y="332" class="sub-node-label">Ansible</text>
+              <circle cx="350" cy="410" r="3.5" class="sub-node" />
+              <text x="350" y="422" class="sub-node-label">CloudFormation</text>
+              <!-- Main Node -->
+              <circle class="realm-node-pin" cx="380" cy="370" r="6" />
+              <text class="realm-label" x="380" y="315">The Reach (Terraform / IaC)</text>
+            </g>
+            
+            <!-- 6. The Citadel (MLOps & AI Platforms) -->
+            <g class="realm-group" data-id="the-citadel" data-x="280" data-y="530" role="button" aria-label="The Citadel (MLOps & AI Platforms)">
+              <!-- Territory Outlines -->
+              <path class="map-realm" d="M 220 400 L 350 450 L 450 430 L 480 560 L 280 580 L 180 520 Z" />
+              <!-- Rotating Orbit -->
+              <circle cx="280" cy="530" r="16" class="rotating-ring" />
+              <!-- Local Connections -->
+              <line x1="280" y1="530" x2="220" y2="500" class="sub-connection-line" />
+              <line x1="280" y1="530" x2="340" y2="500" class="sub-connection-line" />
+              <line x1="280" y1="530" x2="250" y2="570" class="sub-connection-line" />
+              <!-- Sub-nodes -->
+              <circle cx="220" cy="500" r="3.5" class="sub-node" />
+              <text x="220" y="492" class="sub-node-label">MLflow</text>
+              <circle cx="340" cy="500" r="3.5" class="sub-node" />
+              <text x="340" y="492" class="sub-node-label">DVC</text>
+              <circle cx="250" cy="570" r="3.5" class="sub-node" />
+              <text x="250" y="582" class="sub-node-label">KServe</text>
+              <!-- Main Node -->
+              <circle class="realm-node-pin" cx="280" cy="530" r="6" />
+              <text class="realm-label" x="280" y="475">The Citadel (MLOps)</text>
+            </g>
+            
+            <!-- 7. Stormlands (Networking & Service Mesh) -->
+            <g class="realm-group" data-id="stormlands" data-x="700" data-y="480" role="button" aria-label="Stormlands (Networking & Service Mesh)">
+              <!-- Territory Outlines -->
+              <path class="map-realm" d="M 650 380 L 730 420 L 840 380 L 860 500 L 740 530 L 580 470 Z" />
+              <!-- Rotating Orbit -->
+              <circle cx="700" cy="480" r="15" class="rotating-ring" />
+              <!-- Local Connections -->
+              <line x1="700" y1="480" x2="640" y2="450" class="sub-connection-line" />
+              <line x1="700" y1="480" x2="760" y2="450" class="sub-connection-line" />
+              <line x1="700" y1="480" x2="720" y2="530" class="sub-connection-line" />
+              <!-- Sub-nodes -->
+              <circle cx="640" cy="450" r="3.5" class="sub-node" />
+              <text x="640" y="442" class="sub-node-label">Netbird</text>
+              <circle cx="760" cy="450" r="3.5" class="sub-node" />
+              <text x="760" y="442" class="sub-node-label">Cilium</text>
+              <circle cx="720" cy="530" r="3.5" class="sub-node" />
+              <text x="720" y="542" class="sub-node-label">Traefik</text>
+              <!-- Main Node -->
+              <circle class="realm-node-pin" cx="700" cy="480" r="6" />
+              <text class="realm-label" x="700" y="425">Stormlands (Networking)</text>
+            </g>
+          </svg>
+
+        </div>
+      </div>
+      
+    </div><!-- .citadel-world -->
+
+    <!-- 3. Fixed Foreground HUD Layer (outside camera space to remain static) -->
+    <div class="hud-foreground-layer">
+      
+      <!-- HUD Top Bar (Runic navigation menu) -->
+      <nav class="site-nav hud-interactive" role="navigation" aria-label="Primary navigation">
+        <div class="nav-inner">
+          <a class="nav-logo" href="/" style="font-family: 'Cinzel', serif;">The Citadel /&gt;</a>
+          <ul class="nav-links" id="nav-links">
+            <li><a href="/" class="nav-active">The Realm</a></li>
+            <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">The Archives</a></li>
+            <li><a href="/docs/devops/">The Chronicles</a></li>
+            <li><a href="/docs/ml/">The Citadel</a></li>
+            <li><a href="/docs/ai/">Dragonstone</a></li>
+            <li><a href="/docs/about/">The Maester</a></li>
+            <li><a href="/docs/about/contact/" class="nav-cta">The Raven</a></li>
+          </ul>
+          
+          <div style="display:flex; align-items:center; gap:12px;">
+            <!-- Runic Audio Control System -->
+            <div class="hud-audio-control-wrap">
+              <button class="audio-rune" id="audio-toggle-rune" aria-label="Toggle atmospheric background audio">
+                <i class="fas fa-volume-mute" aria-hidden="true"></i>
+              </button>
+              <div class="audio-settings-dropdown">
+                <div class="dropdown-title">Acoustic Ornaments</div>
+                <div class="audio-control-row">
+                  <label for="audio-mute-checkbox">Master Mute</label>
+                  <input type="checkbox" id="audio-mute-checkbox">
+                </div>
+                <div class="audio-control-row">
+                  <label for="vol-music">Music Volume</label>
+                  <input type="range" id="vol-music" min="0" max="1" step="0.05" value="0.25">
+                </div>
+                <div class="audio-control-row">
+                  <label for="vol-ambient">Ambience</label>
+                  <input type="range" id="vol-ambient" min="0" max="1" step="0.05" value="0.20">
+                </div>
+                <div class="audio-control-row">
+                  <label for="vol-sfx">Sound FX</label>
+                  <input type="range" id="vol-sfx" min="0" max="1" step="0.05" value="0.30">
+                </div>
+              </div>
+            </div>
+
+            <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
+              <i class="fas fa-search" aria-hidden="true"></i>
+              <span>Consult...</span>
+              <span class="search-kbd">⌘K</span>
+            </button>
+          </div>
+          
+          <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- HUD Floating Player Panel (character sheet summary) -->
+      <div class="hud-maester-panel hud-panel-frame hud-interactive">
+        <div class="hud-maester-profile">
+          <div class="hud-maester-avatar">
+            <img src="/profile-image.png" alt="Grand Maester Jatin Sharma" />
+          </div>
+          <div class="hud-maester-meta">
+            <h3>Jatin Sharma</h3>
+            <span class="hud-maester-title">Grand Maester of MLOps</span>
+            <div class="hud-maester-status">
+              <span class="status-dot"></span> Active in Realm
+            </div>
+          </div>
+        </div>
+        <p>Forging automated cloud paths, container orchestration systems, and intelligence-driven deployment pipelines.</p>
+        <div class="hud-maester-socials">
+          <a href="https://github.com/kioskOG" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="mailto:jatinvashishtha110@gmail.com" aria-label="Email" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+        <a href="/docs/about/contact/" class="hud-btn"><i class="fas fa-paper-plane"></i> Send Raven</a>
+      </div>
+
+      <!-- HUD Top-Left Interactive Helper -->
+      <div class="hud-helper-widget hud-interactive">
+        <span>INSTRUCTIONS:</span> Hover realms to reveal. Click a realm to zoom camera &amp; unlock chronicles.
+      </div>
+
+      <!-- HUD Bottom Center Scroll Indicator -->
+      <div class="hud-scroll-indicator">
+        <span>Explore Chronicles</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+
+      <!-- Bottom-Left Decorative Compass Emblem -->
+      <div class="citadel-compass-emblem">
+        <svg viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="45" stroke="var(--border)" stroke-width="0.5" />
+          <circle cx="50" cy="50" r="40" stroke="var(--border)" stroke-dasharray="3,3" stroke-width="0.5" />
+          <path d="M 50 15 L 53 45 L 85 50 L 53 55 L 50 85 L 47 55 L 15 50 L 47 45 Z" stroke="var(--border)" stroke-width="0.5" />
+        </svg>
+      </div>
+
+    </div><!-- .hud-foreground-layer -->
+
+    <!-- 4. Bottom Parchment Drawer Panel -->
+    <div class="citadel-parchment-scroll hud-panel-frame" id="citadel-parchment-scroll">
+      <div class="scroll-header">
+        <h3 id="scroll-title">Chronicles of the Realm</h3>
+        <button class="scroll-close-btn" id="scroll-close">Return to Realm</button>
+      </div>
+      <div class="scroll-body" id="scroll-content">
+        <!-- Dynamically injected from hidden templates below -->
+      </div>
+    </div>
+
+  </div><!-- .citadel-viewport-home -->
+
+  <!-- =============================================
+       SCROLLABLE HOMEPAGE SECTIONS
+       ============================================= -->
+
+  <!-- STATS -->
+  <div class="stats-strip" aria-label="Key statistics">
+    <div class="stats-inner">
+      <div class="stat-item reveal"><span class="stat-num">8+</span><span class="stat-label">Years Experience</span></div>
+      <div class="stat-item reveal reveal-delay-1"><span class="stat-num">20+</span><span class="stat-label">Projects Shipped</span></div>
+      <div class="stat-item reveal reveal-delay-2"><span class="stat-num">99.9%</span><span class="stat-label">Uptime Goal</span></div>
+      <div class="stat-item reveal reveal-delay-3"><span class="stat-num">&#8734;</span><span class="stat-label">Automation Hunger</span></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about" aria-labelledby="about-heading">
+    <div class="section">
+      <div class="about-grid">
+        <div class="about-body reveal">
+          <div class="section-tag"><span class="dot"></span> About Me</div>
+          <h2 class="section-title" id="about-heading">DevOps Engineer &amp;<br><span class="gradient-text">Platform Architect</span></h2>
+          <p>Hello! I'm <strong>Jatin Sharma</strong>, a passionate DevOps Engineer dedicated to building scalable, automated cloud solutions. I love crafting infrastructure that enables teams to ship faster and more reliably.</p>
+          <p>My work spans cloud-native architectures on AWS &amp; GCP, Kubernetes orchestration, observability stacks, security automation, and GitOps workflows. I believe in infrastructure as code and continuous improvement.</p>
+          <p>Explore my projects, read my insights on DevOps best practices, and let's discuss technology &amp; innovation together.</p>
+          <div class="about-expertise-grid" aria-label="Areas of expertise">
+            <div class="expertise-chip"><i class="fas fa-cloud" aria-hidden="true"></i> Multi-Cloud</div>
+            <div class="expertise-chip"><i class="fas fa-infinity" aria-hidden="true"></i> CI/CD Pipelines</div>
+            <div class="expertise-chip"><i class="fas fa-dharmachakra" aria-hidden="true"></i> Kubernetes</div>
+            <div class="expertise-chip"><i class="fas fa-shield-alt" aria-hidden="true"></i> Security & Compliance</div>
+            <div class="expertise-chip"><i class="fas fa-chart-line" aria-hidden="true"></i> Observability</div>
+            <div class="expertise-chip"><i class="fas fa-robot" aria-hidden="true"></i> Automation</div>
+            <div class="expertise-chip"><i class="fas fa-brain" aria-hidden="true"></i> MLOps</div>
+            <div class="expertise-chip"><i class="fas fa-microchip" aria-hidden="true"></i> MCP</div>
+            <div class="expertise-chip"><i class="fas fa-server" aria-hidden="true"></i> Infrastructure as Code</div>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <h3 class="section-title" style="font-size:1.4rem; margin-bottom:20px; font-family:'Cinzel', serif;">Proven Impact</h3>
+          <div class="impact-cards">
+            <div class="impact-card">
+               <div class="impact-pct">60%</div>
+               <div class="impact-desc">Faster deployments with automated CI/CD</div>
+            </div>
+            <div class="impact-card">
+               <div class="impact-pct">80%</div>
+               <div class="impact-desc">Reduction in manual ops tasks via automation</div>
+            </div>
+            <div class="impact-card">
+               <div class="impact-pct">40%</div>
+               <div class="impact-desc">Cloud cost reduction through optimization</div>
+            </div>
+            <div class="impact-card">
+               <div class="impact-pct">3&times;</div>
+               <div class="impact-desc">Improved MTTR with better observability</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; margin-top:24px; flex-wrap:wrap;">
+            <a href="/docs/about/" class="btn-primary">About Me <i class="fas fa-user-circle" aria-hidden="true"></i></a>
+            <a href="/docs/about/contact/" class="btn-outline">Contact <i class="fas fa-envelope" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SKILLS -->
+  <section id="skills" aria-labelledby="skills-heading">
+    <div class="section">
+      <div class="section-header-center reveal" style="margin-bottom:40px;">
+        <div class="section-tag"><span class="dot"></span> Expertise</div>
+        <h2 class="section-title" id="skills-heading"><span class="gradient-text">Skills</span> Landscape</h2>
+        <p class="section-subtitle">A broad toolkit covering the full DevOps lifecycle — from infrastructure provisioning to production observability.</p>
+      </div>
+      <div class="skills-header-bar" aria-label="Terminal command">
+        <i class="fas fa-terminal" aria-hidden="true" style="color:var(--accent-green);"></i>
+        <span class="cmd">./skills</span>
+        <span class="flag">--list</span>
+        <span class="flag">--verbose</span>
+        <span style="margin-left:auto; opacity:0.5; font-size:0.78rem;">scanning 12 domains...</span>
+      </div>
+      <div class="skills-grid">
+        <!-- 1. Container & Orchestration -->
+        <div class="skill-card reveal"><span class="skill-cat-tag">The North</span>
+          <div class="skill-icon"><i class="fab fa-kubernetes" style="color: #9CC4E4;"></i></div>
+          <div class="skill-title">Kubernetes &amp; Orchestration</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Kubernetes</span><span class="skill-tag">Docker</span>
+            <span class="skill-tag">Helm</span><span class="skill-tag">Helmfile</span>
+            <span class="skill-tag">EKS</span><span class="skill-tag">GKE</span>
+            <span class="skill-tag">Karpenter</span><span class="skill-tag">KEDA</span>
+            <span class="skill-tag">Knative</span>
+          </div>
+        </div>
+        <!-- 2. Cloud Platforms -->
+        <div class="skill-card reveal reveal-delay-1"><span class="skill-cat-tag">King's Landing</span>
+          <div class="skill-icon"><i class="fas fa-cloud" style="color: #D4AF37;"></i></div>
+          <div class="skill-title">AWS &amp; Cloud Platforms</div>
+          <div class="skill-tags">
+            <span class="skill-tag">AWS</span><span class="skill-tag">GCP</span>
+            <span class="skill-tag">OCI</span><span class="skill-tag">EKS</span>
+            <span class="skill-tag">S3</span><span class="skill-tag">EC2</span>
+            <span class="skill-tag">Lambda</span><span class="skill-tag">Route53</span>
+          </div>
+        </div>
+        <!-- 3. CI/CD & GitOps -->
+        <div class="skill-card reveal reveal-delay-2"><span class="skill-cat-tag">GitOps Chronicles</span>
+          <div class="skill-icon"><i class="fas fa-sync-alt" style="color: #FF8C42;"></i></div>
+          <div class="skill-title">CI/CD &amp; GitOps</div>
+          <div class="skill-tags">
+            <span class="skill-tag">GitHub Actions</span><span class="skill-tag">ArgoCD</span>
+            <span class="skill-tag">Jenkins</span><span class="skill-tag">FluxCD</span>
+            <span class="skill-tag">GitOps</span>
+          </div>
+        </div>
+        <!-- 4. IaC -->
+        <div class="skill-card reveal"><span class="skill-cat-tag">The Reach</span>
+          <div class="skill-icon"><i class="fas fa-code" style="color: #D4AF37;"></i></div>
+          <div class="skill-title">Terraform &amp; IaC</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Terraform</span><span class="skill-tag">Terragrunt</span>
+            <span class="skill-tag">Ansible</span><span class="skill-tag">CloudFormation</span>
+          </div>
+        </div>
+        <!-- 5. Observability -->
+        <div class="skill-card reveal reveal-delay-1"><span class="skill-cat-tag">Maester's Lenses</span>
+          <div class="skill-icon"><i class="fas fa-chart-line" style="color: #FF8C42;"></i></div>
+          <div class="skill-title">Observability Stack</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Grafana</span><span class="skill-tag">Prometheus</span>
+            <span class="skill-tag">Loki</span><span class="skill-tag">Tempo</span>
+            <span class="skill-tag">Mimir</span><span class="skill-tag">Pyroscope</span>
+          </div>
+        </div>
+        <!-- 6. Security -->
+        <div class="skill-card reveal reveal-delay-2"><span class="skill-cat-tag">The Wall</span>
+          <div class="skill-icon"><i class="fas fa-shield-alt" style="color: #A8A8A8;"></i></div>
+          <div class="skill-title">Security &amp; The Wall</div>
+          <div class="skill-tags">
+            <span class="skill-tag">TruffleHog</span><span class="skill-tag">Falco</span>
+            <span class="skill-tag">OPA</span><span class="skill-tag">Trivy</span>
+            <span class="skill-tag">Vault</span><span class="skill-tag">Cert-Manager</span>
+          </div>
+        </div>
+        <!-- 7. Scripting -->
+        <div class="skill-card reveal"><span class="skill-cat-tag">Dragonstone</span>
+          <div class="skill-icon"><i class="fas fa-dragon" style="color: #FF8C42;"></i></div>
+          <div class="skill-title">AI, LLMs &amp; Magic</div>
+          <div class="skill-tags">
+            <span class="skill-tag">LLMs</span><span class="skill-tag">LangChain</span>
+            <span class="skill-tag">MCP</span><span class="skill-tag">Python</span>
+            <span class="skill-tag">Go</span><span class="skill-tag">FastAPI</span>
+          </div>
+        </div>
+        <!-- 8. Networking & Service Mesh -->
+        <div class="skill-card reveal reveal-delay-1"><span class="skill-cat-tag">Stormlands</span>
+          <div class="skill-icon"><i class="fas fa-network-wired" style="color: #9CC4E4;"></i></div>
+          <div class="skill-title">Networking &amp; Service Mesh</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Cilium</span><span class="skill-tag">Istio</span>
+            <span class="skill-tag">Linkerd</span><span class="skill-tag">Nginx</span>
+            <span class="skill-tag">Traefik</span><span class="skill-tag">ExternalDNS</span>
+          </div>
+        </div>
+        <!-- 9. MLOps -->
+        <div class="skill-card reveal reveal-delay-2"><span class="skill-cat-tag">The Citadel</span>
+          <div class="skill-icon"><i class="fas fa-robot" style="color: #D4AF37;"></i></div>
+          <div class="skill-title">MLOps &amp; AI Platforms</div>
+          <div class="skill-tags">
+            <span class="skill-tag">MLflow</span><span class="skill-tag">DVC</span>
+            <span class="skill-tag">KServe</span><span class="skill-tag">SageMaker</span>
+            <span class="skill-tag">Bedrock</span><span class="skill-tag">Pandas</span>
+          </div>
+        </div>
+        <!-- 10. OS -->
+        <div class="skill-card reveal"><span class="skill-cat-tag">OS</span>
+          <div class="skill-icon"><i class="fab fa-linux" style="color: #A8A8A8;"></i></div>
+          <div class="skill-title">Operating Systems</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Linux</span><span class="skill-tag">Ubuntu</span>
+            <span class="skill-tag">CentOS</span><span class="skill-tag">RHEL</span>
+            <span class="skill-tag">macOS</span><span class="skill-tag">Windows</span>
+          </div>
+        </div>
+        <!-- 11. Databases & Messaging -->
+        <div class="skill-card reveal reveal-delay-1"><span class="skill-cat-tag">Data</span>
+          <div class="skill-icon"><i class="fas fa-database" style="color: #9CC4E4;"></i></div>
+          <div class="skill-title">Databases &amp; Messaging</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Kafka</span><span class="skill-tag">Redis</span>
+            <span class="skill-tag">PostgreSQL</span><span class="skill-tag">MySQL</span>
+            <span class="skill-tag">DynamoDB</span><span class="skill-tag">Elasticache</span>
+            <span class="skill-tag">MinIO</span>
+          </div>
+        </div>
+        <!-- 12. Other Tools -->
+        <div class="skill-card reveal reveal-delay-2"><span class="skill-cat-tag">Tools</span>
+          <div class="skill-icon"><i class="fas fa-toolbox" style="color: var(--text-muted);"></i></div>
+          <div class="skill-title">DevOps Toolbox</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Velero</span><span class="skill-tag">Apicurio</span>
+            <span class="skill-tag">Tyk API GW</span><span class="skill-tag">KEDA</span>
+            <span class="skill-tag">Kro</span><span class="skill-tag">Selenium</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects" aria-labelledby="projects-heading">
+    <div class="section">
+      <div class="section-header-center reveal" style="margin-bottom:40px;">
+        <div class="section-tag"><span class="dot"></span> Work</div>
+        <h2 class="section-title" id="projects-heading">Featured <span class="gradient-text">Projects</span></h2>
+        <p class="section-subtitle">Real-world infrastructure and DevOps projects solving production challenges.</p>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card reveal" style="--card-accent: linear-gradient(90deg,#f59e0b,#10b981);">
+          <div class="project-card-accent" aria-hidden="true"></div>
+          <div class="project-card-body">
+            <div class="project-card-top">
+              <h3 class="project-title">&#128640; LGTM Stack on Kubernetes — Complete Hands-On</h3>
+              <a class="project-link-btn" href="https://github.com/kioskOG/observability-hub" target="_blank" rel="noopener" aria-label="View on GitHub">View <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            </div>
+            <p class="project-desc">Production observability with Loki, Grafana, Tempo, Mimir: deploy, scale, and validate end-to-end.</p>
+            <div class="project-tags"><span class="project-tag">Kubernetes</span><span class="project-tag">Helm</span><span class="project-tag">Grafana</span><span class="project-tag">Loki</span><span class="project-tag">Tempo</span><span class="project-tag">Mimir</span></div>
+          </div>
+        </article>
+        <article class="project-card reveal reveal-delay-1" style="--card-accent: linear-gradient(90deg,#3b82f6,#8b5cf6);">
+          <div class="project-card-accent" aria-hidden="true"></div>
+          <div class="project-card-body">
+            <div class="project-card-top">
+              <h3 class="project-title">&#128269; GitHub Secret Scanner in Kubernetes</h3>
+              <a class="project-link-btn" href="https://github.com/kioskOG/secret-scan-poc" target="_blank" rel="noopener" aria-label="View on GitHub">View <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            </div>
+            <p class="project-desc">TruffleHog + Kafka + FastAPI with Slack alerts and CI security gates to prevent secret leaks.</p>
+            <div class="project-tags"><span class="project-tag">TruffleHog</span><span class="project-tag">Kafka</span><span class="project-tag">FastAPI</span><span class="project-tag">Helm</span></div>
+          </div>
+        </article>
+        <article class="project-card reveal" style="--card-accent: linear-gradient(90deg,#8b5cf6,#ec4899);">
+          <div class="project-card-accent" aria-hidden="true"></div>
+          <div class="project-card-body">
+            <div class="project-card-top">
+              <h3 class="project-title">&#127758; CloudMap Controller for EKS</h3>
+              <a class="project-link-btn" href="https://github.com/kioskOG/EKS-cloudmap-controller" target="_blank" rel="noopener" aria-label="View on GitHub">View <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            </div>
+            <p class="project-desc">Sync headless Kubernetes Services to AWS Cloud Map / Route53 with configurable TTLs and audit logs.</p>
+            <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">Controller</span><span class="project-tag">AWS</span><span class="project-tag">EKS</span></div>
+          </div>
+        </article>
+        <article class="project-card reveal reveal-delay-1" style="--card-accent: linear-gradient(90deg,#f97316,#ef4444);">
+          <div class="project-card-accent" aria-hidden="true"></div>
+          <div class="project-card-body">
+            <div class="project-card-top">
+              <h3 class="project-title">&#129514; PR Secret Gatekeeper (GitHub Actions)</h3>
+              <a class="project-link-btn" href="https://github.com/kioskOG/secret-scan-poc/tree/main/based-on-push-and-pull_request" target="_blank" rel="noopener" aria-label="View on GitHub">View <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            </div>
+            <p class="project-desc">Blocks PRs containing secrets via webhooks and required status checks — automated security enforcement.</p>
+            <div class="project-tags"><span class="project-tag">Actions</span><span class="project-tag">Security</span><span class="project-tag">CI</span></div>
+          </div>
+        </article>
+        <article class="project-card reveal" style="--card-accent: linear-gradient(90deg,#10b981,#0891b2);">
+          <div class="project-card-accent" aria-hidden="true"></div>
+          <div class="project-card-body">
+            <div class="project-card-top">
+              <h3 class="project-title">&#128274; Netbird Deployment Automation</h3>
+              <a class="project-link-btn" href="https://kioskog.github.io/docs/devops/docker/Netbird/" target="_blank" rel="noopener" aria-label="View project">View <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            </div>
+            <p class="project-desc">Self-hosted VPN server setup &amp; multi-cloud private network links with automated deployment scripts.</p>
+            <div class="project-tags"><span class="project-tag">Docker</span><span class="project-tag">VPN</span><span class="project-tag">Infra</span></div>
+          </div>
+        </article>
+        <article class="project-card reveal reveal-delay-1" style="--card-accent: linear-gradient(90deg,#06b6d4,#3b82f6);">
+          <div class="project-card-accent" aria-hidden="true"></div>
+          <div class="project-card-body">
+            <div class="project-card-top">
+              <h3 class="project-title">SAP HANA Cloud Private Edition</h3>
+              <a class="project-link-btn" href="https://kioskog.github.io/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/" target="_blank" rel="noopener" aria-label="View project">View <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            </div>
+            <p class="project-desc">Client access patterns &amp; troubleshooting notes for SAP HANA on GCP Private Edition deployments.</p>
+            <div class="project-tags"><span class="project-tag">SAP</span><span class="project-tag">GCP</span><span class="project-tag">Networking</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT CTA -->
+  <div class="contact-cta" id="contact">
+    <div class="cta-card reveal">
+      <h2>Ready to Build Something <span class="gradient-text">Remarkable?</span></h2>
+      <p>Whether it's scaling infrastructure, automating pipelines, or improving system reliability — I'm here to help make it happen.</p>
+      <div class="cta-btns">
+        <a href="/docs/about/contact/" class="btn-primary"><i class="fas fa-paper-plane" aria-hidden="true"></i> Get In Touch</a>
+        <a href="/docs/devops/" class="btn-outline"><i class="fas fa-book-open" aria-hidden="true"></i> Explore DevOps Docs</a>
+        <a href="/docs/ml/" class="btn-outline"><i class="fas fa-book-open" aria-hidden="true"></i> Explore ML Docs</a>
+        <a href="/docs/ai/" class="btn-outline"><i class="fas fa-book-open" aria-hidden="true"></i> Explore AI Docs</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer site-footer-main" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="nav-logo" href="/" style="font-family: 'Cinzel', serif;">The Citadel /&gt;</a>
+        <p style="font-style: italic; margin-bottom: 12px; color: var(--text-heading); font-family: 'Cinzel', serif; font-size: 0.95rem;">
+          "Knowledge is the sword of the mind."
+        </p>
+        <p>Grand Maester Jatin Sharma's archives of platform architecture, cloud systems, observabilities, and MLOps.</p>
+        <div class="footer-socials">
+          <a class="social-pill" href="https://github.com/kioskOG" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+          <a class="social-pill" href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+          <a class="social-pill" href="mailto:jatinvashishtha110@gmail.com" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>The Realms</h4>
+        <ul class="footer-links">
+          <li><a href="/">The Realm</a></li>
+          <li><a href="/docs/about/">The Maester</a></li>
+          <li><a href="/docs/devops/">The Chronicles</a></li>
+          <li><a href="/docs/ml/">The Citadel</a></li>
+          <li><a href="/docs/ai/">Dragonstone</a></li>
+          <li><a href="/docs/about/contact/">The Raven</a></li>
         </ul>
-        <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
-          <i class="fas fa-search" aria-hidden="true"></i>
-          <span>Search</span>
-          <span class="search-kbd">⌘K</span>
-        </button>
-        <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
       </div>
-    </nav>
-
-    <!-- HERO -->
-    <section class="hero" aria-labelledby="hero-heading">
-      <div class="hero-inner">
-        <div class="hero-content">
-          <div class="hero-terminal-prompt">DEPLOY-INFRA --cloud=aws/gcp/oci --orchestractor=k8s --mlops=true
-            --optimize=true --scale=auto</div>
-          <h1 class="hero-heading" id="hero-heading">
-            <span class="at">jatin</span><span class="prompt">@</span><span class="path">mlops-devops</span><span
-              class="prompt">:~#</span><br>
-            <span class="prompt">whoami</span>
-          </h1>
-          <div class="hero-role-line">
-            <span class="role-typing" id="role-text">DevOps &amp; Platform Engineer</span><span class="cursor"
-              aria-hidden="true"></span>
-          </div>
-          <p class="hero-desc">Passionate about building scalable, automated cloud-native solutions. Specializing in
-            DevOps, Cloud, Infrastructure Automation, Kubernetes, CI/CD pipelines, observability, and MLOps that just
-            works.</p>
-          <div class="hero-ctas">
-            <a href="#projects" class="btn-primary">Explore My Work <i class="fas fa-arrow-down"
-                aria-hidden="true"></i></a>
-            <a href="/docs/about/contact/" class="btn-outline">Get In Touch <i class="fas fa-envelope"
-                aria-hidden="true"></i></a>
-          </div>
-          <div class="hero-socials" role="list" aria-label="Social links">
-            <a class="social-pill" href="https://github.com/kioskOG" target="_blank" rel="noopener" aria-label="GitHub"
-              title="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
-            <a class="social-pill" href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener"
-              aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-            <a class="social-pill" href="mailto:jatinvashishtha110@gmail.com" aria-label="Email" title="Email"><i
-                class="fas fa-envelope" aria-hidden="true"></i></a>
-          </div>
-        </div>
-        <div class="hero-avatar-panel">
-          <div class="hero-avatar-ring">
-            <img src="{{ '/profile-image.png' | relative_url }}" alt="Jatin Sharma – DevOps Engineer" width="240"
-              height="240" loading="eager" />
-          </div>
-          <div class="hero-status-badge"><span class="status-dot" aria-hidden="true"></span> Open to Opportunities</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- STATS -->
-    <div class="stats-strip" aria-label="Key statistics">
-      <div class="stats-inner">
-        <div class="stat-item reveal"><span class="stat-num">8+</span><span class="stat-label">Years Experience</span>
-        </div>
-        <div class="stat-item reveal reveal-delay-1"><span class="stat-num">20+</span><span class="stat-label">Projects
-            Shipped</span></div>
-        <div class="stat-item reveal reveal-delay-2"><span class="stat-num">99.9%</span><span class="stat-label">Uptime
-            Goal</span></div>
-        <div class="stat-item reveal reveal-delay-3"><span class="stat-num">&#8734;</span><span
-            class="stat-label">Automation Hunger</span></div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="https://github.com/kioskOG" target="_blank" rel="noopener">GitHub Profile</a></li>
+          <li><a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener">LinkedIn Profile</a></li>
+          <li><a href="javascript:void(0)" data-search-trigger>Search Archives</a></li>
+        </ul>
       </div>
     </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year-footer"></span> Jatin Sharma. All rights reserved.</span>
+      <span>Forged &amp; deployed on GitHub Pages</span>
+    </div>
+  </footer>
 
-    <div class="divider"></div>
-
-    <!-- ABOUT -->
-    <section id="about" aria-labelledby="about-heading">
-      <div class="section">
-        <div class="about-grid">
-          <div class="about-body reveal">
-            <div class="section-tag"><span class="dot"></span> About Me</div>
-            <h2 class="section-title" id="about-heading">DevOps Engineer &amp;<br><span class="gradient-text">Platform
-                Architect</span></h2>
-            <p>Hello! I'm <strong>Jatin Sharma</strong>, a passionate DevOps Engineer dedicated to building scalable,
-              automated cloud solutions. I love crafting infrastructure that enables teams to ship faster and more
-              reliably.</p>
-            <p>My work spans cloud-native architectures on AWS &amp; GCP, Kubernetes orchestration, observability
-              stacks, security automation, and GitOps workflows. I believe in infrastructure as code and continuous
-              improvement.</p>
-            <p>Explore my projects, read my insights on DevOps best practices, and let's discuss technology &amp;
-              innovation together.</p>
-            <div class="about-expertise-grid" aria-label="Areas of expertise">
-              <div class="expertise-chip"><i class="fas fa-cloud" aria-hidden="true"></i> Multi-Cloud</div>
-              <div class="expertise-chip"><i class="fas fa-infinity" aria-hidden="true"></i> CI/CD Pipelines</div>
-              <div class="expertise-chip"><i class="fas fa-dharmachakra" aria-hidden="true"></i> Kubernetes</div>
-              <div class="expertise-chip"><i class="fas fa-shield-alt" aria-hidden="true"></i> Security & Compliance
-              </div>
-              <div class="expertise-chip"><i class="fas fa-chart-line" aria-hidden="true"></i> Observability</div>
-              <div class="expertise-chip"><i class="fas fa-robot" aria-hidden="true"></i> Automation</div>
-              <div class="expertise-chip"><i class="fas fa-brain" aria-hidden="true"></i> MLOps</div>
-              <div class="expertise-chip"><i class="fas fa-microchip" aria-hidden="true"></i> MCP</div>
-              <div class="expertise-chip"><i class="fas fa-server" aria-hidden="true"></i> Infrastructure as Code
-              </div>
+  <!-- HIDDEN DOM REALM TEMPLATES -->
+  <div id="realm-content-templates" style="display: none;" aria-hidden="true">
+    
+    <!-- 1. The Wall (Security) -->
+    <div id="content-the-wall">
+      <div class="lore-card">
+        <div class="realm-drawer-header">
+          <span class="realm-drawer-tag"><i class="fas fa-shield-alt"></i> Sentinel of Secrets</span>
+          <h4>The Wall</h4>
+          <p class="realm-drawer-desc">The colossal shield guarding the realm from malicious threats. Where secret scanners, container policies, and identity vaults stand sentinel.</p>
+        </div>
+        
+        <div class="realm-drawer-projects">
+          <h5>Active Sentinels (Projects)</h5>
+          <div class="realm-project-card">
+            <h6><a href="https://github.com/kioskOG/secret-scan-poc" target="_blank" rel="noopener">GitHub Secret Scanner <i class="fas fa-external-link-alt"></i></a></h6>
+            <p>TruffleHog + Kafka + FastAPI with Slack alerts and CI security gates to prevent secret leaks.</p>
+            <div class="project-tags">
+              <span class="tag">TruffleHog</span><span class="tag">Kafka</span><span class="tag">FastAPI</span><span class="tag">Helm</span>
             </div>
           </div>
-          <div class="reveal reveal-delay-2">
-            <h3 class="section-title" style="font-size:1.4rem; margin-bottom:20px;">Proven Impact</h3>
-            <div class="impact-cards">
-              <div class="impact-card">
-                <div class="impact-pct">60%</div>
-                <div class="impact-desc">Faster deployments with automated CI/CD</div>
-              </div>
-              <div class="impact-card">
-                <div class="impact-pct">80%</div>
-                <div class="impact-desc">Reduction in manual ops tasks via automation</div>
-              </div>
-              <div class="impact-card">
-                <div class="impact-pct">40%</div>
-                <div class="impact-desc">Cloud cost reduction through optimization</div>
-              </div>
-              <div class="impact-card">
-                <div class="impact-pct">3&times;</div>
-                <div class="impact-desc">Improved MTTR with better observability</div>
-              </div>
-            </div>
-            <div style="display:flex; gap:12px; margin-top:24px; flex-wrap:wrap;">
-              <a href="/docs/about/" class="btn-primary">About Me <i class="fas fa-user-circle"
-                  aria-hidden="true"></i></a>
-              <a href="/docs/about/contact/" class="btn-outline">Contact <i class="fas fa-envelope"
-                  aria-hidden="true"></i></a>
+          
+          <div class="realm-project-card">
+            <h6><a href="https://github.com/kioskOG/secret-scan-poc/tree/main/based-on-push-and-pull_request" target="_blank" rel="noopener">PR Secret Gatekeeper <i class="fas fa-external-link-alt"></i></a></h6>
+            <p>Blocks PRs containing secrets via webhooks and status checks before landing on main branches.</p>
+            <div class="project-tags">
+              <span class="tag">GitHub Actions</span><span class="tag">Security Gate</span>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <div class="divider"></div>
-
-    <!-- SKILLS -->
-    <section id="skills" aria-labelledby="skills-heading">
-      <div class="section">
-        <div class="section-header-center reveal" style="margin-bottom:40px;">
-          <div class="section-tag"><span class="dot"></span> Expertise</div>
-          <h2 class="section-title" id="skills-heading"><span class="gradient-text">Skills</span> Landscape</h2>
-          <p class="section-subtitle">A broad toolkit covering the full DevOps lifecycle — from infrastructure
-            provisioning to production observability.</p>
-        </div>
-        <div class="skills-header-bar" aria-label="Terminal command">
-          <i class="fas fa-terminal" aria-hidden="true" style="color:var(--accent-green);"></i>
-          <span class="cmd">./skills</span>
-          <span class="flag">--list</span>
-          <span class="flag">--verbose</span>
-          <span style="margin-left:auto; opacity:0.5; font-size:0.78rem;">scanning 12 domains...</span>
-        </div>
-        <div class="skills-grid">
-          <!-- 1. Container & Orchestration -->
-          <div class="skill-card reveal"><span class="skill-cat-tag">Orchestration</span>
-            <div class="skill-icon"><i class="fab fa-kubernetes" style="color: #326ce5;"></i></div>
-            <div class="skill-title">Kubernetes &amp; Containers</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Kubernetes</span><span class="skill-tag">Docker</span>
-              <span class="skill-tag">Helm</span><span class="skill-tag">Helmfile</span>
-              <span class="skill-tag">EKS</span><span class="skill-tag">GKE</span>
-              <span class="skill-tag">OKE</span><span class="skill-tag">Kustomize</span>
-              <span class="skill-tag">Karpenter</span><span class="skill-tag">KEDA</span>
-              <span class="skill-tag">Knative</span><span class="skill-tag">KServe</span>
-            </div>
-          </div>
-          <!-- 2. Cloud Platforms -->
-          <div class="skill-card reveal reveal-delay-1"><span class="skill-cat-tag">Cloud</span>
-            <div class="skill-icon"><i class="fas fa-cloud" style="color: var(--accent-blue);"></i></div>
-            <div class="skill-title">Cloud Platforms</div>
-            <div class="skill-tags">
-              <span class="skill-tag">AWS</span><span class="skill-tag">GCP</span>
-              <span class="skill-tag">OCI</span><span class="skill-tag">EKS</span>
-              <span class="skill-tag">GKE</span><span class="skill-tag">OKE</span>
-              <span class="skill-tag">S3</span><span class="skill-tag">EC2</span>
-              <span class="skill-tag">Lambda</span><span class="skill-tag">CloudRun</span>
-              <span class="skill-tag">Route53</span><span class="skill-tag">CloudMap</span>
-            </div>
-          </div>
-          <!-- 3. CI/CD & GitOps -->
-          <div class="skill-card reveal reveal-delay-2"><span class="skill-cat-tag">GitOps</span>
-            <div class="skill-icon"><i class="fas fa-sync-alt" style="color: var(--accent-green);"></i></div>
-            <div class="skill-title">CI/CD &amp; GitOps</div>
-            <div class="skill-tags">
-              <span class="skill-tag">GitHub Actions</span><span class="skill-tag">ArgoCD</span>
-              <span class="skill-tag">Jenkins</span><span class="skill-tag">GitLab CI</span>
-              <span class="skill-tag">FluxCD</span><span class="skill-tag">GitOps</span>
-            </div>
-          </div>
-          <!-- 4. IaC -->
-          <div class="skill-card reveal"><span class="skill-cat-tag">IaC</span>
-            <div class="skill-icon"><i class="fas fa-code" style="color: var(--accent-purple);"></i></div>
-            <div class="skill-title">Infrastructure as Code</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Terraform</span><span class="skill-tag">Terragrunt</span>
-              <span class="skill-tag">Ansible</span><span class="skill-tag">CloudFormation</span>
-            </div>
-          </div>
-          <!-- 5. Observability -->
-          <div class="skill-card reveal reveal-delay-1"><span class="skill-cat-tag">Monitoring</span>
-            <div class="skill-icon"><i class="fas fa-chart-line" style="color: #e6522c;"></i></div>
-            <div class="skill-title">Observability Stack</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Grafana</span><span class="skill-tag">Prometheus</span>
-              <span class="skill-tag">Loki</span><span class="skill-tag">Tempo</span>
-              <span class="skill-tag">Mimir</span><span class="skill-tag">Pyroscope</span>
-              <span class="skill-tag">ELK Stack</span><span class="skill-tag">SigNoz</span>
-              <span class="skill-tag">OpenObserv</span>
-            </div>
-          </div>
-          <!-- 6. Security -->
-          <div class="skill-card reveal reveal-delay-2"><span class="skill-cat-tag">Security</span>
-            <div class="skill-icon"><i class="fas fa-shield-alt" style="color: #10b981;"></i></div>
-            <div class="skill-title">Security &amp; Compliance</div>
-            <div class="skill-tags">
-              <span class="skill-tag">TruffleHog</span><span class="skill-tag">Falco</span>
-              <span class="skill-tag">OPA</span><span class="skill-tag">Trivy</span>
-              <span class="skill-tag">Vault</span><span class="skill-tag">Wazuh</span>
-              <span class="skill-tag">Keycloak</span><span class="skill-tag">Authentik</span>
-              <span class="skill-tag">Cert-Manager</span>
-            </div>
-          </div>
-          <!-- 7. Scripting -->
-          <div class="skill-card reveal"><span class="skill-cat-tag">Scripting</span>
-            <div class="skill-icon"><i class="fab fa-python" style="color: #3776ab;"></i></div>
-            <div class="skill-title">Programming &amp; Scripting</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Python</span><span class="skill-tag">Bash</span>
-              <span class="skill-tag">Shell</span><span class="skill-tag">Go</span>
-              <span class="skill-tag">YAML</span><span class="skill-tag">FastAPI</span>
-            </div>
-          </div>
-          <!-- 8. Networking & Service Mesh -->
-          <div class="skill-card reveal reveal-delay-1"><span class="skill-cat-tag">Networking</span>
-            <div class="skill-icon"><i class="fas fa-network-wired" style="color: #00bcd4;"></i></div>
-            <div class="skill-title">Networking &amp; Service Mesh</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Cilium</span><span class="skill-tag">Istio</span>
-              <span class="skill-tag">Linkerd</span><span class="skill-tag">Netbird</span>
-              <span class="skill-tag">Nginx</span><span class="skill-tag">Traefik</span>
-              <span class="skill-tag">Caddy</span><span class="skill-tag">ExternalDNS</span>
-            </div>
-          </div>
-          <!-- 9. MLOps -->
-          <div class="skill-card reveal reveal-delay-2"><span class="skill-cat-tag">MLOps</span>
-            <div class="skill-icon"><i class="fas fa-robot" style="color: var(--accent-purple);"></i></div>
-            <div class="skill-title">MLOps &amp; AI Platforms</div>
-            <div class="skill-tags">
-              <span class="skill-tag">MLflow</span><span class="skill-tag">DVC</span>
-              <span class="skill-tag">KServe</span><span class="skill-tag">SageMaker</span>
-              <span class="skill-tag">Bedrock</span><span class="skill-tag">scikit-learn</span>
-              <span class="skill-tag">Pandas</span><span class="skill-tag">NumPy</span>
-            </div>
-          </div>
-          <!-- 10. OS -->
-          <div class="skill-card reveal"><span class="skill-cat-tag">OS</span>
-            <div class="skill-icon"><i class="fab fa-linux" style="color: #333;"></i></div>
-            <div class="skill-title">Operating Systems</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Linux</span><span class="skill-tag">Ubuntu</span>
-              <span class="skill-tag">CentOS</span><span class="skill-tag">RHEL</span>
-              <span class="skill-tag">macOS</span><span class="skill-tag">Windows</span>
-            </div>
-          </div>
-          <!-- 11. Databases & Messaging -->
-          <div class="skill-card reveal reveal-delay-1"><span class="skill-cat-tag">Data</span>
-            <div class="skill-icon"><i class="fas fa-database" style="color: #336791;"></i></div>
-            <div class="skill-title">Databases &amp; Messaging</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Kafka</span><span class="skill-tag">Redis</span>
-              <span class="skill-tag">PostgreSQL</span><span class="skill-tag">MySQL</span>
-              <span class="skill-tag">DynamoDB</span><span class="skill-tag">Elasticache</span>
-              <span class="skill-tag">MinIO</span>
-            </div>
-          </div>
-          <!-- 12. Other Tools -->
-          <div class="skill-card reveal reveal-delay-2"><span class="skill-cat-tag">Tools</span>
-            <div class="skill-icon"><i class="fas fa-toolbox" style="color: var(--text-muted);"></i></div>
-            <div class="skill-title">DevOps Toolbox</div>
-            <div class="skill-tags">
-              <span class="skill-tag">Velero</span><span class="skill-tag">Apicurio</span>
-              <span class="skill-tag">Tyk API GW</span><span class="skill-tag">KEDA</span>
-              <span class="skill-tag">Kro</span><span class="skill-tag">Selenium</span>
-              <span class="skill-tag">Jira</span><span class="skill-tag">Confluence</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- PROJECTS -->
-    <section id="projects" aria-labelledby="projects-heading">
-      <div class="section">
-        <div class="section-header-center reveal" style="margin-bottom:40px;">
-          <div class="section-tag"><span class="dot"></span> Work</div>
-          <h2 class="section-title" id="projects-heading">Featured <span class="gradient-text">Projects</span></h2>
-          <p class="section-subtitle">Real-world infrastructure and DevOps projects solving production challenges.</p>
-        </div>
-        <div class="projects-grid">
-
-          <article class="project-card reveal" style="--card-accent: linear-gradient(90deg,#f59e0b,#10b981);">
-            <div class="project-card-accent" aria-hidden="true"></div>
-            <div class="project-card-body">
-              <div class="project-card-top">
-                <h3 class="project-title">&#128640; LGTM Stack on Kubernetes — Complete Hands-On</h3>
-                <a class="project-link-btn" href="https://github.com/kioskOG/observability-hub" target="_blank"
-                  rel="noopener" aria-label="View on GitHub">View <i class="fas fa-arrow-up-right-from-square"
-                    aria-hidden="true"></i></a>
-              </div>
-              <p class="project-desc">Production observability with Loki, Grafana, Tempo, Mimir: deploy, scale, and
-                validate end-to-end.</p>
-              <div class="project-tags"><span class="project-tag">Kubernetes</span><span
-                  class="project-tag">Helm</span><span class="project-tag">Grafana</span><span
-                  class="project-tag">Loki</span><span class="project-tag">Tempo</span><span
-                  class="project-tag">Mimir</span></div>
-            </div>
-          </article>
-
-          <article class="project-card reveal reveal-delay-1"
-            style="--card-accent: linear-gradient(90deg,#3b82f6,#8b5cf6);">
-            <div class="project-card-accent" aria-hidden="true"></div>
-            <div class="project-card-body">
-              <div class="project-card-top">
-                <h3 class="project-title">&#128269; GitHub Secret Scanner in Kubernetes</h3>
-                <a class="project-link-btn" href="https://github.com/kioskOG/secret-scan-poc" target="_blank"
-                  rel="noopener" aria-label="View on GitHub">View <i class="fas fa-arrow-up-right-from-square"
-                    aria-hidden="true"></i></a>
-              </div>
-              <p class="project-desc">TruffleHog + Kafka + FastAPI with Slack alerts and CI security gates to prevent
-                secret leaks.</p>
-              <div class="project-tags"><span class="project-tag">TruffleHog</span><span
-                  class="project-tag">Kafka</span><span class="project-tag">FastAPI</span><span
-                  class="project-tag">Helm</span></div>
-            </div>
-          </article>
-
-          <article class="project-card reveal" style="--card-accent: linear-gradient(90deg,#8b5cf6,#ec4899);">
-            <div class="project-card-accent" aria-hidden="true"></div>
-            <div class="project-card-body">
-              <div class="project-card-top">
-                <h3 class="project-title">&#127758; CloudMap Controller for EKS</h3>
-                <a class="project-link-btn" href="https://github.com/kioskOG/EKS-cloudmap-controller" target="_blank"
-                  rel="noopener" aria-label="View on GitHub">View <i class="fas fa-arrow-up-right-from-square"
-                    aria-hidden="true"></i></a>
-              </div>
-              <p class="project-desc">Sync headless Kubernetes Services to AWS Cloud Map / Route53 with configurable
-                TTLs and audit logs.</p>
-              <div class="project-tags"><span class="project-tag">Python</span><span
-                  class="project-tag">Controller</span><span class="project-tag">AWS</span><span
-                  class="project-tag">EKS</span></div>
-            </div>
-          </article>
-
-          <article class="project-card reveal reveal-delay-1"
-            style="--card-accent: linear-gradient(90deg,#f97316,#ef4444);">
-            <div class="project-card-accent" aria-hidden="true"></div>
-            <div class="project-card-body">
-              <div class="project-card-top">
-                <h3 class="project-title">&#129514; PR Secret Gatekeeper (GitHub Actions)</h3>
-                <a class="project-link-btn"
-                  href="https://github.com/kioskOG/secret-scan-poc/tree/main/based-on-push-and-pull_request"
-                  target="_blank" rel="noopener" aria-label="View on GitHub">View <i
-                    class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-              </div>
-              <p class="project-desc">Blocks PRs containing secrets via webhooks and required status checks — automated
-                security enforcement.</p>
-              <div class="project-tags"><span class="project-tag">Actions</span><span
-                  class="project-tag">Security</span><span class="project-tag">CI</span></div>
-            </div>
-          </article>
-
-          <article class="project-card reveal" style="--card-accent: linear-gradient(90deg,#10b981,#0891b2);">
-            <div class="project-card-accent" aria-hidden="true"></div>
-            <div class="project-card-body">
-              <div class="project-card-top">
-                <h3 class="project-title">&#128274; Netbird Deployment Automation</h3>
-                <a class="project-link-btn" href="https://kioskog.github.io/docs/devops/docker/Netbird/" target="_blank"
-                  rel="noopener" aria-label="View project">View <i class="fas fa-arrow-up-right-from-square"
-                    aria-hidden="true"></i></a>
-              </div>
-              <p class="project-desc">Self-hosted VPN server setup &amp; multi-cloud private network links with
-                automated deployment scripts.</p>
-              <div class="project-tags"><span class="project-tag">Docker</span><span class="project-tag">VPN</span><span
-                  class="project-tag">Infra</span></div>
-            </div>
-          </article>
-
-          <article class="project-card reveal reveal-delay-1"
-            style="--card-accent: linear-gradient(90deg,#06b6d4,#3b82f6);">
-            <div class="project-card-accent" aria-hidden="true"></div>
-            <div class="project-card-body">
-              <div class="project-card-top">
-                <h3 class="project-title">SAP HANA Cloud Private Edition</h3>
-                <a class="project-link-btn"
-                  href="https://kioskog.github.io/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/" target="_blank"
-                  rel="noopener" aria-label="View project">View <i class="fas fa-arrow-up-right-from-square"
-                    aria-hidden="true"></i></a>
-              </div>
-              <p class="project-desc">Client access patterns &amp; troubleshooting notes for SAP HANA on GCP Private
-                Edition deployments.</p>
-              <div class="project-tags"><span class="project-tag">SAP</span><span class="project-tag">GCP</span><span
-                  class="project-tag">Networking</span></div>
-            </div>
-          </article>
-
-          <article class="project-card reveal" style="--card-accent: linear-gradient(90deg,#a78bfa,#10b981);">
-            <div class="project-card-accent" aria-hidden="true"></div>
-            <div class="project-card-body">
-              <div class="project-card-top">
-                <h3 class="project-title">Netbird Management Utility</h3>
-                <a class="project-link-btn" href="https://kioskog.github.io/docs/devops/python/netbird-python-utility/"
-                  target="_blank" rel="noopener" aria-label="View project">View <i
-                    class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-              </div>
-              <p class="project-desc">Menu-driven admin utility to manage Netbird resources — peers, groups, routes, and
-                policies via Python CLI.</p>
-              <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">CLI</span><span
-                  class="project-tag">Netbird</span></div>
-            </div>
-          </article>
-
-          <article class="project-card reveal reveal-delay-1"
-            style="--card-accent: linear-gradient(90deg,#ef4444,#f59e0b);">
-            <div class="project-card-accent" aria-hidden="true"></div>
-            <div class="project-card-body">
-              <div class="project-card-top">
-                <h3 class="project-title">Greythr Automated Sign-In/Out</h3>
-                <a class="project-link-btn" href="https://github.com/kioskOG/Greythr" target="_blank" rel="noopener"
-                  aria-label="View on GitHub">View <i class="fas fa-arrow-up-right-from-square"
-                    aria-hidden="true"></i></a>
-              </div>
-              <p class="project-desc">Selenium automation with screenshots and email notifications for automated HR
-                portal management.</p>
-              <div class="project-tags"><span class="project-tag">Python</span><span
-                  class="project-tag">Selenium</span><span class="project-tag">Automation</span></div>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- CONTACT CTA -->
-    <div class="contact-cta" id="contact">
-      <div class="cta-card reveal">
-        <h2>Ready to Build Something <span class="gradient-text">Remarkable?</span></h2>
-        <p>Whether it's scaling infrastructure, automating pipelines, or improving system reliability — I'm here to help
-          make it happen.</p>
-        <div class="cta-btns">
-          <a href="/docs/about/contact/" class="btn-primary"><i class="fas fa-paper-plane" aria-hidden="true"></i> Get
-            In Touch</a>
-          <a href="/docs/devops/" class="btn-outline"><i class="fas fa-book-open" aria-hidden="true"></i> Explore DevOps
-            Docs</a>
-          <a href="/docs/ml/" class="btn-outline"><i class="fas fa-book-open" aria-hidden="true"></i> Explore ML
-            Docs</a>
-          <a href="/docs/ai/" class="btn-outline"><i class="fas fa-book-open" aria-hidden="true"></i> Explore AI
-            Docs</a>
+        <div class="realm-drawer-docs">
+          <h5>Archived Chronicles (Documentation)</h5>
+          <ul class="drawer-doc-links">
+            <li><a href="/docs/devops/">DevOps Portal &amp; Chronicles</a></li>
+          </ul>
         </div>
       </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="site-footer" role="contentinfo">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <a class="nav-logo" href="/">Jatin Sharma /&gt;</a>
-          <p>DevOps Engineer &amp; Platform Architect building scalable cloud-native systems. Passionate about
-            automation, observability, and GitOps.</p>
-          <div class="footer-socials">
-            <a class="social-pill" href="https://github.com/kioskOG" target="_blank" rel="noopener"
-              aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
-            <a class="social-pill" href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener"
-              aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-            <a class="social-pill" href="mailto:jatinvashishtha110@gmail.com" aria-label="Email"><i
-                class="fas fa-envelope" aria-hidden="true"></i></a>
+    <!-- 2. The North (Kubernetes) -->
+    <div id="content-the-north">
+      <div class="lore-card">
+        <div class="realm-drawer-header">
+          <span class="realm-drawer-tag"><i class="fab fa-kubernetes"></i> Cluster Orchestration</span>
+          <h4>The North</h4>
+          <p class="realm-drawer-desc">The freezing, unyielding landscapes of container clusters. Here, containers are marshalled, automated, and observed under cold, structured logic.</p>
+        </div>
+
+        <div class="realm-drawer-projects">
+          <h5>Active Sentinels (Projects)</h5>
+          <div class="realm-project-card">
+            <h6><a href="https://github.com/kioskOG/observability-hub" target="_blank" rel="noopener">LGTM Stack on Kubernetes <i class="fas fa-external-link-alt"></i></a></h6>
+            <p>Production observability with Loki, Grafana, Tempo, Mimir: deploy, scale, and validate end-to-end.</p>
+            <div class="project-tags">
+              <span class="tag">Kubernetes</span><span class="tag">Helm</span><span class="tag">Grafana</span><span class="tag">Loki</span><span class="tag">Tempo</span><span class="tag">Mimir</span>
+            </div>
           </div>
         </div>
-        <div class="footer-col">
-          <h4>Quick Links</h4>
-          <ul class="footer-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/docs/about/">About</a></li>
-            <li><a href="/docs/devops/">DevOps Docs</a></li>
-            <li><a href="/docs/ml/">ML Docs</a></li>
-            <li><a href="/docs/ai/">AI Docs</a></li>
-            <li><a href="/docs/about/contact/">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Resources</h4>
-          <ul class="footer-links">
-            <li><a href="https://github.com/kioskOG" target="_blank" rel="noopener">GitHub Profile</a></li>
-            <li><a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener">LinkedIn</a></li>
-            <li><a href="javascript:void(0)" data-search-trigger>Search Docs</a></li>
+
+        <div class="realm-drawer-docs">
+          <h5>Archived Chronicles (Documentation)</h5>
+          <ul class="drawer-doc-links">
+            <li><a href="/docs/devops/kubernetes/helm/helm_intro.html">What is HELM &amp; Why We Need HELM</a></li>
+            <li><a href="/docs/devops/kubernetes/helm/first_helm_chart.html">Creating Your First Helm Template</a></li>
+            <li><a href="/docs/devops/kubernetes/helm/helm_values.html">Helm Values Files and Configuration</a></li>
+            <li><a href="/docs/devops/kubernetes/helm/Template-Functions-and-Pipelines.html">Helm Template Functions and Pipelines</a></li>
+            <li><a href="/docs/devops/kubernetes/helm/Template-Function-List.html">Helm Template Function Reference List</a></li>
+            <li><a href="/docs/devops/kubernetes/helm/helm_notes_txt.html">Helm Notes NOTES.txt Configuration</a></li>
+            <li><a href="/docs/devops/kubernetes/Kubernetes-Ingress/Understanding-Ingress-Controllers.html">Understanding Ingress Controllers</a></li>
+            <li><a href="/docs/devops/kubernetes/Kubernetes-Ingress/Installing-NGINX-Ingress.html">Installing NGINX Ingress Controller</a></li>
+            <li><a href="/docs/devops/kubernetes/Kubernetes-Ingress/Routing-in-NGINX-Ingress-Controller.html">Routing in NGINX Ingress Controller</a></li>
+            <li><a href="/docs/devops/kubernetes/Kubernetes-Ingress/Basic-Authentication-using-NGINX-Ingress.html">Basic Authentication using NGINX Ingress</a></li>
+            <li><a href="/docs/devops/kubernetes/Kubernetes-Ingress/secure-your-app-with-https-using-self-signed-tls-certificates.html">Secure Your App with HTTPS using Self-Signed TLS</a></li>
           </ul>
         </div>
       </div>
-      <div class="footer-bottom">
-        <span>&copy; <span id="year"></span> Jatin Sharma. All rights reserved.</span>
-        <span>Built with &#10084;&#65039; &amp; deployed on GitHub Pages</span>
+    </div>
+
+    <!-- 3. King's Landing (AWS & Cloud Platforms) -->
+    <div id="content-kings-landing">
+      <div class="lore-card">
+        <div class="realm-drawer-header">
+          <span class="realm-drawer-tag"><i class="fas fa-cloud"></i> High Kingdoms of Cloud</span>
+          <h4>King's Landing</h4>
+          <p class="realm-drawer-desc">The seat of power. Where multi-cloud empires are governed, resources are provisioned, and private channels connect distant strongholds.</p>
+        </div>
+
+        <div class="realm-drawer-projects">
+          <h5>Active Sentinels (Projects)</h5>
+          <div class="realm-project-card">
+            <h6><a href="/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/" target="_blank" rel="noopener">SAP HANA Cloud Private Edition <i class="fas fa-external-link-alt"></i></a></h6>
+            <p>Client access patterns, VPC designs &amp; troubleshooting notes for SAP HANA on GCP deployments.</p>
+            <div class="project-tags">
+              <span class="tag">SAP</span><span class="tag">GCP</span><span class="tag">Networking</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="realm-drawer-docs">
+          <h5>Archived Chronicles (Documentation)</h5>
+          <ul class="drawer-doc-links">
+            <li><a href="/docs/devops/System-Design/intro.html">Introduction to System Design</a></li>
+            <li><a href="/docs/devops/System-Design/Roadmap.html">System Design Roadmap</a></li>
+            <li><a href="/docs/devops/System-Design/Scaleability.html">System Design - What is Scalability?</a></li>
+          </ul>
+        </div>
       </div>
-    </footer>
+    </div>
 
-  </div><!-- .page-wrap -->
+    <!-- 4. Dragonstone (AI & LLMs) -->
+    <div id="content-dragonstone">
+      <div class="lore-card">
+        <div class="realm-drawer-header">
+          <span class="realm-drawer-tag"><i class="fas fa-dragon"></i> Volcanic AI Systems</span>
+          <h4>Dragonstone</h4>
+          <p class="realm-drawer-desc">The volcanic breeding ground of dragons. Where Large Language Models are incubated, chains of logic are forged, and magical agents are summoned.</p>
+        </div>
 
+        <div class="realm-drawer-projects">
+          <h5>Active Sentinels (Projects)</h5>
+          <div class="realm-project-card">
+            <h6><a href="/docs/ai/" target="_blank" rel="noopener">AI &amp; LangChain Hub <i class="fas fa-external-link-alt"></i></a></h6>
+            <p>A comprehensive repository of Large Language Model integrations and pipeline orchestration.</p>
+            <div class="project-tags">
+              <span class="tag">LLMs</span><span class="tag">LangChain</span><span class="tag">MCP</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="realm-drawer-docs">
+          <h5>Archived Chronicles (Documentation)</h5>
+          <ul class="drawer-doc-links">
+            <li><a href="/docs/ai/LangChain/Introduction-to-LangChain.html">Introduction to LangChain</a></li>
+            <li><a href="/docs/ai/LangChain/Langchain-Components.html">LangChain Components Reference</a></li>
+            <li><a href="/docs/ai/LangChain/Langchain-models.html">Understanding LangChain Models</a></li>
+            <li><a href="/docs/ai/LangChain/Langchain-models-via-coding-examples.html">LangChain Models Hands-on Coding Guide</a></li>
+            <li><a href="/docs/ai/LangChain/Chains-in-LangChain.html">LangChain Chains - The Pipeline Architecture</a></li>
+            <li><a href="/docs/ai/LangChain/LangChain-Chains-Hands-on-Coding-Guide.html">LangChain Chains Hands-on Coding Guide</a></li>
+            <li><a href="/docs/ai/MCP/why-mcp.html">Why MCP? Model Context Protocol Explained</a></li>
+            <li><a href="/docs/ai/MCP/Build-local-mcp-server.html">Build Local MCP Server Guide</a></li>
+            <li><a href="/docs/ai/MCP/MCP-Lifecycle.html">MCP Session Lifecycle</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. The Reach (Terraform & IaC) -->
+    <div id="content-the-reach">
+      <div class="lore-card">
+        <div class="realm-drawer-header">
+          <span class="realm-drawer-tag"><i class="fas fa-seedling"></i> Infrastructure Growth</span>
+          <h4>The Reach</h4>
+          <p class="realm-drawer-desc">The fertile plains of Automation. Where infrastructure is grown from declarations and harvested code, securing reproducible resources.</p>
+        </div>
+
+        <div class="realm-drawer-projects">
+          <h5>Active Sentinels (Projects)</h5>
+          <div class="realm-project-card">
+            <h6><a href="https://github.com/kioskOG/EKS-cloudmap-controller" target="_blank" rel="noopener">CloudMap Controller for EKS <i class="fas fa-external-link-alt"></i></a></h6>
+            <p>Sync headless Kubernetes Services to AWS Cloud Map / Route53 with configurable TTLs.</p>
+            <div class="project-tags">
+              <span class="tag">Python</span><span class="tag">Controller</span><span class="tag">AWS</span><span class="tag">EKS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="realm-drawer-docs">
+          <h5>Archived Chronicles (Documentation)</h5>
+          <ul class="drawer-doc-links">
+            <li><a href="/docs/devops/">Infrastructure-as-Code Archives</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. The Citadel (MLOps & AI Platforms) -->
+    <div id="content-the-citadel">
+      <div class="lore-card">
+        <div class="realm-drawer-header">
+          <span class="realm-drawer-tag"><i class="fas fa-graduation-cap"></i> Academy of MLOps</span>
+          <h4>The Citadel</h4>
+          <p class="realm-drawer-desc">The grand seat of learning. Where datasets are refined, model training pipelines are verified, and algorithms are archived.</p>
+        </div>
+
+        <div class="realm-drawer-projects">
+          <h5>Active Sentinels (Projects)</h5>
+          <div class="realm-project-card">
+            <h6><a href="/docs/ml/building-a-dataset-pipeline.html" target="_blank" rel="noopener">MLOps Step 1: Building a Dataset Pipeline <i class="fas fa-external-link-alt"></i></a></h6>
+            <p>Constructing data loading, pre-processing, and version control structures for model training pipelines.</p>
+            <div class="project-tags">
+              <span class="tag">MLflow</span><span class="tag">DVC</span><span class="tag">Pandas</span><span class="tag">Python</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="realm-drawer-docs">
+          <h5>Archived Chronicles (Documentation)</h5>
+          <ul class="drawer-doc-links">
+            <li><a href="/docs/ml/">Machine Learning &amp; MLOps Chronicles</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Stormlands (Networking & Service Mesh) -->
+    <div id="content-stormlands">
+      <div class="lore-card">
+        <div class="realm-drawer-header">
+          <span class="realm-drawer-tag"><i class="fas fa-bolt"></i> Tempestuous Channels</span>
+          <h4>Stormlands</h4>
+          <p class="realm-drawer-desc">The storm-beaten cliffs where lightning-fast channels connect nodes. Where VPN tunnels, mesh routing, and DNS externalizers navigate tempestuous ports.</p>
+        </div>
+
+        <div class="realm-drawer-projects">
+          <h5>Active Sentinels (Projects)</h5>
+          <div class="realm-project-card">
+            <h6><a href="/docs/devops/docker/Netbird/" target="_blank" rel="noopener">Netbird Deployment Automation <i class="fas fa-external-link-alt"></i></a></h6>
+            <p>Self-hosted VPN server setup &amp; multi-cloud private network links with automated deployment scripts.</p>
+            <div class="project-tags">
+              <span class="tag">Docker</span><span class="tag">VPN</span><span class="tag">WireGuard</span>
+            </div>
+          </div>
+          
+          <div class="realm-project-card">
+            <h6><a href="/docs/devops/python/netbird-python-utility/" target="_blank" rel="noopener">Netbird Management Utility <i class="fas fa-external-link-alt"></i></a></h6>
+            <p>Menu-driven admin utility to manage Netbird resources — peers, groups, routes, and policies via Python CLI.</p>
+            <div class="project-tags">
+              <span class="tag">Python</span><span class="tag">CLI</span><span class="tag">Netbird API</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="realm-drawer-docs">
+          <h5>Archived Chronicles (Documentation)</h5>
+          <ul class="drawer-doc-links">
+            <li><a href="/docs/devops/kubernetes/Traefik/Traefik.html">Traefik Ingress &amp; Routing Solutions</a></li>
+            <li><a href="/docs/devops/monitoring/grafana_tempo/grafana-tempo-sample-app.html">Distributed Tracing with Grafana Tempo</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- JS Camera / Parallax / Audio / Particle Engine -->
   <script>
     (function () {
       'use strict';
@@ -2258,8 +2369,10 @@
       // Year
       var y = document.getElementById('year');
       if (y) y.textContent = new Date().getFullYear();
+      var yf = document.getElementById('year-footer');
+      if (yf) yf.textContent = new Date().getFullYear();
 
-      // Mobile nav
+      // Mobile nav hamburger
       var ham = document.getElementById('hamburger');
       var nav = document.getElementById('nav-links');
       if (ham && nav) {
@@ -2275,35 +2388,611 @@
         });
       }
 
-      // Typing animation
-      var roles = [
-        'DevOps & Platform Engineer',
-        'Kubernetes Specialist',
-        'Cloud Architect',
-        'CI/CD Automation Expert',
-        'Observability Enthusiast',
-        'Infrastructure as Code',
-        'MLOps Specialist',
-        'MCP'
-      ];
-      var roleEl = document.getElementById('role-text');
-      if (roleEl) {
-        var ri = 0, ci = 0, deleting = false;
-        function type() {
-          var text = roles[ri];
-          if (!deleting) {
-            roleEl.textContent = text.slice(0, ++ci);
-            if (ci === text.length) { deleting = true; setTimeout(type, 1800); return; }
-            setTimeout(type, 70);
-          } else {
-            roleEl.textContent = text.slice(0, --ci);
-            if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; setTimeout(type, 400); return; }
-            setTimeout(type, 38);
+      // Cinematic Intro Control
+      var intro = document.getElementById('citadel-intro');
+      var skipBtn = document.getElementById('intro-skip');
+      
+      function completeIntro() {
+        if (intro && !intro.classList.contains('completed')) {
+          intro.classList.add('completed');
+          document.body.classList.add('intro-completed');
+          // Autoplay background track and wind if user skips/completes intro and is unmuted
+          if (!CitadelAudio.muted) {
+            CitadelAudio.lazyInitContext();
+            if (CitadelAudio.bgTrack) CitadelAudio.bgTrack.play().catch(function(e) {});
+            if (CitadelAudio.windTrack) CitadelAudio.windTrack.play().catch(function(e) {});
           }
         }
-        setTimeout(type, 1000);
       }
 
+      if (intro) {
+        var introTimer = setTimeout(completeIntro, 5500);
+
+        if (skipBtn) {
+          skipBtn.addEventListener('click', function () {
+            clearTimeout(introTimer);
+            completeIntro();
+          });
+        }
+      }
+
+      // Audio manager object (atmospheric ambient loop + UI clicks + Settings dropdown)
+      var CitadelAudio = {
+        ctx: null,
+        bgTrack: null,
+        windTrack: null,
+        masterGain: null,
+        musicGain: null,
+        ambientGain: null,
+        sfxGain: null,
+        muted: true,
+        volMusic: 0.25,
+        volAmbient: 0.20,
+        volSFX: 0.30,
+        initialized: false,
+
+        init: function () {
+          // Read from localStorage
+          if (localStorage.getItem('citadel_muted') !== null) {
+            this.muted = localStorage.getItem('citadel_muted') === 'true';
+          }
+          if (localStorage.getItem('citadel_vol_music') !== null) {
+            this.volMusic = parseFloat(localStorage.getItem('citadel_vol_music'));
+          }
+          if (localStorage.getItem('citadel_vol_ambient') !== null) {
+            this.volAmbient = parseFloat(localStorage.getItem('citadel_vol_ambient'));
+          }
+          if (localStorage.getItem('citadel_vol_sfx') !== null) {
+            this.volSFX = parseFloat(localStorage.getItem('citadel_vol_sfx'));
+          }
+
+          // Wire up initial UI states
+          var muteCheckbox = document.getElementById('audio-mute-checkbox');
+          var sliderMusic = document.getElementById('vol-music');
+          var sliderAmbient = document.getElementById('vol-ambient');
+          var sliderSFX = document.getElementById('vol-sfx');
+          var audioBtn = document.getElementById('audio-toggle-rune');
+
+          if (muteCheckbox) muteCheckbox.checked = this.muted;
+          if (sliderMusic) sliderMusic.value = this.volMusic;
+          if (sliderAmbient) sliderAmbient.value = this.volAmbient;
+          if (sliderSFX) sliderSFX.value = this.volSFX;
+
+          this.updateHUDButton();
+
+          var self = this;
+
+          // Slider events
+          if (sliderMusic) {
+            sliderMusic.addEventListener('input', function (e) {
+              self.volMusic = parseFloat(e.target.value);
+              localStorage.setItem('citadel_vol_music', self.volMusic);
+              if (self.musicGain && self.ctx) {
+                self.musicGain.gain.setValueAtTime(self.volMusic, self.ctx.currentTime);
+              }
+            });
+          }
+          if (sliderAmbient) {
+            sliderAmbient.addEventListener('input', function (e) {
+              self.volAmbient = parseFloat(e.target.value);
+              localStorage.setItem('citadel_vol_ambient', self.volAmbient);
+              if (self.ambientGain && self.ctx) {
+                self.ambientGain.gain.setValueAtTime(self.volAmbient, self.ctx.currentTime);
+              }
+            });
+          }
+          if (sliderSFX) {
+            sliderSFX.addEventListener('input', function (e) {
+              self.volSFX = parseFloat(e.target.value);
+              localStorage.setItem('citadel_vol_sfx', self.volSFX);
+              if (self.sfxGain && self.ctx) {
+                self.sfxGain.gain.setValueAtTime(self.volSFX, self.ctx.currentTime);
+              }
+            });
+          }
+
+          // Mute controls
+          if (muteCheckbox) {
+            muteCheckbox.addEventListener('change', function (e) {
+              self.setMute(e.target.checked);
+            });
+          }
+          if (audioBtn) {
+            audioBtn.addEventListener('click', function (e) {
+              e.stopPropagation();
+              self.setMute(!self.muted);
+            });
+          }
+
+          // Initialize on interaction
+          var startAudio = function () {
+            self.lazyInitContext();
+          };
+          document.addEventListener('click', startAudio, { once: true });
+          document.addEventListener('keydown', startAudio, { once: true });
+        },
+
+        lazyInitContext: function () {
+          if (this.initialized) return;
+          this.initialized = true;
+
+          var AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContextClass) return;
+
+          this.ctx = new AudioContextClass();
+
+          // Create Gain Nodes
+          this.masterGain = this.ctx.createGain();
+          this.musicGain = this.ctx.createGain();
+          this.ambientGain = this.ctx.createGain();
+          this.sfxGain = this.ctx.createGain();
+
+          // Set initial gains
+          this.masterGain.gain.setValueAtTime(this.muted ? 0.0001 : 1, this.ctx.currentTime);
+          this.musicGain.gain.setValueAtTime(this.volMusic, this.ctx.currentTime);
+          this.ambientGain.gain.setValueAtTime(this.volAmbient, this.ctx.currentTime);
+          this.sfxGain.gain.setValueAtTime(this.volSFX, this.ctx.currentTime);
+
+          // Route nodes
+          this.musicGain.connect(this.masterGain);
+          this.ambientGain.connect(this.masterGain);
+          this.sfxGain.connect(this.masterGain);
+          this.masterGain.connect(this.ctx.destination);
+
+          // Initialize Tracks
+          this.bgTrack = new Audio('https://incompetech.com/music/royalty-free/mp3-royaltyfree/Teller%20of%20the%20Tales.mp3');
+          this.bgTrack.loop = true;
+          this.bgTrack.crossOrigin = 'anonymous';
+
+          this.windTrack = new Audio('https://www.soundjay.com/nature/sounds/wind-blow-01.mp3');
+          this.windTrack.loop = true;
+          this.windTrack.crossOrigin = 'anonymous';
+
+          var self = this;
+
+          // Connect tracks once loaded metadata (to avoid browser errors)
+          var setupAudioSources = function () {
+            try {
+              var bgSource = self.ctx.createMediaElementSource(self.bgTrack);
+              bgSource.connect(self.musicGain);
+
+              var windSource = self.ctx.createMediaElementSource(self.windTrack);
+              windSource.connect(self.ambientGain);
+
+              // Play if not muted
+              if (!self.muted) {
+                self.bgTrack.play().catch(function (e) { console.log("Music play error:", e); });
+                self.windTrack.play().catch(function (e) { console.log("Wind play error:", e); });
+              }
+            } catch (err) {
+              console.log("Web Audio routing failed, playing directly:", err);
+              // Fallback: direct play if routing fails (CORS etc)
+              if (!self.muted) {
+                self.bgTrack.play().catch(function (e) { });
+                self.windTrack.play().catch(function (e) { });
+              }
+            }
+          };
+
+          setupAudioSources();
+
+          // Start ambient scheduling (Ravens & Bells)
+          this.scheduleAmbientSounds();
+        },
+
+        setMute: function (isMuted) {
+          this.muted = isMuted;
+          localStorage.setItem('citadel_muted', this.muted);
+
+          var muteCheckbox = document.getElementById('audio-mute-checkbox');
+          if (muteCheckbox) muteCheckbox.checked = this.muted;
+
+          this.updateHUDButton();
+
+          if (!this.initialized) {
+            // If context hasn't started yet, lazyInit will pick up this setting on click
+            return;
+          }
+
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+
+          var self = this;
+          if (this.muted) {
+            // Smooth fade out
+            if (this.masterGain && this.ctx) {
+              this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, this.ctx.currentTime);
+              this.masterGain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 1.0);
+              setTimeout(function () {
+                if (self.muted) {
+                  if (self.bgTrack) self.bgTrack.pause();
+                  if (self.windTrack) self.windTrack.pause();
+                }
+              }, 1050);
+            } else {
+              if (this.bgTrack) this.bgTrack.pause();
+              if (this.windTrack) this.windTrack.pause();
+            }
+          } else {
+            // Start audio elements
+            if (this.bgTrack) this.bgTrack.play().catch(function (e) { });
+            if (this.windTrack) this.windTrack.play().catch(function (e) { });
+
+            // Smooth fade in
+            if (this.masterGain && this.ctx) {
+              this.masterGain.gain.setValueAtTime(0.0001, this.ctx.currentTime);
+              this.masterGain.gain.exponentialRampToValueAtTime(1, this.ctx.currentTime + 1.2);
+            }
+          }
+        },
+
+        updateHUDButton: function () {
+          var audioBtn = document.getElementById('audio-toggle-rune');
+          if (audioBtn) {
+            if (this.muted) {
+              audioBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+              audioBtn.classList.add('audio-muted');
+            } else {
+              audioBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+              audioBtn.classList.remove('audio-muted');
+            }
+          }
+        },
+
+        // Procedural Audio Synthesis Fallbacks / Generators
+        synthTone: function (freq, duration, type, volumeMult) {
+          if (this.muted || !this.initialized || !this.ctx) return;
+
+          var ctx = this.ctx;
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+
+          osc.type = type || 'sine';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+          gain.gain.setValueAtTime(this.volSFX * (volumeMult || 1), ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+
+          osc.connect(gain);
+          gain.connect(this.sfxGain);
+
+          osc.start(ctx.currentTime);
+          osc.stop(ctx.currentTime + duration);
+        },
+
+        playClick: function () {
+          // Play click SFX
+          // Procedural: High frequency transient click
+          this.synthTone(1200, 0.05, 'sine', 0.2);
+
+          // Also try playing file if desired (fallback handles it)
+          var clickAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav');
+          this.routeAndPlaySFX(clickAudio);
+        },
+
+        playRealmSelect: function () {
+          // Deep resonant gong
+          if (this.initialized && this.ctx) {
+            this.synthTone(140, 1.2, 'triangle', 0.6);
+            this.synthTone(220, 0.9, 'sine', 0.4);
+            this.synthTone(330, 0.7, 'sine', 0.3);
+          }
+
+          var gongAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-84.wav');
+          this.routeAndPlaySFX(gongAudio);
+        },
+
+        playDrawerOpen: function () {
+          // Sweep swoop sound
+          if (this.initialized && this.ctx) {
+            var ctx = this.ctx;
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(220, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(550, ctx.currentTime + 0.35);
+
+            gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+            gain.gain.linearRampToValueAtTime(this.volSFX * 0.4, ctx.currentTime + 0.1);
+            gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.35);
+
+            osc.connect(gain);
+            gain.connect(this.sfxGain);
+
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + 0.35);
+          }
+
+          var wooshAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/1484/1484-84.wav');
+          this.routeAndPlaySFX(wooshAudio);
+        },
+
+        playSearchOpen: function () {
+          // Magical sparkle
+          if (this.initialized && this.ctx) {
+            var ctx = this.ctx;
+            var self = this;
+            var notes = [600, 750, 900, 1100, 1350];
+            notes.forEach(function (freq, index) {
+              setTimeout(function () {
+                self.synthTone(freq, 0.4, 'sine', 0.25);
+              }, index * 60);
+            });
+          }
+
+          var chimeAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/2017/2017-84.wav');
+          this.routeAndPlaySFX(chimeAudio);
+        },
+
+        playBell: function () {
+          // Castle bell toll
+          if (this.initialized && this.ctx) {
+            this.synthTone(220, 2.5, 'sine', 0.4);
+            this.synthTone(330, 2.0, 'sine', 0.2);
+            this.synthTone(110, 3.0, 'triangle', 0.5);
+          }
+
+          var bellAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/1990/1990-84.wav');
+          this.routeAndPlaySFX(bellAudio);
+        },
+
+        playRaven: function () {
+          var ravenAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/1657/1657-84.wav');
+          this.routeAndPlaySFX(ravenAudio);
+        },
+
+        routeAndPlaySFX: function (audioEl) {
+          if (this.muted) return;
+          audioEl.crossOrigin = 'anonymous';
+
+          if (this.initialized && this.ctx && this.sfxGain) {
+            try {
+              var source = this.ctx.createMediaElementSource(audioEl);
+              source.connect(this.sfxGain);
+              audioEl.play().catch(function () { });
+            } catch (e) {
+              // Direct play if routing fails (CORS etc)
+              audioEl.volume = this.volSFX;
+              audioEl.play().catch(function () { });
+            }
+          } else {
+            // Play directly if context not ready
+            audioEl.volume = this.volSFX;
+            audioEl.play().catch(function () { });
+          }
+        },
+
+        scheduleAmbientSounds: function () {
+          var self = this;
+
+          // Random castle bell every 35-70s
+          var triggerBell = function () {
+            if (!self.muted) {
+              self.playBell();
+            }
+            var nextInterval = 35000 + Math.random() * 35000;
+            setTimeout(triggerBell, nextInterval);
+          };
+          setTimeout(triggerBell, 20000 + Math.random() * 20000);
+
+          // Random raven every 25-50s
+          var triggerRaven = function () {
+            if (!self.muted) {
+              self.playRaven();
+            }
+            var nextInterval = 25000 + Math.random() * 25000;
+            setTimeout(triggerRaven, nextInterval);
+          };
+          setTimeout(triggerRaven, 10000 + Math.random() * 15000);
+        }
+      };
+      
+      CitadelAudio.init();
+
+      // Living Ember Particle Network Canvas Animation
+      var canvas = document.getElementById('citadel-canvas-particles');
+      if (canvas) {
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var particleCount = 45;
+
+        var resize = function () {
+          canvas.width = canvas.offsetWidth;
+          canvas.height = canvas.offsetHeight;
+        };
+        resize();
+        window.addEventListener('resize', resize);
+
+        var Particle = function () {
+          this.reset();
+        };
+
+        Particle.prototype.reset = function () {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.vx = (Math.random() - 0.5) * 0.35;
+          this.vy = (Math.random() - 0.5) * 0.35;
+          this.size = Math.random() * 2 + 1;
+          this.alpha = Math.random() * 0.4 + 0.15;
+        };
+
+        Particle.prototype.update = function () {
+          this.x += this.vx;
+          this.y += this.vy;
+          if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+            this.reset();
+          }
+        };
+
+        Particle.prototype.draw = function () {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(212, 175, 55, ' + this.alpha + ')';
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = 'rgba(212, 175, 55, 0.7)';
+          ctx.fill();
+        };
+
+        for (var i = 0; i < particleCount; i++) {
+          particles.push(new Particle());
+        }
+
+        var animateParticles = function () {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.shadowBlur = 0;
+          for (var i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+            for (var j = i + 1; j < particles.length; j++) {
+              var dx = particles[i].x - particles[j].x;
+              var dy = particles[i].y - particles[j].y;
+              var dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 110) {
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.strokeStyle = 'rgba(212, 175, 55, ' + ((1 - dist/110) * 0.1) + ')';
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+              }
+            }
+          }
+          requestAnimationFrame(animateParticles);
+        };
+        animateParticles();
+      }
+
+      // Layered Viewport Parallax Engine
+      var viewport = document.getElementById('citadel-viewport');
+      var citadelWorld = document.getElementById('citadel-world');
+      var skyLayer = document.getElementById('sky-bg-layer');
+      var mapLayer = document.getElementById('kingdom-map-layer');
+      
+      var activeRealmId = null;
+
+      if (viewport && citadelWorld) {
+        viewport.addEventListener('mousemove', function (e) {
+          if (activeRealmId !== null) return; // Disable hover parallax when zoomed in
+
+          var x = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
+          var y = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
+
+          if (skyLayer) {
+            skyLayer.style.transform = 'translate3d(' + (x * 12) + 'px, ' + (y * 12) + 'px, 0)';
+          }
+          if (mapLayer) {
+            mapLayer.style.transform = 'translate3d(' + (x * -8) + 'px, ' + (y * -8) + 'px, 0)';
+          }
+        });
+      }
+
+      // Map Zoom and Drawer Control Engine
+      var realmGroups = document.querySelectorAll('.realm-group');
+      var scrollOverlay = document.getElementById('citadel-parchment-scroll');
+      var scrollTitle = document.getElementById('scroll-title');
+      var scrollContent = document.getElementById('scroll-content');
+      var scrollClose = document.getElementById('scroll-close');
+      var mapContainer = document.getElementById('map-svg-container');
+
+      function zoomIntoRealm(group) {
+        var x = parseFloat(group.getAttribute('data-x'));
+        var y = parseFloat(group.getAttribute('data-y'));
+        var id = group.getAttribute('data-id');
+        
+        activeRealmId = id;
+        CitadelAudio.playRealmSelect();
+        setTimeout(function () { CitadelAudio.playDrawerOpen(); }, 400);
+
+        // Highlight active layer path
+        realmGroups.forEach(function (rg) {
+          rg.classList.remove('active');
+        });
+        group.classList.add('active');
+
+        // Smooth scroll to top to ensure perfect alignment
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Lock body scrolling while examining map kingdom details
+        document.body.style.overflow = 'hidden';
+
+        // Center on clicked coordinate points using dynamic bounding client math
+        var rect = mapContainer.getBoundingClientRect();
+        var screenX = rect.left + (x / 1000) * rect.width;
+        var screenY = rect.top + (y / 650) * rect.height;
+        var tx = (window.innerWidth / 2) - screenX;
+        var ty = (window.innerHeight / 2) - screenY;
+
+        // Apply scale & translate transforms
+        citadelWorld.style.transform = 'translate(' + tx + 'px, ' + ty + 'px) scale(2.2)';
+
+        // Inject template data
+        var template = document.getElementById('content-' + id);
+        if (template && scrollContent) {
+          scrollContent.innerHTML = template.innerHTML;
+        }
+
+        // Open Scroll drawer
+        if (scrollOverlay) {
+          scrollOverlay.classList.add('open');
+        }
+      }
+
+      function zoomOut() {
+        activeRealmId = null;
+        CitadelAudio.playDrawerOpen();
+
+        // Restore body scrolling
+        document.body.style.overflow = '';
+
+        // Remove active markers
+        realmGroups.forEach(function (rg) {
+          rg.classList.remove('active');
+        });
+
+        // Reset camera positions
+        if (citadelWorld) {
+          citadelWorld.style.transform = 'translate(0px, 0px) scale(1)';
+        }
+
+        // Close Scroll drawer
+        if (scrollOverlay) {
+          scrollOverlay.classList.remove('open');
+        }
+      }
+
+      // Realm click handlers
+      realmGroups.forEach(function (group) {
+        group.addEventListener('click', function (e) {
+          e.stopPropagation();
+          zoomIntoRealm(group);
+        });
+      });
+
+      // Close buttons
+      if (scrollClose) {
+        scrollClose.addEventListener('click', function (e) {
+          e.stopPropagation();
+          zoomOut();
+        });
+      }
+
+      // Close / Zoom out on backdrop click
+      if (citadelWorld) {
+        citadelWorld.addEventListener('click', function () {
+          if (activeRealmId !== null) {
+            zoomOut();
+          }
+        });
+      }
+
+      // ESC key to return to map
+      window.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && activeRealmId !== null) {
+          zoomOut();
+        }
+      });
+      
       // Scroll reveal
       var reveals = document.querySelectorAll('.reveal');
       if ('IntersectionObserver' in window) {
@@ -2334,11 +3023,23 @@
           card.style.transform = '';
         });
       });
+
+      // Play hover ticks on interactive elements
+      document.querySelectorAll('.realm-group, .nav-links a, .hud-maester-socials a, .hud-btn, .btn-primary, .btn-outline, .audio-rune, .nav-search-btn, .expertise-chip, .impact-card, .project-card, .scroll-close-btn').forEach(function(el) {
+        el.addEventListener('mouseenter', function() {
+          if (typeof CitadelAudio !== 'undefined') {
+            CitadelAudio.playClick();
+          }
+        });
+      });
+
     })();
   </script>
-  <!-- Lunr.js + Search -->
+
+  <!-- Lunr.js + Search Index dependencies -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" crossorigin="anonymous"></script>
-  <script src="/assets/search.js"></script>
+  <script src="{{ '/assets/search.js' | relative_url }}"></script>
+
 </body>
 
 </html>

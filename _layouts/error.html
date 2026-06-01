@@ -30,20 +30,19 @@
     <!-- NAV -->
     <nav class="site-nav" role="navigation" aria-label="Primary navigation">
       <div class="nav-inner">
-        <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma /&gt;</a>
+        <a class="nav-logo" href="{{ '/' | relative_url }}" style="font-family: 'Cinzel', serif;">The Citadel /&gt;</a>
         <ul class="nav-links" id="nav-links">
-          <li><a href="{{ '/' | relative_url }}">Home</a></li>
-          <li><a href="{{ '/docs/about/' | relative_url }}">About</a></li>
-          <li><a href="{{ '/docs/devops/' | relative_url }}">DevOps</a></li>
-          <li><a href="{{ '/docs/ml/' | relative_url }}">ML</a></li>
-          <li><a href="{{ '/docs/ai/' | relative_url }}">AI</a></li>
-          <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i
-                class="fas fa-external-link-alt" style="font-size:0.7em;opacity:0.7"></i></a></li>
-          <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta">Get in Touch</a></li>
+          <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="nav-active" {% endif %}>The Realm</a></li>
+          <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">The Archives</a></li>
+          <li><a href="{{ '/docs/devops/' | relative_url }}">The Chronicles</a></li>
+          <li><a href="{{ '/docs/ml/' | relative_url }}">The Citadel</a></li>
+          <li><a href="{{ '/docs/ai/' | relative_url }}">Dragonstone</a></li>
+          <li><a href="{{ '/docs/about/' | relative_url }}">The Maester</a></li>
+          <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta">The Raven</a></li>
         </ul>
         <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
           <i class="fas fa-search" aria-hidden="true"></i>
-          <span>Search</span>
+          <span>Consult...</span>
           <span class="search-kbd">⌘K</span>
         </button>
         <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -61,12 +60,16 @@
     <footer class="site-footer-main" role="contentinfo">
       <div class="footer-inner-main">
         <div class="footer-brand-main">
-          <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma /&gt;</a>
-          <p>DevOps Engineer &amp; Platform Architect building scalable cloud-native systems.</p>
+          <a class="nav-logo" href="{{ '/' | relative_url }}" style="font-family: 'Cinzel', serif;">The Citadel /&gt;</a>
+          <p style="font-style: italic; margin-bottom: 12px; color: var(--text-heading); font-family: 'Cinzel', serif; font-size: 0.95rem;">
+            "Knowledge is the sword of the mind."
+          </p>
+          <p>Grand Maester Jatin Sharma's archives of platform architecture, cloud systems, observabilities, and MLOps.</p>
         </div>
       </div>
       <div class="footer-bottom-main">
         <span>&copy; <span id="year"></span> Jatin Sharma. All rights reserved.</span>
+        <span>Forged &amp; deployed on GitHub Pages</span>
       </div>
     </footer>
 

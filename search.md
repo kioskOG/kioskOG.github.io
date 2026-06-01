@@ -14,7 +14,7 @@ nav_exclude: true
         type="search"
         id="search-input"
         class="search-input"
-        placeholder="Type to search…"
+        placeholder="Consult The Citadel..."
         aria-label="Search this site"
         autocomplete="off"
       />

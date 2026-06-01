@@ -4,34 +4,34 @@
 ============================================= */
 
 /* --- IMPORT FONTS --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 /* --- DESIGN TOKENS --- */
 :root {
-  --bg:            #f8fafc;
-  --bg-alt:        #f1f5f9;
-  --surface:       rgba(255,255,255,0.72);
-  --surface-hover: rgba(255,255,255,0.92);
-  --border:        rgba(15,23,42,0.08);
-  --border-hover:  rgba(59,130,246,0.35);
-  --text-heading:  #0f172a;
-  --text-body:     #334155;
-  --text-muted:    #64748b;
-  --accent-blue:   #3b82f6;
-  --accent-green:  #10b981;
-  --accent-purple: #8b5cf6;
-  --accent-amber:  #f59e0b;
-  --grad-primary:  linear-gradient(135deg, #3b82f6, #10b981);
-  --grad-hero:     linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #10b981 100%);
-  --shadow-sm:     0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md:     0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
-  --shadow-lg:     0 10px 40px rgba(0,0,0,0.10), 0 4px 14px rgba(0,0,0,0.06);
-  --shadow-xl:     0 20px 60px rgba(0,0,0,0.12);
-  --radius-sm:     8px;
-  --radius-md:     14px;
-  --radius-lg:     20px;
-  --radius-xl:     28px;
-  --nav-h:         68px;
+  --bg:            #0B0B0B; /* Obsidian Black */
+  --bg-alt:        #151515; /* Charcoal */
+  --surface:       rgba(21, 21, 21, 0.75); /* Medieval stone slab */
+  --surface-hover: rgba(30, 30, 30, 0.90);
+  --border:        #8B6A32; /* Bronze */
+  --border-hover:  #D4AF37; /* Ancient Gold */
+  --text-heading:  #D4AF37; /* Ancient Gold */
+  --text-body:     #A8A8A8; /* Iron Silver */
+  --text-muted:    #8e8a80;
+  --accent-blue:   #9CC4E4; /* Ice Blue */
+  --accent-green:  #FF8C42; /* Ember Orange */
+  --accent-purple: #D4AF37;
+  --accent-amber:  #8B6A32;
+  --grad-primary:  linear-gradient(135deg, #D4AF37, #8B6A32);
+  --grad-hero:     linear-gradient(135deg, #D4AF37 0%, #8B6A32 50%, #FF8C42 100%);
+  --shadow-sm:     0 2px 6px rgba(0,0,0,0.6);
+  --shadow-md:     0 6px 20px rgba(0,0,0,0.85);
+  --shadow-lg:     0 12px 42px rgba(0,0,0,0.95);
+  --shadow-xl:     0 24px 70px rgba(0,0,0,0.98);
+  --radius-sm:     4px; /* More angular medieval cuts */
+  --radius-md:     6px;
+  --radius-lg:     8px;
+  --radius-xl:     12px;
+  --nav-h:         72px;
 }
 
 /* --- RESET & BASE --- */
@@ -41,12 +41,12 @@ html { scroll-behavior: smooth; font-size: 16px; }
 body {
   background-color: var(--bg);
   color: var(--text-body);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'EB Garamond', serif;
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
-  background-image: radial-gradient(circle, rgba(99,102,241,0.12) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-image: radial-gradient(circle, rgba(139, 106, 50, 0.15) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
 /* --- BACKGROUND BLOBS --- */
@@ -835,7 +835,7 @@ form textarea { resize: vertical; min-height: 120px; }
   gap: 18px;
   padding: 10px 18px;
   border-top: 1px solid var(--border);
-  background: rgba(248,250,252,0.7);
+  background: var(--bg-alt);
   font-size: 0.73rem;
   color: var(--text-muted);
   flex-wrap: wrap;
@@ -844,7 +844,7 @@ form textarea { resize: vertical; min-height: 120px; }
   display: inline-block;
   padding: 2px 6px;
   border-radius: 4px;
-  background: rgba(15,23,42,0.07);
+  background: rgba(0,0,0,0.4);
   border: 1px solid var(--border);
   font-size: 0.7rem;
   font-family: 'JetBrains Mono', monospace;
@@ -858,3 +858,763 @@ form textarea { resize: vertical; min-height: 120px; }
   .ks-search-results { max-height: calc(100dvh - 200px); }
   .ks-search-footer { display: none; }
 }
+
+/* =============================================
+   GAME OF THRONES "THE CITADEL" OVERRIDES
+   ============================================= */
+
+h1, h2, h3, h4, h5, h6,
+.nav-logo, .stat-num, .project-title, .expertise-chip, .eco-title {
+  font-family: 'Cinzel', serif !important;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Font updates for clean serif layout */
+.doc-prose, .about-body p, .project-desc, .hero-desc, p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+/* --- OVERWRITE DEFAULTS FOR MEDIEVAL AESTHETICS --- */
+
+/* Buttons */
+a.btn, button.btn, .btn-primary, .nav-cta, .btn-human {
+  font-family: 'Cinzel', serif !important;
+  font-weight: 700 !important;
+  background: linear-gradient(135deg, #8B6A32, #5C4521) !important;
+  border: 1px solid var(--border-hover) !important;
+  color: #fff !important;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.15) !important;
+  border-radius: 4px !important;
+  letter-spacing: 1px;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  -webkit-text-fill-color: #fff !important;
+  position: relative;
+  overflow: hidden;
+}
+a.btn:hover, button.btn:hover, .btn-primary:hover, .nav-cta:hover, .btn-human:hover {
+  background: linear-gradient(135deg, #D4AF37, #8B6A32) !important;
+  box-shadow: 0 6px 15px rgba(212, 175, 55, 0.45), inset 0 1px 1px rgba(255,255,255,0.25) !important;
+  transform: translateY(-2px);
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+/* Metallic Shimmer Sheen Animation */
+@keyframes shimmer {
+  100% {
+    transform: translateX(150%);
+  }
+}
+a.btn::before, button.btn::before, .btn-primary::before, .nav-cta::before, .btn-human::before, .btn-outline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-30deg);
+  pointer-events: none;
+}
+a.btn:hover::before, button.btn:hover::before, .btn-primary:hover::before, .nav-cta:hover::before, .btn-human:hover::before, .btn-outline:hover::before {
+  animation: shimmer 1.5s infinite;
+}
+
+.btn-outline {
+  font-family: 'Cinzel', serif !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-heading) !important;
+  background: transparent !important;
+  transition: all 0.22s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+.btn-outline:hover {
+  border-color: var(--border-hover) !important;
+  background: rgba(212, 175, 55, 0.1) !important;
+  transform: translateY(-2px);
+}
+
+/* Cards & Panels */
+.project-card, .stat-item, .eco-card, .cta-card, .expertise-chip, .impact-card {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 4px !important;
+  box-shadow: var(--shadow-md) !important;
+  position: relative;
+  overflow: visible !important;
+}
+
+/* Corner Ornaments on panels */
+.project-card::before, .stat-item::before, .eco-card::before, .cta-card::before, .expertise-chip::before, .impact-card::before {
+  display: block !important;
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid var(--border-hover) !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  top: 3px;
+  left: 3px;
+  background: none !important;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.project-card::after, .stat-item::after, .eco-card::after, .cta-card::after, .expertise-chip::after, .impact-card::after {
+  display: block !important;
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid var(--border-hover) !important;
+  border-left: none !important;
+  border-top: none !important;
+  bottom: 3px;
+  right: 3px;
+  background: none !important;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+/* Hover effects for Corner Ornaments */
+.project-card:hover::before, .stat-item:hover::before, .eco-card:hover::before, .cta-card:hover::before, .expertise-chip:hover::before, .impact-card:hover::before {
+  top: 1px;
+  left: 1px;
+  width: 12px;
+  height: 12px;
+  border-color: #fff !important;
+}
+.project-card:hover::after, .stat-item:hover::after, .eco-card:hover::after, .cta-card:hover::after, .expertise-chip:hover::after, .impact-card:hover::after {
+  bottom: 1px;
+  right: 1px;
+  width: 12px;
+  height: 12px;
+  border-color: #fff !important;
+}
+
+/* Hover shadow effects */
+.project-card:hover, .stat-item:hover, .eco-card:hover, .cta-card:hover, .expertise-chip:hover, .impact-card:hover {
+  border-color: var(--border-hover) !important;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.25) !important;
+}
+
+/* Medieval Dividers */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent) !important;
+  position: relative;
+  margin: 40px auto;
+}
+.divider::after {
+  content: '♦';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--border-hover);
+  background: var(--bg);
+  padding: 0 10px;
+  font-size: 0.9rem;
+}
+
+/* Wax-seal style tags */
+.tag, .project-tag, .skill-tag, .skill-cat-tag {
+  font-family: 'Cinzel', serif !important;
+  background: rgba(139, 106, 50, 0.15) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-heading) !important;
+  border-radius: 3px !important;
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.6);
+  padding: 4px 10px !important;
+}
+a.tag:hover, .project-tag:hover, .skill-tag:hover {
+  border-color: var(--border-hover) !important;
+  background: rgba(212, 175, 55, 0.25) !important;
+  color: #fff !important;
+}
+
+/* Navigation System Styles */
+.site-nav {
+  background: rgba(11, 11, 11, 0.92) !important;
+  border-bottom: 2px solid var(--border) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.8) !important;
+}
+.nav-links a {
+  font-family: 'Cinzel', serif !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 1px;
+  color: var(--text-heading) !important;
+  transition: all 0.2s ease;
+}
+.nav-links a:hover, .nav-links a.nav-active {
+  color: #fff !important;
+  background: rgba(212, 175, 55, 0.15) !important;
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+}
+
+/* Sidebar TOC Manuscript Look */
+.doc-sidebar {
+  background: #111 !important;
+  border-right: 2px solid var(--border) !important;
+  border-left: 2px solid var(--border) !important;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.9) !important;
+  border-radius: 4px;
+}
+.sidebar-back {
+  font-family: 'Cinzel', serif !important;
+  background: rgba(139, 106, 50, 0.15) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-heading) !important;
+}
+.sidebar-back:hover {
+  background: rgba(212, 175, 55, 0.2) !important;
+  border-color: var(--border-hover) !important;
+}
+
+/* Code Blocks */
+.doc-prose pre {
+  background: #050505 !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 4px !important;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.85) !important;
+  position: relative; /* Ensure relative positioning for child button */
+}
+.doc-prose code {
+  background: rgba(0,0,0,0.3) !important;
+  border: 1px solid var(--border) !important;
+  color: #E6C280 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+}
+.doc-prose pre code {
+  color: #d8dee9 !important;
+  background: transparent !important;
+  border: none !important;
+}
+.medieval-copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #111 !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-heading) !important;
+  padding: 5px 8px !important;
+  border-radius: 4px !important;
+  cursor: pointer;
+  font-size: 0.75rem;
+  z-index: 20;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.medieval-copy-btn:hover {
+  border-color: var(--border-hover) !important;
+  background: #222 !important;
+  color: #fff !important;
+  box-shadow: 0 0 6px rgba(212,175,55,0.4);
+}
+.medieval-copy-btn.copied {
+  color: #FF8C42 !important; /* Ember Orange */
+  border-color: #FF8C42 !important;
+}
+
+/* Footer Quote & Silhouette styling */
+.site-footer-main {
+  background: #080808 !important;
+  border-top: 2px solid var(--border) !important;
+  position: relative;
+  overflow: hidden;
+}
+.site-footer-main::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,120 L1200,120 L1200,90 L1150,60 L1100,90 L1050,40 L1000,90 L950,50 L900,90 L850,30 L800,90 L750,50 L700,90 L650,40 L600,90 L550,60 L500,90 L450,30 L400,90 L350,55 L300,90 L250,40 L200,90 L150,50 L100,90 L50,60 L0,90 Z' fill='%23050505'/%3E%3C/svg%3E") bottom no-repeat;
+  background-size: cover;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* Fog & Particles Animations */
+.fog-wrapper {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.35;
+}
+.fog-layer {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(168,168,168,0.06) 0%, transparent 60%);
+  animation: moveFog 40s linear infinite;
+}
+.fog-layer-2 {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(212,175,55,0.04) 0%, transparent 50%);
+  animation: moveFog 60s linear infinite reverse;
+}
+@keyframes moveFog {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.particles-wrapper {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  overflow: hidden;
+  z-index: 2;
+  pointer-events: none;
+}
+.particle {
+  position: absolute;
+  width: 3px; height: 3px;
+  background: rgba(212, 175, 55, 0.4);
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(212, 175, 55, 0.8);
+  animation: floatUp 15s linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(105%) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-5%) translateX(50px); opacity: 0; }
+}
+
+/* General Layout spacing and visibility fixes */
+main {
+  position: relative;
+  z-index: 10;
+}
+.hero {
+  position: relative !important;
+  overflow: hidden !important;
+  background: linear-gradient(180deg, #050505 0%, #0B0B0B 100%) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+.page-hero {
+  position: relative !important;
+  overflow: hidden !important;
+  border-bottom: 1px solid var(--border) !important;
+  background: linear-gradient(180deg, #050505 0%, #0B0B0B 100%) !important;
+}
+.page-hero h1 {
+  font-family: 'Cinzel', serif !important;
+}
+
+/* =============================================
+   CINEMATIC GAME-MENU SYSTEM (2026 STANDARDS)
+   ============================================= */
+
+/* Cinematic Intro Sequence Overlay */
+.citadel-intro {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #050505;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.8s;
+  pointer-events: all;
+  overflow: hidden;
+}
+
+.citadel-intro.completed {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.intro-emblem-wrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  animation: introZoomIn 5.5s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+}
+
+.intro-emblem-wrap svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--border-hover);
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
+}
+
+.intro-title-wrap {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: introFadeText 2s ease-out 1.2s forwards;
+}
+
+.intro-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--text-heading);
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  margin-bottom: 10px;
+}
+
+.intro-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: var(--text-body);
+  opacity: 0.8;
+}
+
+.intro-skip-btn {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  background: transparent !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-muted) !important;
+  font-family: 'Cinzel', serif !important;
+  padding: 6px 16px !important;
+  border-radius: 4px !important;
+  font-size: 0.75rem !important;
+  cursor: pointer;
+  z-index: 100000;
+  letter-spacing: 1px;
+  transition: all 0.2s ease !important;
+  opacity: 0.6;
+}
+.intro-skip-btn:hover {
+  border-color: var(--border-hover) !important;
+  color: #fff !important;
+  opacity: 1;
+}
+
+@keyframes introZoomIn {
+  0% { transform: scale(0.7); opacity: 0; filter: blur(4px); }
+  30% { opacity: 1; filter: none; }
+  100% { transform: scale(1.15); opacity: 1; }
+}
+
+@keyframes introFadeText {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Layered Depth Viewport Camera System */
+.citadel-viewport-home {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 10;
+  background: #090909;
+}
+
+.citadel-world {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.parallax-layer {
+  position: absolute;
+  inset: -10%; /* Extra bleed to allow parallax shifting without revealing edges */
+  width: 120%;
+  height: 120%;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Background Sky & Silhouettes */
+.sky-bg-layer {
+  z-index: 1;
+  background: radial-gradient(circle at center, #1b1610 0%, #060606 80%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.castle-backdrop {
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  height: 35%;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+/* Middle Kingdom Map Layer */
+.kingdom-map-layer {
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto !important;
+}
+
+.map-svg-container {
+  width: 85%;
+  max-width: 1000px;
+  height: 80%;
+  max-height: 650px;
+  position: relative;
+}
+
+.map-svg-container svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Map Realm Path Styling */
+.map-realm {
+  fill: rgba(15, 15, 15, 0.7);
+  stroke: var(--border);
+  stroke-width: 1.5;
+  transition: fill 0.35s ease, stroke 0.35s ease, filter 0.35s ease;
+  cursor: pointer;
+  pointer-events: visiblePainted;
+}
+
+.map-realm:hover, .map-realm.active {
+  fill: rgba(212, 175, 55, 0.18);
+  stroke: var(--border-hover);
+  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6));
+}
+
+.realm-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  fill: var(--text-heading);
+  text-anchor: middle;
+  pointer-events: none;
+  opacity: 0.7;
+  transition: opacity 0.3s ease, fill 0.3s ease;
+}
+
+.map-realm:hover + .realm-label, .map-realm.active + .realm-label {
+  opacity: 1;
+  fill: #fff;
+}
+
+.realm-node-pin {
+  fill: #0B0B0B;
+  stroke: var(--border);
+  stroke-width: 1.5;
+  cursor: pointer;
+  transition: fill 0.3s, stroke 0.3s, r 0.3s;
+}
+
+.realm-node-pin:hover, .realm-node-pin.active {
+  fill: var(--accent-green); /* Ember Orange */
+  stroke: #fff;
+  r: 9;
+}
+
+/* Foreground Floating HUD & UI controls */
+.hud-foreground-layer {
+  z-index: 3;
+  pointer-events: none !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.hud-interactive {
+  pointer-events: auto !important;
+}
+
+.hud-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Gold HUD Runic Frames */
+.hud-panel-frame {
+  background: rgba(11, 11, 11, 0.9);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.9), inset 0 0 15px rgba(139,106,50,0.15);
+  border-radius: 4px;
+  position: relative;
+}
+
+.hud-panel-frame::before, .hud-panel-frame::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--border-hover);
+  pointer-events: none;
+}
+.hud-panel-frame::before { top: 3px; left: 3px; border-right: none; border-bottom: none; }
+.hud-panel-frame::after { bottom: 3px; right: 3px; border-left: none; border-top: none; }
+
+/* Audio controller rune */
+.audio-rune {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: rgba(11, 11, 11, 0.85);
+  color: var(--text-heading);
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  transition: all 0.2s ease;
+}
+.audio-rune:hover {
+  border-color: var(--border-hover);
+  color: #fff;
+  box-shadow: 0 0 8px rgba(212,175,55,0.4);
+}
+
+/* Medieval Parchment Content Scroll overlay */
+.citadel-parchment-scroll {
+  position: fixed;
+  bottom: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 780px;
+  height: 50vh;
+  background: #12100e;
+  border: 2px solid var(--border);
+  border-bottom: none;
+  box-shadow: 0 -15px 45px rgba(0,0,0,0.95);
+  z-index: 50;
+  transition: bottom 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: auto;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.citadel-parchment-scroll.open {
+  bottom: 0;
+}
+
+.scroll-header {
+  padding: 20px 24px;
+  background: rgba(0,0,0,0.5);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scroll-header h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.scroll-close-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-heading);
+  font-family: 'Cinzel', serif;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.scroll-close-btn:hover {
+  border-color: var(--border-hover);
+  color: #fff;
+}
+
+.scroll-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.scroll-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroll-body::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+/* Custom interactive map elements */
+.citadel-compass-emblem {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  width: 110px;
+  height: 110px;
+  opacity: 0.45;
+  pointer-events: none;
+}
+.citadel-compass-emblem svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--border);
+  stroke-dasharray: 4,4;
+  fill: none;
+  animation: spinSlow 90s linear infinite;
+}
+
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+
+/* Runic Help Button Overlay */
+.hud-helper-widget {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+.hud-helper-widget span {
+  color: var(--border-hover);
+  font-weight: bold;
+}
+

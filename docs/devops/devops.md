@@ -3,17 +3,17 @@ layout: full-bleed-glass
 title: DevOps | Jatin Sharma
 nav_order: 3
 permalink: /docs/devops/
-hero_tag: DevOps Projects
-hero_title: "⚙️ DevOps Projects"
+hero_tag: The Chronicles
+hero_title: "📜 The Chronicles of DevOps"
 hero_intro: >
   <p>An overview of Docker, Kubernetes, Linux, Python, Monitoring, Cloud, and System Design projects in this documentation.</p>
 
 nav_buttons:
   - href: /docs/about/
-    label: "About Me"
+    label: "The Maester"
     icon: "fas fa-user-circle"
   - href: /docs/about/contact/
-    label: "Get in Touch"
+    label: "Send a Raven"
     icon: "fas fa-envelope"
 
 social_html: |
@@ -30,7 +30,7 @@ social_html: |
 
 <!-- Docker -->
 <section class="projects-section reveal" aria-labelledby="docker-heading">
-  <h2 id="docker-heading">🐳 Docker</h2>
+  <h2 id="docker-heading">🛡️ The Armory (Docker)</h2>
   <article class="project-card card-coral reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
@@ -58,7 +58,7 @@ social_html: |
 
 <!-- Kubernetes -->
 <section class="projects-section reveal" aria-labelledby="k8s-heading">
-  <h2 id="k8s-heading">☸️ Kubernetes</h2>
+  <h2 id="k8s-heading">❄️ The North (Kubernetes)</h2>
   <article class="project-card card-teal reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
@@ -104,7 +104,7 @@ social_html: |
 
 <!-- Linux -->
 <section class="projects-section reveal" aria-labelledby="linux-heading">
-  <h2 id="linux-heading">🐧 Linux</h2>
+  <h2 id="linux-heading">🏰 Winterfell Castle (Linux)</h2>
   <article class="project-card card-brown reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
@@ -140,7 +140,7 @@ social_html: |
 
 <!-- Python -->
 <section class="projects-section reveal" aria-labelledby="python-heading">
-  <h2 id="python-heading">🐍 Python</h2>
+  <h2 id="python-heading">🐍 Serpent's Tongue (Python)</h2>
   <article class="project-card card-gold reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
@@ -164,7 +164,7 @@ social_html: |
 
 <!-- Monitoring -->
 <section class="projects-section reveal" aria-labelledby="monitoring-heading">
-  <h2 id="monitoring-heading">📊 Monitoring</h2>
+  <h2 id="monitoring-heading">👁️ The Three-Eyed Raven (Monitoring)</h2>
   <article class="project-card card-purple reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
@@ -189,7 +189,7 @@ social_html: |
 
 <!-- Cloud -->
 <section class="projects-section reveal" aria-labelledby="cloud-heading">
-  <h2 id="cloud-heading">☁️ Cloud</h2>
+  <h2 id="cloud-heading">👑 King's Landing (Cloud & AWS)</h2>
   <article class="project-card card-teal reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
@@ -216,7 +216,7 @@ social_html: |
 
 <!-- System Design -->
 <section class="projects-section reveal" aria-labelledby="sd-heading">
-  <h2 id="sd-heading">🧩 System Design</h2>
+  <h2 id="sd-heading">🗺️ Map of the Realms (System Design)</h2>
   <article class="project-card card-gold reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
@@ -238,7 +238,7 @@ social_html: |
 
 <!-- Networking -->
 <section class="projects-section reveal" aria-labelledby="sd-heading">
-  <h2 id="sd-heading"> Networking Concepts </h2>
+  <h2 id="sd-heading">⚡ Stormlands (Networking)</h2>
   <article class="project-card card-gold reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
@@ -257,7 +257,7 @@ social_html: |
 
 <!-- GitHub -->
 <section class="projects-section reveal" aria-labelledby="sd-heading">
-  <h2 id="sd-heading"> GitHub Concepts </h2>
+  <h2 id="sd-heading">📜 Ancient Parchments (GitHub)</h2>
   <article class="project-card card-gold reveal">
     <div class="card-link" tabindex="0">
       <div class="project-head">
