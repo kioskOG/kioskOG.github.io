@@ -10,6 +10,7 @@ description: LangChain Chains via coding examples.
 
 # LangChain Chains via coding examples
 
+{: .important }
 > Learn LangChain Chains by building real working examples.
 
 <p align="center">

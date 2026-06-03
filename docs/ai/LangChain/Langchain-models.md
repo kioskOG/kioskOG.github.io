@@ -47,12 +47,14 @@ When configuring your Language Models, you have two primary levers to control th
 
 Temperature Controls the randomness of the token selection process.
 
->> Range Classification  Use Case
+{: .note}
 >
-   `0.0 - 0.3` Deterministic Factual Q&A, Code Generation, Mathematical Logic.
-   `0.5 - 0.7` Balanced  General technical explanations and natural dialogue.
-   `0.9 - 1.2` Creative  Storytelling, Marketing copy, Joke generation.
-   `1.5+`  Experimental  High-variance brainstorming and ideation.
+| Range | Classification | Use Case |
+| ---- | ---------- | --- |
+| 0.0 - 0.3 | Deterministic | Factual Q&A, Code Generation, Mathematical Logic |
+| 0.5 - 0.7 | Balanced | General technical explanations and natural dialogue |
+| 0.9 - 1.2 | Creative | Storytelling, Marketing copy, Joke generation |
+| 1.5+ | Experimental | High-variance brainstorming and ideation |
 
 
 *   **Max Tokens:** This restricts the maximum length of the output, which is crucial for managing your API costs. It is a vital cost-control mechanism, especially for high-volume production systems using OpenAI or Anthropic where charges are per 1M tokens.
@@ -73,34 +75,40 @@ Embedding models do not answer questions. Instead, you give them text, and they 
 
 As an engineer, you must choose where your models run.
 
->> **1. Closed-Source (Proprietary)**
+{: .note }
+>
+**1. Closed-Source (Proprietary)**
 
 *   **Examples:** OpenAI (GPT-4), Anthropic (Claude 3.5), Google (Gemini 2.5 Pro).
 
 *   **Pros/Cons:** You access these via paid APIs (paying per token). They are highly refined, but you have zero control over the infrastructure, and you must send your data to external servers.
 
->> **2. Open-Source**
+{: .note }
+>
+**2. Open-Source**
 
 Open-source models provide an alternative to the "black box" nature of proprietary APIs, though they come with distinct trade-offs.
 
 
 *   **Examples:** LLaMA, Falcon, TinyLlama. The central hub for these models is **Hugging Face**.
 
->> Strategic Advantages of Open Source
+{: .note }
 >
-   1. Cost Sovereignty: Eliminates per-token billing in favor of infrastructure costs.
-   
-   2. Full Control: Access to model weights allows for deep fine-tuning and hosting flexibility.
-   
-   3. Data Privacy: Compliance-heavy industries can process data within local VPCs.
-   
-   4. Customization: Fine-tuning on proprietary data exceeds the capabilities of standard prompting.
-   
-   5. Refinement Gap: Note that OS models often lack the extensive RLHF (Reinforcement Learning from Human Feedback) found in GPT-4, potentially leading to less "polished" responses.
+Strategic Advantages of Open Source
+>
+>   1. Cost Sovereignty: Eliminates per-token billing in favor of infrastructure costs.
+>  
+>   2. Full Control: Access to model weights allows for deep fine-tuning and hosting flexibility.
+>   
+>   3. Data Privacy: Compliance-heavy industries can process data within local VPCs.
+>   
+>   4. Customization: Fine-tuning on proprietary data exceeds the capabilities of standard prompting.
+>   
+>   5. Refinement Gap: Note that OS models often lack the extensive RLHF (Reinforcement Learning from Human Feedback) found in GPT-4, potentially leading to less "polished" responses.
 
 
->> Integration Methods
->
+### Integration Methods
+
 1. Hugging Face Inference API (`HuggingFaceEndpoint`): Remote execution on Hugging Face infrastructure. Best for quick prototyping.
 
 2. Local Execution (`HuggingFacePipeline`): Downloads the model to local hardware.
