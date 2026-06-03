@@ -300,6 +300,121 @@
       margin: 0;
     }
 
+    /* Callout Boxes (Note, Warning, Important, New, Highlight, Tip) */
+    .doc-prose blockquote.note,
+    .doc-prose blockquote.warning,
+    .doc-prose blockquote.important,
+    .doc-prose blockquote.new,
+    .doc-prose blockquote.highlight,
+    .doc-prose blockquote.tip {
+      font-style: normal;
+      color: var(--text-body);
+      border-radius: var(--radius-sm);
+      position: relative;
+    }
+
+    /* Note */
+    .doc-prose blockquote.note {
+      border-left: 4px solid var(--accent-purple);
+      background: rgba(139, 92, 246, 0.06);
+    }
+
+    .doc-prose blockquote.note::before {
+      content: "Note";
+      display: block;
+      font-weight: 700;
+      color: var(--accent-purple);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    /* Warning */
+    .doc-prose blockquote.warning {
+      border-left: 4px solid #ef4444;
+      background: rgba(239, 68, 68, 0.06);
+    }
+
+    .doc-prose blockquote.warning::before {
+      content: "Warning";
+      display: block;
+      font-weight: 700;
+      color: #ef4444;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    /* Tip */
+    .doc-prose blockquote.tip {
+      border-left: 4px solid var(--accent-green);
+      background: rgba(16, 185, 129, 0.06);
+    }
+
+    .doc-prose blockquote.tip::before {
+      content: "Tip";
+      display: block;
+      font-weight: 700;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    /* Important */
+    .doc-prose blockquote.important {
+      border-left: 4px solid var(--accent-blue);
+      background: rgba(59, 130, 246, 0.06);
+    }
+
+    .doc-prose blockquote.important::before {
+      content: "Important";
+      display: block;
+      font-weight: 700;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    /* New */
+    .doc-prose blockquote.new {
+      border-left: 4px solid var(--accent-green);
+      background: rgba(16, 185, 129, 0.06);
+    }
+
+    .doc-prose blockquote.new::before {
+      content: "New";
+      display: block;
+      font-weight: 700;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    /* Highlight */
+    .doc-prose blockquote.highlight {
+      border-left: 4px solid #ec4899;
+      background: rgba(236, 72, 153, 0.06);
+    }
+
+    .doc-prose blockquote.highlight::before {
+      content: "Highlight";
+      display: block;
+      font-weight: 700;
+      color: #ec4899;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
     /* Inline code */
     .doc-prose code {
       font-family: 'JetBrains Mono', monospace;
@@ -759,6 +874,43 @@
   <!-- Lunr.js + Search -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" crossorigin="anonymous"></script>
   <script src="{{ '/assets/search.js' | relative_url }}"></script>
+
+  <!-- Mermaid Diagram Rendering Support -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var mermaidBlocks = document.querySelectorAll("pre code.language-mermaid, code.language-mermaid, pre.language-mermaid");
+      if (mermaidBlocks.length > 0) {
+        mermaidBlocks.forEach(function (block) {
+          var targetElement = block.tagName.toLowerCase() === 'code' && block.parentElement.tagName.toLowerCase() === 'pre'
+            ? block.parentElement
+            : block;
+
+          var codeContent = block.textContent.trim();
+
+          var div = document.createElement("div");
+          div.className = "mermaid";
+          div.textContent = codeContent;
+          div.style.margin = "2em 0";
+          div.style.display = "flex";
+          div.style.justifyContent = "center";
+
+          targetElement.parentElement.replaceChild(div, targetElement);
+        });
+
+        var script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js";
+        script.onload = function () {
+          mermaid.initialize({
+            startOnLoad: true,
+            theme: "dark",
+            securityLevel: "loose"
+          });
+          mermaid.init(undefined, document.querySelectorAll(".mermaid"));
+        };
+        document.body.appendChild(script);
+      }
+    });
+  </script>
 
 </body>
 

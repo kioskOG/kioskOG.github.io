@@ -57,6 +57,11 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
 
+mermaid:
+  version: "9.4.3"
+
+
+
 # exclude:
 #   - README.md
 #   - Gemfile
