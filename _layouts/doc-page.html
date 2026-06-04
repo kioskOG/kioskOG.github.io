@@ -11,6 +11,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {% seo %}
 
+  <!-- MathJax Math Rendering Support -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        renderActions: {
+          findScript: [10, function (doc) {
+            for (const node of Array.from(document.querySelectorAll('script[type^="math/tex"]'))) {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            }
+          }, '']
+        }
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -450,6 +477,59 @@
       border-radius: 0;
     }
 
+    /* Copy Button Styling */
+    .copy-code-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      font-family: inherit;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #94a3b8;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 10;
+      user-select: none;
+    }
+
+    /* Make copy button visible when code block is hovered */
+    .doc-prose pre:hover .copy-code-btn {
+      opacity: 1;
+    }
+
+    /* Focus styles for keyboard accessibility */
+    .copy-code-btn:focus-visible {
+      opacity: 1;
+      outline: 2px solid var(--accent-blue);
+      outline-offset: 2px;
+    }
+
+    .copy-code-btn:hover {
+      color: #f8fafc;
+      background: rgba(30, 41, 59, 0.8);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .copy-code-btn:active {
+      transform: scale(0.95);
+    }
+
+    .copy-code-btn.copied {
+      color: var(--accent-green) !important;
+      border-color: rgba(16, 185, 129, 0.3) !important;
+      background: rgba(16, 185, 129, 0.1) !important;
+    }
+
     /* Tables */
     .doc-prose table {
       width: 100%;
@@ -868,6 +948,93 @@
       } else {
         reveals.forEach(function (el) { el.classList.add('visible'); });
       }
+
+      // Code Snippet Copy Button Support
+      var preBlocks = document.querySelectorAll('.doc-prose pre');
+      preBlocks.forEach(function (pre) {
+        // Skip mermaid diagram blocks
+        if (pre.querySelector('code.language-mermaid') || pre.classList.contains('language-mermaid')) {
+          return;
+        }
+
+        // Create the copy button element
+        var button = document.createElement('button');
+        button.className = 'copy-code-btn';
+        button.type = 'button';
+        button.setAttribute('aria-label', 'Copy code to clipboard');
+        button.innerHTML = '<i class="fa-regular fa-copy" aria-hidden="true"></i><span>Copy</span>';
+
+        // Add copy button to pre block
+        pre.appendChild(button);
+
+        // Click handler
+        button.addEventListener('click', function () {
+          var codeEl = pre.querySelector('code');
+          var codeText = codeEl ? codeEl.textContent : pre.textContent;
+
+          // Remove the button's own text if we accidentally targeted pre.textContent
+          if (!codeEl) {
+            var btnText = button.textContent;
+            if (codeText.endsWith(btnText)) {
+              codeText = codeText.slice(0, -btnText.length);
+            }
+          }
+
+          // Strip any trailing newline that Jekyll often leaves behind
+          if (codeText.endsWith('\n')) {
+            codeText = codeText.slice(0, -1);
+          }
+
+          function showCopiedFeedback() {
+            button.classList.add('copied');
+            button.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i><span>Copied!</span>';
+            setTimeout(function () {
+              button.classList.remove('copied');
+              button.innerHTML = '<i class="fa-regular fa-copy" aria-hidden="true"></i><span>Copy</span>';
+            }, 2000);
+          }
+
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(codeText)
+              .then(showCopiedFeedback)
+              .catch(function (err) {
+                console.error('Clipboard copy failed: ', err);
+                fallbackCopy(codeText);
+              });
+          } else {
+            fallbackCopy(codeText);
+          }
+
+          function fallbackCopy(text) {
+            var textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.top = '0';
+            textArea.style.left = '0';
+            textArea.style.width = '2em';
+            textArea.style.height = '2em';
+            textArea.style.padding = '0';
+            textArea.style.border = 'none';
+            textArea.style.outline = 'none';
+            textArea.style.boxShadow = 'none';
+            textArea.style.background = 'transparent';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+              var successful = document.execCommand('copy');
+              if (successful) {
+                showCopiedFeedback();
+              } else {
+                console.error('Fallback copy was unsuccessful');
+              }
+            } catch (err) {
+              console.error('Fallback copy failed: ', err);
+            }
+            document.body.removeChild(textArea);
+          }
+        });
+      });
     })();
   </script>
 

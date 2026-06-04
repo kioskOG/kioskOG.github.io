@@ -39,18 +39,17 @@ What if i ask you where does LLM's store the world-wide knowledge? I guess you a
 LLMs are massive transformer-based neural network architectures trained (pre-trained) on astronomical scales of public internet data. During this pre-training stage, the model stores all its learned information inside its **parameters** (weights and biases). This is known as **Parametric Knowledge**.
 
 Generally, the more parameters a model has, the larger its capacity for parametric knowledge:
+
 $$\text{7B Parameters} \rightarrow \text{13B Parameters} \rightarrow \text{70B Parameters} \rightarrow \text{175B+ Parameters}$$
 
 When a user prompts an LLM, the model processes the query and generates a response by looking up patterns in its parametric knowledge.
 
-```
-[ User Prompt ] ---> ( LLM / Parametric Knowledge ) ---> [ Response ]
-```
 
-Now the question comes, as model contains a huge amount of data how can we access it as a user ?
-So, the answer is via Prompting.
+$$\text{User Prompt} \rightarrow \text{LLM / Parametric Knowledge} \rightarrow \text{Response}$$
 
-What you can do, you can send a query to the LLM, which we called prompt in technical language. As soon as the prompt go to LLM, it will start understanding it & then it go to it's parametric knowledge & try to print correct answer word by word. This is how a typical LLM work.
+Now the question comes, as model contains a huge amount of data how can we access it as a user ? So, the answer is via Prompting.
+
+You can send a query to the LLM, which we called prompt in technical language. As soon as the prompt go to LLM, it will start understanding it & then it go to it's parametric knowledge & try to print correct answer word by word. This is how a typical LLM work.
 
 Now in most of the situations, this flow works where you send the prompt & access the parametric knowledge of LLM & generate the response. 
 But there are certain situations where this flow can't help you. There are certain situation when this perticular flow doesn't help you. So, now let's discuss those scenerios where with the help of prompting you can't do generate the best response from LLM's parametric knowledge.
@@ -80,9 +79,8 @@ Because LLMs are probabilistic systems predicting the next most likely token, th
 
 To resolve these limitations, developers initially turned to **Fine-Tuning**.
 
-```
-[ Pre-trained LLM ] + [ Small Domain-Specific Dataset ] ---> ( Fine-Tuned Model )
-```
+$$\text{Pre-trained LLM} \rightarrow \text{Small Domain-Specific Dataset} \rightarrow \text{Fine-Tuned Model}$$
+
 
 ### What is Fine-Tuning?
 Fine-tuning involves taking a pre-trained LLM and training it further on a smaller, task- or domain-specific dataset (such as medical records or financial reports). 
@@ -169,16 +167,11 @@ RAG is a way to make a language model smarter by giving it extra information at 
 
 **Retrieval-Augmented Generation (RAG)** is a paradigm that enhances an LLM's performance by retrieving relevant facts from an external, authoritative knowledge base and passing them as context to the LLM alongside the user's query.
 
-```
-                 +-----------------------+
-                 |  External Knowledge   |
-                 |      (Database)       |
-                 +-----------+-----------+
-                             |
-                             | (Retrieve)
-                             v
-[ User Query ] ---> [ Prompt Generator ] ---> [ Augmented Prompt ] ---> [ LLM ] ---> [ Response ]
-```
+$$\begin{array}{ccccc}
+& & \text{External Knowledge (Database)} & & \\
+& & \downarrow \text{Retrieve} & & \\
+\text{User Query} & \rightarrow & \text{Prompt Generator} & \rightarrow & \text{Augmented Prompt} \rightarrow \text{LLM} \rightarrow \text{Response}
+\end{array}$$
 
 ### Sample RAG Prompt
 ```text
