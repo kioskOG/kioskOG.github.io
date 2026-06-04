@@ -8,6 +8,7 @@ permalink: /docs/devops/kubernetes/helm/helm_values/
 description: Documentation for Helm Values Files
 ---
 
+{% raw %}
 ## Values Files
 
 One of the built-in objects is Values. This object provides access to values passed into the chart. Its contents come from multiple sources:
@@ -76,3 +77,4 @@ data:
   drink: {{ .Values.favorite.drink }}
   food: {{ .Values.favorite.food }}
 ```
+{% endraw %}

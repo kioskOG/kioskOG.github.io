@@ -7,7 +7,7 @@ nav_order: 4
 permalink: /docs/devops/kubernetes/helm/Template-Function-List/
 description: Documentation for Template Function List
 ---
-
+{% raw %}
 Helm includes many template functions you can take advantage of in templates.
 They are listed here and broken down by the following categories:
 
@@ -2311,3 +2311,4 @@ documented in [Accessing Files Inside Templates](accessing_files.md).
 _Note, the documentation for many of these functions come from
 [Sprig](https://github.com/Masterminds/sprig). Sprig is a template function
 library available to Go applications._
+{% endraw %}

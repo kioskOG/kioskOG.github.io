@@ -109,7 +109,7 @@ social_html: |
     <div class="card-link" tabindex="0">
       <div class="project-head">
         <h3 class="project-title">Admin, Security & HA</h3>
-        <a class="project-open" href="/docs/devops/linux/" aria-label="View Docker docs">
+        <a class="project-open" href="/docs/devops/Linux/" aria-label="View Docker docs">
           View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
         </a>
       </div>
@@ -194,7 +194,7 @@ social_html: |
     <div class="card-link" tabindex="0">
       <div class="project-head">
         <h3 class="project-title">AWS, GCP & Multi-Cloud</h3>
-        <a class="project-open" href="/docs/devops/cloud/" aria-label="View Docker docs">
+        <a class="project-open" href="/docs/devops/Cloud/" aria-label="View Docker docs">
           View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
         </a>
       </div>
@@ -227,7 +227,7 @@ social_html: |
       </div>
       <p class="project-desc">Concepts, roadmaps, and scalability principles for designing systems.</p>
       <div class="tags">
-        <a class="tag" href="/docs/devops/System-Design/">Intro to System Design</a>
+        <a class="tag" href="/docs/devops/System-Design/intro/">Intro to System Design</a>
         <a class="tag" href="/docs/devops/System-Design/Roadmap/">System Design Roadmap</a>
         <a class="tag" href="/docs/devops/System-Design/Scaleability/">Scalability</a>
       </div>

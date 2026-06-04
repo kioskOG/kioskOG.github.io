@@ -36,7 +36,7 @@ nav_buttons:
         <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-sso-using-keycloak/">Keycloak SSO</a>
         <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-to-monitor-docker/">Docker Monitor</a>
         <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-monitoring-container-runtime/">Container Runtime</a>
-        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/malware-detection-and-deletion-andslack-intergarion/">Malware + Slack</a>
+        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/malware-detection-and-deletion-and-slack-intergarion/">Malware + Slack</a>
       </div>
     </div>
   </article>

@@ -24,7 +24,7 @@ nav_buttons:
     <div class="card-link">
       <div class="project-head">
         <h3 class="project-title">Introduction to System Design</h3>
-        <a class="project-open" href="/docs/devops/System-Design/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+        <a class="project-open" href="/docs/devops/System-Design/intro/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
       </div>
       <p class="project-desc">Foundational system design concepts — what is system design, why it matters, and core components of scalable systems.</p>
       <div class="tags"><span class="tag">System Design</span><span class="tag">Architecture</span><span class="tag">Fundamentals</span></div>

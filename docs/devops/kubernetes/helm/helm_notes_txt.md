@@ -8,6 +8,7 @@ permalink: /docs/devops/kubernetes/helm/helm_notes_txt/
 description: Documentation for Creating a NOTES.txt File
 ---
 
+{% raw %}
 To add installation notes to your chart, simply create a `templates/NOTES.txt` file. This file is plain text, but it is processed like a template, and has all the normal template functions and objects available.
 
 
@@ -28,4 +29,5 @@ Now if we run  `helm install first --debug ./mychart` we will see the above mess
 
 
 Using `NOTES.txt` this way is a great way to give your users detailed information about how to use their newly installed chart. Creating a `NOTES.txt` file is strongly recommended, though it is not required.
+{% endraw %}
 
