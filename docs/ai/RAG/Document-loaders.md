@@ -66,7 +66,7 @@ In this guide, we will explore how Document Loaders work in LangChain, cover the
 
 
 <p align="center">
-  <img src="/docs/ai/RAG/images/document-loaders.png" alt="document-loaders" height=600 width="900">
+  <img src="/docs/ai/RAG/images/Document-loaders.png" alt="document-loaders" height=600 width="900">
 </p>
 
 ---
