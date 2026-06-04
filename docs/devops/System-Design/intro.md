@@ -3,7 +3,7 @@ title: Introduction to System Design
 layout: doc-page
 parent: Devops
 nav_order: 7
-permalink: /docs/devops/System-Design/
+permalink: /docs/devops/System-Design/intro/
 ---
 
 # Introduction to System Design

@@ -8,6 +8,7 @@ permalink: /docs/devops/kubernetes/helm/first-helm-chart/
 description: Documentation for helm template
 ---
 
+{% raw %}
 ```bash
 helm create mychart
 cd mychart
@@ -318,3 +319,4 @@ data:
 * `Template`: Contains information about the current template that is being executed
   * `Template.Name`: A namespaced file path to the current template (e.g. `mychart/templates/mytemplate.yaml`)
   * `Template.BasePath`: The namespaced path to the templates directory of the current chart (e.g. `mychart/templates`).
+{% endraw %}

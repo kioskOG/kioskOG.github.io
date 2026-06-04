@@ -30,3 +30,14 @@ nav_buttons:
       <div class="tags"><span class="tag">RAG</span><span class="tag">What</span><span class="tag">Why</span><span class="tag">How</span></div>
     </div>
   </article>
+
+  <article class="project-card card-gold reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">Document Loaders</h3>
+        <a class="project-open" href="/docs/ai/RAG/Document-loaders/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Document Loaders In RAG.</p>
+      <div class="tags"><span class="tag">RAG</span><span class="tag">Document Loaders</span></div>
+    </div>
+  </article>

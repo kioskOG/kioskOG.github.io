@@ -7,7 +7,7 @@ nav_order: 3
 permalink: /docs/devops/kubernetes/helm/Template-Functions-and-Pipelines/
 description: Documentation for Helm Template Functions and Pipelines
 ---
-
+{% raw %}
 # Template Functions and Pipelines
 
 So far, we've seen how to place information into a template. But that information is placed into the template unmodified. Sometimes we want to transform the supplied data in a way that makes it more useable to us.
@@ -213,3 +213,4 @@ helm template ./mychart --dry-run=server
 ## Operators are functions
 
 For templates, the operators `(eq, ne, lt, gt, and, or and so on)` are all implemented as functions. In pipelines, operations can be grouped with parentheses `((, and ))`.
+{% endraw %}

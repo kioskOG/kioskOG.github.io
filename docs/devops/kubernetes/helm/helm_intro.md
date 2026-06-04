@@ -115,5 +115,18 @@ helm uninstall <release_name>  # Uninstall a Helm release
 helm list               # List all installed releases
 ```
 
+## 📖 Helm Learning Path
+
+Explore the detailed guides in this Helm series:
+
+| Guide | Description |
+| :--- | :--- |
+| 🚀 [**Helm Templates & First Chart**](/docs/devops/kubernetes/helm/first-helm-chart/) | Learn the basics of Helm templates, built-in objects, and creating your first chart. |
+| ⚙️ [**Helm Values Files**](/docs/devops/kubernetes/helm/helm_values/) | Understand how to use values files (`values.yaml`) to customize and parameterize templates. |
+| 🔗 [**Template Functions & Pipelines**](/docs/devops/kubernetes/helm/Template-Functions-and-Pipelines/) | Learn about data transformation using template functions, pipelines, and the `default` / `lookup` functions. |
+| 📜 [**Template Function List**](/docs/devops/kubernetes/helm/Template-Function-List/) | A comprehensive reference of all available Helm template functions (logic, string, math, etc.). |
+| 📝 [**Helm Notes (NOTES.txt)**](/docs/devops/kubernetes/helm/helm_notes_txt/) | Learn how to provide helpful installation instructions and release summaries to users. |
+
 By leveraging Helm, you can streamline Kubernetes application deployment and management, making it more efficient and scalable.
+
 

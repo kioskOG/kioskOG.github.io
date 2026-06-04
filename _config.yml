@@ -22,6 +22,7 @@ social:
 
 sass:
   quiet_deps: true
+  silence_deprecations: ["import"]
 
 aux_links:
   Repository: https://github.com/kioskOG/kioskOG.github.io
