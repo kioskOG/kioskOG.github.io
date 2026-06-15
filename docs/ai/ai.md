@@ -81,6 +81,7 @@ social_html: |
       <div class="tags">
         <a class="tag" href="/docs/ai/RAG/what-why-how/">What, Why & How</a>
         <a class="tag" href="/docs/ai/RAG/Document-loaders/">Document Loaders</a>
+        <a class="tag" href="/docs/ai/RAG/Text-Splitters/">Text Splitters</a>
       </div>
     </div>
   </article>

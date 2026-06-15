@@ -41,3 +41,14 @@ nav_buttons:
       <div class="tags"><span class="tag">RAG</span><span class="tag">Document Loaders</span></div>
     </div>
   </article>
+
+  <article class="project-card card-gold reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">Text Splitters</h3>
+        <a class="project-open" href="/docs/ai/RAG/Text-Splitters/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Text Splitters In RAG.</p>
+      <div class="tags"><span class="tag">RAG</span><span class="tag">Text Splitters</span></div>
+    </div>
+  </article>

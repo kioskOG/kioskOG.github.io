@@ -1,0 +1,17 @@
+---
+---
+[
+  {% assign first = true %}
+  {% for page in site.pages %}
+    {% if page.path contains "docs/" and page.path contains ".md" %}
+      {% if first == false %},{% endif %}
+      {
+        "path": {{ page.path | jsonify }},
+        "url": {{ page.url | relative_url | jsonify }},
+        "title": {{ page.title | jsonify }},
+        "desc": {{ page.description | default: page.title | jsonify }}
+      }
+      {% assign first = false %}
+    {% endif %}
+  {% endfor %}
+]
