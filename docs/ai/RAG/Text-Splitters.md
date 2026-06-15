@@ -24,10 +24,6 @@ To build any Retrieval-Augmented Generation (RAG) application, the second step i
 
 In this guide, we will explore how Text Splitters work in LangChain, cover different types of text splitting, and understand how to optimize chunk sizes and overlap.
 
-<p align="center">
-  <img src="/docs/ai/RAG/images/Text-Splitters.png" alt="text-splitters" height=600 width="900">
-</p>
-
 ---
 
 ## The Roadmap: Mastering Text Splitting
