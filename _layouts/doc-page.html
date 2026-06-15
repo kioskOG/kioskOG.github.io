@@ -11,6 +11,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {% seo %}
 
+  <!-- Theme Blocker Script -->
+  <script>
+    (function () {
+      var savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+    })();
+  </script>
+
   <!-- MathJax Math Rendering Support -->
   <script>
     window.MathJax = {
@@ -51,6 +63,16 @@
   <link rel="stylesheet" href="{{ '/assets/portfolio.css' | relative_url }}" />
 
   <style>
+    :root {
+      {% if page.url contains '/docs/ai/' %}
+        --accent-blue: var(--accent-purple);
+        --grad-primary: linear-gradient(135deg, var(--accent-purple), #3b82f6);
+      {% elsif page.url contains '/docs/ml/' %}
+        --accent-blue: var(--accent-green);
+        --grad-primary: linear-gradient(135deg, var(--accent-green), #3b82f6);
+      {% endif %}
+    }
+
     /* ---- Doc-page specific: article prose reading styles ---- */
     .doc-layout {
       display: grid;
@@ -705,15 +727,22 @@
                 class="fas fa-external-link-alt" style="font-size:0.7em;opacity:0.7"></i></a></li>
           <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta">Get in Touch</a></li>
         </ul>
-        <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
-          <i class="fas fa-search" aria-hidden="true"></i>
-          <span>Search</span>
-          <span class="search-kbd">⌘K</span>
-        </button>
-        <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
+        <div class="nav-actions">
+          <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span>Search</span>
+            <span class="search-kbd">⌘K</span>
+          </button>
+          <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark mode" type="button">
+            <i class="fas fa-moon" id="theme-toggle-icon"></i>
+          </button>
+          <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
       </div>
+      <!-- Scroll Progress Bar -->
+      <div class="scroll-progress-bar" id="scroll-progress"></div>
     </nav>
 
     <!-- ARTICLE LAYOUT -->
@@ -869,6 +898,11 @@
 
   </div><!-- .page-wrap -->
 
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" type="button">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
   <script>
     (function () {
       'use strict';
@@ -892,6 +926,37 @@
           });
         });
       }
+
+      // Theme Toggle Logic
+      var toggle = document.getElementById('theme-toggle');
+      if (toggle) {
+        toggle.addEventListener('click', function () {
+          var currentTheme = document.documentElement.getAttribute('data-theme');
+          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          if (newTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+          } else {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+          }
+          updateToggleIcon(newTheme);
+        });
+      }
+
+      function updateToggleIcon(theme) {
+        var icon = document.getElementById('theme-toggle-icon');
+        if (icon) {
+          if (theme === 'dark') {
+            icon.className = 'fas fa-sun';
+          } else {
+            icon.className = 'fas fa-moon';
+          }
+        }
+      }
+
+      var activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      updateToggleIcon(activeTheme);
 
       // Auto-generate TOC from article headings
       var toc = document.getElementById('toc-list');
@@ -964,8 +1029,46 @@
         button.setAttribute('aria-label', 'Copy code to clipboard');
         button.innerHTML = '<i class="fa-regular fa-copy" aria-hidden="true"></i><span>Copy</span>';
 
-        // Add copy button to pre block
+         // Add copy button to pre block
         pre.appendChild(button);
+
+        // Create language badge
+        var codeEl = pre.querySelector('code');
+        if (codeEl) {
+          var langClass = Array.from(codeEl.classList).find(function (c) {
+            return c.startsWith('language-');
+          });
+          if (langClass) {
+            var lang = langClass.replace('language-', '').toUpperCase();
+            var badge = document.createElement('span');
+            badge.className = 'code-lang-badge';
+            badge.textContent = lang;
+            pre.appendChild(badge);
+          }
+        }
+
+        // Collapse long code blocks
+        if (codeEl) {
+          var linesCount = codeEl.textContent.split('\n').length;
+          if (linesCount > 25) {
+            pre.classList.add('code-collapsed');
+            var expandBtn = document.createElement('button');
+            expandBtn.className = 'expand-code-btn';
+            expandBtn.type = 'button';
+            expandBtn.innerHTML = '<i class="fas fa-chevron-down" aria-hidden="true"></i> Expand Code';
+            pre.appendChild(expandBtn);
+
+            expandBtn.addEventListener('click', function () {
+              var isCollapsed = pre.classList.toggle('code-collapsed');
+              if (isCollapsed) {
+                expandBtn.innerHTML = '<i class="fas fa-chevron-down" aria-hidden="true"></i> Expand Code';
+                pre.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              } else {
+                expandBtn.innerHTML = '<i class="fas fa-chevron-up" aria-hidden="true"></i> Collapse Code';
+              }
+            });
+          }
+        }
 
         // Click handler
         button.addEventListener('click', function () {
@@ -1035,6 +1138,59 @@
           }
         });
       });
+
+      // 1. Scroll Progress Bar
+      var progressBar = document.getElementById('scroll-progress');
+      if (progressBar) {
+        window.addEventListener('scroll', function () {
+          var totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+          var scrollPercent = totalScroll > 0 ? (window.scrollY / totalScroll) * 100 : 0;
+          progressBar.style.width = scrollPercent + '%';
+        });
+      }
+
+      // 2. Reading Time Calculation
+      var proseEl = document.querySelector('.doc-prose');
+      if (proseEl) {
+        var wordCount = proseEl.innerText.trim().split(/\s+/).filter(Boolean).length;
+        var minutes = Math.ceil(wordCount / 200);
+        var timeBadge = document.createElement('span');
+        timeBadge.innerHTML = '<i class="fas fa-clock" aria-hidden="true"></i> ' + minutes + ' min read';
+        var metaBlock = document.querySelector('.doc-meta');
+        if (metaBlock) {
+          metaBlock.appendChild(timeBadge);
+        }
+      }
+
+      // 3. Back to Top Button Logic
+      var bttBtn = document.getElementById('back-to-top');
+      if (bttBtn) {
+        window.addEventListener('scroll', function () {
+          var scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+          if (scrollPos > 400) {
+            bttBtn.classList.add('show');
+          } else {
+            bttBtn.classList.remove('show');
+          }
+        });
+        bttBtn.addEventListener('click', function () {
+          try {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } catch (err) {
+            window.scrollTo(0, 0);
+          }
+          try {
+            document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+          } catch (err) {
+            document.documentElement.scrollTop = 0;
+          }
+          try {
+            document.body.scrollTo({ top: 0, behavior: 'smooth' });
+          } catch (err) {
+            document.body.scrollTop = 0;
+          }
+        });
+      }
     })();
   </script>
 

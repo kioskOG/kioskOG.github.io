@@ -10,6 +10,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {% seo %}
 
+  <!-- Theme Blocker Script -->
+  <script>
+    (function () {
+      var savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+    })();
+  </script>
+
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,6 +33,17 @@
     crossorigin="anonymous" />
   <!-- Shared Portfolio CSS -->
   <link rel="stylesheet" href="{{ '/assets/portfolio.css' | relative_url }}" />
+  <style>
+    :root {
+      {% if page.url contains '/docs/ai/' %}
+        --accent-blue: var(--accent-purple);
+        --grad-primary: linear-gradient(135deg, var(--accent-purple), #3b82f6);
+      {% elsif page.url contains '/docs/ml/' %}
+        --accent-blue: var(--accent-green);
+        --grad-primary: linear-gradient(135deg, var(--accent-green), #3b82f6);
+      {% endif %}
+    }
+  </style>
 </head>
 
 <body>
@@ -48,15 +71,22 @@
           <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta" {% if page.url contains 'contact'
               %}style="opacity:0.85" {% endif %}>Get in Touch</a></li>
         </ul>
-        <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
-          <i class="fas fa-search" aria-hidden="true"></i>
-          <span>Search</span>
-          <span class="search-kbd">⌘K</span>
-        </button>
-        <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
+        <div class="nav-actions">
+          <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span>Search</span>
+            <span class="search-kbd">⌘K</span>
+          </button>
+          <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark mode" type="button">
+            <i class="fas fa-moon" id="theme-toggle-icon"></i>
+          </button>
+          <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
       </div>
+      <!-- Scroll Progress Bar -->
+      <div class="scroll-progress-bar" id="scroll-progress"></div>
     </nav>
 
     <!-- PAGE HERO -->
@@ -152,6 +182,11 @@
 
   </div><!-- .page-wrap -->
 
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" type="button">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
   <script>
     (function () {
       'use strict';
@@ -176,6 +211,37 @@
         });
       }
 
+      // Theme Toggle Logic
+      var toggle = document.getElementById('theme-toggle');
+      if (toggle) {
+        toggle.addEventListener('click', function () {
+          var currentTheme = document.documentElement.getAttribute('data-theme');
+          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          if (newTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+          } else {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+          }
+          updateToggleIcon(newTheme);
+        });
+      }
+
+      function updateToggleIcon(theme) {
+        var icon = document.getElementById('theme-toggle-icon');
+        if (icon) {
+          if (theme === 'dark') {
+            icon.className = 'fas fa-sun';
+          } else {
+            icon.className = 'fas fa-moon';
+          }
+        }
+      }
+
+      var activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      updateToggleIcon(activeTheme);
+
       // Scroll reveal
       var reveals = document.querySelectorAll('.reveal');
       if ('IntersectionObserver' in window) {
@@ -187,6 +253,45 @@
         reveals.forEach(function (el) { io.observe(el); });
       } else {
         reveals.forEach(function (el) { el.classList.add('visible'); });
+      }
+      // 1. Scroll Progress Bar
+      var progressBar = document.getElementById('scroll-progress');
+      if (progressBar) {
+        window.addEventListener('scroll', function () {
+          var totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+          var scrollPercent = totalScroll > 0 ? (window.scrollY / totalScroll) * 100 : 0;
+          progressBar.style.width = scrollPercent + '%';
+        });
+      }
+
+      // 2. Back to Top Button Logic
+      var bttBtn = document.getElementById('back-to-top');
+      if (bttBtn) {
+        window.addEventListener('scroll', function () {
+          var scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+          if (scrollPos > 400) {
+            bttBtn.classList.add('show');
+          } else {
+            bttBtn.classList.remove('show');
+          }
+        });
+        bttBtn.addEventListener('click', function () {
+          try {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } catch (err) {
+            window.scrollTo(0, 0);
+          }
+          try {
+            document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+          } catch (err) {
+            document.documentElement.scrollTop = 0;
+          }
+          try {
+            document.body.scrollTo({ top: 0, behavior: 'smooth' });
+          } catch (err) {
+            document.body.scrollTop = 0;
+          }
+        });
       }
     })();
   </script>
