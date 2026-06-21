@@ -81,6 +81,18 @@ nav_buttons:
       <div class="tags"><span class="tag">AWS</span><span class="tag">Firewall</span><span class="tag">Security</span><span class="tag">Egress</span></div>
     </div>
   </article>
+
+  <article class="project-card card-orange reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">AWS Firewall Egress Filtering</h3>
+        <a class="project-open" href="/docs/devops/Cloud/AWS/aws-firewall/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Connecting Retool to a Private PostgreSQL RDS Across AWS Accounts Without VPC Peering.</p>
+      <div class="tags"><span class="tag">AWS</span><span class="tag">PostgreSQL</span><span class="tag">Retool</span><span class="tag">Security</span></div>
+    </div>
+  </article>
+
 </section>
 
 <section class="projects-section reveal" aria-labelledby="cloud-iac">

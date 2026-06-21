@@ -63,3 +63,14 @@ nav_buttons:
       <div class="tags"><span class="tag">RAG</span><span class="tag">Vector Stores</span></div>
     </div>
   </article>
+
+  <article class="project-card card-gold reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">Retrievers</h3>
+        <a class="project-open" href="/docs/ai/RAG/Retrievers/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Retrievers In RAG.</p>
+      <div class="tags"><span class="tag">RAG</span><span class="tag">Retrievers</span></div>
+    </div>
+  </article>

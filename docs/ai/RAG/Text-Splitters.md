@@ -5,7 +5,14 @@ parent: RAG
 parent_url: /docs/ai/RAG/
 nav_order: 3
 permalink: /docs/ai/RAG/Text-Splitters/
-description: An in-depth guide to Text Splitters in RAG-based applications using LangChain.
+description: A comprehensive developer's guide to LangChain Text Splitters for optimizing RAG applications with various splitting techniques and chunk size strategies.
+date: "2026-06-14"
+tags:
+  - RAG
+  - LangChain
+  - Text Splitters
+  - Python
+author: "Jatin"
 ---
 
 ## Building RAG-based applications using LangChain. 

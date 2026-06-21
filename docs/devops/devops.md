@@ -209,6 +209,7 @@ social_html: |
         <a class="tag" href="/docs/devops/Cloud/Gcp/Aws-and-GCP-vpc-comparision/">AWS vs GCP VPC</a>
         <a class="tag" href="/docs/devops/Cloud/Gcp/Accessing-AWS-Services-from-GKE-using-Workload-Identity-and-Aws-oidc/">AWS from GKE (OIDC)</a>
         <a class="tag" href="/docs/devops/Cloud/AWS/aws-firewal/">AWS Firewall Egress</a>
+        <a class="tag" href="/docs/devops/Cloud/AWS/Connect-private-db-to-retool/">Connect private db to retool</a>
       </div>
     </div>
   </article>
