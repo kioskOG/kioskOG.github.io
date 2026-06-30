@@ -1,4 +1,19 @@
-# URL-Short service
+---
+type: index
+tags:
+- devops
+- kubernetes
+- kubernetes ingress
+- ingress
+- application
+- url short
+- url
+- short
+- app files
+- app
+- files
+timestamp: '2025-09-01T12:47:50Z'
+---# URL-Short service
 
 - This microservice is used to create short URL for URLs and stored it in:
   - Redis

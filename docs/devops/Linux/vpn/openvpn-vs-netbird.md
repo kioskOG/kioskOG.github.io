@@ -6,6 +6,12 @@ parent: VPN
 nav_order: 1
 permalink: /docs/devops/Linux/vpn/openvpn-vs-netbird/
 description: Documentation for Differences Between OpenVPN and NetBird.
+type: concept
+tags:
+- devops
+- linux
+- vpn
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 

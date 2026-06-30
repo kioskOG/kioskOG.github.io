@@ -5,6 +5,12 @@ parent: Linux Projects
 nav_order: 4
 permalink: /docs/devops/Linux/kernel/kernel/
 description: Documentation on Linux Kernel.
+type: concept
+tags:
+- devops
+- linux
+- kernel
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Linux Kernel

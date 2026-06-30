@@ -6,6 +6,15 @@ grand_parent: Linux Projects
 nav_order: 4
 permalink: /docs/devops/Linux/SIEM-And-XDR/FIM/
 description: Documentation for File Integrity Monitoring setup.
+type: concept
+tags:
+- devops
+- linux
+- siem and xdr
+- siem
+- and
+- xdr
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # What is File Integrity Monitoring (FIM)?

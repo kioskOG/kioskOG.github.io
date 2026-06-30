@@ -5,6 +5,18 @@ parent: Kubernetes Projects
 nav_order: 15
 permalink: /docs/devops/kubernetes/eks-logs-into-cloudwatch-using-fluentbit/
 description: Documentation on AWS CloudWatch Logging with Fluent Bit on Kubernetes.
+type: concept
+tags:
+- devops
+- kubernetes
+- eks logs into cloudwatch using fluentbit
+- eks
+- logs
+- into
+- cloudwatch
+- using
+- fluentbit
+timestamp: '2026-04-17T09:40:40Z'
 ---
 
 # 📊 AWS CloudWatch Logging with Fluent Bit on Kubernetes

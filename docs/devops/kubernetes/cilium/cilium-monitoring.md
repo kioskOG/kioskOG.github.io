@@ -6,6 +6,12 @@ grand_parent: Kubernetes Projects
 nav_order: 2
 permalink: /docs/devops/kubernetes/cilium/cilium-monitoring/
 description: Documentation for Cilium Monitoring using Prometheus & Grafana.
+type: concept
+tags:
+- devops
+- kubernetes
+- cilium
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Cilium Monitoring using Prometheus & Grafana

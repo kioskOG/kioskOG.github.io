@@ -5,6 +5,14 @@ parent: monitoring
 nav_order: 2
 permalink: /docs/devops/monitoring/grafana_tempo/
 description: Introduction to Distributed Tracing & Grafana Tempo.
+type: concept
+tags:
+- devops
+- monitoring
+- grafana tempo
+- grafana
+- tempo
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 📌 Introduction to Distributed Tracing & Grafana Tempo

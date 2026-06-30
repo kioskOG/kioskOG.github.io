@@ -6,6 +6,14 @@ grand_parent: monitoring
 nav_order: 2
 permalink: /docs/devops/monitoring/apache-hertzbeat/Apache-HertzBeat-docker-compose/
 description: Documentation for HertzBeat setup via Docker Compose.
+type: concept
+tags:
+- devops
+- monitoring
+- apache hertzbeat
+- apache
+- hertzbeat
+timestamp: '2026-04-17T12:35:11Z'
 ---
 
 

@@ -6,6 +6,12 @@ nav_order: 2
 description: A setup guide for Traefik with Docker and Nginx
 author: Jatin Sharma
 permalink: /docs/devops/docker/traefik/
+type: concept
+tags:
+- devops
+- docker
+- traefik
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Traefik

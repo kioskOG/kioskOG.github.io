@@ -6,6 +6,13 @@ grand_parent: Devops
 nav_order: 1
 permalink: /docs/devops/System-Design/Roadmap/
 description: Documentation for System Design Roadmap.
+type: concept
+tags:
+- devops
+- system design
+- system
+- design
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 🛠️ System Design Learning Roadmap

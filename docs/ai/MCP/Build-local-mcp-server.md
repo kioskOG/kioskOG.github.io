@@ -6,6 +6,11 @@ parent_url: /docs/ai/MCP/
 nav_order: 3
 permalink: /docs/ai/MCP/Build-local-mcp-server/
 description: How to build local MCP Server using FastMCP
+type: concept
+tags:
+- ai
+- mcp
+timestamp: '2026-06-01T14:55:10Z'
 ---
 
 <p align="center">

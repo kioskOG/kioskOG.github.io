@@ -6,6 +6,12 @@ grand_parent: Kubernetes Projects
 nav_order: 3
 permalink: /docs/devops/kubernetes/knative/knative-serving-part-1/
 description: Documentation on knative serving
+type: concept
+tags:
+- devops
+- kubernetes
+- knative
+timestamp: '2026-06-01T14:55:10Z'
 ---
 
 

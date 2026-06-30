@@ -6,6 +6,11 @@ parent_url: /docs/ai/MCP/
 nav_order: 2
 permalink: /docs/ai/MCP/MCP-Lifecycle/
 description: The MCP Lifecycle - Model Context Protocol (MCP)
+type: concept
+tags:
+- ai
+- mcp
+timestamp: '2026-05-03T19:30:08Z'
 ---
 
 # The MCP Lifecycle

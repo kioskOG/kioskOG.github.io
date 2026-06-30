@@ -6,6 +6,15 @@ grand_parent: Linux Projects
 nav_order: 8
 permalink: /docs/devops/Linux/SIEM-And-XDR/wazuh-to-monitor-docker/
 description: Documentation for monitoring Docker environments with Wazuh.
+type: concept
+tags:
+- devops
+- linux
+- siem and xdr
+- siem
+- and
+- xdr
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 

@@ -6,6 +6,13 @@ grand_parent: Kubernetes Projects
 nav_order: 3.5
 permalink: /docs/devops/kubernetes/Basic-Authentication-using-NGINX-Ingress/
 description: Documentation on Basic Authentication using NGINX Ingress
+type: concept
+tags:
+- devops
+- kubernetes
+- kubernetes ingress
+- ingress
+timestamp: '2026-04-17T09:40:40Z'
 ---
 
 # 🔐 NGINX Ingress — Basic Authentication

@@ -5,7 +5,13 @@ parent: RAG
 parent_url: /docs/ai/RAG/
 nav_order: 1
 permalink: /docs/ai/RAG/what-why-how/
-description: An in-depth guide to Retrieval-Augmented Generation (RAG) - explaining why it's needed, what it is, and how it works.
+description: An in-depth guide to Retrieval-Augmented Generation (RAG) - explaining
+  why it's needed, what it is, and how it works.
+type: concept
+tags:
+- ai
+- rag
+timestamp: '2026-06-04T11:57:28Z'
 ---
 
 <p align="center">

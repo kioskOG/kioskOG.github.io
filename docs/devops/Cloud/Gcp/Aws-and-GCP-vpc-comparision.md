@@ -7,6 +7,12 @@ nav_order: 4
 author: Jatin Sharma
 permalink: /docs/devops/Cloud/Gcp/Aws-and-GCP-vpc-comparision/
 description: Documentation on Virtual Private Cloud (VPC) Networking Comparison.
+type: concept
+tags:
+- devops
+- cloud
+- gcp
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # AWS vs. GCP: Virtual Private Cloud (VPC) Networking Comparison

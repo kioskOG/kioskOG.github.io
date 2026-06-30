@@ -4,9 +4,12 @@ title: ML | Jatin Sharma
 nav_order: 4
 permalink: /docs/ml/
 hero_tag: Machine Learning
-hero_title: "🧠 Machine Learning"
-hero_intro: >
-  <p>Exploring machine learning models, distributed training, and AI infrastructure.</p>
+hero_title: 🧠 Machine Learning
+hero_intro: <p>Exploring machine learning models, distributed training, and AI infrastructure.</p>
+type: concept
+tags:
+- ml
+timestamp: '2026-06-03T10:14:12Z'
 ---
 
 <!-- Machine Learning Projects -->

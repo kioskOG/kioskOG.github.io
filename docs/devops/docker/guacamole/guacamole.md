@@ -6,6 +6,12 @@ nav_order: 10
 description: Apache Guacamole with HAProxy
 author: Jatin Sharma
 permalink: /docs/devops/docker/guacamole/
+type: concept
+tags:
+- devops
+- docker
+- guacamole
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Apache Guacamole with HAProxy - Secure Multi-Service Deployment using Docker Compose

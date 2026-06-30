@@ -4,6 +4,14 @@ layout: doc-page
 parent: Kubernetes Projects
 nav_order: 3
 permalink: /docs/devops/kubernetes/Cert-manager/
+type: concept
+tags:
+- devops
+- kubernetes
+- cert manager
+- cert
+- manager
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # EKS Ingress with Traefik, Cert-Manager, and Cross-Account Route 53 using IAM Role and Service Account

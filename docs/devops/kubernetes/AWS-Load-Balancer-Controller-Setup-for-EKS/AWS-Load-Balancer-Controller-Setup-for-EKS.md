@@ -5,6 +5,19 @@ parent: Kubernetes Projects
 nav_order: 16
 permalink: /docs/devops/kubernetes/AWS-Load-Balancer-Controller-Setup-for-EKS/
 description: Documentation on AWS Load Balancer Controller Setup for EKS.
+type: concept
+tags:
+- devops
+- kubernetes
+- aws load balancer controller setup for eks
+- aws
+- load
+- balancer
+- controller
+- setup
+- for
+- eks
+timestamp: '2026-04-17T09:40:40Z'
 ---
 
 # 🚦 AWS Load Balancer Controller Setup for EKS

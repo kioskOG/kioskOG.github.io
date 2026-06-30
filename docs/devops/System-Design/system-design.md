@@ -1,20 +1,29 @@
 ---
 layout: full-bleed-glass
-title: "🧩 System Design"
+title: 🧩 System Design
 parent: Devops
 nav_order: 7
 permalink: /docs/devops/System-Design/
 hero_tag: System Design
-hero_title: "🧩 System Design"
-hero_intro: >
-  <p>Concepts, roadmaps, and scalability principles for designing robust distributed systems. Foundational knowledge every platform engineer should have.</p>
+hero_title: 🧩 System Design
+hero_intro: '<p>Concepts, roadmaps, and scalability principles for designing robust
+  distributed systems. Foundational knowledge every platform engineer should have.</p>
+
+  '
 nav_buttons:
-  - href: /docs/devops/
-    label: "All DevOps Topics"
-    icon: "fas fa-th-large"
-  - href: /docs/about/contact/
-    label: "Get in Touch"
-    icon: "fas fa-envelope"
+- href: /docs/devops/
+  label: All DevOps Topics
+  icon: fas fa-th-large
+- href: /docs/about/contact/
+  label: Get in Touch
+  icon: fas fa-envelope
+type: concept
+tags:
+- devops
+- system design
+- system
+- design
+timestamp: '2026-06-04T11:57:28Z'
 ---
 
 <section class="projects-section reveal" aria-labelledby="sd-guides">

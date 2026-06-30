@@ -4,28 +4,31 @@ title: AI | Jatin Sharma
 nav_order: 5
 permalink: /docs/ai/
 hero_tag: Artificial Intelligence
-hero_title: "🤖 Artificial Intelligence"
-hero_intro: >
-  <p>Building autonomous systems and scalable AI agents that think like humans.</p>
+hero_title: 🤖 Artificial Intelligence
+hero_intro: '<p>Building autonomous systems and scalable AI agents that think like
+  humans.</p>
 
+  '
 nav_buttons:
-  - href: /docs/about/
-    label: "About Me"
-    icon: "fas fa-user-circle"
-  - href: /docs/about/contact/
-    label: "Get in Touch"
-    icon: "fas fa-envelope"
-
-social_html: |
-  <a href="mailto:jatinvashishtha110@gmail.com" title="Email Jatin via Gmail" aria-label="Email Jatin via Gmail">
-    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail Badge" loading="lazy"/>
-  </a>
-  <a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener" title="LinkedIn" aria-label="Visit Jatin on LinkedIn">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge" loading="lazy"/>
-  </a>
-  <a href="https://github.com/kioskog" target="_blank" rel="noopener" title="GitHub" aria-label="Visit Jatin on GitHub">
-    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Badge" loading="lazy"/>
-  </a>
+- href: /docs/about/
+  label: About Me
+  icon: fas fa-user-circle
+- href: /docs/about/contact/
+  label: Get in Touch
+  icon: fas fa-envelope
+social_html: "<a href=\"mailto:jatinvashishtha110@gmail.com\" title=\"Email Jatin\
+  \ via Gmail\" aria-label=\"Email Jatin via Gmail\">\n  <img src=\"https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white\"\
+  \ alt=\"Gmail Badge\" loading=\"lazy\"/>\n</a>\n<a href=\"https://www.linkedin.com/in/jatin-devops/\"\
+  \ target=\"_blank\" rel=\"noopener\" title=\"LinkedIn\" aria-label=\"Visit Jatin\
+  \ on LinkedIn\">\n  <img src=\"https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white\"\
+  \ alt=\"LinkedIn Badge\" loading=\"lazy\"/>\n</a>\n<a href=\"https://github.com/kioskog\"\
+  \ target=\"_blank\" rel=\"noopener\" title=\"GitHub\" aria-label=\"Visit Jatin on\
+  \ GitHub\">\n  <img src=\"https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white\"\
+  \ alt=\"GitHub Badge\" loading=\"lazy\"/>\n</a>"
+type: concept
+tags:
+- ai
+timestamp: '2026-06-30T11:56:08Z'
 ---
 
 <!-- Artificial Intelligence Projects -->

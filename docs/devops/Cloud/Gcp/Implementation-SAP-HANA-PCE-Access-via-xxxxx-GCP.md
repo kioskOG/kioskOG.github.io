@@ -1,4 +1,11 @@
-<!-- ---
+---
+type: concept
+tags:
+- devops
+- cloud
+- gcp
+timestamp: '2026-06-15T10:19:56Z'
+---<!-- ---
 title: "Implementation: SAP HANA PCE Access via Cars24 GCP (Solution 2)"
 layout: doc-page
 parent: How we have saved 40 Lac per year for our client

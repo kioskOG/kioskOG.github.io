@@ -1,4 +1,16 @@
-# Application High-Level Design (HLD) Diagram
+---
+type: concept
+tags:
+- devops
+- kubernetes
+- kubernetes ingress
+- ingress
+- application
+- application flow diagram
+- flow
+- diagram
+timestamp: '2025-09-01T12:47:50Z'
+---# Application High-Level Design (HLD) Diagram
 
 The system consists of distinct microservices/applications (UI, Auth, Report, ShortURL) and a shared database (DB). The diagram visually reflects data and control flows, service boundaries, and integration points.
 

@@ -6,6 +6,12 @@ nav_order: 8
 description: A setup guide for Keycloak
 author: Jatin Sharma
 permalink: /docs/devops/docker/keycloak/
+type: concept
+tags:
+- devops
+- docker
+- keycloak
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 

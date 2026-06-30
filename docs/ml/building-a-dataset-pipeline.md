@@ -4,7 +4,12 @@ layout: doc-page
 parent: ML | Jatin Sharma
 nav_order: 1
 permalink: /docs/ml/building-a-dataset-pipeline/
-description: Exploring the first step in MLOps - Building a dataset pipeline for training machine learning models.
+description: Exploring the first step in MLOps - Building a dataset pipeline for training
+  machine learning models.
+type: concept
+tags:
+- ml
+timestamp: '2026-06-30T11:56:08Z'
 ---
 
 ## 🏗️ Why Are We Building a Model from Scratch?

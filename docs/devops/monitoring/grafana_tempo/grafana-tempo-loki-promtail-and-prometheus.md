@@ -5,7 +5,16 @@ parent: Introduction to Distributed Tracing & Grafana Tempo
 grand_parent: monitoring
 nav_order: 3
 permalink: /docs/devops/monitoring/grafana_tempo/grafana-tempo-loki-promtail-and-prometheus/
-description: Documentation for instrument a Python application using OpenTelemetry and send traces to Grafana Tempo with Logging using Loki. 🚀
+description: Documentation for instrument a Python application using OpenTelemetry
+  and send traces to Grafana Tempo with Logging using Loki. 🚀
+type: concept
+tags:
+- devops
+- monitoring
+- grafana tempo
+- grafana
+- tempo
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 ## 📌 Connecting Tracing with Logging (Loki)

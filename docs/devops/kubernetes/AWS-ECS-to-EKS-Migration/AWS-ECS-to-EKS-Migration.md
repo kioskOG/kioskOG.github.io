@@ -4,7 +4,18 @@ layout: doc-page
 parent: Kubernetes Projects
 nav_order: 10
 permalink: /docs/devops/kubernetes/AWS-ECS-to-EKS-Migration/
-description: POC Document for AWS ECS to EKS Migration while ECS is running with CloudMap service for service discovery.
+description: POC Document for AWS ECS to EKS Migration while ECS is running with CloudMap
+  service for service discovery.
+type: concept
+tags:
+- devops
+- kubernetes
+- aws ecs to eks migration
+- aws
+- ecs
+- eks
+- migration
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # ☸️ ECS to EKS Migration

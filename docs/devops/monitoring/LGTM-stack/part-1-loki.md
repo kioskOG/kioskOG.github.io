@@ -6,6 +6,14 @@ grand_parent: monitoring
 nav_order: 1
 permalink: /docs/devops/monitoring/LGTM-stack/part-1-loki/
 description: Introduction to Grafana Loki.
+type: concept
+tags:
+- devops
+- monitoring
+- lgtm stack
+- lgtm
+- stack
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 ![Loki](/docs/devops/monitoring/LGTM-stack/images/Loki.png)

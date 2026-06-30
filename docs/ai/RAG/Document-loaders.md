@@ -5,7 +5,13 @@ parent: RAG
 parent_url: /docs/ai/RAG/
 nav_order: 2
 permalink: /docs/ai/RAG/Document-loaders/
-description: An in-depth guide to Document Loaders in RAG-based applications using LangChain.
+description: An in-depth guide to Document Loaders in RAG-based applications using
+  LangChain.
+type: concept
+tags:
+- ai
+- rag
+timestamp: '2026-06-15T10:19:56Z'
 ---
 
 ## Building RAG-based applications using LangChain. 

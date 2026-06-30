@@ -5,7 +5,17 @@ parent: Wazuh
 grand_parent: Linux Projects
 nav_order: 10
 permalink: /docs/devops/Linux/SIEM-And-XDR/wazuh-cloudwatch-logs-from-log-groups/
-description: Learn how to monitor AWS CloudWatch logs using Wazuh for centralized log analysis.
+description: Learn how to monitor AWS CloudWatch logs using Wazuh for centralized
+  log analysis.
+type: concept
+tags:
+- devops
+- linux
+- siem and xdr
+- siem
+- and
+- xdr
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Monitoring AWS CloudWatch Logs Using Wazuh

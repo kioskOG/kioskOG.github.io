@@ -6,6 +6,12 @@ grand_parent: Kubernetes Projects
 nav_order: 1
 permalink: /docs/devops/kubernetes/karpenter/karpenter-setup-in-existing-eks-cluster/
 description: Documentation on karpenter serving
+type: concept
+tags:
+- devops
+- kubernetes
+- karpenter
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # EKS scaling with Karpenter

@@ -6,6 +6,12 @@ nav_order: 4
 description: A setup guide for Atlasian
 author: Jatin Sharma
 permalink: /docs/devops/docker/Atlasian/
+type: index
+tags:
+- devops
+- docker
+- atlasian
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 🚀 **Atlasian Deployment Guide**

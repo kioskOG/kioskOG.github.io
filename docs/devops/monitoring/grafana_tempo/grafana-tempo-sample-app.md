@@ -5,7 +5,16 @@ parent: Introduction to Distributed Tracing & Grafana Tempo
 grand_parent: monitoring
 nav_order: 2
 permalink: /docs/devops/monitoring/grafana_tempo/grafana-tempo-sample-app/
-description: Documentation for instrument a Python application using OpenTelemetry and send traces to Grafana Tempo. 🚀
+description: Documentation for instrument a Python application using OpenTelemetry
+  and send traces to Grafana Tempo. 🚀
+type: concept
+tags:
+- devops
+- monitoring
+- grafana tempo
+- grafana
+- tempo
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 📌 Instrumenting a Python App for Distributed Tracing

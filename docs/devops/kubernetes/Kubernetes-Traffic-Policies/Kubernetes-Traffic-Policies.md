@@ -6,6 +6,14 @@ nav_order: 1
 grand_parent: Kubernetes Projects
 permalink: /docs/devops/kubernetes/Kubernetes-Traffic-Policies/
 description: Detailed documentation on Kubernetes Traffic Policies and routing strategies.
+type: concept
+tags:
+- devops
+- kubernetes
+- kubernetes traffic policies
+- traffic
+- policies
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Kubernetes Service Traffic Routing

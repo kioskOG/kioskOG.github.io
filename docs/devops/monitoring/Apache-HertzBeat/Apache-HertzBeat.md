@@ -4,7 +4,16 @@ layout: doc-page
 parent: monitoring
 nav_order: 1
 permalink: /docs/devops/monitoring/apache-hertzbeat/
-description: Quickstart guide for Apache HertzBeat - an open-source real-time monitoring system.
+description: Quickstart guide for Apache HertzBeat - an open-source real-time monitoring
+  system.
+type: concept
+tags:
+- devops
+- monitoring
+- apache hertzbeat
+- apache
+- hertzbeat
+timestamp: '2026-04-17T12:35:11Z'
 ---
 
 # Apache HertzBeat Quickstart

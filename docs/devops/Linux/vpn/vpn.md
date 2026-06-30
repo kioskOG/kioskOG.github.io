@@ -5,6 +5,12 @@ parent: Linux Projects
 nav_order: 3
 permalink: /docs/devops/Linux/vpn/vpn/
 description: Documentation on VPN
+type: concept
+tags:
+- devops
+- linux
+- vpn
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 ## What is a VPN?

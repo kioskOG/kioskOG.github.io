@@ -1,4 +1,13 @@
-<div align="center" style="background: linear-gradient(270deg, #00c6ff, #9c27b0, #ff0080);
+---
+type: index
+tags:
+- devops
+- kubernetes
+- kubernetes ingress
+- ingress
+- application
+timestamp: '2025-09-01T12:47:50Z'
+---<div align="center" style="background: linear-gradient(270deg, #00c6ff, #9c27b0, #ff0080);
     background-size: 600% 600%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

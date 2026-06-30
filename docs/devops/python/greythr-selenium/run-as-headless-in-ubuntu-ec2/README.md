@@ -1,4 +1,18 @@
-## Set the timezone to Asia/Kolkata
+---
+type: index
+tags:
+- devops
+- python
+- greythr selenium
+- greythr
+- selenium
+- run as headless in ubuntu ec2
+- run
+- headless
+- ubuntu
+- ec2
+timestamp: '2025-03-11T17:21:20Z'
+---## Set the timezone to Asia/Kolkata
 ---
 ```bash
 timedatectl list-timezones

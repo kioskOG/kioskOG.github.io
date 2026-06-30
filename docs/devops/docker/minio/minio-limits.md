@@ -7,6 +7,12 @@ nav_order: 1
 description: Minio limits
 author: Jatin Sharma
 permalink: /docs/devops/docker/minio-limits/
+type: concept
+tags:
+- devops
+- docker
+- minio
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # MinIO Server Limits Per Tenant

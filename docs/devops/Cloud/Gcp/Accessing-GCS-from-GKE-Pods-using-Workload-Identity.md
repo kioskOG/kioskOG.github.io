@@ -7,6 +7,12 @@ nav_order: 2
 author: Jatin Sharma
 permalink: /docs/devops/Cloud/Gcp/Accessing-GCS-from-GKE-Pods-using-Workload-Identity/
 description: Documentation for Accessing GCS from GKE Pods using Workload Identity.
+type: concept
+tags:
+- devops
+- cloud
+- gcp
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Accessing GCS from GKE Pods using Workload Identity

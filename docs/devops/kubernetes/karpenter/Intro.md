@@ -5,6 +5,12 @@ parent: Kubernetes Projects
 nav_order: 13
 permalink: /docs/devops/kubernetes/karpenter/
 description: Documentation on Karpenter Introduction.
+type: concept
+tags:
+- devops
+- kubernetes
+- karpenter
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 ## Introduction

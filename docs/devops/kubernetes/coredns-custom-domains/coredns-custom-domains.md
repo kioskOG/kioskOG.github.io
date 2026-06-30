@@ -4,6 +4,15 @@ layout: doc-page
 parent: Kubernetes Projects
 nav_order: 4
 permalink: /docs/devops/kubernetes/coredns-custom-domains/
+type: concept
+tags:
+- devops
+- kubernetes
+- coredns custom domains
+- coredns
+- custom
+- domains
+timestamp: '2026-04-16T18:17:09Z'
 ---
 # 🌐 Custom domain names using Kubernetes CoreDNS
 

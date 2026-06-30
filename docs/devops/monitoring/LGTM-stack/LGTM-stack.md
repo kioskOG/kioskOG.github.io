@@ -5,6 +5,14 @@ parent: monitoring
 nav_order: 3
 permalink: /docs/devops/monitoring/LGTM-stack/LGTM-stack/
 description: Taming the Digital Wilds with Grafana's LGTM Stack
+type: concept
+tags:
+- devops
+- monitoring
+- lgtm stack
+- lgtm
+- stack
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 🚀 My Observability Odyssey Taming the Digital Wilds with Grafana's LGTM Stack

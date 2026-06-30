@@ -1,10 +1,18 @@
 ---
-title: 🛡️ Setting Up a High Availability (HA) PostgreSQL Cluster with Patroni, etcd, and HAProxy
+title: 🛡️ Setting Up a High Availability (HA) PostgreSQL Cluster with Patroni, etcd,
+  and HAProxy
 layout: doc-page
 parent: Linux Projects
 nav_order: 6
 permalink: /docs/devops/Linux/Postgresql/SETTING-UP-A-POSTGRESQL-HA-CLUSTER/
-description: Documentation on Setting Up a High Availability (HA) PostgreSQL Cluster with Patroni, etcd, and HAProxy
+description: Documentation on Setting Up a High Availability (HA) PostgreSQL Cluster
+  with Patroni, etcd, and HAProxy
+type: concept
+tags:
+- devops
+- linux
+- postgresql
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 🛡️ Setting Up a High Availability (HA) PostgreSQL Cluster with Patroni, etcd, and HAProxy

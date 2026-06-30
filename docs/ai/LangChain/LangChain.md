@@ -1,20 +1,26 @@
 ---
 layout: full-bleed-glass
-title: "LangChain"
+title: LangChain
 parent: AI | Jatin Sharma
 nav_order: 2
 permalink: /docs/ai/LangChain/
 hero_tag: LangChain
-hero_title: "LangChain"
-hero_intro: >
-  <p>What, Why & How Of LangChain.</p>
+hero_title: LangChain
+hero_intro: '<p>What, Why & How Of LangChain.</p>
+
+  '
 nav_buttons:
-  - href: /docs/ai/
-    label: "All AI Topics"
-    icon: "fas fa-th-large"
-  - href: /docs/about/contact/
-    label: "Get in Touch"
-    icon: "fas fa-envelope"
+- href: /docs/ai/
+  label: All AI Topics
+  icon: fas fa-th-large
+- href: /docs/about/contact/
+  label: Get in Touch
+  icon: fas fa-envelope
+type: concept
+tags:
+- ai
+- langchain
+timestamp: '2026-05-14T11:14:03Z'
 ---
 
 <section class="projects-section reveal" aria-labelledby="LangChain-Concepts">

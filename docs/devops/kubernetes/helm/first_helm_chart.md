@@ -6,6 +6,12 @@ grand_parent: Kubernetes Projects
 nav_order: 1
 permalink: /docs/devops/kubernetes/helm/first-helm-chart/
 description: Documentation for helm template
+type: concept
+tags:
+- devops
+- kubernetes
+- helm
+timestamp: '2026-06-04T11:57:28Z'
 ---
 
 {% raw %}

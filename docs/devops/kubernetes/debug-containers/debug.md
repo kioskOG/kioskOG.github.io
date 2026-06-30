@@ -4,6 +4,14 @@ layout: doc-page
 parent: Kubernetes Projects
 nav_order: 5
 permalink: /docs/devops/kubernetes/debug-containers/
+type: concept
+tags:
+- devops
+- kubernetes
+- debug containers
+- debug
+- containers
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 🐛 Debugging Containers in Kubernetes

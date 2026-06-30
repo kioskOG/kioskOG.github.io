@@ -5,6 +5,11 @@ parent: GitHub
 nav_order: 1
 permalink: /docs/devops/GitHub/Git-Guide-to-Delete-Old-Commits-and-Clear-Sensitive-Info-from-Git-History/
 description: How To Delete Old Git Commits and Clear Sensitive Files from History
+type: concept
+tags:
+- devops
+- github
+timestamp: '2026-05-03T17:23:03Z'
 ---
 
 # How To: Delete Old Git Commits and Clear Sensitive Files from History

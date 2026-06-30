@@ -6,6 +6,14 @@ nav_order: 6
 description: A setup guide for Vault
 author: Jatin Sharma
 permalink: /docs/devops/docker/hashicorp-vault/
+type: concept
+tags:
+- devops
+- docker
+- hashicorp vault
+- hashicorp
+- vault
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 🔐 Vault Docker Setup along with Basics of vault & Dynamic creds generate for mysql(RDS) 🔐

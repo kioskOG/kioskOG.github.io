@@ -5,6 +5,14 @@ parent: Kubernetes Projects
 nav_order: 11
 permalink: /docs/devops/kubernetes/Kubernetes-NodePort-and-iptables-rules/
 description: Detailed documentation on Kubernetes NodePort and iptables rules.
+type: concept
+tags:
+- devops
+- kubernetes
+- kubernetes traffic policies
+- traffic
+- policies
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Kubernetes NodePort and iptables rules

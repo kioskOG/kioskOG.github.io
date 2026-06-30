@@ -6,6 +6,11 @@ parent_url: /docs/ai/LangChain/
 nav_order: 1
 permalink: /docs/ai/LangChain/Introduction-to-LangChain/
 description: Introduction to LangChain
+type: concept
+tags:
+- ai
+- langchain
+timestamp: '2026-05-11T12:04:19Z'
 ---
 
 <p align="center">

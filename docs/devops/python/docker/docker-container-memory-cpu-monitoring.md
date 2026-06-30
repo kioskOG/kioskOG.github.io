@@ -5,6 +5,12 @@ parent: python
 nav_order: 1
 permalink: /docs/devops/python/docker-container-memory-cpu-monitoring/
 description: Docker Container's Monitoring Script
+type: concept
+tags:
+- devops
+- python
+- docker
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Docker Container Monitoring Script

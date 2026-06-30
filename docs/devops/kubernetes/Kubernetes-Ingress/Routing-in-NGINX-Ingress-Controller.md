@@ -6,6 +6,13 @@ grand_parent: Kubernetes Projects
 nav_order: 2.5
 permalink: /docs/devops/kubernetes/Routing-in-NGINX-Ingress-Controller/
 description: Documentation on Routing in NGINX Ingress Controller
+type: concept
+tags:
+- devops
+- kubernetes
+- kubernetes ingress
+- ingress
+timestamp: '2026-04-17T09:40:40Z'
 ---
 
 Networking · Kubernetes

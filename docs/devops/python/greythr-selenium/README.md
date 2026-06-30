@@ -5,6 +5,14 @@ parent: python
 nav_order: 3
 permalink: /docs/devops/python/greythr-selenium/README/
 description: Greythr Attendance Automation
+type: index
+tags:
+- devops
+- python
+- greythr selenium
+- greythr
+- selenium
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Greythr Automated Sign-In/Sign-Out Script

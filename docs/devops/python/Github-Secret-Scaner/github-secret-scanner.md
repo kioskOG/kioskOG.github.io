@@ -5,6 +5,15 @@ parent: python
 nav_order: 5
 permalink: /docs/devops/python/GitHub-Secrets-Scanner/github-secret-scanner/
 description: GitHub Secrets Scanner
+type: concept
+tags:
+- devops
+- python
+- github secret scaner
+- github
+- secret
+- scaner
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 🔐 GitHub Secrets Scanner

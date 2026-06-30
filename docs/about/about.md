@@ -5,29 +5,33 @@ permalink: /docs/about/
 hero_tag: About Me
 profile_image: /profile-image.png
 profile_alt: Jatin Sharma
-hero_title: "👋 Jatin Sharma"
-hero_intro: >
-  <p>Hello! I'm <strong>Jatin Sharma</strong>, a passionate <strong>DevOps Engineer</strong> focused on building robust, scalable, and automated cloud solutions.</p>
-  <p>I specialize in <strong>infrastructure automation</strong>, <strong>CI/CD pipelines</strong>, and <strong>cloud integrations</strong>.</p>
+hero_title: 👋 Jatin Sharma
+hero_intro: '<p>Hello! I''m <strong>Jatin Sharma</strong>, a passionate <strong>DevOps
+  Engineer</strong> focused on building robust, scalable, and automated cloud solutions.</p>
+  <p>I specialize in <strong>infrastructure automation</strong>, <strong>CI/CD pipelines</strong>,
+  and <strong>cloud integrations</strong>.</p>
 
+  '
 nav_buttons:
-  - href: /docs/about/contact/
-    label: "Get in Touch"
-    icon: "fas fa-envelope"
-  - href: /docs/devops/
-    label: "DevOps Learning"
-    icon: "fas fa-project-diagram"
-
-social_html: |
-  <a href="mailto:jatinvashishtha110@gmail.com" title="Email Jatin via Gmail" aria-label="Email Jatin via Gmail">
-    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail Badge" loading="lazy"/>
-  </a>
-  <a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener" title="LinkedIn" aria-label="Visit Jatin on LinkedIn">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge" loading="lazy"/>
-  </a>
-  <a href="https://github.com/kioskog" target="_blank" rel="noopener" title="GitHub" aria-label="Visit Jatin on GitHub">
-    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Badge" loading="lazy"/>
-  </a>
+- href: /docs/about/contact/
+  label: Get in Touch
+  icon: fas fa-envelope
+- href: /docs/devops/
+  label: DevOps Learning
+  icon: fas fa-project-diagram
+social_html: "<a href=\"mailto:jatinvashishtha110@gmail.com\" title=\"Email Jatin\
+  \ via Gmail\" aria-label=\"Email Jatin via Gmail\">\n  <img src=\"https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white\"\
+  \ alt=\"Gmail Badge\" loading=\"lazy\"/>\n</a>\n<a href=\"https://www.linkedin.com/in/jatin-devops/\"\
+  \ target=\"_blank\" rel=\"noopener\" title=\"LinkedIn\" aria-label=\"Visit Jatin\
+  \ on LinkedIn\">\n  <img src=\"https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white\"\
+  \ alt=\"LinkedIn Badge\" loading=\"lazy\"/>\n</a>\n<a href=\"https://github.com/kioskog\"\
+  \ target=\"_blank\" rel=\"noopener\" title=\"GitHub\" aria-label=\"Visit Jatin on\
+  \ GitHub\">\n  <img src=\"https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white\"\
+  \ alt=\"GitHub Badge\" loading=\"lazy\"/>\n</a>"
+type: concept
+tags:
+- about
+timestamp: '2026-06-03T10:14:12Z'
 ---
 
 <!-- About sections use the same glass styling as projects -->

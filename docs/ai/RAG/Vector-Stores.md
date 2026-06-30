@@ -6,6 +6,11 @@ parent_url: /docs/ai/RAG/
 nav_order: 4
 permalink: /docs/ai/RAG/Vector-Stores/
 description: An in-depth guide to Vector Stores in RAG-based applications using LangChain.
+type: concept
+tags:
+- ai
+- rag
+timestamp: '2026-06-30T11:56:08Z'
 ---
 
 # Vector Stores in RAG-based Applications

@@ -6,6 +6,15 @@ grand_parent: Linux Projects
 nav_order: 3
 permalink: /docs/devops/Linux/SIEM-And-XDR/wazuh-dashboard-setup/
 description: Documentation for Installing the Wazuh Dashboard.
+type: concept
+tags:
+- devops
+- linux
+- siem and xdr
+- siem
+- and
+- xdr
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 ## Wazuh Dashboard Setup

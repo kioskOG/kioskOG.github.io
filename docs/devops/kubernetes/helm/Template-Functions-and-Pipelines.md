@@ -6,6 +6,12 @@ grand_parent: Kubernetes Projects
 nav_order: 3
 permalink: /docs/devops/kubernetes/helm/Template-Functions-and-Pipelines/
 description: Documentation for Helm Template Functions and Pipelines
+type: concept
+tags:
+- devops
+- kubernetes
+- helm
+timestamp: '2026-06-04T11:57:28Z'
 ---
 {% raw %}
 # Template Functions and Pipelines

@@ -6,6 +6,12 @@ grand_parent: Kubernetes Projects
 nav_order: 2
 permalink: /docs/devops/kubernetes/knative/knative-serving-monitoring/
 description: Documentation on knative serving monitoring
+type: concept
+tags:
+- devops
+- kubernetes
+- knative
+timestamp: '2026-05-15T10:31:20Z'
 ---
 
 # Table of Contents

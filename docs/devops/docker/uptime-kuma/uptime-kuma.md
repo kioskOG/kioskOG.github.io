@@ -4,6 +4,14 @@ layout: doc-page
 parent: Docker Projects
 nav_order: 3
 permalink: /docs/devops/docker/uptime-kuma/
+type: concept
+tags:
+- devops
+- docker
+- uptime kuma
+- uptime
+- kuma
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 🚀 **Uptime-Kuma Deployment Guide**

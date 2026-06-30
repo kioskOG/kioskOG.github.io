@@ -6,6 +6,11 @@ grand_parent: Devops
 nav_order: 1
 permalink: /docs/devops/Networking/How-NAT-Saved-the-Internet/
 description: Documentation for How NAT Saved the Internet.
+type: concept
+tags:
+- devops
+- networking
+timestamp: '2026-04-17T09:40:40Z'
 ---
 
 Networking · IPv4 · NAT
