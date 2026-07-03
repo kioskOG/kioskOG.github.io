@@ -1,11 +1,10 @@
 ---
-# title: Secure Connectivity to SAP HANA Private Cloud via xxxxx GCP Project
-# layout: home
-# parent: How we have saved 40 Lac per year for our client
-# grand_parent: Google Cloud Platform
-# nav_order: 1
-# permalink: /docs/devops/Cloud/Gcp/Secure-Connectivity-to-SAP-HANA-Private-Cloud-via-xxxxx-GCP-Project
-# description: Documentation for Secure Connectivity to SAP HANA Private Cloud via xxxxx GCP Project.
+type: concept
+tags:
+- devops
+- cloud
+- gcp
+timestamp: '2026-06-04T11:49:23Z'
 ---
 
 # Secure Connectivity to SAP HANA Private Cloud via xxxxx GCP Project

@@ -5,6 +5,12 @@ parent: python
 nav_order: 2
 permalink: /docs/devops/python/netbird-python-utility/
 description: Netbird Management Utility for managing Netbird resources as code.
+type: concept
+tags:
+- devops
+- python
+- netbird
+timestamp: '2026-04-24T11:38:59Z'
 ---
 <p align="center">
   <img src="/docs/devops/python/netbird/images/netbird.png" alt="Netbird" width="300">

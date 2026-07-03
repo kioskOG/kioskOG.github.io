@@ -6,6 +6,13 @@ grand_parent: Kubernetes Projects
 nav_order: 1.5
 permalink: /docs/devops/kubernetes/Installing-NGINX-Ingress/
 description: Documentation on Installing NGINX Ingress
+type: concept
+tags:
+- devops
+- kubernetes
+- kubernetes ingress
+- ingress
+timestamp: '2026-06-01T14:55:10Z'
 ---
 
 Kubernetes · Ingress

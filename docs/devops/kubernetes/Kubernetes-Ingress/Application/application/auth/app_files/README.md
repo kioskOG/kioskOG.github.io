@@ -1,4 +1,17 @@
-# Notification service
+---
+type: index
+tags:
+- devops
+- kubernetes
+- kubernetes ingress
+- ingress
+- application
+- auth
+- app files
+- app
+- files
+timestamp: '2025-09-01T12:47:50Z'
+---# Notification service
 
 - This microservice is used to configure and setup notification feature for url-shortner service.
 

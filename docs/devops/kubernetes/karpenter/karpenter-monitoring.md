@@ -5,7 +5,13 @@ parent: Karpenter
 grand_parent: Kubernetes Projects
 nav_order: 2
 permalink: /docs/devops/kubernetes/karpenter/karpenter-monitoring/
-description: Documentation on Karpenter monitoring 
+description: Documentation on Karpenter monitoring
+type: concept
+tags:
+- devops
+- kubernetes
+- karpenter
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Monitoring Karpenter Using Prometheus & Grafana

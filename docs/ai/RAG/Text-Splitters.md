@@ -6,6 +6,11 @@ parent_url: /docs/ai/RAG/
 nav_order: 3
 permalink: /docs/ai/RAG/Text-Splitters/
 description: An in-depth guide to Text Splitters in RAG-based applications using LangChain.
+type: concept
+tags:
+- ai
+- rag
+timestamp: '2026-06-30T11:56:08Z'
 ---
 
 ## Building RAG-based applications using LangChain. 

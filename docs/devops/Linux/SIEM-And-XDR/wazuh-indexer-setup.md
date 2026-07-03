@@ -6,6 +6,15 @@ grand_parent: Linux Projects
 nav_order: 1
 permalink: /docs/devops/Linux/SIEM-And-XDR/wazuh-indexer-setup/
 description: Documentation for Installing the Wazuh Indexer.
+type: concept
+tags:
+- devops
+- linux
+- siem and xdr
+- siem
+- and
+- xdr
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # For this Demo we have following configuration for instances.

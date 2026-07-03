@@ -1,20 +1,28 @@
 ---
 layout: full-bleed-glass
-title: "🐳 Docker Projects"
+title: 🐳 Docker Projects
 parent: Devops
 nav_order: 1
 permalink: /docs/devops/docker/
 hero_tag: Docker
-hero_title: "🐳 Docker Projects"
-hero_intro: >
-  <p>Containerization technology for packaging and running applications in isolated environments. Guides cover real-world deployments, VPN setups, auth stacks, monitoring, and storage.</p>
+hero_title: 🐳 Docker Projects
+hero_intro: '<p>Containerization technology for packaging and running applications
+  in isolated environments. Guides cover real-world deployments, VPN setups, auth
+  stacks, monitoring, and storage.</p>
+
+  '
 nav_buttons:
-  - href: /docs/devops/
-    label: "All DevOps Topics"
-    icon: "fas fa-th-large"
-  - href: /docs/about/contact/
-    label: "Get in Touch"
-    icon: "fas fa-envelope"
+- href: /docs/devops/
+  label: All DevOps Topics
+  icon: fas fa-th-large
+- href: /docs/about/contact/
+  label: Get in Touch
+  icon: fas fa-envelope
+type: concept
+tags:
+- devops
+- docker
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 <section class="projects-section reveal" aria-labelledby="docker-guides">

@@ -6,6 +6,12 @@ grand_parent: Kubernetes Projects
 nav_order: 4
 permalink: /docs/devops/kubernetes/helm/Template-Function-List/
 description: Documentation for Template Function List
+type: concept
+tags:
+- devops
+- kubernetes
+- helm
+timestamp: '2026-06-04T11:57:28Z'
 ---
 {% raw %}
 Helm includes many template functions you can take advantage of in templates.

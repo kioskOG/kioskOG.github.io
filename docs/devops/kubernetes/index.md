@@ -1,20 +1,28 @@
 ---
 layout: full-bleed-glass
-title: "☸️ Kubernetes Projects"
+title: ☸️ Kubernetes Projects
 parent: Devops
 nav_order: 2
 permalink: /docs/devops/kubernetes/
 hero_tag: Kubernetes
-hero_title: "☸️ Kubernetes Projects"
-hero_intro: >
-  <p>Orchestrating, scaling, and managing containerized applications at production scale. Covering EKS, Helm, CNI plugins, ingress controllers, autoscaling, and GitOps tooling.</p>
+hero_title: ☸️ Kubernetes Projects
+hero_intro: '<p>Orchestrating, scaling, and managing containerized applications at
+  production scale. Covering EKS, Helm, CNI plugins, ingress controllers, autoscaling,
+  and GitOps tooling.</p>
+
+  '
 nav_buttons:
-  - href: /docs/devops/
-    label: "All DevOps Topics"
-    icon: "fas fa-th-large"
-  - href: /docs/about/contact/
-    label: "Get in Touch"
-    icon: "fas fa-envelope"
+- href: /docs/devops/
+  label: All DevOps Topics
+  icon: fas fa-th-large
+- href: /docs/about/contact/
+  label: Get in Touch
+  icon: fas fa-envelope
+type: index
+tags:
+- devops
+- kubernetes
+timestamp: '2026-06-02T18:19:29Z'
 ---
 
 <section class="projects-section reveal" aria-labelledby="k8s-guides">

@@ -1,20 +1,26 @@
 ---
 layout: full-bleed-glass
-title: "RAG"
+title: RAG
 parent: AI | Jatin Sharma
 nav_order: 1
 permalink: /docs/ai/RAG/
 hero_tag: RAG
-hero_title: "RAG"
-hero_intro: >
-  <p>What, Why & How Of RAG.</p>
+hero_title: RAG
+hero_intro: '<p>What, Why & How Of RAG.</p>
+
+  '
 nav_buttons:
-  - href: /docs/ai/
-    label: "All AI Topics"
-    icon: "fas fa-th-large"
-  - href: /docs/about/contact/
-    label: "Get in Touch"
-    icon: "fas fa-envelope"
+- href: /docs/ai/
+  label: All AI Topics
+  icon: fas fa-th-large
+- href: /docs/about/contact/
+  label: Get in Touch
+  icon: fas fa-envelope
+type: concept
+tags:
+- ai
+- rag
+timestamp: '2026-06-30T11:56:08Z'
 ---
 
 <section class="projects-section reveal" aria-labelledby="RAG-Concepts">

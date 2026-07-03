@@ -5,6 +5,13 @@ parent: Kubernetes Projects
 nav_order: 17
 permalink: /docs/devops/kubernetes/Understanding-Ingress-Controllers/
 description: Documentation on Understanding Ingress Controllers
+type: concept
+tags:
+- devops
+- kubernetes
+- kubernetes ingress
+- ingress
+timestamp: '2026-04-17T09:40:40Z'
 ---
 
 Networking · Kubernetes

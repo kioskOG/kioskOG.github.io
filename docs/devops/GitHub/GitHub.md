@@ -1,20 +1,28 @@
 ---
 layout: full-bleed-glass
-title: "GitHub"
+title: GitHub
 parent: Devops
 nav_order: 9
 permalink: /docs/devops/GitHub/
 hero_tag: GitHub
-hero_title: "GitHub"
-hero_intro: >
-  <p>Automation scripts, DevOps tooling, and cloud utilities written in Python. Real-world helpers for Docker monitoring, VPN management, HR automation, secrets scanning, and more.</p>
+hero_title: GitHub
+hero_intro: '<p>Automation scripts, DevOps tooling, and cloud utilities written in
+  Python. Real-world helpers for Docker monitoring, VPN management, HR automation,
+  secrets scanning, and more.</p>
+
+  '
 nav_buttons:
-  - href: /docs/devops/
-    label: "All DevOps Topics"
-    icon: "fas fa-th-large"
-  - href: /docs/about/contact/
-    label: "Get in Touch"
-    icon: "fas fa-envelope"
+- href: /docs/devops/
+  label: All DevOps Topics
+  icon: fas fa-th-large
+- href: /docs/about/contact/
+  label: Get in Touch
+  icon: fas fa-envelope
+type: concept
+tags:
+- devops
+- github
+timestamp: '2026-06-02T18:19:29Z'
 ---
 
 <section class="projects-section reveal" aria-labelledby="GitHub-guides">

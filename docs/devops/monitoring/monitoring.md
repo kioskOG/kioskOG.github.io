@@ -1,20 +1,28 @@
 ---
 layout: full-bleed-glass
-title: "📊 Monitoring Projects"
+title: 📊 Monitoring Projects
 parent: Devops
 nav_order: 5
 permalink: /docs/devops/monitoring/
 hero_tag: Monitoring
-hero_title: "📊 Monitoring Projects"
-hero_intro: >
-  <p>Real-time observability, distributed tracing, and log aggregation. Covering Grafana Tempo, Loki, Prometheus, OpenTelemetry, Apache HertzBeat, and the full LGTM stack.</p>
+hero_title: 📊 Monitoring Projects
+hero_intro: '<p>Real-time observability, distributed tracing, and log aggregation.
+  Covering Grafana Tempo, Loki, Prometheus, OpenTelemetry, Apache HertzBeat, and the
+  full LGTM stack.</p>
+
+  '
 nav_buttons:
-  - href: /docs/devops/
-    label: "All DevOps Topics"
-    icon: "fas fa-th-large"
-  - href: /docs/about/contact/
-    label: "Get in Touch"
-    icon: "fas fa-envelope"
+- href: /docs/devops/
+  label: All DevOps Topics
+  icon: fas fa-th-large
+- href: /docs/about/contact/
+  label: Get in Touch
+  icon: fas fa-envelope
+type: concept
+tags:
+- devops
+- monitoring
+timestamp: '2026-04-17T16:50:01Z'
 ---
 
 <section class="projects-section reveal" aria-labelledby="monitoring-tempo">

@@ -4,6 +4,12 @@ layout: doc-page
 parent: Kubernetes Projects
 nav_order: 1
 permalink: /docs/devops/kubernetes/velaro/
+type: concept
+tags:
+- devops
+- kubernetes
+- velaro
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 🚀 Kubernetes backup with Velero

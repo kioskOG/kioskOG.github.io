@@ -6,7 +6,14 @@ grand_parent: Cloud Projects
 nav_order: 5
 author: Jatin Sharma
 permalink: /docs/devops/Cloud/Gcp/Accessing-AWS-Services-from-GKE-using-Workload-Identity-and-Aws-oidc/
-description: Documentation for Accessing AWS Services from GKE using GCP Workload Identity and AWS OIDC.
+description: Documentation for Accessing AWS Services from GKE using GCP Workload
+  Identity and AWS OIDC.
+type: concept
+tags:
+- devops
+- cloud
+- gcp
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 

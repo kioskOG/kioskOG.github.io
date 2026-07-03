@@ -6,6 +6,12 @@ grand_parent: Kubernetes Projects
 nav_order: 2
 permalink: /docs/devops/kubernetes/helm/helm_values/
 description: Documentation for Helm Values Files
+type: concept
+tags:
+- devops
+- kubernetes
+- helm
+timestamp: '2026-06-04T11:57:28Z'
 ---
 
 {% raw %}

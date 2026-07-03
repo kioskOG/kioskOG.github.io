@@ -5,7 +5,14 @@ parent: Docker Container Monitoring Script
 grand_parent: python
 nav_order: 1
 permalink: /docs/devops/python/docker-container-monitoring-script/
-description: Send a daily summary email with the complete day's CPU and memory usage of all containers.
+description: Send a daily summary email with the complete day's CPU and memory usage
+  of all containers.
+type: concept
+tags:
+- devops
+- python
+- docker
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Docker Container Daily Summary Script

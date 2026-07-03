@@ -6,6 +6,12 @@ nav_order: 9
 description: Minio Introduction
 author: Jatin Sharma
 permalink: /docs/devops/docker/minio/
+type: concept
+tags:
+- devops
+- docker
+- minio
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Introduction to MinIO Object Storage 🌐💾🚀

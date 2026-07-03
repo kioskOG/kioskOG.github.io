@@ -1,20 +1,26 @@
 ---
 layout: full-bleed-glass
-title: "MCP"
+title: MCP
 parent: AI | Jatin Sharma
 nav_order: 1
 permalink: /docs/ai/MCP/
 hero_tag: MCP
-hero_title: "MCP"
-hero_intro: >
-  <p>What, Why & How Of MCP.</p>
+hero_title: MCP
+hero_intro: '<p>What, Why & How Of MCP.</p>
+
+  '
 nav_buttons:
-  - href: /docs/ai/
-    label: "All AI Topics"
-    icon: "fas fa-th-large"
-  - href: /docs/about/contact/
-    label: "Get in Touch"
-    icon: "fas fa-envelope"
+- href: /docs/ai/
+  label: All AI Topics
+  icon: fas fa-th-large
+- href: /docs/about/contact/
+  label: Get in Touch
+  icon: fas fa-envelope
+type: concept
+tags:
+- ai
+- mcp
+timestamp: '2026-05-03T19:30:08Z'
 ---
 
 <section class="projects-section reveal" aria-labelledby="MCP-Concepts">

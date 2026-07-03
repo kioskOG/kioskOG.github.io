@@ -6,6 +6,13 @@ grand_parent: Kubernetes Projects
 nav_order: 4.5
 permalink: /docs/devops/kubernetes/secure-your-app-with-https-using-self-signed-tls-certificates/
 description: Documentation on Secure Your App with HTTPS using Self-Signed TLS Certificates
+type: concept
+tags:
+- devops
+- kubernetes
+- kubernetes ingress
+- ingress
+timestamp: '2026-04-17T09:40:40Z'
 ---
 
 Networking · Kubernetes

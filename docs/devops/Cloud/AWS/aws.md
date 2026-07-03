@@ -5,6 +5,12 @@ parent: Cloud Projects
 nav_order: 1
 permalink: /docs/devops/Cloud/AWS/aws/
 description: Documentation for AWS Cloud Platform.
+type: concept
+tags:
+- devops
+- cloud
+- aws
+timestamp: '2026-06-30T11:56:08Z'
 ---
 
 # AWS Cloud Platform Projects

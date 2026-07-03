@@ -6,6 +6,12 @@ grand_parent: Kubernetes Projects
 nav_order: 1
 permalink: /docs/devops/kubernetes/cilium/cilium-installation-on-eks/
 description: Documentation for Install Cilium & Hubble on EKS.
+type: concept
+tags:
+- devops
+- kubernetes
+- cilium
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 ![cilium](../images/cilium.png)

@@ -6,6 +6,13 @@ grand_parent: Devops
 nav_order: 2
 permalink: /docs/devops/System-Design/Scaleability/
 description: Documentation for System Design Scalability.
+type: concept
+tags:
+- devops
+- system design
+- system
+- design
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # System Design - What is Scalability?s

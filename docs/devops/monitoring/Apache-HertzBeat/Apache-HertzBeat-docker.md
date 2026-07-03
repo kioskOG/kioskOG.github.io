@@ -6,6 +6,14 @@ grand_parent: monitoring
 nav_order: 1
 permalink: /docs/devops/monitoring/apache-hertzbeat/Apache-HertzBeat-docker/
 description: Documentation for HertzBeat setup via Docker.
+type: concept
+tags:
+- devops
+- monitoring
+- apache hertzbeat
+- apache
+- hertzbeat
+timestamp: '2026-04-17T12:40:45Z'
 ---
 
 # Install HertzBeat via Docker

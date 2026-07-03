@@ -6,6 +6,12 @@ nav_order: 7
 description: A setup guide for Wazuh
 author: Jatin Sharma
 permalink: /docs/devops/docker/Wazuh/
+type: index
+tags:
+- devops
+- docker
+- wazuh
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # ✨Deploy Wazuh Docker in single node configuration✨

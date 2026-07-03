@@ -5,7 +5,14 @@ parent: Quick Introduction to Linux iptables
 nav_order: 1
 grand_parent: Linux Projects
 permalink: /docs/devops/Linux/Iptables/ipvs-loadbalancer/
-description: Documentation for setting up IPVS Load Balancer with NGINX Application Servers.
+description: Documentation for setting up IPVS Load Balancer with NGINX Application
+  Servers.
+type: concept
+tags:
+- devops
+- linux
+- iptables
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 ![ipvs](../images/ipvs.png)

@@ -4,6 +4,15 @@ layout: doc-page
 parent: Kubernetes Projects
 nav_order: 6
 permalink: /docs/devops/kubernetes/Grafana-password-reset/
+type: concept
+tags:
+- devops
+- kubernetes
+- grafana password reset
+- grafana
+- password
+- reset
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 🔐 Scenario: Updating the Grafana Admin Password in Kubernetes

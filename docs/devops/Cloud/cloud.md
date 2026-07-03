@@ -1,20 +1,28 @@
 ---
 layout: full-bleed-glass
-title: "☁️ Cloud Projects"
+title: ☁️ Cloud Projects
 parent: Devops
 nav_order: 6
 permalink: /docs/devops/Cloud/
 hero_tag: Cloud
-hero_title: "☁️ Cloud Projects"
-hero_intro: >
-  <p>AWS, GCP, Oracle Cloud, and multi-cloud architecture patterns. IaC, cross-cloud identity, workload identity, VPC comparisons, and cost optimization guides.</p>
+hero_title: ☁️ Cloud Projects
+hero_intro: '<p>AWS, GCP, Oracle Cloud, and multi-cloud architecture patterns. IaC,
+  cross-cloud identity, workload identity, VPC comparisons, and cost optimization
+  guides.</p>
+
+  '
 nav_buttons:
-  - href: /docs/devops/
-    label: "All DevOps Topics"
-    icon: "fas fa-th-large"
-  - href: /docs/about/contact/
-    label: "Get in Touch"
-    icon: "fas fa-envelope"
+- href: /docs/devops/
+  label: All DevOps Topics
+  icon: fas fa-th-large
+- href: /docs/about/contact/
+  label: Get in Touch
+  icon: fas fa-envelope
+type: concept
+tags:
+- devops
+- cloud
+timestamp: '2026-06-30T11:56:08Z'
 ---
 
 <section class="projects-section reveal" aria-labelledby="cloud-gcp">

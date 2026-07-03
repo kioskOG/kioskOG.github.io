@@ -4,6 +4,12 @@ layout: doc-page
 parent: Kubernetes Projects
 nav_order: 7
 permalink: /docs/devops/kubernetes/cilium/cilium-intro/
+type: concept
+tags:
+- devops
+- kubernetes
+- cilium
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Introduction to Cilium & Hubble

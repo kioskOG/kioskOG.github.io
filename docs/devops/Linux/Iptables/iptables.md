@@ -5,6 +5,12 @@ parent: Linux Projects
 nav_order: 2
 permalink: /docs/devops/Linux/Iptables/iptables/
 description: Documentation for Introduction to Linux iptables.
+type: concept
+tags:
+- devops
+- linux
+- iptables
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 

@@ -5,6 +5,12 @@ parent: Linux Projects
 nav_order: 5
 permalink: /docs/devops/Linux/eBPF/
 description: Documentation on Linux Kernel
+type: concept
+tags:
+- devops
+- linux
+- ebpf
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # What is eBPF and Why is it Important?

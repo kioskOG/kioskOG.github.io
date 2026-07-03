@@ -6,6 +6,12 @@ nav_order: 1
 description: A setup guide for Netbird VPN Server
 author: Jatin Sharma
 permalink: /docs/devops/docker/Netbird/
+type: concept
+tags:
+- devops
+- docker
+- netbird
+timestamp: '2026-04-16T18:17:09Z'
 ---
 <p align="center">
   <img src="/docs/devops/python/netbird/images/netbird.png" alt="Netbird" width="300">

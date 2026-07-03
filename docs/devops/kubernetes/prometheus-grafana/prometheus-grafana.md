@@ -4,6 +4,14 @@ layout: doc-page
 parent: Kubernetes Projects
 nav_order: 8
 permalink: /docs/devops/kubernetes/prometheus-grafana/
+type: concept
+tags:
+- devops
+- kubernetes
+- prometheus grafana
+- prometheus
+- grafana
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Prometheus & Grafana Setup in AWS EKS with Persistent Storage using EBS CSI Driver

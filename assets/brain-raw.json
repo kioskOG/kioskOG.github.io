@@ -1,0 +1,28 @@
+---
+layout: none
+permalink: /assets/brain-raw.json
+---
+[
+  {% assign first = true %}
+  {% assign all_docs = site.pages | concat: site.documents %}
+  {% for p in all_docs %}
+    {% if p.path contains "docs/" and p.path contains ".md" and p.type and p.type != "" %}
+      {% if first == false %},{% endif %}
+      {
+        "id": {{ p.permalink | jsonify }},
+        "title": {{ p.title | jsonify }},
+        "description": {{ p.description | default: "" | jsonify }},
+        "type": {{ p.type | default: "concept" | jsonify }},
+        "tags": {% if p.tags %}{{ p.tags | jsonify }}{% else %}[]{% endif %},
+        "timestamp": {{ p.timestamp | default: "" | jsonify }},
+        "parent": {{ p.parent | default: "" | jsonify }},
+        "parent_url": {{ p.parent_url | default: "" | jsonify }},
+        "grand_parent": {{ p.grand_parent | default: "" | jsonify }},
+        "path": {{ p.path | jsonify }},
+        "size": {{ p.content.size | jsonify }},
+        "content": {{ p.content | jsonify }}
+      }
+      {% assign first = false %}
+    {% endif %}
+  {% endfor %}
+]

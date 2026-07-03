@@ -4,6 +4,12 @@ layout: doc-page
 parent: Kubernetes Projects
 nav_order: 2
 permalink: /docs/devops/kubernetes/Traefik/
+type: concept
+tags:
+- devops
+- kubernetes
+- traefik
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 🚀 How to Deploy Traefik Ingress Controller on Kubernetes using Helm with Prometheus & Grafana Integration.

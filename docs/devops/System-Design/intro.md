@@ -4,6 +4,13 @@ layout: doc-page
 parent: Devops
 nav_order: 7
 permalink: /docs/devops/System-Design/intro/
+type: concept
+tags:
+- devops
+- system design
+- system
+- design
+timestamp: '2026-06-04T11:57:28Z'
 ---
 
 # Introduction to System Design

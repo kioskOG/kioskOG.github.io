@@ -5,6 +5,15 @@ parent: Linux Projects
 nav_order: 1
 permalink: /docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/
 description: Documentation for configuring the Wazuh XDR and SIEM platform.
+type: concept
+tags:
+- devops
+- linux
+- siem and xdr
+- siem
+- and
+- xdr
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 ## 🚀 Wazuh: Unified XDR and SIEM Security Platform

@@ -6,6 +6,14 @@ nav_order: 10
 description: A setup guide for Vault
 author: Jatin Sharma
 permalink: /docs/devops/docker/Docker-monitoring-setup/Docker-monitoring-setup/
+type: concept
+tags:
+- devops
+- docker
+- docker monitoring setup
+- monitoring
+- setup
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 📈 Docker-Based Monitoring Setup with Prometheus, Grafana, and cAdvisor

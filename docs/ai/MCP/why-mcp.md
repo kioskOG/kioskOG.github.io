@@ -6,6 +6,11 @@ parent_url: /docs/ai/MCP/
 nav_order: 1
 permalink: /docs/ai/MCP/why-mcp/
 description: The Paradigm Shift - Model Context Protocol (MCP)
+type: concept
+tags:
+- ai
+- mcp
+timestamp: '2026-05-11T12:04:19Z'
 ---
 
 <p align="center">

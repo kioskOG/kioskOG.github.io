@@ -6,6 +6,12 @@ nav_order: 5
 description: A setup guide for Authentik
 author: Jatin Sharma
 permalink: /docs/devops/docker/Authentik/
+type: index
+tags:
+- devops
+- docker
+- authentik
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 🚀 **Authentik Deployment Guide**

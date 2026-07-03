@@ -1,20 +1,27 @@
 ---
 layout: full-bleed-glass
-title: "🌐 Networking Concepts"
+title: 🌐 Networking Concepts
 parent: Devops
 nav_order: 8
 permalink: /docs/devops/Networking/
 hero_tag: Networking
-hero_title: "🌐 Networking Concepts"
-hero_intro: >
-  <p>Core networking knowledge for DevOps and platform engineers — from NAT and routing protocols to modern cloud networking patterns.</p>
+hero_title: 🌐 Networking Concepts
+hero_intro: '<p>Core networking knowledge for DevOps and platform engineers — from
+  NAT and routing protocols to modern cloud networking patterns.</p>
+
+  '
 nav_buttons:
-  - href: /docs/devops/
-    label: "All DevOps Topics"
-    icon: "fas fa-th-large"
-  - href: /docs/about/contact/
-    label: "Get in Touch"
-    icon: "fas fa-envelope"
+- href: /docs/devops/
+  label: All DevOps Topics
+  icon: fas fa-th-large
+- href: /docs/about/contact/
+  label: Get in Touch
+  icon: fas fa-envelope
+type: concept
+tags:
+- devops
+- networking
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 <section class="projects-section reveal" aria-labelledby="net-guides">

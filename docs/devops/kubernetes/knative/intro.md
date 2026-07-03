@@ -6,6 +6,12 @@ has_children: true
 nav_order: 12
 permalink: /docs/devops/kubernetes/knative/
 description: Documentation on knative Introduction.
+type: concept
+tags:
+- devops
+- kubernetes
+- knative
+timestamp: '2026-06-01T14:55:10Z'
 ---
 
 # What is Knative?

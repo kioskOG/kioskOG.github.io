@@ -5,6 +5,15 @@ parent: python
 nav_order: 4
 permalink: /docs/devops/python/aws-cloudmap-controller/
 description: EKS Cloudmap controller
+type: index
+tags:
+- devops
+- python
+- aws cloudmap controller
+- aws
+- cloudmap
+- controller
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # CloudMap Kubernetes Controller

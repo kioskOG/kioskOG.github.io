@@ -6,6 +6,11 @@ parent_url: /docs/ai/LangChain/
 nav_order: 2
 permalink: /docs/ai/LangChain/Langchain-Components/
 description: LangChain Components
+type: concept
+tags:
+- ai
+- langchain
+timestamp: '2026-05-11T12:04:19Z'
 ---
 
 

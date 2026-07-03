@@ -6,6 +6,15 @@ grand_parent: Linux Projects
 nav_order: 7
 permalink: /docs/devops/Linux/SIEM-And-XDR/wazuh-sso-using-keycloak/
 description: Documentation for Installing the Wazuh SSO with Keyclock.
+type: concept
+tags:
+- devops
+- linux
+- siem and xdr
+- siem
+- and
+- xdr
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 

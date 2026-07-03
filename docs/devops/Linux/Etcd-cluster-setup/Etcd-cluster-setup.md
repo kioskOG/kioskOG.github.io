@@ -4,7 +4,17 @@ layout: doc-page
 parent: Linux Projects
 nav_order: 7
 permalink: /docs/devops/Linux/Etcd-cluster-setup/Etcd-cluster-setup/
-description: Documentation on Setting Up a Highly Available 3-Node etcd Cluster on Ubuntu
+description: Documentation on Setting Up a Highly Available 3-Node etcd Cluster on
+  Ubuntu
+type: concept
+tags:
+- devops
+- linux
+- etcd cluster setup
+- etcd
+- cluster
+- setup
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 🧩 Setting Up a Highly Available 3-Node etcd Cluster on Ubuntu

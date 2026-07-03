@@ -6,6 +6,14 @@ grand_parent: monitoring
 nav_order: 1
 permalink: /docs/devops/monitoring/grafana_tempo/Grafana-Tempo-Docker/
 description: Documentation for Setting Up Grafana Tempo via Docker.
+type: concept
+tags:
+- devops
+- monitoring
+- grafana tempo
+- grafana
+- tempo
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # 📌 2. Setting Up Grafana Tempo (Development Environment)

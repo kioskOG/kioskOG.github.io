@@ -6,6 +6,11 @@ parent_url: /docs/ai/LangChain/
 nav_order: 6
 permalink: /docs/ai/LangChain/Langchain-Chains-Hands-on-Coding-Guide/
 description: LangChain Chains via coding examples.
+type: concept
+tags:
+- ai
+- langchain
+timestamp: '2026-06-04T11:00:16Z'
 ---
 
 # LangChain Chains via coding examples

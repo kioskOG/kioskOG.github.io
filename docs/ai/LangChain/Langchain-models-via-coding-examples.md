@@ -6,6 +6,11 @@ parent_url: /docs/ai/LangChain/
 nav_order: 4
 permalink: /docs/ai/LangChain/Langchain-models-via-coding-examples/
 description: LangChain Models via coding examples.
+type: concept
+tags:
+- ai
+- langchain
+timestamp: '2026-06-04T11:00:16Z'
 ---
 
 # LangChain Models via coding examples

@@ -7,6 +7,12 @@ has_children: true
 nav_order: 1
 permalink: /docs/devops/kubernetes/knative/knative-overview/
 description: Documentation on Knative Developer Overview
+type: concept
+tags:
+- devops
+- kubernetes
+- knative
+timestamp: '2026-06-01T14:55:10Z'
 ---
 
 # Knative Developer Overview

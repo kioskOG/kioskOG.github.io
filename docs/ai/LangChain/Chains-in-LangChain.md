@@ -6,6 +6,11 @@ parent_url: /docs/ai/LangChain/
 nav_order: 5
 permalink: /docs/ai/LangChain/Chains-in-LangChain/
 description: LangChain Chains — The Pipeline Architecture of AI Applications.
+type: concept
+tags:
+- ai
+- langchain
+timestamp: '2026-05-12T11:12:37Z'
 ---
 
 <p align="center">

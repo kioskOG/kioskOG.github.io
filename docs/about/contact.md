@@ -7,28 +7,31 @@ permalink: /docs/about/contact/
 hero_tag: Contact
 profile_image: /profile-image.png
 profile_alt: Jatin Sharma
-hero_title: "✉️ Get in Touch"
-hero_intro: >
-  <p>I'd love to hear from you! Whether you have a question, want to collaborate, or just want to say hi, feel free to reach out.</p>
+hero_title: ✉️ Get in Touch
+hero_intro: '<p>I''d love to hear from you! Whether you have a question, want to collaborate,
+  or just want to say hi, feel free to reach out.</p>
 
+  '
 nav_buttons:
-  - href: /docs/about/
-    label: "About Me"
-    icon: "fas fa-user-circle"
-  - href: /docs/devops/
-    label: "DevOps Projects"
-    icon: "fas fa-project-diagram"
-
-social_html: |
-  <a href="mailto:jatinvashishtha110@gmail.com" title="Email Jatin via Gmail" aria-label="Email Jatin via Gmail">
-    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail Badge" loading="lazy"/>
-  </a>
-  <a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener" title="LinkedIn" aria-label="Visit Jatin on LinkedIn">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge" loading="lazy"/>
-  </a>
-  <a href="https://github.com/kioskog" target="_blank" rel="noopener" title="GitHub" aria-label="Visit Jatin on GitHub">
-    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Badge" loading="lazy"/>
-  </a>
+- href: /docs/about/
+  label: About Me
+  icon: fas fa-user-circle
+- href: /docs/devops/
+  label: DevOps Projects
+  icon: fas fa-project-diagram
+social_html: "<a href=\"mailto:jatinvashishtha110@gmail.com\" title=\"Email Jatin\
+  \ via Gmail\" aria-label=\"Email Jatin via Gmail\">\n  <img src=\"https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white\"\
+  \ alt=\"Gmail Badge\" loading=\"lazy\"/>\n</a>\n<a href=\"https://www.linkedin.com/in/jatin-devops/\"\
+  \ target=\"_blank\" rel=\"noopener\" title=\"LinkedIn\" aria-label=\"Visit Jatin\
+  \ on LinkedIn\">\n  <img src=\"https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white\"\
+  \ alt=\"LinkedIn Badge\" loading=\"lazy\"/>\n</a>\n<a href=\"https://github.com/kioskog\"\
+  \ target=\"_blank\" rel=\"noopener\" title=\"GitHub\" aria-label=\"Visit Jatin on\
+  \ GitHub\">\n  <img src=\"https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white\"\
+  \ alt=\"GitHub Badge\" loading=\"lazy\"/>\n</a>"
+type: concept
+tags:
+- about
+timestamp: '2026-06-03T10:14:12Z'
 ---
 
 <!-- Contact Details -->

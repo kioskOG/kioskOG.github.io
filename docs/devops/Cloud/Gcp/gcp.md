@@ -5,6 +5,12 @@ parent: Cloud Projects
 nav_order: 1
 permalink: /docs/devops/Cloud/Gcp/gcp/
 description: Documentation for Google Cloud Platform.
+type: concept
+tags:
+- devops
+- cloud
+- gcp
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 # Google Cloud Platform Projects

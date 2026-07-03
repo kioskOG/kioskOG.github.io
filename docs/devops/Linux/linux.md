@@ -1,20 +1,27 @@
 ---
 layout: full-bleed-glass
-title: "🐧 Linux Projects"
+title: 🐧 Linux Projects
 parent: Devops
 nav_order: 3
 permalink: /docs/devops/Linux/
 hero_tag: Linux
-hero_title: "🐧 Linux Projects"
-hero_intro: >
-  <p>System administration, security, SIEM/XDR, high-availability setups, networking, and kernel internals. Real-world production guides for Linux engineers.</p>
+hero_title: 🐧 Linux Projects
+hero_intro: '<p>System administration, security, SIEM/XDR, high-availability setups,
+  networking, and kernel internals. Real-world production guides for Linux engineers.</p>
+
+  '
 nav_buttons:
-  - href: /docs/devops/
-    label: "All DevOps Topics"
-    icon: "fas fa-th-large"
-  - href: /docs/about/contact/
-    label: "Get in Touch"
-    icon: "fas fa-envelope"
+- href: /docs/devops/
+  label: All DevOps Topics
+  icon: fas fa-th-large
+- href: /docs/about/contact/
+  label: Get in Touch
+  icon: fas fa-envelope
+type: concept
+tags:
+- devops
+- linux
+timestamp: '2026-06-04T11:57:28Z'
 ---
 
 <section class="projects-section reveal" aria-labelledby="linux-siem">

@@ -7,6 +7,12 @@ nav_order: 1
 description: Sap Hana Problem Solution
 author: Jatin Sharma
 permalink: /docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/
+type: concept
+tags:
+- devops
+- cloud
+- gcp
+timestamp: '2026-04-16T18:17:09Z'
 ---
 
 ## Context
