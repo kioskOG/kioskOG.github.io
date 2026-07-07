@@ -14,12 +14,8 @@
   <!-- Theme Blocker Script -->
   <script>
     (function () {
-      var savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-      }
+      var savedTheme = localStorage.getItem('theme-preset') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
     })();
   </script>
 
@@ -61,6 +57,7 @@
     crossorigin="anonymous" />
   <!-- Shared Portfolio CSS -->
   <link rel="stylesheet" href="{{ '/assets/portfolio.css' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/assets/css/tts-player.css' | relative_url }}" />
 
   <style>
     :root {
@@ -735,9 +732,28 @@
             <span>Search</span>
             <span class="search-kbd">⌘K</span>
           </button>
-          <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark mode" type="button">
-            <i class="fas fa-moon" id="theme-toggle-icon"></i>
-          </button>
+          <div class="theme-select-container">
+            <button class="theme-dropdown-btn" id="theme-dropdown-btn" aria-label="Select Theme" type="button">
+              <i class="fas fa-palette" id="theme-dropdown-icon"></i>
+            </button>
+            <div class="theme-dropdown" id="theme-dropdown">
+              <button class="theme-dropdown-item" data-theme-preset="light">
+                <span class="theme-swatch swatch-light"></span> Light
+              </button>
+              <button class="theme-dropdown-item" data-theme-preset="dark">
+                <span class="theme-swatch swatch-dark"></span> Dark
+              </button>
+              <button class="theme-dropdown-item" data-theme-preset="dracula">
+                <span class="theme-swatch swatch-dracula"></span> Dracula
+              </button>
+              <button class="theme-dropdown-item" data-theme-preset="nord">
+                <span class="theme-swatch swatch-nord"></span> Nord
+              </button>
+              <button class="theme-dropdown-item" data-theme-preset="emerald">
+                <span class="theme-swatch swatch-emerald"></span> Emerald
+              </button>
+            </div>
+          </div>
           <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
@@ -929,36 +945,7 @@
         });
       }
 
-      // Theme Toggle Logic
-      var toggle = document.getElementById('theme-toggle');
-      if (toggle) {
-        toggle.addEventListener('click', function () {
-          var currentTheme = document.documentElement.getAttribute('data-theme');
-          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          if (newTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-          } else {
-            document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
-          }
-          updateToggleIcon(newTheme);
-        });
-      }
 
-      function updateToggleIcon(theme) {
-        var icon = document.getElementById('theme-toggle-icon');
-        if (icon) {
-          if (theme === 'dark') {
-            icon.className = 'fas fa-sun';
-          } else {
-            icon.className = 'fas fa-moon';
-          }
-        }
-      }
-
-      var activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      updateToggleIcon(activeTheme);
 
       // Auto-generate TOC from article headings
       var toc = document.getElementById('toc-list');
@@ -1199,6 +1186,7 @@
   <!-- Lunr.js + Search -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" crossorigin="anonymous"></script>
   <script src="{{ '/assets/search.js' | relative_url }}"></script>
+  <script src="{{ '/assets/effects.js' | relative_url }}"></script>
 
   <!-- Mermaid Diagram Rendering Support -->
   <script>
@@ -1236,6 +1224,19 @@
       }
     });
   </script>
+
+  <!-- TTS Feature -->
+  <script src="{{ '/assets/js/tts/tts-store.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/tts/bookmark-store.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/tts/sentence-segmenter.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/tts/speech-normalizer.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/tts/article-extractor.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/tts/speech-engine.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/tts/listening-time.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/tts/media-session-controller.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/tts/article-player.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/tts/floating-player.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/tts/index.js' | relative_url }}"></script>
 
 </body>
 

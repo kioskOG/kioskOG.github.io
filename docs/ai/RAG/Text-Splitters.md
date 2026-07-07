@@ -146,7 +146,7 @@ Suppose you have a text and set the chunk size to 100 characters:
 In LangChain, this is implemented using `CharacterTextSplitter`:
 
 ```python
-from langchain.text_splitter import CharacterTextSplitter
+from langchain_text_splitters import CharacterTextSplitter
 
 text = """Your text goes here....."""
 
@@ -159,7 +159,17 @@ splitter = CharacterTextSplitter(
 result = splitter.split_text(text)
 
 print(result)
+```
 
+**Output:**
+
+```text
+[
+ 'In this section, we will explore how Text Splitters work in LangChain, cover different types of text splitting, and understand how to optimize chunk sizes and overlap.',
+ 'First, let\'s discuss what text splitting actually is.',
+ 'Suppose you have a very large text file or PDF, maybe thousands of pages long, and you want to perform some kind of processing on it.',
+ 'Obviously, processing such a huge PDF all at once would be very difficult. So an obvious solution is to divide the entire PDF into smaller chunks.'
+]
 ```
 
 #### Connecting Document Loaders with Text Splitters
@@ -167,7 +177,7 @@ Usually, instead of splitting raw text strings directly, you want to split stand
 
 ```python
 from langchain_community.document_loaders import PyPDFLoader
-from langchain.text_splitter import CharacterTextSplitter
+from langchain_text_splitters import CharacterTextSplitter
 
 # 1. Load documents (returns list of Documents, one per page)
 loader = PyPDFLoader("file.pdf")
@@ -333,7 +343,7 @@ Here is the step-by-step breakdown showing the recursive splitting and final mer
 #### Example 1:-
 
 ```python
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 text = """
 Space exploration has led to incredible scientific discoveries. From landing on the Moon to exploring Mars, humanity continues to push the boundaries of what’s possible beyond our planet.
@@ -397,7 +407,7 @@ To solve this, LangChain provides language-specific recursive splitters that use
 You can instantiate a structured splitter using the `from_language` constructor of `RecursiveCharacterTextSplitter`:
 
 ```python
-from langchain.text_splitter import RecursiveCharacterTextSplitter, Language
+from langchain_text_splitters import RecursiveCharacterTextSplitter, Language
 
 # 1. Example code snippet to split
 python_code = """
@@ -481,7 +491,7 @@ LangChain provides the `SemanticChunker` (present in `langchain_experimental`). 
 
 ```python
 # Note: Requires langchain-experimental and an embedding model package
-from langchain_experimental.text_splitter import SemanticChunker
+from langchain_text_splitters import SemanticChunker
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
 # Initialize the embedding model

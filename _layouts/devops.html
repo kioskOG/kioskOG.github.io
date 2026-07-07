@@ -1,6 +1,6 @@
 ---
-# Artificial Intelligence Theme Layout (Human-Centric & Modern)
-# Used by: docs/ai/ai.md
+# DevOps Theme Layout (Platform-Centric & Modern)
+# Used by: docs/devops/devops.md
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +31,7 @@
 
   <style>
     :root {
-      --grad-primary: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      --grad-primary: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
     }
 
     body {
@@ -44,33 +44,6 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
       background-blend-mode: overlay;
       opacity: 0.98;
-    }
-
-    /* Navigation - Clean & Minimal */
-    .site-nav {
-      background: rgba(15, 17, 21, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-weight: 800;
-      letter-spacing: -1px;
-      font-size: 1.2rem;
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .nav-links a {
-      color: var(--text-dim);
-      font-weight: 500;
-      font-size: 0.875rem;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.nav-active {
-      color: #fff;
     }
 
     /* Hero - Editorial Focus */
@@ -87,7 +60,7 @@
       text-transform: uppercase;
       font-weight: 700;
       letter-spacing: 2px;
-      color: var(--accent-purple);
+      color: var(--accent-blue);
       margin-bottom: 24px;
       display: block;
     }
@@ -111,7 +84,7 @@
 
     /* Subtle Gradient underline for emphasis */
     .ink-underline {
-      background-image: linear-gradient(120deg, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
+      background-image: linear-gradient(120deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
       background-repeat: no-repeat;
       background-size: 100% 0.3em;
       background-position: 0 88%;
@@ -150,17 +123,14 @@
     }
 
     .btn-text:hover {
-      color: var(--accent-purple);
+      color: var(--accent-blue);
     }
 
-    /* Content Cards - Structured & Clean */
     .page-content {
       max-width: 1000px;
       margin: 0 auto;
       padding: 0 24px 100px;
     }
-
-
 
     /* Footer */
     .site-footer-main {
@@ -251,16 +221,15 @@
 
     <!-- HERO -->
     <header class="page-hero">
-      <span class="hero-label">// Protocol: {{ page.hero_tag | default: 'Artificial Intelligence' }}</span>
+      <span class="hero-label">// Protocol: {{ page.hero_tag | default: 'Platform Engineering' }}</span>
       <h1 class="hero-title">
-        Building <span class="ink-underline">Autonomous Systems</span> that think like humans.
+        Deploying <span class="ink-underline">Infrastructure & Clusters</span> at scale.
       </h1>
       <p class="hero-intro">
-        Bridging the gap between computational power and human-centric design. Focused on agentic workflows, scalable
-        inference, and ethical AI development.
+        Orchestration, automation, security configuration, and observability for resilient web-scale platforms.
       </p>
       <div class="hero-actions">
-        <a href="#content" class="btn-human">Explore Documentation <i class="fas fa-arrow-right"></i></a>
+        <a href="#content" class="btn-human">Explore Focus Areas <i class="fas fa-arrow-right"></i></a>
         <a href="{{ '/docs/about/contact/' | relative_url }}" class="btn-text">Get in Touch</a>
       </div>
     </header>
@@ -327,7 +296,6 @@
   <script>
     (function () {
       'use strict';
-
 
       // Back to Top Button Logic
       var bttBtn = document.getElementById('back-to-top');

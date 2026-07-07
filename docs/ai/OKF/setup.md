@@ -2,7 +2,7 @@
 title: Google Open Knowledge Format (OKF) Setup Guide
 layout: doc-page
 parent: AI | Jatin Sharma
-nav_order: 3
+nav_order: 4
 permalink: /docs/ai/OKF/setup/
 description: A comprehensive guide on setting up and managing a personal or organizational knowledge base using the Google Open Knowledge Format (OKF) for AI agent consumption.
 type: concept

@@ -1,5 +1,5 @@
 ---
-layout: full-bleed-glass
+layout: ai
 title: AI | Jatin Sharma
 nav_order: 5
 permalink: /docs/ai/
@@ -35,58 +35,75 @@ timestamp: '2026-06-30T11:56:08Z'
 <section class="projects-section reveal" aria-labelledby="ai-heading">
   <h2 id="ai-heading">🤖 AI Systems & Workflows</h2>
 
-  <article class="project-card card-gold reveal">
-    <div class="card-link" tabindex="0">
-      <div class="project-head">
-        <h3 class="project-title">Model Context Protocol (MCP)</h3>
-        <a class="project-open" href="/docs/ai/MCP/" aria-label="View MCP docs">
-          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-        </a>
+  <div class="bento-projects-grid">
+    <article class="project-card card-gold wide reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">Model Context Protocol (MCP)</h3>
+          <a class="project-open" href="/docs/ai/MCP/" aria-label="View MCP docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">Standardizing how AI models connect to data and tools. Exploring the paradigm shift in AI integration.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/ai/MCP/why-mcp/">Why MCP?</a>
+          <a class="tag" href="/docs/ai/MCP/MCP-Lifecycle/">MCP Lifecycle</a>
+          <a class="tag" href="/docs/ai/MCP/Build-local-mcp-server/">Build Local MCP Server</a>
+        </div>
       </div>
-      <p class="project-desc">Standardizing how AI models connect to data and tools. Exploring the paradigm shift in AI integration.</p>
-      <div class="tags">
-        <a class="tag" href="/docs/ai/MCP/why-mcp/">Why MCP?</a>
-        <a class="tag" href="/docs/ai/MCP/MCP-Lifecycle/">MCP Lifecycle</a>
-        <a class="tag" href="/docs/ai/MCP/Build-local-mcp-server/">Build Local MCP Server</a>
-      </div>
-    </div>
-  </article>
+    </article>
 
-  <article class="project-card card-gold reveal">
-    <div class="card-link" tabindex="0">
-      <div class="project-head">
-        <h3 class="project-title">LangChain</h3>
-        <a class="project-open" href="/docs/ai/LangChain/" aria-label="View LangChain docs">
-          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-        </a>
+    <article class="project-card card-gold normal reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">LangChain</h3>
+          <a class="project-open" href="/docs/ai/LangChain/" aria-label="View LangChain docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">LangChain is a development framework for building applications powered by language models. It provides the tools and abstractions needed to connect LLMs to other data sources, services, and systems, enabling developers to create more powerful, reliable, and customized AI applications.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/ai/LangChain/Introduction-to-LangChain/">Introduction to LangChain</a>
+          <a class="tag" href="/docs/ai/LangChain/Langchain-Components/">LangChain Components</a>
+          <a class="tag" href="/docs/ai/LangChain/Langchain-models/">LangChain Models</a>
+          <a class="tag" href="/docs/ai/LangChain/Langchain-models-via-coding-examples/">Coding Guide</a>
+          <a class="tag" href="/docs/ai/LangChain/Chains-in-LangChain/">LangChain Chains</a>
+          <a class="tag" href="/docs/ai/LangChain/LangChain-Chains-Hands-on-Coding-Guide/">Coding Guide</a>
+        </div>
       </div>
-      <p class="project-desc">LangChain is a development framework for building applications powered by language models. It provides the tools and abstractions needed to connect LLMs to other data sources, services, and systems, enabling developers to create more powerful, reliable, and customized AI applications.</p>
-      <div class="tags">
-        <a class="tag" href="/docs/ai/LangChain/Introduction-to-LangChain/">Introduction to LangChain</a>
-        <a class="tag" href="/docs/ai/LangChain/Langchain-Components/">LangChain Components</a>
-        <a class="tag" href="/docs/ai/LangChain/Langchain-models/">LangChain Models</a>
-        <a class="tag" href="/docs/ai/LangChain/Langchain-models-via-coding-examples/">LangChain Models - Hands-on Coding Guide</a>
-        <a class="tag" href="/docs/ai/LangChain/Chains-in-LangChain/">LangChain Chains — The Pipeline Architecture of AI Applications</a>
-        <a class="tag" href="/docs/ai/LangChain/LangChain-Chains-Hands-on-Coding-Guide/">LangChain Chains - Hands-on Coding Guide</a>
-      </div>
-    </div>
-  </article>
+    </article>
 
-  <article class="project-card card-gold reveal">
-    <div class="card-link" tabindex="0">
-      <div class="project-head">
-        <h3 class="project-title">RAG</h3>
-        <a class="project-open" href="/docs/ai/RAG/" aria-label="View RAG docs">
-          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-        </a>
+    <article class="project-card card-gold wide reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">RAG</h3>
+          <a class="project-open" href="/docs/ai/RAG/" aria-label="View RAG docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">RAG is a technique for improving the accuracy of responses generated by Large Language Models.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/ai/RAG/what-why-how/">What, Why & How</a>
+          <a class="tag" href="/docs/ai/RAG/Document-loaders/">Document Loaders</a>
+          <a class="tag" href="/docs/ai/RAG/Text-Splitters/">Text Splitters</a>
+          <a class="tag" href="/docs/ai/RAG/Vector-Stores/">Vector Stores</a>
+        </div>
       </div>
-      <p class="project-desc">RAG is a technique for improving the accuracy of responses generated by Large Language Models.</p>
-      <div class="tags">
-        <a class="tag" href="/docs/ai/RAG/what-why-how/">What, Why & How</a>
-        <a class="tag" href="/docs/ai/RAG/Document-loaders/">Document Loaders</a>
-        <a class="tag" href="/docs/ai/RAG/Text-Splitters/">Text Splitters</a>
-        <a class="tag" href="/docs/ai/RAG/Vector-Stores/">Vector Stores</a>
+    </article>
+
+    <article class="project-card card-gold normal reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">OKF</h3>
+          <a class="project-open" href="/docs/ai/OKF/" aria-label="View OKF docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">OKF is a vendor-neutral, open-source specification introduced by Google Cloud in June 2026. It standardizes how organizational documentation is structured so that it is easily discoverable, traversable, and readable by both humans and AI agents.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/ai/OKF/setup/">Setup Guide</a>
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
+  </div>
 </section>

@@ -13,12 +13,8 @@
   <!-- Theme Blocker Script -->
   <script>
     (function () {
-      var savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-      }
+      var savedTheme = localStorage.getItem('theme-preset') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
     })();
   </script>
 
@@ -35,21 +31,12 @@
 
   <style>
     :root {
-      --bg: #0f1115;
-      --bg-accent: #161a1f;
-      --text-main: #f1f5f9;
-      --text-dim: #94a3b8;
-      --ai-accent: #10b981; /* Changed to Emerald for ML */
-      --ai-accent-soft: rgba(16, 185, 129, 0.1);
-      --border: rgba(255, 255, 255, 0.06);
-      --radius: 12px;
-      --accent-blue: var(--ai-accent);
-      --grad-primary: linear-gradient(135deg, var(--ai-accent), #3b82f6);
+      --grad-primary: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
     }
 
     body {
       background-color: var(--bg);
-      color: var(--text-main);
+      color: var(--text-body);
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       line-height: 1.5;
       overflow-x: hidden;
@@ -95,12 +82,12 @@
     }
 
     .hero-label {
-      font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
-      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
       text-transform: uppercase;
+      font-weight: 700;
       letter-spacing: 2px;
-      color: var(--ai-accent);
+      color: var(--accent-green);
       margin-bottom: 24px;
       display: block;
     }
@@ -110,20 +97,21 @@
       font-weight: 800;
       letter-spacing: -0.04em;
       line-height: 1.05;
-      color: #fff;
+      color: var(--text-heading);
       margin-bottom: 28px;
     }
 
     .hero-intro {
       font-size: 1.25rem;
-      color: var(--text-dim);
+      color: var(--text-muted);
       line-height: 1.6;
       max-width: 650px;
       margin-bottom: 40px;
     }
 
+    /* Subtle Gradient underline for emphasis */
     .ink-underline {
-      background-image: linear-gradient(120deg, var(--ai-accent-soft) 0%, var(--ai-accent-soft) 100%);
+      background-image: linear-gradient(120deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%);
       background-repeat: no-repeat;
       background-size: 100% 0.3em;
       background-position: 0 88%;
@@ -136,8 +124,8 @@
       gap: 12px;
       padding: 14px 28px;
       border-radius: 8px;
-      background: #fff;
-      color: #000;
+      background: var(--text-heading);
+      color: var(--bg);
       font-weight: 600;
       font-size: 0.93rem;
       text-decoration: none;
@@ -155,60 +143,24 @@
       align-items: center;
       gap: 8px;
       padding: 14px 24px;
-      color: #fff;
+      color: var(--text-heading);
       font-weight: 600;
       text-decoration: none;
       transition: color 0.2s;
     }
 
     .btn-text:hover {
-      color: var(--ai-accent);
+      color: var(--accent-green);
     }
 
     /* Content Cards - Structured & Clean */
     .page-content {
       max-width: 1000px;
       margin: 0 auto;
-      padding-bottom: 100px;
+      padding: 0 24px 100px;
     }
 
-    .project-card {
-      background: var(--bg-accent);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 40px;
-      transition: border-color 0.3s, transform 0.3s;
-      margin-bottom: 24px;
-    }
 
-    .project-card:hover {
-      border-color: rgba(255, 255, 255, 0.15);
-      transform: translateY(-4px);
-    }
-
-    .project-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-    }
-
-    .project-desc {
-      font-size: 1rem;
-      color: var(--text-dim);
-      margin-bottom: 24px;
-    }
-
-    .tag {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border);
-      color: var(--text-dim);
-      padding: 5px 12px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
 
     /* Footer */
     .site-footer-main {
@@ -236,26 +188,62 @@
 </head>
 
 <body>
+  <div class="particles-wrapper">
+    <canvas id="particle-canvas"></canvas>
+  </div>
+
   <div class="page-wrap">
     <!-- NAV -->
-    <nav class="site-nav" role="navigation">
+    <nav class="site-nav" role="navigation" aria-label="Primary navigation">
       <div class="nav-inner">
         <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma</a>
         <ul class="nav-links" id="nav-links">
-          <li><a href="{{ '/' | relative_url }}">Home</a></li>
-          <li><a href="{{ '/docs/about/' | relative_url }}">About</a></li>
-          <li><a href="{{ '/docs/devops/' | relative_url }}">DevOps</a></li>
-          <li><a href="{{ '/docs/ml/' | relative_url }}" class="nav-active">ML</a></li>
-          <li><a href="{{ '/docs/ai/' | relative_url }}">AI</a></li>
-          <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio</a></li>
+          <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="nav-active" {% endif %}>Home</a></li>
+          <li><a href="{{ '/docs/about/' | relative_url }}" {% if page.url contains '/docs/about/' %}class="nav-active"
+              {% endif %}>About</a></li>
+          <li><a href="{{ '/docs/devops/' | relative_url }}" {% if page.url contains '/docs/devops/'
+              %}class="nav-active" {% endif %}>DevOps</a></li>
+          <li><a href="{{ '/docs/ml/' | relative_url }}" {% if page.url contains '/docs/ml/'
+              %}class="nav-active" {% endif %}>ML</a></li>
+          <li><a href="{{ '/docs/ai/' | relative_url }}" {% if page.url contains '/docs/ai/'
+              %}class="nav-active" {% endif %}>AI</a></li>
+          <li><a href="{{ '/brain/' | relative_url }}" {% if page.url contains '/brain/'
+              %}class="nav-active" {% endif %}>Brain</a></li>
+          <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i
+                class="fas fa-external-link-alt" style="font-size:0.7em;opacity:0.7"></i></a></li>
+          <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta" {% if page.url contains 'contact'
+              %}style="opacity:0.85" {% endif %}>Get in Touch</a></li>
         </ul>
         <div class="nav-actions">
-          <button class="nav-search-btn" data-search-trigger type="button">
+          <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
             <i class="fas fa-search" aria-hidden="true"></i>
             <span>Search</span>
+            <span class="search-kbd">⌘K</span>
           </button>
-          <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark mode" type="button">
-            <i class="fas fa-moon" id="theme-toggle-icon"></i>
+          <div class="theme-select-container">
+            <button class="theme-dropdown-btn" id="theme-dropdown-btn" aria-label="Select Theme" type="button">
+              <i class="fas fa-palette" id="theme-dropdown-icon"></i>
+            </button>
+            <div class="theme-dropdown" id="theme-dropdown">
+              <button class="theme-dropdown-item" data-theme-preset="light">
+                <span class="theme-swatch swatch-light"></span> Light
+              </button>
+              <button class="theme-dropdown-item" data-theme-preset="dark">
+                <span class="theme-swatch swatch-dark"></span> Dark
+              </button>
+              <button class="theme-dropdown-item" data-theme-preset="dracula">
+                <span class="theme-swatch swatch-dracula"></span> Dracula
+              </button>
+              <button class="theme-dropdown-item" data-theme-preset="nord">
+                <span class="theme-swatch swatch-nord"></span> Nord
+              </button>
+              <button class="theme-dropdown-item" data-theme-preset="emerald">
+                <span class="theme-swatch swatch-emerald"></span> Emerald
+              </button>
+            </div>
+          </div>
+          <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
           </button>
         </div>
       </div>
@@ -286,12 +274,44 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="site-footer-main">
+    <footer class="site-footer-main" role="contentinfo">
       <div class="footer-inner-main">
         <div class="footer-brand-main">
           <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma</a>
-          <p>Modern Platform Engineering for the Intelligent Era.</p>
+          <p>DevOps Engineer &amp; Platform Architect building scalable cloud-native systems. Passionate about
+            automation, observability, and GitOps.</p>
+          <div class="footer-socials-main">
+            <a class="social-pill" href="https://github.com/kioskOG" target="_blank" rel="noopener"
+              aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+            <a class="social-pill" href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener"
+              aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+            <a class="social-pill" href="mailto:jatinvashishtha110@gmail.com" aria-label="Email"><i
+                class="fas fa-envelope" aria-hidden="true"></i></a>
+          </div>
         </div>
+        <div class="footer-col-main">
+          <h4>Quick Links</h4>
+          <ul class="footer-links-main">
+            <li><a href="{{ '/' | relative_url }}">Home</a></li>
+            <li><a href="{{ '/docs/about/' | relative_url }}">About</a></li>
+            <li><a href="{{ '/docs/devops/' | relative_url }}">DevOps Docs</a></li>
+            <li><a href="{{ '/docs/ml/' | relative_url }}">ML Models</a></li>
+            <li><a href="{{ '/docs/ai/' | relative_url }}">AI Systems</a></li>
+            <li><a href="{{ '/docs/about/contact/' | relative_url }}">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col-main">
+          <h4>Resources</h4>
+          <ul class="footer-links-main">
+            <li><a href="https://github.com/kioskOG" target="_blank" rel="noopener">GitHub Profile</a></li>
+            <li><a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="javascript:void(0)" data-search-trigger>Search Docs</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom-main">
+        <span>&copy; <span id="year"></span> Jatin Sharma. All rights reserved.</span>
+        <span>Built with &#10084;&#65039; &amp; deployed on GitHub Pages</span>
       </div>
     </footer>
   </div>
@@ -301,40 +321,12 @@
     <i class="fas fa-arrow-up" aria-hidden="true"></i>
   </button>
 
-  <script src="/assets/search.js"></script>
+  <script src="{{ '/assets/search.js' | relative_url }}"></script>
+  <script src="{{ '/assets/effects.js' | relative_url }}"></script>
   <script>
     (function () {
       'use strict';
-      // Theme Toggle Logic
-      var toggle = document.getElementById('theme-toggle');
-      if (toggle) {
-        toggle.addEventListener('click', function () {
-          var currentTheme = document.documentElement.getAttribute('data-theme');
-          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          if (newTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-          } else {
-            document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
-          }
-          updateToggleIcon(newTheme);
-        });
-      }
 
-      function updateToggleIcon(theme) {
-        var icon = document.getElementById('theme-toggle-icon');
-        if (icon) {
-          if (theme === 'dark') {
-            icon.className = 'fas fa-sun';
-          } else {
-            icon.className = 'fas fa-moon';
-          }
-        }
-      }
-
-      var activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      updateToggleIcon(activeTheme);
 
       // Back to Top Button Logic
       var bttBtn = document.getElementById('back-to-top');
