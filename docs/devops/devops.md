@@ -1,5 +1,5 @@
 ---
-layout: full-bleed-glass
+layout: devops
 title: DevOps | Jatin Sharma
 nav_order: 3
 permalink: /docs/devops/
@@ -31,248 +31,191 @@ tags:
 timestamp: '2026-06-30T11:56:08Z'
 ---
 
-<!-- Docker -->
-<section class="projects-section reveal" aria-labelledby="docker-heading">
-  <h2 id="docker-heading">🐳 Docker</h2>
-  <article class="project-card card-coral reveal">
-    <div class="card-link" tabindex="0">
-      <div class="project-head">
-        <h3 class="project-title">Containerization</h3>
-        <a class="project-open" href="/docs/devops/docker/" aria-label="View Docker docs">
-          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-        </a>
-      </div>
-      <p class="project-desc">Containerization technology for packaging and running apps in isolated environments.</p>
-      <div class="tags">
-        <a class="tag" href="/docs/devops/docker/Netbird/">Netbird VPN Server</a>
-        <a class="tag" href="/docs/devops/docker/traefik/">Traefik Setup</a>
-        <a class="tag" href="/docs/devops/docker/uptime-kuma/">Uptime Kuma</a>
-        <a class="tag" href="/docs/devops/docker/Atlasian/">Atlasian</a>
-        <a class="tag" href="/docs/devops/docker/Authentik/">Authentik</a>
-        <a class="tag" href="/docs/devops/docker/hashicorp-vault/">HashiCorp Vault</a>
-        <a class="tag" href="/docs/devops/docker/Wazuh/">Wazuh</a>
-        <a class="tag" href="/docs/devops/docker/keycloak/">Keycloak</a>
-        <a class="tag" href="/docs/devops/docker/minio/">MinIO Intro</a>
-        <a class="tag" href="/docs/devops/docker/minio-limits/">MinIO Limits</a>
-      </div>
-    </div>
-  </article>
-</section>
+<!-- DevOps Focus Areas Bento Dashboard -->
+<section class="projects-section reveal" aria-labelledby="devops-heading">
+  <h2 id="devops-heading">⚙️ DevOps Focus Areas & Lab Guides</h2>
 
-<!-- Kubernetes -->
-<section class="projects-section reveal" aria-labelledby="k8s-heading">
-  <h2 id="k8s-heading">☸️ Kubernetes</h2>
-  <article class="project-card card-teal reveal">
-    <div class="card-link" tabindex="0">
-      <div class="project-head">
-        <h3 class="project-title">Orchestration & Platform</h3>
-        <a class="project-open" href="/docs/devops/kubernetes/" aria-label="View Docker docs">
-          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-        </a>
+  <div class="bento-projects-grid">
+    <!-- Kubernetes (Wide - Row 1) -->
+    <article class="project-card card-teal wide reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">☸️ Kubernetes & Orchestration</h3>
+          <a class="project-open" href="/docs/devops/kubernetes/" aria-label="View Kubernetes docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">Orchestrating, scaling, and managing containerized applications at scale.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/devops/kubernetes/velaro/">Velaro</a>
+          <a class="tag" href="/docs/devops/kubernetes/Traefik/">Traefik</a>
+          <a class="tag" href="/docs/devops/kubernetes/Cert-manager/">cert-manager</a>
+          <a class="tag" href="/docs/devops/kubernetes/coredns-custom-domains/">CoreDNS</a>
+          <a class="tag" href="/docs/devops/kubernetes/debug-containers/">Debug Containers</a>
+          <a class="tag" href="/docs/devops/kubernetes/cilium/cilium-intro/">Cilium Intro</a>
+          <a class="tag" href="/docs/devops/kubernetes/cilium/cilium-installation-on-eks/">EKS Cilium</a>
+          <a class="tag" href="/docs/devops/kubernetes/prometheus-grafana/">EKS Prometheus</a>
+          <a class="tag" href="/docs/devops/kubernetes/helm">Helm Intro</a>
+          <a class="tag" href="/docs/devops/kubernetes/AWS-ECS-to-EKS-Migration/">ECS → EKS Migration</a>
+          <a class="tag" href="/docs/devops/kubernetes/knative/">Knative Intro</a>
+          <a class="tag" href="/docs/devops/kubernetes/karpenter/">Karpenter Intro</a>
+          <a class="tag" href="/docs/devops/kubernetes/Understanding-Ingress-Controllers/">Ingress Guides</a>
+        </div>
       </div>
-      <p class="project-desc">Orchestrating, scaling, and managing containerized applications.</p>
-      <div class="tags">
-        <a class="tag" href="/docs/devops/kubernetes/velaro/">Velaro</a>
-        <a class="tag" href="/docs/devops/kubernetes/Traefik/">Traefik</a>
-        <a class="tag" href="/docs/devops/kubernetes/Cert-manager/">cert-manager</a>
-        <a class="tag" href="/docs/devops/kubernetes/coredns-custom-domains/">CoreDNS Custom Domains</a>
-        <a class="tag" href="/docs/devops/kubernetes/debug-containers/">Debug Containers</a>
-        <a class="tag" href="/docs/devops/kubernetes/Grafana-password-reset/">Grafana Password Reset</a>
-        <a class="tag" href="/docs/devops/kubernetes/cilium/cilium-intro/">Cilium & Hubble Intro</a>
-        <a class="tag" href="/docs/devops/kubernetes/cilium/cilium-installation-on-eks/">Install Cilium on EKS</a>
-        <a class="tag" href="/docs/devops/kubernetes/prometheus-grafana/">Prometheus & Grafana on EKS</a>
-        <a class="tag" href="/docs/devops/kubernetes/cilium/cilium-monitoring/">Cilium Monitoring</a>
-        <a class="tag" href="/docs/devops/kubernetes/helm">Helm Intro</a>
-        <a class="tag" href="/docs/devops/kubernetes/AWS-ECS-to-EKS-Migration/">ECS → EKS Migration (POC)</a>
-        <a class="tag" href="/docs/devops/kubernetes/Kubernetes-NodePort-and-iptables-rules/">NodePort & iptables</a>
-        <a class="tag" href="/docs/devops/kubernetes/Kubernetes-Traffic-Policies/">Traffic Policies</a>
-        <a class="tag" href="/docs/devops/kubernetes/knative/">Knative Intro</a>
-        <a class="tag" href="/docs/devops/kubernetes/knative/knative-serving-part-1/">Knative Serving Part 1</a>
-        <a class="tag" href="/docs/devops/kubernetes/knative/knative-serving-part-2/">Knative Serving Part 2</a>
-        <a class="tag" href="/docs/devops/kubernetes/knative/knative-serving-monitoring/">Knative Monitoring</a>
-        <a class="tag" href="/docs/devops/kubernetes/karpenter/">Karpenter Intro</a>
-        <a class="tag" href="/docs/devops/kubernetes/karpenter/karpenter-setup-in-existing-eks-cluster/">Setup Karpenter</a>
-        <a class="tag" href="/docs/devops/kubernetes/karpenter/karpenter-monitoring/">Karpenter Monitoring</a>
-        <a class="tag" href="/docs/devops/kubernetes/eks-logs-into-cloudwatch-using-fluentbit/">Fluent Bit → CloudWatch</a>
-        <a class="tag" href="/docs/devops/kubernetes/AWS-Load-Balancer-Controller-Setup-for-EKS/">AWS LB Controller</a>
-        <a class="tag" href="/docs/devops/kubernetes/Understanding-Ingress-Controllers/">Ingress Controllers</a>
-        <a class="tag" href="/docs/devops/kubernetes/Installing-NGINX-Ingress/">NGINX Ingress Install</a>
-        <a class="tag" href="/docs/devops/kubernetes/Routing-in-NGINX-Ingress-Controller/">NGINX Routing</a>
-        <a class="tag" href="/docs/devops/kubernetes/Basic-Authentication-using-NGINX-Ingress/">NGINX Basic Auth</a>
-        <a class="tag" href="/docs/devops/kubernetes/secure-your-app-with-https-using-self-signed-tls-certificates/">Ingress Self-Signed TLS</a>
-      </div>
-    </div>
-  </article>
-</section>
+    </article>
 
-<!-- Linux -->
-<section class="projects-section reveal" aria-labelledby="linux-heading">
-  <h2 id="linux-heading">🐧 Linux</h2>
-  <article class="project-card card-brown reveal">
-    <div class="card-link" tabindex="0">
-      <div class="project-head">
-        <h3 class="project-title">Admin, Security & HA</h3>
-        <a class="project-open" href="/docs/devops/Linux/" aria-label="View Docker docs">
-          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-        </a>
+    <!-- Docker (Normal - Row 1) -->
+    <article class="project-card card-coral normal reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">🐳 Containerization</h3>
+          <a class="project-open" href="/docs/devops/docker/" aria-label="View Docker docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">Containerization technology for packaging and running apps in isolated environments.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/devops/docker/Netbird/">Netbird VPN</a>
+          <a class="tag" href="/docs/devops/docker/traefik/">Traefik Setup</a>
+          <a class="tag" href="/docs/devops/docker/uptime-kuma/">Uptime Kuma</a>
+          <a class="tag" href="/docs/devops/docker/Authentik/">Authentik</a>
+          <a class="tag" href="/docs/devops/docker/hashicorp-vault/">Vault</a>
+          <a class="tag" href="/docs/devops/docker/Wazuh/">Wazuh</a>
+          <a class="tag" href="/docs/devops/docker/minio/">MinIO</a>
+        </div>
       </div>
-      <p class="project-desc">System administration, security, SIEM/XDR, networking, and HA setups.</p>
-      <div class="tags">
-        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/">Wazuh Intro</a>
-        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-indexer-setup/">Wazuh Indexer</a>
-        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-server-setup/">Wazuh Server</a>
-        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-dashboard-setup/">Wazuh Dashboard</a>
-        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/FIM/">File Integrity Monitoring</a>
-        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/malware-detection-and-deletion-and-slack-intergarion/">Malware + Slack</a>
-        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-sso-using-keycloak/">Wazuh + Keycloak SSO</a>
-        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-to-monitor-docker/">Wazuh + Docker</a>
-        <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-monitoring-container-runtime/">Container Runtime</a>
-        <a class="tag" href="/docs/devops/Linux/Iptables/iptables/">iptables Intro</a>
-        <a class="tag" href="/docs/devops/Linux/Iptables/ipvs-loadbalancer/">IPVS LB + NGINX</a>
-        <a class="tag" href="/docs/devops/Linux/vpn/vpn/">VPN Intro</a>
-        <a class="tag" href="/docs/devops/Linux/vpn/openvpn-vs-netbird/">OpenVPN vs NetBird</a>
-        <a class="tag" href="/docs/devops/Linux/kernel/kernel/">Linux Kernel</a>
-        <a class="tag" href="/docs/devops/Linux/eBPF/">eBPF Importance</a>
-        <a class="tag" href="/docs/devops/Linux/Postgresql/SETTING-UP-A-POSTGRESQL-HA-CLUSTER/">PostgreSQL HA</a>
-        <a class="tag" href="/docs/devops/Linux/Etcd-cluster-setup/Etcd-cluster-setup/">etcd 3-Node</a>
-        <a class="tag" href="/docs/devops/Linux/HAProxy-cluster-setup/HAProxy-cluster-setup/">HAProxy + Keepalived</a>
-      </div>
-    </div>
-  </article>
-</section>
+    </article>
 
-<!-- Python -->
-<section class="projects-section reveal" aria-labelledby="python-heading">
-  <h2 id="python-heading">🐍 Python</h2>
-  <article class="project-card card-gold reveal">
-    <div class="card-link" tabindex="0">
-      <div class="project-head">
-        <h3 class="project-title">Automation & Tooling</h3>
-        <a class="project-open" href="/docs/devops/python/" aria-label="View Docker docs">
-          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-        </a>
+    <!-- Linux (Normal - Row 2) -->
+    <article class="project-card card-brown normal reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">🐧 Linux Admin & Security</h3>
+          <a class="project-open" href="/docs/devops/Linux/" aria-label="View Linux docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">System administration, security, SIEM/XDR, networking, and HA setups.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/">Wazuh Indexer</a>
+          <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/FIM/">FIM</a>
+          <a class="tag" href="/docs/devops/Linux/SIEM-And-XDR/malware-detection-and-deletion-and-slack-intergarion/">Malware Guard</a>
+          <a class="tag" href="/docs/devops/Linux/Iptables/iptables/">iptables</a>
+          <a class="tag" href="/docs/devops/Linux/vpn/vpn/">VPN</a>
+          <a class="tag" href="/docs/devops/Linux/eBPF/">eBPF</a>
+          <a class="tag" href="/docs/devops/Linux/Postgresql/SETTING-UP-A-POSTGRESQL-HA-CLUSTER/">Postgres HA</a>
+          <a class="tag" href="/docs/devops/Linux/HAProxy-cluster-setup/HAProxy-cluster-setup/">HAProxy</a>
+        </div>
       </div>
-      <p class="project-desc">Automation, scripts, and tooling for DevOps workflows.</p>
-      <div class="tags">
-        <a class="tag" href="/docs/devops/python/netbird-python-utility/">Netbird Utility</a>
-        <a class="tag" href="/docs/devops/python/docker-container-memory-cpu-monitoring/">Docker CPU/Mem Monitoring</a>
-        <a class="tag" href="/docs/devops/python/docker-container-monitoring-script/">Docker Monitoring Script</a>
-        <a class="tag" href="/docs/devops/python/greythr-selenium/README/">Greythr Automation</a>
-        <a class="tag" href="/docs/devops/python/aws-cloudmap-controller/">EKS CloudMap Controller</a>
-        <a class="tag" href="/docs/devops/python/GitHub-Secrets-Scanner/github-secret-scanner/">GitHub Secrets Scanner</a>
-      </div>
-    </div>
-  </article>
-</section>
+    </article>
 
-<!-- Monitoring -->
-<section class="projects-section reveal" aria-labelledby="monitoring-heading">
-  <h2 id="monitoring-heading">📊 Monitoring</h2>
-  <article class="project-card card-purple reveal">
-    <div class="card-link" tabindex="0">
-      <div class="project-head">
-        <h3 class="project-title">Observability</h3>
-        <a class="project-open" href="/docs/devops/monitoring/" aria-label="View Docker docs">
-          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-        </a>
+    <!-- Monitoring (Normal - Row 2) -->
+    <article class="project-card card-orange normal reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">📊 Observability & Monitoring</h3>
+          <a class="project-open" href="/docs/devops/monitoring/" aria-label="View Monitoring docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">Real-time monitoring and observability setups.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/devops/monitoring/apache-hertzbeat/">HertzBeat</a>
+          <a class="tag" href="/docs/devops/monitoring/grafana_tempo/">Tempo Intro</a>
+          <a class="tag" href="/docs/devops/monitoring/grafana_tempo/grafana-tempo-sample-app/">OTel App</a>
+          <a class="tag" href="/docs/devops/monitoring/grafana_tempo/grafana-tempo-loki-promtail-and-prometheus/">Loki + Promtail</a>
+        </div>
       </div>
-      <p class="project-desc">Real-time monitoring and observability tools.</p>
-      <div class="tags">
-        <a class="tag" href="/docs/devops/monitoring/apache-hertzbeat/">Apache HertzBeat Overview</a>
-        <a class="tag" href="/docs/devops/monitoring/apache-hertzbeat/Apache-HertzBeat-docker/">HertzBeat Docker</a>
-        <a class="tag" href="/docs/devops/monitoring/apache-hertzbeat/Apache-HertzBeat-docker-compose/">HertzBeat Compose</a>
-        <a class="tag" href="/docs/devops/monitoring/grafana_tempo/">Grafana Tempo Intro</a>
-        <a class="tag" href="/docs/devops/monitoring/grafana_tempo/Grafana-Tempo-Docker/">Tempo Docker</a>
-        <a class="tag" href="/docs/devops/monitoring/grafana_tempo/grafana-tempo-sample-app/">Python App + OTel</a>
-        <a class="tag" href="/docs/devops/monitoring/grafana_tempo/grafana-tempo-loki-promtail-and-prometheus/">OTel + Loki + Promtail</a>
-      </div>
-    </div>
-  </article>
-</section>
+    </article>
 
-<!-- Cloud -->
-<section class="projects-section reveal" aria-labelledby="cloud-heading">
-  <h2 id="cloud-heading">☁️ Cloud</h2>
-  <article class="project-card card-teal reveal">
-    <div class="card-link" tabindex="0">
-      <div class="project-head">
-        <h3 class="project-title">AWS, GCP & Multi-Cloud</h3>
-        <a class="project-open" href="/docs/devops/Cloud/" aria-label="View Docker docs">
-          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-        </a>
+    <!-- Cloud (Normal - Row 2) -->
+    <article class="project-card card-red normal reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">☁️ Cloud Infrastructure</h3>
+          <a class="project-open" href="/docs/devops/Cloud/" aria-label="View Cloud docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">AWS, GCP, and multi-cloud patterns for modern applications.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/devops/Cloud/tf-state-locking/">Terraform Locking</a>
+          <a class="tag" href="/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/">Client Cost Saving</a>
+          <a class="tag" href="/docs/devops/Cloud/Gcp/Accessing-GCS-from-GKE-Pods-using-Workload-Identity/">GCS Workload Identity</a>
+          <a class="tag" href="/docs/devops/Cloud/Gcp/Cross-cloud-identities-between-GCP-and-AWS/">Cross-Cloud GCP/AWS</a>
+          <a class="tag" href="/docs/devops/Cloud/AWS/aws-firewal/">AWS Firewall</a>
+        </div>
       </div>
-      <p class="project-desc">AWS, GCP, and multi-cloud patterns for DevOps.</p>
-      <div class="tags">
-        <a class="tag" href="/docs/devops/Cloud/tf-state-locking/">Terraform State Locking</a>
-        <a class="tag" href="/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/">Save 40L/year for client</a>
-        <a class="tag" href="/docs/devops/Cloud/Gcp/Secure-Connectivity-to-SAP-HANA-Private-Cloud-via-Cars24-GCP-Project/">SAP HANA Secure Connectivity</a>
-        <a class="tag" href="/docs/devops/Cloud/Gcp/Implementation-SAP-HANA-PCE-Access-via-Cars24-GCP/">SAP HANA PCE Access</a>
-        <a class="tag" href="/docs/devops/Cloud/Gcp/Accessing-GCS-from-GKE-Pods-using-Workload-Identity/">GCS from GKE</a>
-        <a class="tag" href="/docs/devops/Cloud/Gcp/Cross-cloud-identities-between-GCP-and-AWS/">Cross-Cloud GCP↔AWS</a>
-        <a class="tag" href="/docs/devops/Cloud/Gcp/Aws-and-GCP-vpc-comparision/">AWS vs GCP VPC</a>
-        <a class="tag" href="/docs/devops/Cloud/Gcp/Accessing-AWS-Services-from-GKE-using-Workload-Identity-and-Aws-oidc/">AWS from GKE (OIDC)</a>
-        <a class="tag" href="/docs/devops/Cloud/AWS/aws-firewal/">AWS Firewall Egress</a>
-      </div>
-    </div>
-  </article>
-</section>
+    </article>
 
-<!-- System Design -->
-<section class="projects-section reveal" aria-labelledby="sd-heading">
-  <h2 id="sd-heading">🧩 System Design</h2>
-  <article class="project-card card-gold reveal">
-    <div class="card-link" tabindex="0">
-      <div class="project-head">
-        <h3 class="project-title">Concepts & Roadmaps</h3>
-        <a class="project-open" href="/docs/devops/System-Design/" aria-label="View Docker docs">
-          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-        </a>
+    <!-- Python (Half - Row 3) -->
+    <article class="project-card card-purple wide reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">🐍 Automation & Tooling</h3>
+          <a class="project-open" href="/docs/devops/python/" aria-label="View Python docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">Automation, scripts, and custom tooling built in Python.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/devops/python/netbird-python-utility/">Netbird Utility</a>
+          <a class="tag" href="/docs/devops/python/docker-container-monitoring-script/">Docker Monitor</a>
+          <a class="tag" href="/docs/devops/python/greythr-selenium/README/">Greythr Automation</a>
+          <a class="tag" href="/docs/devops/python/aws-cloudmap-controller/">CloudMap Controller</a>
+          <a class="tag" href="/docs/devops/python/GitHub-Secrets-Scanner/github-secret-scanner/">Secrets Scanner</a>
+        </div>
       </div>
-      <p class="project-desc">Concepts, roadmaps, and scalability principles for designing systems.</p>
-      <div class="tags">
-        <a class="tag" href="/docs/devops/System-Design/intro/">Intro to System Design</a>
-        <a class="tag" href="/docs/devops/System-Design/Roadmap/">System Design Roadmap</a>
-        <a class="tag" href="/docs/devops/System-Design/Scaleability/">Scalability</a>
-      </div>
-    </div>
-  </article>
-</section>
+    </article>
 
+    <!-- System Design (Half - Row 3) -->
+    <article class="project-card card-gold wide reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">🧩 System Design Concepts</h3>
+          <a class="project-open" href="/docs/devops/System-Design/" aria-label="View System Design docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">Concepts, roadmaps, and scalability principles for designing robust platforms.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/devops/System-Design/intro/">Intro to System Design</a>
+          <a class="tag" href="/docs/devops/System-Design/Roadmap/">Roadmap</a>
+          <a class="tag" href="/docs/devops/System-Design/Scaleability/">Scalability</a>
+        </div>
+      </div>
+    </article>
 
-<!-- Networking -->
-<section class="projects-section reveal" aria-labelledby="sd-heading">
-  <h2 id="sd-heading"> Networking Concepts </h2>
-  <article class="project-card card-gold reveal">
-    <div class="card-link" tabindex="0">
-      <div class="project-head">
-        <h3 class="project-title">Concepts & Roadmaps</h3>
-        <a class="project-open" href="/docs/devops/Networking/" aria-label="View Docker docs">
-          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-        </a>
+    <!-- Networking (Half - Row 4) -->
+    <article class="project-card card-gold wide reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">🌐 Networking Concepts</h3>
+          <a class="project-open" href="/docs/devops/Networking/" aria-label="View Networking docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">Protocols, routing mechanisms, and core internet infrastructure concepts.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/devops/Networking/How-NAT-Saved-the-Internet/">How NAT Saved the Internet</a>
+        </div>
       </div>
-      <p class="project-desc">Networking.</p>
-      <div class="tags">
-        <a class="tag" href="/docs/devops/Networking/How-NAT-Saved-the-Internet/">How NAT Saved the Internet</a>
-      </div>
-    </div>
-  </article>
-</section>
+    </article>
 
-<!-- GitHub -->
-<section class="projects-section reveal" aria-labelledby="sd-heading">
-  <h2 id="sd-heading"> GitHub Concepts </h2>
-  <article class="project-card card-gold reveal">
-    <div class="card-link" tabindex="0">
-      <div class="project-head">
-        <h3 class="project-title">GitHub Concepts</h3>
-        <a class="project-open" href="/docs/devops/GitHub/" aria-label="View Docker docs">
-          View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-        </a>
+    <!-- GitHub (Half - Row 4) -->
+    <article class="project-card card-gold wide reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">🐈 Git & GitHub Guides</h3>
+          <a class="project-open" href="/docs/devops/GitHub/" aria-label="View GitHub docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">GitHub configurations, actions setup, and history cleanups.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/devops/GitHub/Git-Guide-to-Delete-Old-Commits-and-Clear-Sensitive-Info-from-Git-History/">Delete Commits & Clear Files from History</a>
+        </div>
       </div>
-      <p class="project-desc">GitHub.</p>
-      <div class="tags">
-        <a class="tag" href="/docs/devops/GitHub/Git-Guide-to-Delete-Old-Commits-and-Clear-Sensitive-Info-from-Git-History/">How To: Delete Old Git Commits and Clear Sensitive Files from History</a>
-      </div>
-    </div>
-  </article>
+    </article>
+  </div>
 </section>

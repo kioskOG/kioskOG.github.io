@@ -765,8 +765,10 @@ document.addEventListener("DOMContentLoaded", function () {
       return Math.max(6, Math.min(22, Math.log2(size) * 1.3));
     }
     
-    // Create arrow markers for directed links
-    g.append("defs").selectAll("marker")
+    // Create defs and arrow markers for directed links
+    const defs = g.append("defs");
+    
+    defs.selectAll("marker")
       .data(["suit", "licensing", "resolved"])
       .enter().append("marker")
       .attr("id", "arrow")
@@ -780,6 +782,42 @@ document.addEventListener("DOMContentLoaded", function () {
       .attr("d", "M0,-3L10,0L0,3")
       .attr("fill", "var(--text-muted)")
       .style("opacity", 0.3);
+
+    // Glow filters helper
+    function createGlowFilter(id, color) {
+      const filter = defs.append("filter")
+        .attr("id", id)
+        .attr("x", "-40%")
+        .attr("y", "-40%")
+        .attr("width", "180%")
+        .attr("height", "180%");
+      filter.append("feGaussianBlur").attr("stdDeviation", 4.5).attr("result", "blur");
+      filter.append("feFlood").attr("flood-color", color).attr("flood-opacity", 0.6).attr("result", "color");
+      filter.append("feComposite").attr("in", "color").attr("in2", "blur").attr("operator", "in").attr("result", "glow");
+      const merge = filter.append("feMerge");
+      merge.append("feMergeNode").attr("in", "glow");
+      merge.append("feMergeNode").attr("in", "SourceGraphic");
+    }
+
+    createGlowFilter("glow-indigo", "#6366f1");
+    createGlowFilter("glow-ai", "#8b5cf6");
+    createGlowFilter("glow-ml", "#10b981");
+    createGlowFilter("glow-devops", "#3b82f6");
+    createGlowFilter("glow-amber", "#f59e0b");
+    createGlowFilter("glow-red", "#ef4444");
+    createGlowFilter("glow-slate", "#64748b");
+
+    // Glow selection helper
+    function getNodeGlowFilterId(node) {
+      if (node.type === 'index') return 'glow-indigo';
+      const tags = node.tags.map(t => t.toLowerCase());
+      if (tags.some(t => ['ai', 'langchain', 'rag', 'mcp'].includes(t))) return 'glow-ai';
+      if (tags.some(t => ['ml', 'training', 'pipeline'].includes(t))) return 'glow-ml';
+      if (tags.some(t => ['kubernetes', 'devops', 'docker', 'helm'].includes(t))) return 'glow-devops';
+      if (tags.some(t => ['networking', 'nat', 'dns', 'vpn'].includes(t))) return 'glow-amber';
+      if (tags.some(t => ['linux', 'siem', 'wazuh', 'iptables', 'ebpf'].includes(t))) return 'glow-red';
+      return 'glow-slate';
+    }
       
     // Render links
     const link = g.append("g")
@@ -860,16 +898,32 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Selection state tracking
     let selectedNode = null;
+    let selectedNeighbors = new Set();
     
     // Node click action (display in sidebar)
     function handleNodeClick(event, d) {
       event.stopPropagation();
       selectedNode = d;
       
-      // Update styling to reflect selection
-      nodeCircles.attr("stroke", n => n === d ? "var(--accent-blue)" : "var(--bg)")
+      selectedNeighbors.clear();
+      selectedNeighbors.add(d.id);
+      validLinks.forEach(l => {
+        if (l.source.id === d.id) selectedNeighbors.add(l.target.id);
+        if (l.target.id === d.id) selectedNeighbors.add(l.source.id);
+      });
+      
+      // Update styling to reflect selection and dim rest
+      node.style("opacity", n => selectedNeighbors.has(n.id) ? 1.0 : 0.15);
+      nodeLabels.style("opacity", n => selectedNeighbors.has(n.id) ? 1.0 : 0.05);
+      nodeCircles.style("filter", n => selectedNeighbors.has(n.id) ? "url(#" + getNodeGlowFilterId(n) + ")" : "none")
+                 .attr("stroke", n => n === d ? "var(--accent-blue)" : "var(--bg)")
                  .attr("stroke-width", n => n === d ? 3.5 : 2);
                  
+      // Highlight links connected to clicked node, dim others
+      link.attr("stroke", l => (l.source.id === d.id || l.target.id === d.id) ? colors.linkHighlight : colors.link)
+          .attr("stroke-width", l => (l.source.id === d.id || l.target.id === d.id) ? 2.5 : 1.5)
+          .style("opacity", l => (l.source.id === d.id || l.target.id === d.id) ? 1.0 : 0.08);
+                  
       // Render details in sidebar
       document.getElementById("sidebar-empty").style.display = "none";
       const filled = document.getElementById("sidebar-filled");
@@ -918,7 +972,7 @@ document.addEventListener("DOMContentLoaded", function () {
         outgoingContainer.innerHTML = "<li class='links-list-item' style='color: var(--text-muted); font-style: italic;'>No outbound links</li>";
       }
       
-      // Incoming Backlinks
+      // Incoming References
       const incomingContainer = document.getElementById("node-incoming");
       incomingContainer.innerHTML = "";
       const incoming = validLinks.filter(l => l.target.id === d.id);
@@ -930,32 +984,53 @@ document.addEventListener("DOMContentLoaded", function () {
           incomingContainer.appendChild(item);
         });
       } else {
-        incomingContainer.innerHTML = "<li class='links-list-item' style='color: var(--text-muted); font-style: italic;'>No backlinks</li>";
+        incomingContainer.innerHTML = "<li class='links-list-item' style='color: var(--text-muted); font-style: italic;'>No inbound links</li>";
       }
       
-      // Wire up clicks inside sidebar links
-      const allSidebarLinks = filled.querySelectorAll(".links-list-item a");
-      allSidebarLinks.forEach(linkElement => {
-        linkElement.addEventListener("click", function (e) {
+      // Bind navigation clicks to list references
+      filled.querySelectorAll("a[data-node-id]").forEach(a => {
+        a.addEventListener("click", function(e) {
           e.preventDefault();
           const targetId = this.getAttribute("data-node-id");
-          const targetNode = nodeMap.get(targetId);
-          if (targetNode) {
-            // Find the node element in SVG and select it
-            handleNodeClick(e, targetNode);
-            // Center camera on target node
-            zoomToNode(targetNode);
+          const targetNodeObj = nodeMap.get(targetId);
+          if (targetNodeObj) {
+            handleNodeClick(e, targetNodeObj);
+            focusNode(targetNodeObj);
           }
         });
       });
       
-      // Read Note button
-      const cta = document.getElementById("node-cta");
-      cta.href = `{{ '/' | relative_url }}${d.id.replace(/^\//, '')}`;
+      // Link to document
+      const docLinkBtn = document.getElementById("node-cta");
+      if (d.id) {
+        docLinkBtn.style.display = "inline-flex";
+        docLinkBtn.href = `{{ '/' | relative_url }}${d.id.replace(/^\//, '')}`;
+      } else {
+        docLinkBtn.style.display = "none";
+      }
     }
     
-    // Zoom helper to center on selected node
-    function zoomToNode(n) {
+    // Background click to clear selection
+    svg.on("click", function() {
+      selectedNode = null;
+      selectedNeighbors.clear();
+      
+      node.style("opacity", 1.0);
+      nodeLabels.style("opacity", 0.8);
+      nodeCircles.style("filter", "none")
+                 .attr("stroke", "var(--bg)")
+                 .attr("stroke-width", 2);
+                 
+      link.attr("stroke", colors.link)
+          .attr("stroke-width", 1.5)
+          .style("opacity", 1.0);
+          
+      document.getElementById("sidebar-filled").style.display = "none";
+      document.getElementById("sidebar-empty").style.display = "flex";
+    });
+    
+    // Zoom focus helper
+    function focusNode(n) {
       const transform = d3.zoomIdentity
         .translate(width / 2 - n.x * 1.5, height / 2 - n.y * 1.5)
         .scale(1.5);
@@ -966,31 +1041,42 @@ document.addEventListener("DOMContentLoaded", function () {
     // Node hover highlighting
     function handleMouseOver(event, d) {
       const neighbors = new Set([d.id]);
-      
-      // Gather connected neighbor nodes
       validLinks.forEach(l => {
         if (l.source.id === d.id) neighbors.add(l.target.id);
         if (l.target.id === d.id) neighbors.add(l.source.id);
       });
       
-      // Focus nodes
       node.style("opacity", n => neighbors.has(n.id) ? 1.0 : 0.15);
       nodeLabels.style("opacity", n => neighbors.has(n.id) ? 1.0 : 0.05);
+      nodeCircles.style("filter", n => neighbors.has(n.id) ? "url(#" + getNodeGlowFilterId(n) + ")" : "none");
       
-      // Highlight links
       link.attr("stroke", l => (l.source.id === d.id || l.target.id === d.id) ? colors.linkHighlight : colors.link)
           .attr("stroke-width", l => (l.source.id === d.id || l.target.id === d.id) ? 2.5 : 1.5)
           .style("opacity", l => (l.source.id === d.id || l.target.id === d.id) ? 1.0 : 0.08);
     }
     
     function handleMouseOut() {
-      // Revert opacity of everything
-      node.style("opacity", 1.0);
-      nodeLabels.style("opacity", 0.8);
-      
-      link.attr("stroke", colors.link)
-          .attr("stroke-width", 1.5)
-          .style("opacity", 1.0);
+      if (selectedNode) {
+        node.style("opacity", n => selectedNeighbors.has(n.id) ? 1.0 : 0.15);
+        nodeLabels.style("opacity", n => selectedNeighbors.has(n.id) ? 1.0 : 0.05);
+        nodeCircles.style("filter", n => selectedNeighbors.has(n.id) ? "url(#" + getNodeGlowFilterId(n) + ")" : "none")
+                   .attr("stroke", n => n === selectedNode ? "var(--accent-blue)" : "var(--bg)")
+                   .attr("stroke-width", n => n === selectedNode ? 3.5 : 2);
+        
+        link.attr("stroke", l => (l.source.id === selectedNode.id || l.target.id === selectedNode.id) ? colors.linkHighlight : colors.link)
+            .attr("stroke-width", l => (l.source.id === selectedNode.id || l.target.id === selectedNode.id) ? 2.5 : 1.5)
+            .style("opacity", l => (l.source.id === selectedNode.id || l.target.id === selectedNode.id) ? 1.0 : 0.08);
+      } else {
+        node.style("opacity", 1.0);
+        nodeLabels.style("opacity", 0.8);
+        nodeCircles.style("filter", "none")
+                   .attr("stroke", "var(--bg)")
+                   .attr("stroke-width", 2);
+        
+        link.attr("stroke", colors.link)
+            .attr("stroke-width", 1.5)
+            .style("opacity", 1.0);
+      }
     }
     
     // Search filter function

@@ -1,0 +1,236 @@
+/* TTS Player CSS */
+
+/* Highlighting */
+::highlight(tts-active) {
+  background-color: rgba(59, 130, 246, 0.25);
+  color: inherit;
+  border-bottom: 2px solid var(--accent-blue);
+}
+
+/* Fallback Highlighting (when Custom Highlight API is not supported) */
+.tts-block-highlight {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-left: 3px solid var(--accent-blue);
+  padding-left: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, border-left 0.3s ease;
+}
+
+/* Base button styles */
+.tts-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-heading);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background 0.2s, border-color 0.2s, transform 0.1s;
+}
+
+.tts-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.tts-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.tts-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tts-btn.primary {
+  background: var(--accent-blue);
+  color: #fff;
+  border-color: var(--accent-blue);
+}
+
+.tts-btn.primary:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+/* Main Article Player */
+.tts-main-player {
+  margin: 20px 0;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: ttsFadeIn 0.3s forwards ease-out;
+}
+
+@keyframes ttsFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tts-main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tts-main-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tts-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Progress bar */
+.tts-progress-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-grow: 1;
+  min-width: 200px;
+}
+
+.tts-progress-bar {
+  flex-grow: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+}
+
+.tts-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--accent-blue);
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.2s ease-out;
+}
+
+.tts-progress-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Dropdowns / Settings */
+.tts-settings-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.tts-select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-heading);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  outline: none;
+}
+.tts-select:focus {
+  border-color: var(--accent-blue);
+}
+
+/* Floating Player */
+.tts-floating-player {
+  position: fixed;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  right: 20px;
+  width: 340px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  padding: 16px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none; /* hidden state */
+}
+
+.tts-floating-player.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.tts-floating-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tts-floating-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
+.tts-floating-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.tts-floating-controls .tts-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.tts-resume-btn {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .tts-floating-player {
+    right: 10px;
+    left: 10px;
+    width: auto;
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+}

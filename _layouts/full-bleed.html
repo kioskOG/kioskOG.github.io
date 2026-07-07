@@ -13,12 +13,8 @@
   <!-- Theme Blocker Script -->
   <script>
     (function () {
-      var savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-      }
+      var savedTheme = localStorage.getItem('theme-preset') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
     })();
   </script>
 
@@ -31,6 +27,8 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     crossorigin="anonymous" />
+  <!-- Shared Portfolio CSS -->
+  <link rel="stylesheet" href="{{ '/assets/portfolio.css' | relative_url }}" />
 
   <style>
     /* =============================================
@@ -1960,6 +1958,8 @@
 
 <body>
 
+  <canvas id="particle-canvas"></canvas>
+
   <!-- Game of Thrones Citadel Splash Loader -->
   <div id="citadel-loader" class="citadel-loader-overlay">
     <div class="citadel-astrolabe-container">
@@ -2077,9 +2077,28 @@
             <span>Search</span>
             <span class="search-kbd">⌘K</span>
           </button>
-          <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark mode" type="button">
-            <i class="fas fa-moon" id="theme-toggle-icon"></i>
-          </button>
+          <div class="theme-select-container">
+            <button class="theme-dropdown-btn" id="theme-dropdown-btn" aria-label="Select Theme" type="button">
+              <i class="fas fa-palette" id="theme-dropdown-icon"></i>
+            </button>
+            <div class="theme-dropdown" id="theme-dropdown">
+              <button class="theme-dropdown-item" data-theme-preset="light">
+                <span class="theme-swatch swatch-light"></span> Light
+              </button>
+              <button class="theme-dropdown-item" data-theme-preset="dark">
+                <span class="theme-swatch swatch-dark"></span> Dark
+              </button>
+              <button class="theme-dropdown-item" data-theme-preset="dracula">
+                <span class="theme-swatch swatch-dracula"></span> Dracula
+              </button>
+              <button class="theme-dropdown-item" data-theme-preset="nord">
+                <span class="theme-swatch swatch-nord"></span> Nord
+              </button>
+              <button class="theme-dropdown-item" data-theme-preset="emerald">
+                <span class="theme-swatch swatch-emerald"></span> Emerald
+              </button>
+            </div>
+          </div>
           <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
@@ -2377,7 +2396,8 @@
         </div>
         <div class="projects-grid">
 
-          <article class="project-card reveal" style="--card-accent: linear-gradient(90deg,#f59e0b,#10b981);">
+          <!-- Card 1: Wide Bento card with custom observability sparklines -->
+          <article class="project-card reveal wide" style="--card-accent: linear-gradient(90deg,#f59e0b,#10b981);">
             <div class="project-card-accent" aria-hidden="true"></div>
             <div class="project-card-body">
               <div class="project-card-top">
@@ -2388,6 +2408,27 @@
               </div>
               <p class="project-desc">Production observability with Loki, Grafana, Tempo, Mimir: deploy, scale, and
                 validate end-to-end.</p>
+              
+              <!-- Mock Observability Panel (Bento Widget) -->
+              <div class="mock-observability-dashboard" style="background: rgba(15,23,42,0.06); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; margin: 12px 0; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; display: flex; flex-direction: column; gap: 8px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="color: var(--accent-green); font-weight: 700;"><i class="fas fa-circle" style="font-size:0.55rem; animation: blink 1.8s infinite; vertical-align: middle; margin-right: 4px;"></i> mimir-query-frontend: OK</span>
+                  <span style="color: var(--text-muted); font-size: 0.68rem;">latency: 42ms</span>
+                </div>
+                <div style="display: flex; gap: 4px; align-items: flex-end; height: 28px; padding-top: 4px;">
+                  <div style="flex: 1; background: var(--accent-blue); height: 40%; border-radius: 2px;"></div>
+                  <div style="flex: 1; background: var(--accent-blue); height: 55%; border-radius: 2px;"></div>
+                  <div style="flex: 1; background: var(--accent-blue); height: 35%; border-radius: 2px;"></div>
+                  <div style="flex: 1; background: var(--accent-blue); height: 75%; border-radius: 2px;"></div>
+                  <div style="flex: 1; background: var(--accent-green); height: 90%; border-radius: 2px;"></div>
+                  <div style="flex: 1; background: var(--accent-blue); height: 50%; border-radius: 2px;"></div>
+                  <div style="flex: 1; background: var(--accent-blue); height: 62%; border-radius: 2px;"></div>
+                  <div style="flex: 1; background: var(--accent-purple); height: 80%; border-radius: 2px;"></div>
+                  <div style="flex: 1; background: var(--accent-amber); height: 95%; border-radius: 2px;"></div>
+                  <div style="flex: 1; background: var(--accent-green); height: 100%; border-radius: 2px;"></div>
+                </div>
+              </div>
+
               <div class="project-tags"><span class="project-tag">Kubernetes</span><span
                   class="project-tag">Helm</span><span class="project-tag">Grafana</span><span
                   class="project-tag">Loki</span><span class="project-tag">Tempo</span><span
@@ -2395,12 +2436,13 @@
             </div>
           </article>
 
+          <!-- Card 2: Regular Bento card -->
           <article class="project-card reveal reveal-delay-1"
             style="--card-accent: linear-gradient(90deg,#3b82f6,#8b5cf6);">
             <div class="project-card-accent" aria-hidden="true"></div>
             <div class="project-card-body">
               <div class="project-card-top">
-                <h3 class="project-title">&#128269; GitHub Secret Scanner in Kubernetes</h3>
+                <h3 class="project-title">&#128269; GitHub Secret Scanner</h3>
                 <a class="project-link-btn" href="https://github.com/kioskOG/secret-scan-poc" target="_blank"
                   rel="noopener" aria-label="View on GitHub">View <i class="fas fa-arrow-up-right-from-square"
                     aria-hidden="true"></i></a>
@@ -2413,11 +2455,12 @@
             </div>
           </article>
 
+          <!-- Card 3: Regular Bento card -->
           <article class="project-card reveal" style="--card-accent: linear-gradient(90deg,#8b5cf6,#ec4899);">
             <div class="project-card-accent" aria-hidden="true"></div>
             <div class="project-card-body">
               <div class="project-card-top">
-                <h3 class="project-title">&#127758; CloudMap Controller for EKS</h3>
+                <h3 class="project-title">&#127758; CloudMap Controller</h3>
                 <a class="project-link-btn" href="https://github.com/kioskOG/EKS-cloudmap-controller" target="_blank"
                   rel="noopener" aria-label="View on GitHub">View <i class="fas fa-arrow-up-right-from-square"
                     aria-hidden="true"></i></a>
@@ -2430,7 +2473,8 @@
             </div>
           </article>
 
-          <article class="project-card reveal reveal-delay-1"
+          <!-- Card 4: Wide Bento card with mock terminal log -->
+          <article class="project-card reveal reveal-delay-1 wide"
             style="--card-accent: linear-gradient(90deg,#f97316,#ef4444);">
             <div class="project-card-accent" aria-hidden="true"></div>
             <div class="project-card-body">
@@ -2443,16 +2487,30 @@
               </div>
               <p class="project-desc">Blocks PRs containing secrets via webhooks and required status checks — automated
                 security enforcement.</p>
+
+              <!-- Mock PR check status UI -->
+              <div style="background: rgba(15,23,42,0.06); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px; margin: 10px 0; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; display: flex; flex-direction: column; gap: 4px;">
+                <div style="display:flex; justify-content:space-between; color: var(--accent-green);">
+                  <span>✔ TruffleHog Scan / pr-gate</span>
+                  <span>passed</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; color: #ef4444;">
+                  <span>✖ Secret check / push-gate</span>
+                  <span>failed (AWS keys found)</span>
+                </div>
+              </div>
+
               <div class="project-tags"><span class="project-tag">Actions</span><span
                   class="project-tag">Security</span><span class="project-tag">CI</span></div>
             </div>
           </article>
 
+          <!-- Card 5: Regular Bento card -->
           <article class="project-card reveal" style="--card-accent: linear-gradient(90deg,#10b981,#0891b2);">
             <div class="project-card-accent" aria-hidden="true"></div>
             <div class="project-card-body">
               <div class="project-card-top">
-                <h3 class="project-title">&#128274; Netbird Deployment Automation</h3>
+                <h3 class="project-title">&#128274; Netbird Deployment</h3>
                 <a class="project-link-btn" href="https://kioskog.github.io/docs/devops/docker/Netbird/" target="_blank"
                   rel="noopener" aria-label="View project">View <i class="fas fa-arrow-up-right-from-square"
                     aria-hidden="true"></i></a>
@@ -2464,12 +2522,13 @@
             </div>
           </article>
 
+          <!-- Card 6: Regular Bento card -->
           <article class="project-card reveal reveal-delay-1"
             style="--card-accent: linear-gradient(90deg,#06b6d4,#3b82f6);">
             <div class="project-card-accent" aria-hidden="true"></div>
             <div class="project-card-body">
               <div class="project-card-top">
-                <h3 class="project-title">SAP HANA Cloud Private Edition</h3>
+                <h3 class="project-title">SAP HANA GCP EKS</h3>
                 <a class="project-link-btn"
                   href="https://kioskog.github.io/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/" target="_blank"
                   rel="noopener" aria-label="View project">View <i class="fas fa-arrow-up-right-from-square"
@@ -2482,11 +2541,12 @@
             </div>
           </article>
 
+          <!-- Card 7: Regular Bento card -->
           <article class="project-card reveal" style="--card-accent: linear-gradient(90deg,#a78bfa,#10b981);">
             <div class="project-card-accent" aria-hidden="true"></div>
             <div class="project-card-body">
               <div class="project-card-top">
-                <h3 class="project-title">Netbird Management Utility</h3>
+                <h3 class="project-title">Netbird Utility</h3>
                 <a class="project-link-btn" href="https://kioskog.github.io/docs/devops/python/netbird-python-utility/"
                   target="_blank" rel="noopener" aria-label="View project">View <i
                     class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
@@ -2498,7 +2558,8 @@
             </div>
           </article>
 
-          <article class="project-card reveal reveal-delay-1"
+          <!-- Card 8: Wide Bento card -->
+          <article class="project-card reveal reveal-delay-1 wide"
             style="--card-accent: linear-gradient(90deg,#ef4444,#f59e0b);">
             <div class="project-card-accent" aria-hidden="true"></div>
             <div class="project-card-body">
@@ -2512,6 +2573,17 @@
                 portal management.</p>
               <div class="project-tags"><span class="project-tag">Python</span><span
                   class="project-tag">Selenium</span><span class="project-tag">Automation</span></div>
+            </div>
+          </article>
+
+          <!-- Card 9: Bento CTA Card linked to Knowledge Graph -->
+          <article class="project-card reveal bento-cta-card" style="--card-accent: var(--grad-primary); background: linear-gradient(135deg, rgba(99,102,241,0.05) 0%, rgba(16,185,129,0.05) 100%);">
+            <div class="project-card-accent" aria-hidden="true"></div>
+            <div class="project-card-body" style="padding: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+              <div style="font-size: 2.2rem; margin-bottom: 12px;">💡</div>
+              <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: var(--text-heading);">Explore the Brain</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5;">Interact with Jatin's entire open knowledge network graph.</p>
+              <a href="/brain/" class="btn-primary" style="padding: 8px 18px; font-size: 0.8rem;">Launch Graph <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
             </div>
           </article>
 
@@ -2613,36 +2685,7 @@
         });
       }
 
-      // Theme Toggle Logic
-      var toggle = document.getElementById('theme-toggle');
-      if (toggle) {
-        toggle.addEventListener('click', function () {
-          var currentTheme = document.documentElement.getAttribute('data-theme');
-          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          if (newTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-          } else {
-            document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
-          }
-          updateToggleIcon(newTheme);
-        });
-      }
 
-      function updateToggleIcon(theme) {
-        var icon = document.getElementById('theme-toggle-icon');
-        if (icon) {
-          if (theme === 'dark') {
-            icon.className = 'fas fa-sun';
-          } else {
-            icon.className = 'fas fa-moon';
-          }
-        }
-      }
-
-      var activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      updateToggleIcon(activeTheme);
 
       // Typing animation
       var roles = [
@@ -2748,6 +2791,7 @@
   <!-- Lunr.js + Search -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" crossorigin="anonymous"></script>
   <script src="/assets/search.js"></script>
+  <script src="/assets/effects.js"></script>
 
 </body>
 
