@@ -34,26 +34,24 @@ document.addEventListener('DOMContentLoaded', () => {
       const titleEl = document.querySelector('.doc-title');
       articleTitle = titleEl ? titleEl.textContent.trim() : document.title;
       
-      // Mount Main Player
-      // We will inject the root if it doesn't exist. Usually we'd expect the layout to have it.
-      let mainRoot = document.getElementById('tts-player-root');
-      if (!mainRoot) {
-        mainRoot = document.createElement('div');
-        mainRoot.id = 'tts-player-root';
-        // Insert right above the prose
-        prose.parentNode.insertBefore(mainRoot, prose);
-      }
-      MainPlayer.mount('tts-player-root');
+      // Main Player (full-featured) is disabled — compact audio-player-widget is used instead.
+      // let mainRoot = document.getElementById('tts-player-root');
+      // if (!mainRoot) {
+      //   mainRoot = document.createElement('div');
+      //   mainRoot.id = 'tts-player-root';
+      //   prose.parentNode.insertBefore(mainRoot, prose);
+      // }
+      // MainPlayer.mount('tts-player-root');
     }
 
-    // Mount Floating Player
-    let floatRoot = document.getElementById('tts-floating-player-root');
-    if (!floatRoot) {
-      floatRoot = document.createElement('div');
-      floatRoot.id = 'tts-floating-player-root';
-      document.body.appendChild(floatRoot);
-    }
-    FloatingPlayer.mount('tts-floating-player-root');
+    // Floating Player disabled (paired with the full-featured main player).
+    // let floatRoot = document.getElementById('tts-floating-player-root');
+    // if (!floatRoot) {
+    //   floatRoot = document.createElement('div');
+    //   floatRoot.id = 'tts-floating-player-root';
+    //   document.body.appendChild(floatRoot);
+    // }
+    // FloatingPlayer.mount('tts-floating-player-root');
 
     Engine.init();
     if (MediaSessionController) {

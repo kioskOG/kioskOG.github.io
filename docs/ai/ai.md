@@ -105,5 +105,22 @@ timestamp: '2026-06-30T11:56:08Z'
         </div>
       </div>
     </article>
+
+    <article class="project-card card-gold normal reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">Claude Code</h3>
+          <a class="project-open" href="/docs/ai/Claude/" aria-label="View Claude Code docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">Claude Code is a paid software from Anthropic that allows you to use Claude directly within your IDE. It provides AI-powered code completion, generation, and refactoring features.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/ai/Claude/setup-claude-code/">Setup Guide</a>
+          <a class="tag" href="/docs/ai/Claude/slash-commands/">Slash Commands</a>
+          <a class="tag" href="/docs/ai/Claude/open-router-free-models-claude-code/">OpenRouter Free Models</a>
+        </div>
+      </div>
+    </article>
   </div>
 </section>
