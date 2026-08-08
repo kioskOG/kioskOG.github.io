@@ -1,8 +1,10 @@
 ---
-title: Helm Values Files
+title: Helm Values
 layout: doc-page
 parent: What is HELM | Why We Need HELM | Create HELM Chart?
+parent_url: /docs/devops/kubernetes/helm
 grand_parent: Kubernetes Projects
+grand_parent_url: /docs/devops/kubernetes/
 nav_order: 2
 permalink: /docs/devops/kubernetes/helm/helm_values/
 description: Documentation for Helm Values Files

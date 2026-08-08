@@ -64,11 +64,15 @@ timestamp: '2026-06-02T18:19:29Z'
   <article class="project-card card-coral reveal">
     <div class="card-link">
       <div class="project-head">
-        <h3 class="project-title">Karpenter</h3>
+        <h3 class="project-title">Karpenter Autoscaler</h3>
         <a class="project-open" href="/docs/devops/kubernetes/karpenter/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
       </div>
-      <p class="project-desc">Just-in-time node provisioning with Karpenter on EKS — setup, NodePools, and monitoring.</p>
-      <div class="tags"><span class="tag">Karpenter</span><span class="tag">EKS</span><span class="tag">Autoscaling</span></div>
+      <p class="project-desc">Just-in-time node provisioning with Karpenter on EKS — setup, NodePools, and Prometheus monitoring.</p>
+      <div class="tags">
+        <a class="tag" href="/docs/devops/kubernetes/karpenter/">Intro</a>
+        <a class="tag" href="/docs/devops/kubernetes/karpenter/karpenter-setup-in-existing-eks-cluster/">EKS Setup</a>
+        <a class="tag" href="/docs/devops/kubernetes/karpenter/karpenter-monitoring/">Monitoring</a>
+      </div>
     </div>
   </article>
 
@@ -115,8 +119,13 @@ timestamp: '2026-06-02T18:19:29Z'
         <h3 class="project-title">NGINX Ingress Controllers</h3>
         <a class="project-open" href="/docs/devops/kubernetes/Understanding-Ingress-Controllers/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
       </div>
-      <p class="project-desc">Understanding, installing, and configuring NGINX ingress including routing, basic auth and self-signed TLS.</p>
-      <div class="tags"><span class="tag">NGINX</span><span class="tag">Ingress</span><span class="tag">TLS</span><span class="tag">Auth</span></div>
+      <div class="tags">
+        <a class="tag" href="/docs/devops/kubernetes/Understanding-Ingress-Controllers/">Overview</a>
+        <a class="tag" href="/docs/devops/kubernetes/Installing-NGINX-Ingress/">Install</a>
+        <a class="tag" href="/docs/devops/kubernetes/Routing-in-NGINX-Ingress-Controller/">Routing</a>
+        <a class="tag" href="/docs/devops/kubernetes/Basic-Authentication-using-NGINX-Ingress/">Basic Auth</a>
+        <a class="tag" href="/docs/devops/kubernetes/secure-your-app-with-https-using-self-signed-tls-certificates/">TLS / HTTPS</a>
+      </div>
     </div>
   </article>
 

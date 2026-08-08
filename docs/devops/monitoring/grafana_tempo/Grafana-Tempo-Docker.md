@@ -2,7 +2,9 @@
 title: Setting Up Grafana Tempo via Docker
 layout: doc-page
 parent: Introduction to Distributed Tracing & Grafana Tempo
+parent_url: /docs/devops/monitoring/grafana_tempo/
 grand_parent: monitoring
+grand_parent_url: /docs/devops/monitoring/
 nav_order: 1
 permalink: /docs/devops/monitoring/grafana_tempo/Grafana-Tempo-Docker/
 description: Documentation for Setting Up Grafana Tempo via Docker.

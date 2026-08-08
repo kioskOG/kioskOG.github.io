@@ -2,7 +2,9 @@
 title: AWS vs. GCP Virtual Private Cloud (VPC) Networking Comparison
 layout: doc-page
 parent: Google Cloud Platform
+parent_url: /docs/devops/Cloud/Gcp/
 grand_parent: Cloud Projects
+grand_parent_url: /docs/devops/Cloud/
 nav_order: 4
 author: Jatin Sharma
 permalink: /docs/devops/Cloud/Gcp/Aws-and-GCP-vpc-comparision/

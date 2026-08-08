@@ -2,7 +2,9 @@
 title: Helm Template Function List
 layout: doc-page
 parent: What is HELM | Why We Need HELM | Create HELM Chart?
+parent_url: /docs/devops/kubernetes/helm
 grand_parent: Kubernetes Projects
+grand_parent_url: /docs/devops/kubernetes/
 nav_order: 4
 permalink: /docs/devops/kubernetes/helm/Template-Function-List/
 description: Documentation for Template Function List

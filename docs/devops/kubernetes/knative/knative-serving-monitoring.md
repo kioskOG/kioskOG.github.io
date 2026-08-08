@@ -2,8 +2,10 @@
 title: Knative Serving Monitoring
 layout: doc-page
 parent: Knative
+parent_url: /docs/devops/kubernetes/knative/
 grand_parent: Kubernetes Projects
-nav_order: 2
+grand_parent_url: /docs/devops/kubernetes/
+nav_order: 4
 permalink: /docs/devops/kubernetes/knative/knative-serving-monitoring/
 description: Documentation on knative serving monitoring
 type: concept

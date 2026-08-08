@@ -421,6 +421,125 @@
   }
 
   // =========================================================================
+  // 7. REAL-TIME CATEGORY HUB FILTER (BENTO CARDS & TOPIC TAGS)
+  // =========================================================================
+  function initHubFilters() {
+    var grid = document.querySelector('.bento-projects-grid');
+    if (!grid) return;
+
+    var cards = Array.from(grid.querySelectorAll('.project-card'));
+    if (cards.length < 2) return;
+
+    // Collect tags
+    var tagCounts = {};
+    var allTags = [];
+    cards.forEach(function (card) {
+      var tagEls = card.querySelectorAll('.tags .tag, .tags a');
+      tagEls.forEach(function (t) {
+        var text = t.textContent.trim();
+        if (text) {
+          if (!tagCounts[text]) {
+            tagCounts[text] = 0;
+            allTags.push(text);
+          }
+          tagCounts[text]++;
+        }
+      });
+    });
+
+    // Sort tags by frequency and pick top 10
+    allTags.sort(function (a, b) { return tagCounts[b] - tagCounts[a]; });
+    var topTags = allTags.slice(0, 10);
+
+    // Build filter UI
+    var filterBar = document.createElement('div');
+    filterBar.className = 'hub-filter-bar';
+    filterBar.innerHTML = [
+      '<div class="hub-filter-search-wrapper">',
+      '  <i class="fas fa-search" aria-hidden="true"></i>',
+      '  <input type="search" class="hub-filter-search-input" placeholder="Filter topics, concepts, or keywords…" aria-label="Filter topics in this category" />',
+      '</div>',
+      '<div class="hub-tag-pills" role="toolbar" aria-label="Filter by tag">',
+      '  <button type="button" class="hub-tag-pill is-active" data-tag="all">All Topics (' + cards.length + ')</button>',
+      topTags.map(function (tag) {
+        return '<button type="button" class="hub-tag-pill" data-tag="' + tag.replace(/"/g, '&quot;') + '">' + tag + ' <span style="opacity:0.6;font-size:0.72rem">(' + tagCounts[tag] + ')</span></button>';
+      }).join(''),
+      '</div>',
+      '<div class="hub-filter-status">',
+      '  <span id="hub-filter-count">Showing ' + cards.length + ' of ' + cards.length + ' topics</span>',
+      '  <span style="font-size:0.74rem;opacity:0.8"><kbd style="background:var(--bg-alt);padding:1px 5px;border-radius:4px;border:1px solid var(--border)">Esc</kbd> to clear</span>',
+      '</div>'
+    ].join('');
+
+    grid.parentNode.insertBefore(filterBar, grid);
+
+    var searchInput = filterBar.querySelector('.hub-filter-search-input');
+    var tagPills = filterBar.querySelectorAll('.hub-tag-pill');
+    var countEl = filterBar.querySelector('#hub-filter-count');
+    var activeTag = 'all';
+
+    // No results element
+    var noResultsEl = document.createElement('div');
+    noResultsEl.className = 'hub-no-results';
+    noResultsEl.style.display = 'none';
+    noResultsEl.innerHTML = '<i class="fas fa-filter-circle-xmark"></i><p>No matching topics found. Try refining your keyword or clearing filters.</p>';
+    grid.appendChild(noResultsEl);
+
+    function applyFilter() {
+      var query = searchInput.value.toLowerCase().trim();
+      var visibleCount = 0;
+
+      cards.forEach(function (card) {
+        var cardText = (card.textContent || '').toLowerCase();
+        var cardTags = Array.from(card.querySelectorAll('.tags .tag, .tags a')).map(function (t) {
+          return t.textContent.trim().toLowerCase();
+        });
+
+        var matchesQuery = !query || cardText.indexOf(query) !== -1;
+        var matchesTag = (activeTag === 'all') || cardTags.indexOf(activeTag.toLowerCase()) !== -1;
+
+        if (matchesQuery && matchesTag) {
+          card.style.display = '';
+          card.style.opacity = '1';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+          card.style.opacity = '0';
+        }
+      });
+
+      if (countEl) {
+        countEl.textContent = 'Showing ' + visibleCount + ' of ' + cards.length + ' topics';
+      }
+
+      if (visibleCount === 0) {
+        noResultsEl.style.display = 'block';
+      } else {
+        noResultsEl.style.display = 'none';
+      }
+    }
+
+    searchInput.addEventListener('input', applyFilter);
+    searchInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        searchInput.value = '';
+        activeTag = 'all';
+        tagPills.forEach(function (p) { p.classList.toggle('is-active', p.dataset.tag === 'all'); });
+        applyFilter();
+      }
+    });
+
+    tagPills.forEach(function (pill) {
+      pill.addEventListener('click', function () {
+        tagPills.forEach(function (p) { p.classList.remove('is-active'); });
+        pill.classList.add('is-active');
+        activeTag = pill.dataset.tag;
+        applyFilter();
+      });
+    });
+  }
+
+  // =========================================================================
   // BOOTSTRAP INITIALIZATION
   // =========================================================================
   function initAll() {
@@ -430,6 +549,7 @@
     initScrollReveal();
     initMobileNav();
     initFooterYear();
+    initHubFilters();
   }
 
   // Execute
@@ -440,3 +560,4 @@
   }
 
 })();
+

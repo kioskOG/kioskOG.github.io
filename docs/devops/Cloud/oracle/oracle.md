@@ -2,8 +2,10 @@
 title: oracle
 layout: doc-page
 parent: Cloud Projects
+parent_url: /docs/devops/Cloud/
+has_children: true
 nav_order: 1
-permalink: /docs/devops/Cloud/oracle/oracle/
+permalink: /docs/devops/Cloud/oracle/
 description: Documentation for oracle cloud.
 type: concept
 tags:

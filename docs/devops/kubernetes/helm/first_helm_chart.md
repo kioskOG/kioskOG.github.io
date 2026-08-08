@@ -2,7 +2,9 @@
 title: Helm Template
 layout: doc-page
 parent: What is HELM | Why We Need HELM | Create HELM Chart?
+parent_url: /docs/devops/kubernetes/helm
 grand_parent: Kubernetes Projects
+grand_parent_url: /docs/devops/kubernetes/
 nav_order: 1
 permalink: /docs/devops/kubernetes/helm/first-helm-chart/
 description: Documentation for helm template

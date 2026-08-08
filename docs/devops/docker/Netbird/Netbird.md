@@ -2,6 +2,8 @@
 title: Netbird Setup
 layout: doc-page
 parent: Docker Projects
+parent_url: /docs/devops/docker/
+has_children: true
 nav_order: 1
 description: A setup guide for Netbird VPN Server
 author: Jatin Sharma

@@ -2,8 +2,10 @@
 title: Secure Your App with HTTPS using Self-Signed TLS Certificates
 layout: doc-page
 parent: Understanding Ingress Controllers
+parent_url: /docs/devops/kubernetes/Understanding-Ingress-Controllers/
 grand_parent: Kubernetes Projects
-nav_order: 4.5
+grand_parent_url: /docs/devops/kubernetes/
+nav_order: 4
 permalink: /docs/devops/kubernetes/secure-your-app-with-https-using-self-signed-tls-certificates/
 description: Documentation on Secure Your App with HTTPS using Self-Signed TLS Certificates
 type: concept

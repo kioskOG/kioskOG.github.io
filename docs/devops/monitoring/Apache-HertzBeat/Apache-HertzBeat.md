@@ -2,6 +2,8 @@
 title: Apache HertzBeat Quickstart
 layout: doc-page
 parent: monitoring
+parent_url: /docs/devops/monitoring/
+has_children: true
 nav_order: 1
 permalink: /docs/devops/monitoring/apache-hertzbeat/
 description: Quickstart guide for Apache HertzBeat - an open-source real-time monitoring

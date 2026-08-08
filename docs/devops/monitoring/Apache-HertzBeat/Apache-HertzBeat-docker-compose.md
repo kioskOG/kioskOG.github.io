@@ -2,7 +2,9 @@
 title: Install HertzBeat via Docker Compose
 layout: doc-page
 parent: Apache HertzBeat Quickstart
+parent_url: /docs/devops/monitoring/apache-hertzbeat/
 grand_parent: monitoring
+grand_parent_url: /docs/devops/monitoring/
 nav_order: 2
 permalink: /docs/devops/monitoring/apache-hertzbeat/Apache-HertzBeat-docker-compose/
 description: Documentation for HertzBeat setup via Docker Compose.

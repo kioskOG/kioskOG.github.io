@@ -2,8 +2,10 @@
 title: Basic Authentication using NGINX Ingress
 layout: doc-page
 parent: Understanding Ingress Controllers
+parent_url: /docs/devops/kubernetes/Understanding-Ingress-Controllers/
 grand_parent: Kubernetes Projects
-nav_order: 3.5
+grand_parent_url: /docs/devops/kubernetes/
+nav_order: 3
 permalink: /docs/devops/kubernetes/Basic-Authentication-using-NGINX-Ingress/
 description: Documentation on Basic Authentication using NGINX Ingress
 type: concept

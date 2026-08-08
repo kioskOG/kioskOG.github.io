@@ -2,6 +2,8 @@
 title: Wazuh
 layout: doc-page
 parent: Linux Projects
+parent_url: /docs/devops/Linux/
+has_children: true
 nav_order: 1
 permalink: /docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/
 description: Documentation for configuring the Wazuh XDR and SIEM platform.

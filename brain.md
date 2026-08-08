@@ -902,7 +902,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Node click action (display in sidebar)
     function handleNodeClick(event, d) {
-      event.stopPropagation();
+      if (event && event.stopPropagation) event.stopPropagation();
       selectedNode = d;
       
       selectedNeighbors.clear();
@@ -1154,6 +1154,47 @@ document.addEventListener("DOMContentLoaded", function () {
       simulation.force("center", d3.forceCenter(width / 2, height / 2));
       simulation.alpha(0.1).restart();
     });
+
+    // Deep-linking via URL query parameters (?node=... or ?path=... or ?q=... or ?tag=...)
+    function checkUrlDeepLink() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const nodeParam = urlParams.get("node") || urlParams.get("id");
+      const pathParam = urlParams.get("path");
+      const queryParam = urlParams.get("q");
+      const tagParam = urlParams.get("tag");
+
+      let targetNode = null;
+
+      if (nodeParam) {
+        const cleanNode = decodeURIComponent(nodeParam).replace(/^\/|\/$/g, '').toLowerCase();
+        targetNode = nodes.find(n => {
+          const nId = (n.id || '').replace(/^\/|\/$/g, '').toLowerCase();
+          const nPath = (n.path || '').replace(/^\/|\/$/g, '').toLowerCase();
+          return nId === cleanNode || nPath === cleanNode || nId.endsWith('/' + cleanNode) || cleanNode.endsWith('/' + nId) || nId.includes(cleanNode) || cleanNode.includes(nId);
+        });
+      } else if (pathParam) {
+        const cleanPath = decodeURIComponent(pathParam).toLowerCase();
+        targetNode = nodes.find(n => (n.path || '').toLowerCase().includes(cleanPath));
+      } else if (tagParam) {
+        const cleanTag = decodeURIComponent(tagParam).toLowerCase();
+        searchInput.value = cleanTag;
+        searchInput.dispatchEvent(new Event('input'));
+        targetNode = nodes.find(n => n.tags && n.tags.some(t => t.toLowerCase() === cleanTag));
+      } else if (queryParam) {
+        const cleanQuery = decodeURIComponent(queryParam);
+        searchInput.value = cleanQuery;
+        searchInput.dispatchEvent(new Event('input'));
+      }
+
+      if (targetNode) {
+        setTimeout(() => {
+          handleNodeClick(null, targetNode);
+          focusNode(targetNode);
+        }, 600);
+      }
+    }
+
+    checkUrlDeepLink();
     
   });
 });

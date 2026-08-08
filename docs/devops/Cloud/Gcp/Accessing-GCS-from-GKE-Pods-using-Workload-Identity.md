@@ -2,7 +2,9 @@
 title: Accessing GCS from GKE Pods using Workload Identity
 layout: doc-page
 parent: Google Cloud Platform
+parent_url: /docs/devops/Cloud/Gcp/
 grand_parent: Cloud Projects
+grand_parent_url: /docs/devops/Cloud/
 nav_order: 2
 author: Jatin Sharma
 permalink: /docs/devops/Cloud/Gcp/Accessing-GCS-from-GKE-Pods-using-Workload-Identity/

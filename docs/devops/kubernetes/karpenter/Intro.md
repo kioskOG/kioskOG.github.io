@@ -2,6 +2,8 @@
 title: Karpenter
 layout: doc-page
 parent: Kubernetes Projects
+parent_url: /docs/devops/kubernetes/
+has_children: true
 nav_order: 13
 permalink: /docs/devops/kubernetes/karpenter/
 description: Documentation on Karpenter Introduction.
@@ -93,5 +95,14 @@ Beyond just scaling, Karpenter also:
 
 - Integrates deeply with Kubernetes scheduling
 
+---
 
-<!-- https://blog.diatomlabs.com/mastering-eks-scaling-with-karpenter-a-practical-guide-a6e239645a45 -->
+## 📚 Karpenter Deep Dive Series
+
+Explore the hands-on guides for deploying, configuring, and monitoring Karpenter in production:
+
+1. **[Part 1: Setup Karpenter on Existing EKS Cluster](/docs/devops/kubernetes/karpenter/karpenter-setup-in-existing-eks-cluster/)**  
+   *Prerequisites, IAM roles, subnet tagging, NodePool & EC2NodeClass configuration, and troubleshooting.*
+
+2. **[Part 2: Monitoring Karpenter Using Prometheus & Grafana](/docs/devops/kubernetes/karpenter/karpenter-monitoring/)**  
+   *Deploying Prometheus stack, scraping Karpenter metrics, visualizing node provisioning speed, and Grafana dashboards.*

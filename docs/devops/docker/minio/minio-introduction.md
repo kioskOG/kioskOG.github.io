@@ -2,6 +2,8 @@
 title: Minio Introduction
 layout: doc-page
 parent: Docker Projects
+parent_url: /docs/devops/docker/
+has_children: true
 nav_order: 9
 description: Minio Introduction
 author: Jatin Sharma

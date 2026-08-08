@@ -2,6 +2,8 @@
 title: Introduction to Cilium & Hubble
 layout: doc-page
 parent: Kubernetes Projects
+parent_url: /docs/devops/kubernetes/
+has_children: true
 nav_order: 7
 permalink: /docs/devops/kubernetes/cilium/cilium-intro/
 type: concept
@@ -88,6 +90,15 @@ The ability to gain visibility and troubleshoot issues is fundamental to the ope
 - **Metrics export via Prometheus:** Key metrics are exported via Prometheus for integration with your existing dashboards.
 
 - **Hubble:** An observability platform specifically written for Cilium. It provides service dependency maps, operational monitoring and alerting, and application and security visibility based on flow logs.
+
+---
+
+## 📚 Cilium Guides in this Series
+
+Explore the hands-on setup and monitoring guides in this series:
+
+1. 🚀 [Cilium CNI Installation on AWS EKS](/docs/devops/kubernetes/cilium/cilium-installation-on-eks/)
+2. 📊 [Cilium & Hubble Monitoring with Prometheus & Grafana](/docs/devops/kubernetes/cilium/cilium-monitoring/)
 
 ---
 

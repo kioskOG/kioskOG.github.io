@@ -2,8 +2,10 @@
 title: Monitoring Container Runtime Using Wazuh
 layout: doc-page
 parent: Wazuh
+parent_url: /docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/
 grand_parent: Linux Projects
-nav_order: 9
+grand_parent_url: /docs/devops/Linux/
+nav_order: 6
 permalink: /docs/devops/Linux/SIEM-And-XDR/wazuh-monitoring-container-runtime/
 description: Documentation for monitoring container runtime with Wazuh.
 type: concept

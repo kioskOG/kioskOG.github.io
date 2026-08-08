@@ -16,10 +16,16 @@
   var modal, overlay, searchInput, resultsList, statusEl, closeBtn;
 
   /* ─── Bootstrap ─────────────────────────────────────────────── */
-  document.addEventListener('DOMContentLoaded', function () {
+  function init() {
     injectModal();
     bindTriggers();
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 
   /* ─── Build modal HTML ───────────────────────────────────────── */
   function injectModal() {
@@ -98,6 +104,9 @@
     document.body.style.overflow = 'hidden';
     setTimeout(function () { searchInput.focus(); }, 60);
     if (!indexLoaded) loadIndex();
+    if (!searchInput.value.trim()) {
+      renderRecentArticles();
+    }
   }
 
   function closeSearch() {
@@ -109,43 +118,139 @@
     statusEl.textContent = '';
   }
 
+  /* ─── Recently Viewed Articles ──────────────────────────────── */
+  function getRecentArticles() {
+    try {
+      return JSON.parse(localStorage.getItem('ks_recent_docs') || '[]');
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function clearRecentArticles() {
+    try {
+      localStorage.removeItem('ks_recent_docs');
+    } catch (e) {}
+    renderRecentArticles();
+  }
+
+  function renderRecentArticles() {
+    var recents = getRecentArticles();
+    resultsList.innerHTML = '';
+    statusEl.textContent = '';
+
+    if (!recents || !recents.length) return;
+
+    var headerLi = document.createElement('li');
+    headerLi.className = 'ks-search-recent-container';
+    headerLi.innerHTML = [
+      '<div class="ks-search-recent-header">',
+      '  <span><i class="fas fa-history" aria-hidden="true"></i> Recently Viewed</span>',
+      '  <button type="button" id="ks-clear-recents-btn" class="ks-search-recent-clear">Clear History</button>',
+      '</div>'
+    ].join('');
+    resultsList.appendChild(headerLi);
+
+    var clearBtn = headerLi.querySelector('#ks-clear-recents-btn');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        clearRecentArticles();
+      });
+    }
+
+    recents.slice(0, 5).forEach(function (item, idx) {
+      var li = document.createElement('li');
+      li.className = 'ks-result-item' + (idx === 0 ? ' ks-result-active' : '');
+      li.setAttribute('role', 'option');
+      li.setAttribute('data-href', item.url);
+
+      var section = item.section || 'Doc';
+
+      li.innerHTML = [
+        '<a class="ks-result-link" href="' + escHtml(item.url) + '" tabindex="-1">',
+        '  <div class="ks-result-icon"><i class="fas fa-clock" style="color: var(--accent-purple);" aria-hidden="true"></i></div>',
+        '  <div class="ks-result-body">',
+        '    <div class="ks-result-title">' + escHtml(item.title) + '</div>',
+        '    <div class="ks-result-meta">',
+        '      <span class="ks-result-section"><i class="fas fa-folder-open" aria-hidden="true"></i> ' + escHtml(section) + '</span>',
+        '      <span class="ks-result-excerpt">Recently opened</span>',
+        '    </div>',
+        '  </div>',
+        '  <div class="ks-result-arrow"><i class="fas fa-chevron-right" aria-hidden="true"></i></div>',
+        '</a>'
+      ].join('');
+
+      li.querySelector('a').addEventListener('click', function () { closeSearch(); });
+      resultsList.appendChild(li);
+    });
+  }
+
+  /* ─── Lunr Loader ───────────────────────────────────────────── */
+  function ensureLunr(callback) {
+    if (typeof lunr !== 'undefined') {
+      callback();
+      return;
+    }
+    var script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js';
+    script.crossOrigin = 'anonymous';
+    script.onload = function () {
+      callback();
+    };
+    script.onerror = function () {
+      loading = false;
+      statusEl.textContent = 'Could not load search engine.';
+      console.error('[Search] Failed to load lunr.min.js');
+    };
+    document.head.appendChild(script);
+  }
+
   /* ─── Index loading ──────────────────────────────────────────── */
   function loadIndex() {
     if (loading) return;
     loading = true;
     statusEl.textContent = 'Loading search index…';
 
-    fetch(INDEX_URL)
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        pagesData = data;
-        lunrIndex = lunr(function () {
-          this.ref('id');
-          this.field('title', { boost: 10 });
-          this.field('section', { boost: 5 });
-          this.field('tags', { boost: 4 });
-          this.field('content');
-          var self = this;
-          data.forEach(function (p) { self.add(p); });
+    ensureLunr(function () {
+      fetch(INDEX_URL)
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(function (data) {
+          pagesData = data;
+          lunrIndex = lunr(function () {
+            this.ref('id');
+            this.field('title', { boost: 10 });
+            this.field('section', { boost: 5 });
+            this.field('tags', { boost: 4 });
+            this.field('content');
+            var self = this;
+            data.forEach(function (p) { self.add(p); });
+          });
+          indexLoaded = true;
+          loading = false;
+          statusEl.textContent = '';
+          /* Run query if user already typed */
+          if (searchInput && searchInput.value.trim()) handleInput();
+        })
+        .catch(function (err) {
+          loading = false;
+          statusEl.textContent = 'Could not load search index.';
+          console.error('[Search]', err);
         });
-        indexLoaded = true;
-        loading = false;
-        statusEl.textContent = '';
-        /* Run query if user already typed */
-        if (searchInput.value.trim()) handleInput();
-      })
-      .catch(function (err) {
-        loading = false;
-        statusEl.textContent = 'Could not load search index.';
-        console.error('[Search]', err);
-      });
+    });
   }
 
   /* ─── Search handler ─────────────────────────────────────────── */
   function handleInput() {
     var q = searchInput.value.trim();
+    if (!q) {
+      renderRecentArticles();
+      return;
+    }
     if (!indexLoaded) { loadIndex(); return; }
-    if (!q) { resultsList.innerHTML = ''; statusEl.textContent = ''; return; }
 
     var results;
     try {

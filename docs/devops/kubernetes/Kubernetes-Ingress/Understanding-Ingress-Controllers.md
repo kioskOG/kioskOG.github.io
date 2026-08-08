@@ -2,6 +2,8 @@
 title: Understanding Ingress Controllers
 layout: doc-page
 parent: Kubernetes Projects
+parent_url: /docs/devops/kubernetes/
+has_children: true
 nav_order: 17
 permalink: /docs/devops/kubernetes/Understanding-Ingress-Controllers/
 description: Documentation on Understanding Ingress Controllers
@@ -142,9 +144,15 @@ You’re all‑in on AWS and want native ACM/WAF/ALB/NLB integration.
 **Choose NGINX if**  
 You need flexibility, portability, and deep config control.
 
-## Conclusion
+## 📚 Ingress Hands-on Guides in this Series
 
-* **All‑AWS stack?** Prefer *AWS Load Balancer Controller* for managed, native integrations.
-* **Need flexibility/portability?** Prefer *NGINX Ingress Controller* for advanced routing and deep customization.
+Explore the complete hands-on tutorials in this NGINX Ingress series:
+
+1. 🚀 [Installing NGINX Ingress Controller on Kubernetes](/docs/devops/kubernetes/Installing-NGINX-Ingress/)
+2. 🔀 [Routing Strategies in NGINX Ingress (Path & Host-based)](/docs/devops/kubernetes/Routing-in-NGINX-Ingress-Controller/)
+3. 🔒 [Basic Authentication with NGINX Ingress](/docs/devops/kubernetes/Basic-Authentication-using-NGINX-Ingress/)
+4. 🛡️ [Secure Applications with HTTPS using Self-Signed TLS Certificates](/docs/devops/kubernetes/secure-your-app-with-https-using-self-signed-tls-certificates/)
+
+---
 
 [Back to top ↑](#top)

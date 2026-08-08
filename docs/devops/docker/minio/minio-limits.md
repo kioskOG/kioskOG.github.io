@@ -2,7 +2,9 @@
 title: Minio limits
 layout: doc-page
 parent: Minio Introduction
+parent_url: /docs/devops/docker/minio/
 grand_parent: Docker Projects
+grand_parent_url: /docs/devops/docker/
 nav_order: 1
 description: Minio limits
 author: Jatin Sharma

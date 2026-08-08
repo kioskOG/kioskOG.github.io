@@ -1,8 +1,10 @@
 ---
 title: OpenVPN vs NetBird
 layout: doc-page
-grand_parent: Linux Projects
 parent: VPN
+parent_url: /docs/devops/Linux/vpn/vpn/
+grand_parent: Linux Projects
+grand_parent_url: /docs/devops/Linux/
 nav_order: 1
 permalink: /docs/devops/Linux/vpn/openvpn-vs-netbird/
 description: Documentation for Differences Between OpenVPN and NetBird.

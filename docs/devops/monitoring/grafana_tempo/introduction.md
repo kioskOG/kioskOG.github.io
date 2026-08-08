@@ -2,6 +2,8 @@
 title: Introduction to Distributed Tracing & Grafana Tempo
 layout: doc-page
 parent: monitoring
+parent_url: /docs/devops/monitoring/
+has_children: true
 nav_order: 2
 permalink: /docs/devops/monitoring/grafana_tempo/
 description: Introduction to Distributed Tracing & Grafana Tempo.
