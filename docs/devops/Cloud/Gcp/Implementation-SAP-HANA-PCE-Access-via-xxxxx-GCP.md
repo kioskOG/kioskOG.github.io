@@ -1,21 +1,22 @@
----
+<!-- ---
+title: "Implementation: SAP HANA PCE Access via GCP (Solution 2)"
+layout: doc-page
+parent: How we have saved 40 Lac per year for our client
+parent_url: /docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/
+grand_parent: Google Cloud Platform
+grand_parent_url: /docs/devops/Cloud/Gcp/
+nav_order: 2
+permalink: /docs/devops/Cloud/Gcp/Implementation-SAP-HANA-PCE-Access-via-GCP/
+description: Documentation for Implementation SAP HANA PCE Access via GCP (Solution 2).
 type: concept
 tags:
 - devops
 - cloud
 - gcp
 timestamp: '2026-06-15T10:19:56Z'
----<!-- ---
-title: "Implementation: SAP HANA PCE Access via Cars24 GCP (Solution 2)"
-layout: doc-page
-parent: How we have saved 40 Lac per year for our client
-grand_parent: Google Cloud Platform
-nav_order: 2
-permalink: /docs/devops/Cloud/Gcp/Implementation-SAP-HANA-PCE-Access-via-Cars24-GCP/
-description: Documentation for Implementation SAP HANA PCE Access via Cars24 GCP (Solution 2).
 --- -->
 
-# 🛠️ Implementation: SAP HANA PCE Access via xxxxx GCP (Solution 2)
+# 🛠️ Implementation: SAP HANA PCE Access via GCP (Solution 2)
 
 This document captures the **practical implementation** of Solution 2 for accessing SAP HANA Private Cloud Edition (PCE) securely using a VPN and DNS system hosted on the xxxxx GCP Project.
 

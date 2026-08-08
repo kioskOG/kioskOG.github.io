@@ -2,7 +2,9 @@
 title: Setting Up Python application using OpenTelemetry
 layout: doc-page
 parent: Introduction to Distributed Tracing & Grafana Tempo
+parent_url: /docs/devops/monitoring/grafana_tempo/
 grand_parent: monitoring
+grand_parent_url: /docs/devops/monitoring/
 nav_order: 2
 permalink: /docs/devops/monitoring/grafana_tempo/grafana-tempo-sample-app/
 description: Documentation for instrument a Python application using OpenTelemetry

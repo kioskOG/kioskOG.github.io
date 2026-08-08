@@ -95,7 +95,7 @@ timestamp: '2026-06-30T11:56:08Z'
       <div class="card-link" tabindex="0">
         <div class="project-head">
           <h3 class="project-title">OKF</h3>
-          <a class="project-open" href="/docs/ai/OKF/" aria-label="View OKF docs">
+          <a class="project-open" href="/docs/ai/OKF/setup/" aria-label="View OKF docs">
             View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
           </a>
         </div>
@@ -119,6 +119,7 @@ timestamp: '2026-06-30T11:56:08Z'
           <a class="tag" href="/docs/ai/Claude/setup-claude-code/">Setup Guide</a>
           <a class="tag" href="/docs/ai/Claude/slash-commands/">Slash Commands</a>
           <a class="tag" href="/docs/ai/Claude/open-router-free-models-claude-code/">OpenRouter Free Models</a>
+          <a class="tag" href="/docs/ai/Claude/understanding-context-window-management-in-claude-code/">Understanding Context Window Management</a>
         </div>
       </div>
     </article>

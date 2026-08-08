@@ -2,6 +2,8 @@
 title: Taming the Digital Wilds with Grafana's LGTM Stack
 layout: doc-page
 parent: monitoring
+parent_url: /docs/devops/monitoring/
+has_children: true
 nav_order: 3
 permalink: /docs/devops/monitoring/LGTM-stack/LGTM-stack/
 description: Taming the Digital Wilds with Grafana's LGTM Stack

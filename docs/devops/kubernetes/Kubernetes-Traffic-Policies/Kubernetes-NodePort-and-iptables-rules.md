@@ -2,6 +2,8 @@
 title: Kubernetes NodePort and iptables rules
 layout: doc-page
 parent: Kubernetes Projects
+parent_url: /docs/devops/kubernetes/
+has_children: true
 nav_order: 11
 permalink: /docs/devops/kubernetes/Kubernetes-NodePort-and-iptables-rules/
 description: Detailed documentation on Kubernetes NodePort and iptables rules.

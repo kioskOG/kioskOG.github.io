@@ -2,8 +2,9 @@
 title: Knative Developer Overview
 layout: doc-page
 parent: Knative
+parent_url: /docs/devops/kubernetes/knative/
 grand_parent: Kubernetes Projects
-has_children: true
+grand_parent_url: /docs/devops/kubernetes/
 nav_order: 1
 permalink: /docs/devops/kubernetes/knative/knative-overview/
 description: Documentation on Knative Developer Overview

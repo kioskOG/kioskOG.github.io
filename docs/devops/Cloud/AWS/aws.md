@@ -2,6 +2,8 @@
 title: AWS Cloud Platform
 layout: doc-page
 parent: Cloud Projects
+parent_url: /docs/devops/Cloud/
+has_children: true
 nav_order: 1
 permalink: /docs/devops/Cloud/AWS/aws/
 description: Documentation for AWS Cloud Platform.
@@ -18,9 +20,10 @@ timestamp: '2026-06-30T11:56:08Z'
 
 1. TOC
 {:toc}
-This section provides documentation for various Aws cloud projects. Select a project below for detailed information.
+This section provides documentation for various AWS cloud projects. Select a project below for detailed information.
 
 
 | Project                     | Description                                      | Status     |
 | --------------------------- | ------------------------------------------------ | ---------- |
-| [AWS Network Firewall Egress Filtering with Stateful Suricata Rules – Asymmetric Routing Trap](/docs/devops/Cloud/AWS/aws-firewal/) | AWS Network Firewall Egress Filtering with Stateful Suricata Rules – Asymmetric Routing Trap. | Done |
+| [AWS Network Firewall Egress Filtering with Stateful Suricata Rules – Asymmetric Routing Trap](/docs/devops/Cloud/AWS/aws-firewall/) | AWS Network Firewall Egress Filtering with Stateful Suricata Rules – Asymmetric Routing Trap. | Done |
+

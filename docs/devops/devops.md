@@ -59,6 +59,8 @@ timestamp: '2026-06-30T11:56:08Z'
           <a class="tag" href="/docs/devops/kubernetes/AWS-ECS-to-EKS-Migration/">ECS → EKS Migration</a>
           <a class="tag" href="/docs/devops/kubernetes/knative/">Knative Intro</a>
           <a class="tag" href="/docs/devops/kubernetes/karpenter/">Karpenter Intro</a>
+          <a class="tag" href="/docs/devops/kubernetes/karpenter/karpenter-setup-in-existing-eks-cluster/">Karpenter EKS Setup</a>
+          <a class="tag" href="/docs/devops/kubernetes/karpenter/karpenter-monitoring/">Karpenter Monitoring</a>
           <a class="tag" href="/docs/devops/kubernetes/Understanding-Ingress-Controllers/">Ingress Guides</a>
         </div>
       </div>

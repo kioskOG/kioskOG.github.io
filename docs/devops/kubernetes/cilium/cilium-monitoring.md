@@ -2,7 +2,9 @@
 title: Cilium Monitoring using Prometheus & Grafana
 layout: doc-page
 parent: Introduction to Cilium & Hubble
+parent_url: /docs/devops/kubernetes/cilium/cilium-intro/
 grand_parent: Kubernetes Projects
+grand_parent_url: /docs/devops/kubernetes/
 nav_order: 2
 permalink: /docs/devops/kubernetes/cilium/cilium-monitoring/
 description: Documentation for Cilium Monitoring using Prometheus & Grafana.

@@ -1552,6 +1552,11 @@
 
 <body>
 
+  <!-- Top Scroll Progress Bar -->
+  <div class="scroll-progress-container" aria-hidden="true">
+    <div class="scroll-progress-bar" id="ks-scroll-progress"></div>
+  </div>
+
   <div class="bg-blobs" aria-hidden="true"></div>
 
   <div class="page-wrap">
@@ -1629,17 +1634,65 @@
           {% assign cat_name = "DevOps" %}
           {% assign cat_url = "/docs/devops/" %}
           {% endif %}
-          <a class="sidebar-back" href="{{ page.parent_url | default: cat_url | relative_url }}">
+          {% assign parent_doc = site.pages | where: "title", page.parent | first %}
+          {% assign back_url = page.parent_url | default: parent_doc.url | default: cat_url %}
+          <a class="sidebar-back" href="{{ back_url | relative_url }}">
             <i class="fas fa-arrow-left" aria-hidden="true"></i>
             {% if page.parent %}{{ page.parent }}{% else %}{{ cat_name }}{% endif %}
           </a>
 
-          <!-- Dynamic Sibling Navigation -->
-          {% if page.parent %}
-          {% assign siblings = site.pages | where: "parent", page.parent | sort: "nav_order" %}
-          {% if siblings.size > 1 %}
-          <div class="sidebar-label">In this Section</div>
+          {% assign child_docs = site.pages | where: "parent", page.title | sort: "nav_order" %}
+          {% if child_docs.size > 0 %}
+          <!-- Parent Page with Child Series -->
+          <div class="sidebar-label">Guides in this Series</div>
           <ul class="sidebar-toc" style="margin-bottom: 24px;">
+            <li>
+              <a href="{{ page.url | relative_url }}" class="active-sibling">
+                <i class="fas fa-book-bookmark" style="opacity:0.6;font-size:0.85em;flex-shrink:0"></i>
+                Overview: {{ page.title }}
+              </a>
+            </li>
+            {% for child in child_docs %}
+            <li>
+              <a href="{{ child.url | relative_url }}">
+                <i class="fas fa-file-lines" style="opacity:0.5;font-size:0.85em;flex-shrink:0"></i>
+                {{ child.title }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% if page.parent %}
+          {% assign super_siblings = site.pages | where: "parent", page.parent | sort: "nav_order" %}
+          {% if super_siblings.size > 1 %}
+          <div class="sidebar-label">More in {{ page.parent }}</div>
+          <ul class="sidebar-toc" style="margin-bottom: 24px;">
+            {% for sib in super_siblings %}
+            {% if sib.url != page.url %}
+            <li>
+              <a href="{{ sib.url | relative_url }}">
+                <i class="fas fa-layer-group" style="opacity:0.4;font-size:0.85em;flex-shrink:0"></i>
+                {{ sib.title }}
+              </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+          {% endif %}
+          {% endif %}
+          {% elsif page.parent %}
+          <!-- Child Page in a Series -->
+          {% assign siblings = site.pages | where: "parent", page.parent | sort: "nav_order" %}
+          <div class="sidebar-label">{{ page.parent }} Series</div>
+          <ul class="sidebar-toc" style="margin-bottom: 24px;">
+            {% if parent_doc %}
+            <li>
+              <a href="{{ parent_doc.url | relative_url }}"
+                {% if parent_doc.url == page.url %}class="active-sibling"{% endif %}>
+                <i class="fas fa-book-bookmark" style="opacity:0.6;font-size:0.85em;flex-shrink:0"></i>
+                Overview: {{ parent_doc.title }}
+              </a>
+            </li>
+            {% endif %}
             {% for sibling in siblings %}
             <li>
               <a href="{{ sibling.url | relative_url }}"
@@ -1650,7 +1703,6 @@
             </li>
             {% endfor %}
           </ul>
-          {% endif %}
           {% endif %}
         </aside>
 
@@ -1686,6 +1738,9 @@
             <span><i class="fas fa-list-ol" aria-hidden="true"></i> Part {{ page.nav_order }}</span>
             {% endif %}
             <span><i class="fas fa-book-open" aria-hidden="true"></i> {{ cat_name }} Docs</span>
+            <a class="doc-meta-brain-link" href="{{ '/brain/' | relative_url }}?node={{ page.url | url_encode }}" title="Explore this concept in the interactive Knowledge Brain">
+              <i class="fas fa-brain" aria-hidden="true"></i> Explore in Brain
+            </a>
             <!-- Reading time injected by JS -->
           </div>
 
@@ -1789,14 +1844,41 @@
           </div>
 
           <!-- Related Articles -->
-          {% if page.parent %}
+          {% assign child_docs = site.pages | where: "parent", page.title | sort: "nav_order" %}
+          {% if child_docs.size > 0 %}
+          <div class="related-articles">
+            <div class="related-title"><i class="fas fa-layer-group" style="margin-right:6px"></i>Guides in {{ page.title }}</div>
+            <div class="related-grid">
+              {% for rel in child_docs limit:4 %}
+              <a class="related-card" href="{{ rel.url | relative_url }}">
+                <div class="related-card-label">{{ cat_name }}</div>
+                <div class="related-card-title">{{ rel.title }}</div>
+                <div class="related-card-meta">
+                  <i class="fas fa-file-lines" style="font-size:0.8em"></i>
+                  {% if rel.type %}{{ rel.type | capitalize }}{% else %}Guide{% endif %}
+                </div>
+              </a>
+              {% endfor %}
+            </div>
+          </div>
+          {% elsif page.parent %}
           {% assign siblings = site.pages | where: "parent", page.parent | sort: "nav_order" %}
           {% assign related_pages = siblings | reject: "url", page.url %}
-          {% if related_pages.size > 0 %}
+          {% if related_pages.size > 0 or parent_doc %}
           <div class="related-articles">
             <div class="related-title"><i class="fas fa-layer-group" style="margin-right:6px"></i>More in {{ page.parent }}</div>
             <div class="related-grid">
-              {% for rel in related_pages limit:4 %}
+              {% if parent_doc and parent_doc.url != page.url %}
+              <a class="related-card" href="{{ parent_doc.url | relative_url }}">
+                <div class="related-card-label">{{ cat_name }}</div>
+                <div class="related-card-title">Overview: {{ parent_doc.title }}</div>
+                <div class="related-card-meta">
+                  <i class="fas fa-book-bookmark" style="font-size:0.8em"></i>
+                  Overview
+                </div>
+              </a>
+              {% endif %}
+              {% for rel in related_pages limit:3 %}
               <a class="related-card" href="{{ rel.url | relative_url }}">
                 <div class="related-card-label">{{ cat_name }}</div>
                 <div class="related-card-title">{{ rel.title }}</div>
@@ -2716,6 +2798,196 @@
   <script src="{{ '/assets/js/tts/article-player.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/tts/floating-player.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/tts/index.js' | relative_url }}"></script>
+
+  <!-- Floating Back-to-Top Button -->
+  <button class="floating-back-to-top" id="ks-back-to-top" aria-label="Back to top" title="Back to top">
+    <svg class="progress-ring" viewBox="0 0 46 46" aria-hidden="true">
+      <circle class="bg" cx="23" cy="23" r="20"></circle>
+      <circle class="bar" id="ks-btt-circle" cx="23" cy="23" r="20"></circle>
+    </svg>
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- Keyboard Shortcuts Cheat Sheet Modal -->
+  <div id="ks-shortcuts-modal" class="ks-shortcuts-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Keyboard Shortcuts">
+    <div class="ks-shortcuts-card">
+      <div class="ks-shortcuts-header">
+        <div class="ks-shortcuts-title">
+          <i class="fas fa-keyboard" style="color: var(--accent-blue);"></i> Keyboard Shortcuts
+        </div>
+        <button id="ks-shortcuts-close" class="ks-shortcuts-close" aria-label="Close shortcuts modal">&times;</button>
+      </div>
+      <table class="ks-shortcuts-table">
+        <tbody>
+          <tr>
+            <td>Open Search</td>
+            <td><span class="ks-kbd-pill"><kbd>Cmd</kbd> / <kbd>Ctrl</kbd> + <kbd>K</kbd></span></td>
+          </tr>
+          <tr>
+            <td>Previous Article in Series</td>
+            <td><span class="ks-kbd-pill"><kbd>[</kbd></span> or <span class="ks-kbd-pill"><kbd>Alt</kbd> + <kbd>←</kbd></span></td>
+          </tr>
+          <tr>
+            <td>Next Article in Series</td>
+            <td><span class="ks-kbd-pill"><kbd>]</kbd></span> or <span class="ks-kbd-pill"><kbd>Alt</kbd> + <kbd>→</kbd></span></td>
+          </tr>
+          <tr>
+            <td>Toggle Table of Contents</td>
+            <td><span class="ks-kbd-pill"><kbd>T</kbd></span></td>
+          </tr>
+          <tr>
+            <td>Open Shortcuts Cheat Sheet</td>
+            <td><span class="ks-kbd-pill"><kbd>?</kbd></span></td>
+          </tr>
+          <tr>
+            <td>Close Modals / Popups</td>
+            <td><span class="ks-kbd-pill"><kbd>ESC</kbd></span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-size: 0.76rem; color: var(--text-muted); text-align: center;">
+        Tip: Press <kbd class="ks-kbd-pill">?</kbd> anywhere to open this dialog.
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Doc Tools & Power-User Navigation Script -->
+  <script>
+    (function () {
+      // 1. Scroll Progress & Back-to-Top
+      const progressBar = document.getElementById('ks-scroll-progress');
+      const bttBtn = document.getElementById('ks-back-to-top');
+      const bttCircle = document.getElementById('ks-btt-circle');
+      const circumference = 2 * Math.PI * 20; // ~125.66
+
+      function updateScrollProgress() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollHeight > 0 ? Math.min(1, Math.max(0, scrollTop / scrollHeight)) : 0;
+
+        if (progressBar) {
+          progressBar.style.width = (progress * 100) + '%';
+        }
+        if (bttCircle) {
+          const offset = circumference - (progress * circumference);
+          bttCircle.style.strokeDashoffset = offset;
+        }
+        if (bttBtn) {
+          if (scrollTop > 300) {
+            bttBtn.classList.add('is-visible');
+          } else {
+            bttBtn.classList.remove('is-visible');
+          }
+        }
+      }
+
+      window.addEventListener('scroll', updateScrollProgress, { passive: true });
+      updateScrollProgress();
+
+      if (bttBtn) {
+        bttBtn.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // 2. Recently Viewed Tracking
+      try {
+        const pageData = {
+          title: {{ page.title | jsonify }},
+          url: {{ page.url | jsonify }},
+          section: {{ page.parent | default: cat_name | jsonify }},
+          timestamp: Date.now()
+        };
+        if (pageData.title && pageData.url) {
+          let recents = JSON.parse(localStorage.getItem('ks_recent_docs') || '[]');
+          recents = recents.filter(item => item.url !== pageData.url);
+          recents.unshift(pageData);
+          if (recents.length > 6) recents = recents.slice(0, 6);
+          localStorage.setItem('ks_recent_docs', JSON.stringify(recents));
+        }
+      } catch (e) {
+        // localStorage gracefully handled
+      }
+
+      // 3. Power-User Keyboard Navigation
+      const shortcutsModal = document.getElementById('ks-shortcuts-modal');
+      const shortcutsClose = document.getElementById('ks-shortcuts-close');
+
+      function openShortcuts() {
+        if (shortcutsModal) {
+          shortcutsModal.classList.add('is-open');
+          shortcutsModal.setAttribute('aria-hidden', 'false');
+        }
+      }
+
+      function closeShortcuts() {
+        if (shortcutsModal) {
+          shortcutsModal.classList.remove('is-open');
+          shortcutsModal.setAttribute('aria-hidden', 'true');
+        }
+      }
+
+      if (shortcutsClose) {
+        shortcutsClose.addEventListener('click', closeShortcuts);
+      }
+      if (shortcutsModal) {
+        shortcutsModal.addEventListener('click', function (e) {
+          if (e.target === shortcutsModal) closeShortcuts();
+        });
+      }
+
+      // Series Prev / Next Detection
+      const prevLink = document.querySelector('.doc-nav-prev a, a[rel="prev"]');
+      const nextLink = document.querySelector('.doc-nav-next a, a[rel="next"]');
+
+      document.addEventListener('keydown', function (e) {
+        const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+        if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select' || (document.activeElement && document.activeElement.isContentEditable)) {
+          return;
+        }
+
+        if (e.key === '?' || (e.shiftKey && e.key === '/')) {
+          e.preventDefault();
+          openShortcuts();
+          return;
+        }
+
+        if (e.key === 'Escape' && shortcutsModal && shortcutsModal.classList.contains('is-open')) {
+          closeShortcuts();
+          return;
+        }
+
+        if (e.key === '[' || (e.altKey && e.key === 'ArrowLeft')) {
+          if (prevLink && prevLink.href) {
+            e.preventDefault();
+            window.location.href = prevLink.href;
+          }
+          return;
+        }
+
+        if (e.key === ']' || (e.altKey && e.key === 'ArrowRight')) {
+          if (nextLink && nextLink.href) {
+            e.preventDefault();
+            window.location.href = nextLink.href;
+          }
+          return;
+        }
+
+        if (e.key === 't' || e.key === 'T') {
+          const toc = document.querySelector('.doc-toc, .sidebar-toc');
+          if (toc) {
+            e.preventDefault();
+            toc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            toc.style.outline = '2px solid var(--accent-blue)';
+            setTimeout(() => { toc.style.outline = 'none'; }, 1200);
+          }
+        }
+      });
+    })();
+  </script>
+
+  <!-- Instant.page prefetching for zero-latency page transitions -->
+  <script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.js" type="module" defer></script>
 
 </body>
 

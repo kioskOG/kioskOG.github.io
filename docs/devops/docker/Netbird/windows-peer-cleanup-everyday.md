@@ -2,10 +2,11 @@
 title: Netbird Windows Peer Cleaner
 layout: doc-page
 parent: Netbird Setup
-nav_order: 1
+parent_url: /docs/devops/docker/Netbird/
 grand_parent: Docker Projects
-description: A simple tool to automate the cleanup of stale Windows peers from a Netbird
-  VPN setup
+grand_parent_url: /docs/devops/docker/
+nav_order: 1
+description: A simple tool to automate the cleanup of stale Windows peers from a Netbird VPN setup
 author: Jatin Sharma
 permalink: /docs/devops/docker/Netbird/windows-peer-cleanup-everyday/
 type: concept

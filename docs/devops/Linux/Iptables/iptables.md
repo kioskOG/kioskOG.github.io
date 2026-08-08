@@ -2,6 +2,8 @@
 title: Quick Introduction to Linux iptables
 layout: doc-page
 parent: Linux Projects
+parent_url: /docs/devops/Linux/
+has_children: true
 nav_order: 2
 permalink: /docs/devops/Linux/Iptables/iptables/
 description: Documentation for Introduction to Linux iptables.

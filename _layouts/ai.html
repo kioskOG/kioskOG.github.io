@@ -322,6 +322,7 @@
     <i class="fas fa-arrow-up" aria-hidden="true"></i>
   </button>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" crossorigin="anonymous"></script>
   <script src="{{ '/assets/search.js' | relative_url }}"></script>
   <script src="{{ '/assets/effects.js' | relative_url }}"></script>
   <script>
@@ -360,6 +361,8 @@
       }
     })();
   </script>
+  <!-- Instant.page prefetching for zero-latency page transitions -->
+  <script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.js" type="module" defer></script>
 </body>
 
 </html>

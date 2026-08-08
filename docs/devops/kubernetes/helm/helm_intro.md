@@ -2,6 +2,8 @@
 title: What is HELM | Why We Need HELM | Create HELM Chart?
 layout: doc-page
 parent: Kubernetes Projects
+parent_url: /docs/devops/kubernetes/
+has_children: true
 nav_order: 9
 permalink: /docs/devops/kubernetes/helm
 description: Documentation for What is HELM, Why We Need HELM, and How to Create a

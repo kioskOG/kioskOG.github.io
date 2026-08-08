@@ -2,8 +2,10 @@
 title: Kubernetes Service Traffic Routing & Traffic Policies
 layout: doc-page
 parent: Kubernetes NodePort and iptables rules
-nav_order: 1
+parent_url: /docs/devops/kubernetes/Kubernetes-NodePort-and-iptables-rules/
 grand_parent: Kubernetes Projects
+grand_parent_url: /docs/devops/kubernetes/
+nav_order: 1
 permalink: /docs/devops/kubernetes/Kubernetes-Traffic-Policies/
 description: Detailed documentation on Kubernetes Traffic Policies and routing strategies.
 type: concept

@@ -2,8 +2,10 @@
 title: Knative Serving Part-1
 layout: doc-page
 parent: Knative
+parent_url: /docs/devops/kubernetes/knative/
 grand_parent: Kubernetes Projects
-nav_order: 3
+grand_parent_url: /docs/devops/kubernetes/
+nav_order: 2
 permalink: /docs/devops/kubernetes/knative/knative-serving-part-1/
 description: Documentation on knative serving
 type: concept

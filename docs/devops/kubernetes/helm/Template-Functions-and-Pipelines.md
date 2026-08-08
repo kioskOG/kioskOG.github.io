@@ -2,7 +2,9 @@
 title: Helm Template Functions and Pipelines
 layout: doc-page
 parent: What is HELM | Why We Need HELM | Create HELM Chart?
+parent_url: /docs/devops/kubernetes/helm
 grand_parent: Kubernetes Projects
+grand_parent_url: /docs/devops/kubernetes/
 nav_order: 3
 permalink: /docs/devops/kubernetes/helm/Template-Functions-and-Pipelines/
 description: Documentation for Helm Template Functions and Pipelines

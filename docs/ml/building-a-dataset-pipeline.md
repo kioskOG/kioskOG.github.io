@@ -2,6 +2,7 @@
 title: MLOps Step 1 Building a Dataset Pipeline
 layout: doc-page
 parent: ML | Jatin Sharma
+parent_url: /docs/ml/
 nav_order: 1
 permalink: /docs/ml/building-a-dataset-pipeline/
 description: Exploring the first step in MLOps - Building a dataset pipeline for training

@@ -2,7 +2,10 @@
 title: How we have saved 40 Lac per year for our client
 layout: doc-page
 parent: Google Cloud Platform
+parent_url: /docs/devops/Cloud/Gcp/
 grand_parent: Cloud Projects
+grand_parent_url: /docs/devops/Cloud/
+has_children: true
 nav_order: 1
 description: Sap Hana Problem Solution
 author: Jatin Sharma
@@ -136,3 +139,11 @@ Check the diagram below for a clearer understanding of this solution:
 > The only recurring cost is the server hosting the VPN:
 >    - 1 Linux Server with VPN installed - 16 cpu / 32GB RAM (This is MAX)
 >    - Total: **$294.28 (24743.70) per month**
+
+---
+
+## 🛠️ Step-by-Step Implementation
+
+Ready to build this solution? Follow our detailed hands-on setup guide:
+
+👉 [**Implementation: SAP HANA PCE Access via GCP (Solution 2)**](/docs/devops/Cloud/Gcp/Implementation-SAP-HANA-PCE-Access-via-GCP/)

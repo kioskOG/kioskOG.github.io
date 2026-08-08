@@ -2,7 +2,9 @@
 title: Wazuh Indexer Installation
 layout: doc-page
 parent: Wazuh
+parent_url: /docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/
 grand_parent: Linux Projects
+grand_parent_url: /docs/devops/Linux/
 nav_order: 1
 permalink: /docs/devops/Linux/SIEM-And-XDR/wazuh-indexer-setup/
 description: Documentation for Installing the Wazuh Indexer.

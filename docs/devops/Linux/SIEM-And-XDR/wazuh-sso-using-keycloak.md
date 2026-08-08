@@ -1,9 +1,11 @@
 ---
-title: Wazuh SSO with Keyclock
+title: Wazuh SSO with Keycloak
 layout: doc-page
 parent: Wazuh
+parent_url: /docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/
 grand_parent: Linux Projects
-nav_order: 7
+grand_parent_url: /docs/devops/Linux/
+nav_order: 4
 permalink: /docs/devops/Linux/SIEM-And-XDR/wazuh-sso-using-keycloak/
 description: Documentation for Installing the Wazuh SSO with Keyclock.
 type: concept

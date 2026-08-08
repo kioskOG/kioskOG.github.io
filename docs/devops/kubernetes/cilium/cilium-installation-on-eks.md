@@ -2,7 +2,9 @@
 title: Install Cilium & Hubble on EKS
 layout: doc-page
 parent: Introduction to Cilium & Hubble
+parent_url: /docs/devops/kubernetes/cilium/cilium-intro/
 grand_parent: Kubernetes Projects
+grand_parent_url: /docs/devops/kubernetes/
 nav_order: 1
 permalink: /docs/devops/kubernetes/cilium/cilium-installation-on-eks/
 description: Documentation for Install Cilium & Hubble on EKS.

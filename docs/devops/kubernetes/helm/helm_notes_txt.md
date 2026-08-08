@@ -2,8 +2,10 @@
 title: Helm Notes NOTES.txt File
 layout: doc-page
 parent: What is HELM | Why We Need HELM | Create HELM Chart?
+parent_url: /docs/devops/kubernetes/helm
 grand_parent: Kubernetes Projects
-nav_order: 6
+grand_parent_url: /docs/devops/kubernetes/
+nav_order: 5
 permalink: /docs/devops/kubernetes/helm/helm_notes_txt/
 description: Documentation for Creating a NOTES.txt File
 type: concept

@@ -2,8 +2,10 @@
 title: Routing in NGINX Ingress Controller
 layout: doc-page
 parent: Understanding Ingress Controllers
+parent_url: /docs/devops/kubernetes/Understanding-Ingress-Controllers/
 grand_parent: Kubernetes Projects
-nav_order: 2.5
+grand_parent_url: /docs/devops/kubernetes/
+nav_order: 2
 permalink: /docs/devops/kubernetes/Routing-in-NGINX-Ingress-Controller/
 description: Documentation on Routing in NGINX Ingress Controller
 type: concept

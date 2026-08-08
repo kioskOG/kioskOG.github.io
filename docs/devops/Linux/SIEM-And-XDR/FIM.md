@@ -2,8 +2,10 @@
 title: Wazuh File Integrity Monitoring
 layout: doc-page
 parent: Wazuh
+parent_url: /docs/devops/Linux/SIEM-And-XDR/wazuh-introduction/
 grand_parent: Linux Projects
-nav_order: 4
+grand_parent_url: /docs/devops/Linux/
+nav_order: 8
 permalink: /docs/devops/Linux/SIEM-And-XDR/FIM/
 description: Documentation for File Integrity Monitoring setup.
 type: concept

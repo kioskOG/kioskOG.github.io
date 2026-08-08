@@ -35,7 +35,10 @@ timestamp: '2026-06-30T11:56:08Z'
         <a class="project-open" href="/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
       </div>
       <p class="project-desc">Architectural solution that saved a client ₹40L/year in SAP HANA cloud costs using GCP.</p>
-      <div class="tags"><span class="tag">GCP</span><span class="tag">SAP HANA</span><span class="tag">Cost Optimization</span></div>
+      <div class="tags">
+        <a class="tag" href="/docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/">Problem & Architecture</a>
+        <a class="tag" href="/docs/devops/Cloud/Gcp/Implementation-SAP-HANA-PCE-Access-via-GCP/">Implementation Guide</a>
+      </div>
     </div>
   </article>
 
@@ -83,7 +86,7 @@ timestamp: '2026-06-30T11:56:08Z'
     <div class="card-link">
       <div class="project-head">
         <h3 class="project-title">AWS Firewall Egress Filtering</h3>
-        <a class="project-open" href="/docs/devops/Cloud/AWS/aws-firewal/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+        <a class="project-open" href="/docs/devops/Cloud/AWS/aws-firewall/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
       </div>
       <p class="project-desc">Implementing AWS Network Firewall for egress traffic filtering and inspection.</p>
       <div class="tags"><span class="tag">AWS</span><span class="tag">Firewall</span><span class="tag">Security</span><span class="tag">Egress</span></div>

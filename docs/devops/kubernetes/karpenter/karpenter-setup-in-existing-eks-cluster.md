@@ -2,7 +2,9 @@
 title: Setup Karpenter on Existing EKS Cluster
 layout: doc-page
 parent: Karpenter
+parent_url: /docs/devops/kubernetes/karpenter/
 grand_parent: Kubernetes Projects
+grand_parent_url: /docs/devops/kubernetes/
 nav_order: 1
 permalink: /docs/devops/kubernetes/karpenter/karpenter-setup-in-existing-eks-cluster/
 description: Documentation on karpenter serving

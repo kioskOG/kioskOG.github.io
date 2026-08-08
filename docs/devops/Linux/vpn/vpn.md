@@ -2,6 +2,8 @@
 title: VPN
 layout: doc-page
 parent: Linux Projects
+parent_url: /docs/devops/Linux/
+has_children: true
 nav_order: 3
 permalink: /docs/devops/Linux/vpn/vpn/
 description: Documentation on VPN
