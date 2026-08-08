@@ -46,29 +46,33 @@
 }
 
 html[data-theme="light"] {
-  --bg:            #f8fafc;
-  --bg-alt:        #f1f5f9;
-  --surface:       rgba(255,255,255,0.72);
-  --surface-hover: rgba(255,255,255,0.92);
-  --border:        rgba(15,23,42,0.08);
-  --border-hover:  rgba(59,130,246,0.35);
+  /* DataVidhya-inspired off-white light theme */
+  --bg:            #f4f6f8;
+  --bg-alt:        #eef1f5;
+  --surface:       #ffffff;
+  --surface-hover: #f8fafc;
+  --border:        rgba(15,23,42,0.10);
+  --border-hover:  rgba(59,130,246,0.40);
   --text-heading:  #0f172a;
-  --text-body:     #334155;
-  --text-muted:    #64748b;
+  --text-body:     #374151;
+  --text-muted:    #6b7280;
   --accent-blue:   #3b82f6;
   --accent-green:  #10b981;
   --accent-purple: #8b5cf6;
   --accent-amber:  #f59e0b;
   --grad-primary:  linear-gradient(135deg, #3b82f6, #10b981);
   --grad-hero:     linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #10b981 100%);
-  --nav-bg:        rgba(248, 250, 252, 0.82);
-  --input-bg:      rgba(255, 255, 255, 0.85);
-  --search-bg:     rgba(255, 255, 255, 0.97);
-  --search-header-bg: rgba(248, 250, 252, 0.7);
+  --nav-bg:        rgba(255, 255, 255, 0.92);
+  --input-bg:      #ffffff;
+  --search-bg:     #ffffff;
+  --search-header-bg: rgba(244, 246, 248, 0.95);
   --page-accent:   var(--accent-blue);
   --page-grad:     var(--grad-primary);
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:     0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+  --shadow-lg:     0 10px 40px rgba(0,0,0,0.10), 0 4px 14px rgba(0,0,0,0.05);
   --code-bg:       rgba(15, 23, 42, 0.05);
-  --code-border:   rgba(15, 23, 42, 0.08);
+  --code-border:   rgba(15, 23, 42, 0.09);
   --code-color:    #e11d48;
   --table-row-even-bg: rgba(15, 23, 42, 0.02);
 }
