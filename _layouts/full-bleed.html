@@ -2126,6 +2126,11 @@
           <p class="hero-desc">Passionate about building scalable, automated cloud-native solutions. Specializing in
             DevOps, Cloud, Infrastructure Automation, Kubernetes, CI/CD pipelines, observability, and MLOps that just
             works.</p>
+          {% if page.quote %}
+          <blockquote style="margin: 1.5rem 0; padding-left: 1rem; border-left: 4px solid var(--accent-green); font-style: italic; color: var(--text-muted); font-size: 1.1rem; line-height: 1.6;">
+            {{ page.quote }}
+          </blockquote>
+          {% endif %}
           <div class="hero-ctas">
             <a href="#projects" class="btn-primary">Explore My Work <i class="fas fa-arrow-down"
                 aria-hidden="true"></i></a>
