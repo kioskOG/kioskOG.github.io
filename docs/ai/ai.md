@@ -123,5 +123,23 @@ timestamp: '2026-06-30T11:56:08Z'
         </div>
       </div>
     </article>
+
+    <article class="project-card card-gold normal reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">AI Infra</h3>
+          <a class="project-open" href="/docs/ai/AI-Infra/" aria-label="View AI Infra docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">AI Infra is a collection of resources for learning about AI infrastructure, including CPUs, GPUs, DPUs, TPUs, LPUs, and NPUs.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/ai/AI-Infra/cpu-vs-gpu-vs-dpu-vs-tpu-vs-lpu-vs-npu/">CPU vs GPU vs DPU vs TPU vs LPU vs NPU</a>
+          <a class="tag" href="/docs/ai/AI-Infra/NVMe-vs-NFS-vs-Distributed-vs-Parallel-File-Systems/">NVMe vs NFS vs Distributed vs Parallel File Systems</a>
+        </div>
+      </div>
+    </article>
+
+
   </div>
 </section>
