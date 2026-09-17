@@ -146,6 +146,7 @@ timestamp: '2026-06-30T11:56:08Z'
           <a class="tag" href="/docs/devops/Cloud/Gcp/Accessing-GCS-from-GKE-Pods-using-Workload-Identity/">GCS Workload Identity</a>
           <a class="tag" href="/docs/devops/Cloud/Gcp/Cross-cloud-identities-between-GCP-and-AWS/">Cross-Cloud GCP/AWS</a>
           <a class="tag" href="/docs/devops/Cloud/AWS/aws-firewal/">AWS Firewall</a>
+          <a class="tag" href="/docs/devops/Cloud/AWS/How-to-Configure-AWS-MCP-in-Cursor/">AWS MCP in Cursor</a>
         </div>
       </div>
     </article>

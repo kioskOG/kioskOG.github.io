@@ -249,224 +249,175 @@
     }
 
     /* ====================================================
-       AUDIO PLAYER WIDGET
+       AUDIO PLAYER WIDGET — Premium Full-Featured
        ==================================================== */
     .audio-player-widget {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 18px;
+      flex-direction: column;
+      gap: 14px;
+      padding: 18px 20px;
       margin: 0 0 28px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-sm);
       transition: border-color 0.2s, box-shadow 0.2s;
-      flex-wrap: wrap;
     }
-
     html[data-theme="light"] .audio-player-widget {
       background: #fff;
       border-color: rgba(15,23,42,0.10);
     }
-
     .audio-player-widget:hover {
       border-color: var(--border-hover);
       box-shadow: var(--shadow-md);
     }
 
-    .audio-player-left {
+    /* Row 1: Header */
+    .ap-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      flex: 1;
-      min-width: 0;
+      justify-content: space-between;
+      gap: 10px;
     }
-
-    .audio-icon-wrap {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
+    .ap-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ap-icon {
+      width: 36px; height: 36px; border-radius: 50%;
       background: rgba(59, 130, 246, 0.10);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent-blue); font-size: 0.9rem; flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .audio-player-widget.is-playing .ap-icon {
+      background: rgba(59, 130, 246, 0.20);
+    }
+    .ap-title { font-weight: 600; font-size: 0.88rem; color: var(--text-heading); }
+    .ap-status {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.5px;
+      text-transform: uppercase; color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .audio-player-widget.is-playing .ap-status { color: var(--accent-green); }
+    .audio-player-widget.is-paused  .ap-status { color: var(--accent-amber, #f59e0b); }
+
+    /* Row 2: Transport Controls */
+    .ap-controls {
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-      color: var(--accent-blue);
-      font-size: 0.95rem;
-      transition: background 0.2s;
+      gap: 6px;
     }
-
-    .audio-player-widget:has(.audio-play-btn.playing) .audio-icon-wrap {
-      background: rgba(59, 130, 246, 0.18);
+    .ap-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 6px; padding: 0; width: 36px; height: 36px;
+      border-radius: 50%; background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text-heading); font-size: 0.85rem;
+      cursor: pointer; transition: all 0.15s; font-family: inherit;
     }
-
-    .audio-player-info {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      min-width: 0;
+    .ap-btn:hover:not(:disabled) {
+      border-color: var(--accent-blue); color: var(--accent-blue);
+      background: rgba(59,130,246,0.06);
     }
+    .ap-btn:active:not(:disabled) { transform: scale(0.93); }
+    .ap-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .ap-btn:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 2px; }
 
-    .audio-player-title {
-      font-weight: 600;
-      font-size: 0.88rem;
-      color: var(--text-heading);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    /* Primary play button — larger */
+    .ap-btn-play {
+      width: 44px; height: 44px; font-size: 1rem;
+      border-width: 2px;
     }
-
-    .audio-player-sub {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      flex-wrap: wrap;
+    .ap-btn-play.playing {
+      background: var(--accent-blue); border-color: var(--accent-blue); color: #fff;
     }
+    .ap-btn-play.playing:hover { background: #2563eb; }
 
-    .audio-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: rgba(59,130,246,0.1);
-      color: var(--accent-blue);
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+    /* Row 3: Progress */
+    .ap-progress-row {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .ap-time {
+      font-size: 0.72rem; font-weight: 600; color: var(--text-muted);
+      font-variant-numeric: tabular-nums; min-width: 50px; text-align: center;
       white-space: nowrap;
     }
+    .ap-progress-track {
+      flex: 1; height: 5px;
+      background: rgba(255,255,255,0.08); border-radius: 3px;
+      position: relative; cursor: pointer; overflow: hidden;
+    }
+    html[data-theme="light"] .ap-progress-track { background: rgba(15,23,42,0.08); }
+    .ap-progress-fill {
+      position: absolute; top: 0; left: 0; height: 100%;
+      background: var(--accent-blue); border-radius: 3px;
+      width: 0%; transition: width 0.15s ease-out;
+    }
 
-    /* Waveform animation */
-    .audio-waveform {
-      display: none;
-      align-items: flex-end;
-      gap: 2px;
-      height: 14px;
+    /* Row 4: Settings */
+    .ap-settings {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      padding-top: 10px; border-top: 1px solid var(--border);
     }
-    .audio-play-btn.playing ~ .audio-waveform,
-    .audio-player-widget.is-playing .audio-waveform {
-      display: flex;
+    .ap-voice-select {
+      flex: 1; min-width: 140px; max-width: 260px;
+      background: var(--surface-card, rgba(255, 255, 255, 0.04));
+      border: 1px solid var(--border); color: var(--text-heading);
+      padding: 5px 26px 5px 10px; border-radius: 6px;
+      font-size: 0.75rem; font-weight: 500; font-family: inherit;
+      cursor: pointer; outline: none;
+      transition: border-color 0.15s, background 0.15s;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%2394a3b8' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 8px center;
+      text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
     }
-    .audio-waveform span {
-      display: block;
-      width: 3px;
-      background: var(--accent-blue);
-      border-radius: 2px;
-      animation: waveBar 0.9s ease-in-out infinite alternate;
+    .ap-voice-select:hover, .ap-voice-select:focus {
+      border-color: var(--accent-blue); background-color: rgba(59, 130, 246, 0.06);
     }
-    .audio-waveform span:nth-child(1) { height: 4px;  animation-delay: 0s; }
-    .audio-waveform span:nth-child(2) { height: 10px; animation-delay: 0.15s; }
-    .audio-waveform span:nth-child(3) { height: 14px; animation-delay: 0.05s; }
-    .audio-waveform span:nth-child(4) { height: 8px;  animation-delay: 0.25s; }
-    .audio-waveform span:nth-child(5) { height: 5px;  animation-delay: 0.1s; }
+    .ap-voice-select option { background: #1e293b; color: #f1f5f9; }
+    html[data-theme="light"] .ap-voice-select option { background: #fff; color: #0f172a; }
+
+    .ap-speed-btn {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-muted); padding: 5px 10px; border-radius: 6px;
+      font-size: 0.75rem; font-weight: 700; font-family: inherit;
+      cursor: pointer; transition: all 0.15s; white-space: nowrap;
+    }
+    .ap-speed-btn:hover {
+      border-color: var(--accent-blue); color: var(--accent-blue);
+      background: rgba(59,130,246,0.06);
+    }
+
+    /* Waveform bars */
+    .ap-waveform {
+      display: none; align-items: flex-end; gap: 2px; height: 16px;
+    }
+    .audio-player-widget.is-playing .ap-waveform { display: flex; }
+    .ap-waveform span {
+      display: block; width: 3px; background: var(--accent-blue);
+      border-radius: 2px; animation: waveBar 0.9s ease-in-out infinite alternate;
+    }
+    .ap-waveform span:nth-child(1) { height: 5px;  animation-delay: 0s; }
+    .ap-waveform span:nth-child(2) { height: 11px; animation-delay: 0.15s; }
+    .ap-waveform span:nth-child(3) { height: 16px; animation-delay: 0.05s; }
+    .ap-waveform span:nth-child(4) { height: 9px;  animation-delay: 0.25s; }
+    .ap-waveform span:nth-child(5) { height: 6px;  animation-delay: 0.1s; }
     @keyframes waveBar {
       from { opacity: 0.4; transform: scaleY(0.5); }
       to   { opacity: 1;   transform: scaleY(1); }
     }
 
-    /* Right side controls */
-    .audio-player-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    /* Voice selector dropdown */
-    .audio-voice-select {
-      background: var(--surface-card, rgba(255, 255, 255, 0.04));
-      border: 1px solid var(--border);
-      color: var(--text-heading);
-      padding: 5px 26px 5px 10px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      font-family: inherit;
-      cursor: pointer;
-      outline: none;
-      transition: border-color 0.15s, background 0.15s;
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%2394a3b8' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 8px center;
-      max-width: 175px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-    .audio-voice-select:hover,
-    .audio-voice-select:focus {
-      border-color: var(--accent-blue);
-      background-color: rgba(59, 130, 246, 0.06);
-    }
-    .audio-voice-select option {
-      background: #1e293b;
-      color: #f1f5f9;
-    }
-    html[data-theme="light"] .audio-voice-select option {
-      background: #ffffff;
-      color: #0f172a;
-    }
-
-    /* Speed picker */
-    .audio-speed-btn {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 5px 9px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.15s;
-      white-space: nowrap;
-    }
-    .audio-speed-btn:hover {
-      border-color: var(--accent-blue);
-      color: var(--accent-blue);
-      background: rgba(59,130,246,0.06);
-    }
-
-    .audio-play-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 8px 18px;
-      border-radius: 999px;
-      background: transparent;
-      border: 1.5px solid var(--border);
-      color: var(--text-heading);
-      font-size: 0.83rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: inherit;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .audio-play-btn:hover {
-      background: rgba(59,130,246,0.08);
-      border-color: var(--accent-blue);
-      color: var(--accent-blue);
-    }
-
-    .audio-play-btn.playing {
-      background: var(--accent-blue);
-      border-color: var(--accent-blue);
-      color: #fff;
-    }
-    .audio-play-btn.playing:hover {
-      background: #2563eb;
-      color: #fff;
+    /* Mobile responsive */
+    @media (max-width: 520px) {
+      .ap-controls { gap: 4px; }
+      .ap-btn { width: 32px; height: 32px; font-size: 0.78rem; }
+      .ap-btn-play { width: 40px; height: 40px; }
+      .ap-settings { gap: 8px; }
+      .ap-voice-select { min-width: 110px; }
     }
 
     /* ====================================================
@@ -1209,10 +1160,6 @@
     @media (max-width: 640px) {
       .doc-article { padding: 16px 0 48px; }
       .doc-page-nav a { max-width: 100%; }
-      .audio-player-widget { flex-direction: column; align-items: stretch; gap: 12px; }
-      .audio-player-controls { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
-      .audio-voice-select { flex: 1; min-width: 140px; max-width: none; }
-      .audio-player-widget .audio-play-btn { flex-shrink: 0; }
     }
 
     /* ====================================================
@@ -1552,10 +1499,6 @@
 
 <body>
 
-  <!-- Top Scroll Progress Bar -->
-  <div class="scroll-progress-container" aria-hidden="true">
-    <div class="scroll-progress-bar" id="ks-scroll-progress"></div>
-  </div>
 
   <div class="bg-blobs" aria-hidden="true"></div>
 
@@ -1614,8 +1557,6 @@
           </button>
         </div>
       </div>
-      <!-- Scroll Progress Bar -->
-      <div class="scroll-progress-bar" id="scroll-progress"></div>
     </nav>
 
     <!-- ARTICLE LAYOUT -->
@@ -1744,32 +1685,58 @@
             <!-- Reading time injected by JS -->
           </div>
 
-          <!-- Audio Player Widget -->
+          <!-- Audio Player Widget — Premium Full-Featured -->
           <div class="audio-player-widget" id="audio-player-widget" role="complementary" aria-label="Listen to article">
-            <div class="audio-player-left">
-              <div class="audio-icon-wrap" aria-hidden="true">
-                <i class="fas fa-headphones"></i>
-              </div>
-              <div class="audio-player-info">
-                <div class="audio-player-title">Listen to this article</div>
-                <div class="audio-player-sub">
-                  <span class="audio-badge" id="audio-voice-badge"><i class="fas fa-robot"></i> TTS</span>
-                  <span id="audio-duration">—</span>
-                  <span class="audio-waveform" id="audio-waveform" aria-hidden="true">
-                    <span></span><span></span><span></span><span></span><span></span>
-                  </span>
+            <!-- Header -->
+            <div class="ap-header">
+              <div class="ap-header-left">
+                <div class="ap-icon" aria-hidden="true"><i class="fas fa-headphones"></i></div>
+                <div>
+                  <div class="ap-title">Listen to this article</div>
                 </div>
               </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="ap-status" id="ap-status">Ready</span>
+                <span class="ap-waveform" id="ap-waveform" aria-hidden="true">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </span>
+              </div>
             </div>
-            <div class="audio-player-controls">
-              <select class="audio-voice-select" id="audio-voice-select" aria-label="Select Narration Voice" title="Choose Voice">
+
+            <!-- Transport Controls -->
+            <div class="ap-controls">
+              <button class="ap-btn" id="ap-restart" type="button" aria-label="Restart from beginning" title="Restart" disabled>
+                <i class="fas fa-undo-alt"></i>
+              </button>
+              <button class="ap-btn" id="ap-prev" type="button" aria-label="Previous sentence" title="Previous" disabled>
+                <i class="fas fa-step-backward"></i>
+              </button>
+              <button class="ap-btn ap-btn-play" id="ap-play" type="button" aria-label="Play article">
+                <i class="fas fa-play" id="ap-play-icon"></i>
+              </button>
+              <button class="ap-btn" id="ap-next" type="button" aria-label="Next sentence" title="Next" disabled>
+                <i class="fas fa-step-forward"></i>
+              </button>
+              <button class="ap-btn" id="ap-stop" type="button" aria-label="Stop playback" title="Stop" disabled>
+                <i class="fas fa-stop"></i>
+              </button>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="ap-progress-row">
+              <span class="ap-time" id="ap-current">0 / 0</span>
+              <div class="ap-progress-track" id="ap-progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" tabindex="0" aria-label="Playback progress">
+                <div class="ap-progress-fill" id="ap-progress-fill"></div>
+              </div>
+              <span class="ap-time" id="ap-total"></span>
+            </div>
+
+            <!-- Settings Row -->
+            <div class="ap-settings">
+              <select class="ap-voice-select" id="ap-voice" aria-label="Select voice" title="Choose voice">
                 <option value="">Auto (Best Voice)</option>
               </select>
-              <button class="audio-speed-btn" id="audio-speed-btn" type="button" aria-label="Playback speed" title="Click to cycle speed">1×</button>
-              <button class="audio-play-btn" id="audio-toggle-btn" type="button" aria-label="Play article audio">
-                <i class="fas fa-play" id="audio-btn-icon"></i>
-                <span id="audio-btn-label">Play</span>
-              </button>
+              <button class="ap-speed-btn" id="ap-speed" type="button" aria-label="Playback speed" title="Cycle speed">1×</button>
             </div>
           </div>
 
@@ -2076,12 +2043,6 @@
         var timeBadge = document.createElement('span');
         timeBadge.innerHTML = '<i class="fas fa-clock" aria-hidden="true"></i> ' + estimatedMinutes + ' min read';
         metaBar.appendChild(timeBadge);
-        // Update audio player duration estimate
-        var audioDur = document.getElementById('audio-duration');
-        if (audioDur) {
-          var mins = estimatedMinutes;
-          audioDur.textContent = mins + ':' + String(Math.floor(Math.random() * 59)).padStart(2,'0');
-        }
       }
 
       /* ================================================
@@ -2157,33 +2118,34 @@
       }
 
       /* ================================================
-         AUDIO PLAYER WIDGET — wired to TTSSpeechEngine
+         AUDIO PLAYER WIDGET — Full-Featured Controls
          ================================================ */
       (function () {
         var widget      = document.getElementById('audio-player-widget');
-        var toggleBtn   = document.getElementById('audio-toggle-btn');
-        var btnIcon     = document.getElementById('audio-btn-icon');
-        var btnLabel    = document.getElementById('audio-btn-label');
-        var speedBtn    = document.getElementById('audio-speed-btn');
-        var voiceSelect = document.getElementById('audio-voice-select');
-        var waveform    = document.getElementById('audio-waveform');
-        var voiceBadge  = document.getElementById('audio-voice-badge');
-        var durEl       = document.getElementById('audio-duration');
+        var playBtn     = document.getElementById('ap-play');
+        var playIcon    = document.getElementById('ap-play-icon');
+        var stopBtn     = document.getElementById('ap-stop');
+        var prevBtn     = document.getElementById('ap-prev');
+        var nextBtn     = document.getElementById('ap-next');
+        var restartBtn  = document.getElementById('ap-restart');
+        var speedBtn    = document.getElementById('ap-speed');
+        var voiceSelect = document.getElementById('ap-voice');
+        var statusEl    = document.getElementById('ap-status');
+        var currentEl   = document.getElementById('ap-current');
+        var totalEl     = document.getElementById('ap-total');
+        var progressTrack = document.getElementById('ap-progress-track');
+        var progressFill  = document.getElementById('ap-progress-fill');
 
-        if (!toggleBtn) return;
+        if (!playBtn) return;
 
-        // Speed steps the user can cycle through
-        var SPEEDS = [0.75, 0.9, 1.0, 1.15, 1.3, 1.5];
-        var speedIdx = 2; // default: 1.0×
-
-        // Internal state
-        var state = 'idle'; // idle | playing | paused
+        var SPEEDS = [0.75, 0.9, 1.0, 1.25, 1.5, 2.0];
+        var speedIdx = 2;
+        var uiState = 'idle';
         var ttsReady = false;
-        var Engine    = null;
+        var Engine = null;
         var Extractor = null;
-        var Normalizer = null;
 
-        /* ── Populate and sync Voice Dropdown ────────────────────────── */
+        /* ── Voice Dropdown ───────────────────────────────────────── */
         function syncVoiceDropdown() {
           if (!Engine || !voiceSelect) return;
           var curated = Engine.getCuratedVoices ? Engine.getCuratedVoices() : [];
@@ -2197,192 +2159,163 @@
               var opt = document.createElement('option');
               opt.value = item.voice.voiceURI;
               opt.textContent = item.label;
-              if (currentVoiceURI && opt.value === currentVoiceURI) {
-                opt.selected = true;
-              } else if (!currentVoiceURI && bestVoice && opt.value === bestVoice.voiceURI) {
-                opt.selected = true;
-              }
+              if (currentVoiceURI && opt.value === currentVoiceURI) opt.selected = true;
+              else if (!currentVoiceURI && bestVoice && opt.value === bestVoice.voiceURI) opt.selected = true;
               voiceSelect.appendChild(opt);
             });
-            voiceSelect.style.display = 'inline-block';
-          }
-
-          updateVoiceBadge();
-        }
-
-        /* ── Voice badge label ───────────────────────────────────────── */
-        function updateVoiceBadge() {
-          if (!Engine || !voiceBadge) return;
-          var Store = window.TTSStore;
-          var currentVoiceURI = Store ? Store.getState().voiceURI : null;
-          var activeVoice = null;
-
-          if (currentVoiceURI && Engine.getVoices) {
-            activeVoice = Engine.getVoices().find(function (v) { return v.voiceURI === currentVoiceURI; });
-          }
-          if (!activeVoice && Engine.getBestVoice) {
-            activeVoice = Engine.getBestVoice();
-          }
-
-          if (activeVoice) {
-            var name = activeVoice.name || '';
-            var short = name.replace(/Microsoft\s+/i, '').replace(/Online\s*\(Natural\)/gi, '').replace(/\(Premium\)/gi, 'HD').replace(/\(Enhanced\)/gi, 'HD').split(/[\s-]+/)[0];
-            voiceBadge.innerHTML = '<i class="fas fa-waveform" style="font-size:0.6rem"></i> ' + short;
           }
         }
 
-        /* ── Wait for TTS engine to be available ─────────────────────── */
+        /* ── Init TTS engine ──────────────────────────────────────── */
         function tryInit() {
-          Engine    = window.TTSSpeechEngine;
+          Engine = window.TTSSpeechEngine;
           Extractor = window.TTSArticleExtractor;
-          Normalizer = window.TTSSpeechNormalizer;
-
           if (Engine && Extractor) {
             ttsReady = true;
-
             syncVoiceDropdown();
+            window.addEventListener('tts-voices-loaded', syncVoiceDropdown);
 
-            // Listen for voice load event to update dropdown & badge
-            window.addEventListener('tts-voices-loaded', function () {
-              syncVoiceDropdown();
-            });
-
-            // Listen for engine state changes to keep UI synchronized
             var Store = window.TTSStore;
             if (Store) {
               Store.subscribe(function (s) {
                 if (s.engineState === 'COMPLETED' || s.engineState === 'IDLE') {
-                  setUIState('idle');
+                  setUI('idle');
                 } else if (s.engineState === 'PLAYING') {
-                  setUIState('playing');
+                  setUI('playing');
                 } else if (s.engineState === 'PAUSED') {
-                  setUIState('paused');
+                  setUI('paused');
                 }
+                updateProgress(s);
               });
             }
           }
         }
-
-        // Try immediately, then retry if modules are still loading
         tryInit();
         if (!ttsReady) {
-          var retry = setInterval(function () {
-            tryInit();
-            if (ttsReady) clearInterval(retry);
-          }, 200);
+          var retryTimer = setInterval(function () { tryInit(); if (ttsReady) clearInterval(retryTimer); }, 200);
         }
 
-        /* ── UI state management ──────────────────────────────────────── */
-        function setUIState(newState) {
-          state = newState;
+        /* ── UI State ─────────────────────────────────────────────── */
+        function setUI(newState) {
+          uiState = newState;
+          var isActive = (newState === 'playing' || newState === 'paused');
+
+          widget.classList.toggle('is-playing', newState === 'playing');
+          widget.classList.toggle('is-paused', newState === 'paused');
+
+          // Play button icon
           if (newState === 'playing') {
-            btnIcon.className  = 'fas fa-pause';
-            btnLabel.textContent = 'Pause';
-            toggleBtn.classList.add('playing');
-            if (widget)   widget.classList.add('is-playing');
-            if (waveform) waveform.style.display = 'flex';
-          } else if (newState === 'paused') {
-            btnIcon.className  = 'fas fa-play';
-            btnLabel.textContent = 'Resume';
-            toggleBtn.classList.remove('playing');
-            if (widget)   widget.classList.remove('is-playing');
-            if (waveform) waveform.style.display = 'none';
+            playIcon.className = 'fas fa-pause';
+            playBtn.setAttribute('aria-label', 'Pause');
+            playBtn.classList.add('playing');
           } else {
-            btnIcon.className  = 'fas fa-play';
-            btnLabel.textContent = 'Play';
-            toggleBtn.classList.remove('playing');
-            if (widget)   widget.classList.remove('is-playing');
-            if (waveform) waveform.style.display = 'none';
+            playIcon.className = 'fas fa-play';
+            playBtn.setAttribute('aria-label', newState === 'paused' ? 'Resume' : 'Play');
+            playBtn.classList.remove('playing');
+          }
+
+          // Status text
+          if (newState === 'playing') statusEl.textContent = 'Playing';
+          else if (newState === 'paused') statusEl.textContent = 'Paused';
+          else statusEl.textContent = 'Ready';
+
+          // Enable/disable transport buttons
+          stopBtn.disabled = !isActive;
+          prevBtn.disabled = !isActive;
+          nextBtn.disabled = !isActive;
+          restartBtn.disabled = !isActive;
+
+          // Reset progress on idle
+          if (newState === 'idle') {
+            progressFill.style.width = '0%';
+            currentEl.textContent = '0 / 0';
+            totalEl.textContent = '';
           }
         }
 
-        /* ── Fallback: plain browser TTS (if engine not loaded) ──────── */
-        function fallbackPlay() {
-          var text = proseEl ? proseEl.innerText : '';
-          if (!text) return;
-
-          // Clean text before speech
-          text = text
-            .replace(/```[\s\S]*?```/g, '')
-            .replace(/`([^`]+)`/g, '$1')
-            .replace(/#{1,6}\s/g, '')
-            .replace(/\*{1,3}([^*]+)\*{1,3}/g, '$1')
-            .replace(/https?:\/\/\S+/gi, 'the linked URL')
-            .slice(0, 6000);
-
-          var utter = new SpeechSynthesisUtterance(text);
-          utter.rate   = SPEEDS[speedIdx];
-          utter.pitch  = 1.0;
-          utter.volume = 1.0;
-
-          var voices = speechSynthesis.getVoices();
-          var neural = voices.filter(function (v) { return v.lang && v.lang.startsWith('en'); });
-          var best = neural.find(function (v) { return /natural|online|premium|enhanced|google/i.test(v.name); }) ||
-                     neural.find(function (v) { return v.lang === 'en-US'; }) ||
-                     neural[0];
-          if (best) utter.voice = best;
-
-          utter.onend = function () { setUIState('idle'); };
-          window.speechSynthesis.cancel();
-          window.speechSynthesis.speak(utter);
-          setUIState('playing');
+        /* ── Progress tracking ────────────────────────────────────── */
+        function updateProgress(s) {
+          if (s.totalSentences > 0 && s.articleId === window.location.pathname) {
+            var pct = (s.sentenceIndex / s.totalSentences) * 100;
+            progressFill.style.width = pct + '%';
+            currentEl.textContent = s.sentenceIndex + ' / ' + s.totalSentences;
+            progressTrack.setAttribute('aria-valuenow', Math.round(pct));
+          }
         }
 
-        /* ── Main toggle handler ──────────────────────────────────────── */
-        toggleBtn.addEventListener('click', function () {
-          if (!ttsReady) {
-            if (state === 'idle') {
-              fallbackPlay();
-            } else if (state === 'playing') {
-              window.speechSynthesis.pause();
-              setUIState('paused');
-            } else {
-              window.speechSynthesis.resume();
-              setUIState('playing');
-            }
-            return;
+        /* ── Start article TTS ────────────────────────────────────── */
+        function startArticle() {
+          var prose = document.querySelector('.doc-prose');
+          if (!prose || !Extractor || !Engine) return;
+          window.dispatchEvent(new CustomEvent('tts-request-start-article'));
+          if (!window.TTSStore || window.TTSStore.getState().engineState === 'idle') {
+            var extraction = Extractor.extract(prose);
+            Engine.setQueue(extraction.sentences);
+            Engine.setRate(SPEEDS[speedIdx]);
+            Engine.play(0);
           }
+        }
 
-          if (state === 'idle') {
-            window.dispatchEvent(new CustomEvent('tts-request-start-article'));
-            if (Engine && (!window.TTSStore || window.TTSStore.getState().engineState === 'idle')) {
-              var prose = document.querySelector('.doc-prose');
-              if (prose && Extractor) {
-                var extraction = Extractor.extract(prose);
-                Engine.setQueue(extraction.sentences);
-                Engine.setRate(SPEEDS[speedIdx]);
-                Engine.play(0);
-              } else {
-                fallbackPlay();
-              }
-            }
-          } else if (state === 'playing') {
-            Engine.pause();
-          } else {
-            Engine.resume();
-          }
+        /* ── Button handlers ──────────────────────────────────────── */
+        playBtn.addEventListener('click', function () {
+          if (!ttsReady) return;
+          if (uiState === 'idle') startArticle();
+          else if (uiState === 'playing') Engine.pause();
+          else Engine.resume();
         });
 
-        /* ── Voice dropdown change handler ────────────────────────────── */
-        if (voiceSelect) {
-          voiceSelect.addEventListener('change', function () {
-            var chosenURI = voiceSelect.value;
-            if (Engine && chosenURI) {
-              Engine.setVoice(chosenURI);
-              updateVoiceBadge();
-            }
-          });
-        }
+        stopBtn.addEventListener('click', function () {
+          if (Engine) Engine.stop();
+        });
 
-        /* ── Speed control ────────────────────────────────────────────── */
-        if (speedBtn) {
-          speedBtn.addEventListener('click', function () {
-            speedIdx = (speedIdx + 1) % SPEEDS.length;
-            var s = SPEEDS[speedIdx];
-            speedBtn.textContent = s + '\u00D7';
-            if (Engine) Engine.setRate(s);
-          });
-        }
+        prevBtn.addEventListener('click', function () {
+          if (Engine) Engine.prev();
+        });
+
+        nextBtn.addEventListener('click', function () {
+          if (Engine) Engine.next();
+        });
+
+        restartBtn.addEventListener('click', function () {
+          if (!Engine) return;
+          var Store = window.TTSStore;
+          if (Store) Store.updateSession({ sentenceIndex: 0 });
+          Engine.play(0);
+        });
+
+        /* ── Progress bar seeking ─────────────────────────────────── */
+        progressTrack.addEventListener('click', function (e) {
+          var Store = window.TTSStore;
+          if (!Store || !Engine) return;
+          var s = Store.getState();
+          if (s.totalSentences === 0) return;
+          var rect = progressTrack.getBoundingClientRect();
+          var x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+          var targetIndex = Math.floor((x / rect.width) * s.totalSentences);
+          Engine.seek(targetIndex);
+        });
+
+        progressTrack.addEventListener('keydown', function (e) {
+          var Store = window.TTSStore;
+          if (!Store || !Engine) return;
+          var s = Store.getState();
+          if (s.totalSentences === 0) return;
+          if (e.key === 'ArrowRight') Engine.seek(Math.min(s.sentenceIndex + 1, s.totalSentences - 1));
+          if (e.key === 'ArrowLeft') Engine.seek(Math.max(s.sentenceIndex - 1, 0));
+        });
+
+        /* ── Voice dropdown ───────────────────────────────────────── */
+        voiceSelect.addEventListener('change', function () {
+          if (Engine && voiceSelect.value) Engine.setVoice(voiceSelect.value);
+        });
+
+        /* ── Speed control ────────────────────────────────────────── */
+        speedBtn.addEventListener('click', function () {
+          speedIdx = (speedIdx + 1) % SPEEDS.length;
+          var s = SPEEDS[speedIdx];
+          speedBtn.textContent = s + '\u00D7';
+          if (Engine) Engine.setRate(s);
+        });
       })();
 
       /* ================================================
@@ -2749,7 +2682,7 @@
 
         // Space → toggle audio play/pause
         if (e.key === ' ' && !e.ctrlKey && !e.metaKey) {
-          var audioBtn = document.getElementById('audio-toggle-btn');
+          var audioBtn = document.getElementById('ap-play');
           if (audioBtn) { e.preventDefault(); audioBtn.click(); }
           return;
         }
