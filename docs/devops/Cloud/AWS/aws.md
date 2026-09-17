@@ -26,4 +26,5 @@ This section provides documentation for various AWS cloud projects. Select a pro
 | Project                     | Description                                      | Status     |
 | --------------------------- | ------------------------------------------------ | ---------- |
 | [AWS Network Firewall Egress Filtering with Stateful Suricata Rules – Asymmetric Routing Trap](/docs/devops/Cloud/AWS/aws-firewall/) | AWS Network Firewall Egress Filtering with Stateful Suricata Rules – Asymmetric Routing Trap. | Done |
+| [How to Configure AWS MCP in Cursor with AWS SSO, AssumeRole, Multiple Accounts, and Multiple Regions](/docs/devops/Cloud/AWS/How-to-Configure-AWS-MCP-in-Cursor/) | A practical guide to connecting Cursor to AWS through the managed AWS MCP Server using existing AWS CLI SSO and AssumeRole profiles. | Done |
 

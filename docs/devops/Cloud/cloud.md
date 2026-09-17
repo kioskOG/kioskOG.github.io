@@ -92,6 +92,17 @@ timestamp: '2026-06-30T11:56:08Z'
       <div class="tags"><span class="tag">AWS</span><span class="tag">Firewall</span><span class="tag">Security</span><span class="tag">Egress</span></div>
     </div>
   </article>
+
+    <article class="project-card card-orange reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">How to Configure AWS MCP in Cursor with AWS SSO, AssumeRole, Multiple Accounts, and Multiple Regions</h3>
+        <a class="project-open" href="/docs/devops/Cloud/AWS/aws-firewall/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Implementing AWS Network Firewall for egress traffic filtering and inspection.</p>
+      <div class="tags"><span class="tag">AWS</span><span class="tag">Firewall</span><span class="tag">Security</span><span class="tag">Egress</span></div>
+    </div>
+  </article>
 </section>
 
 <section class="projects-section reveal" aria-labelledby="cloud-iac">

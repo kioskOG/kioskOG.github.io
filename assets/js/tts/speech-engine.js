@@ -36,141 +36,52 @@ const TTSSpeechEngine = (function () {
   const Store = window.TTSStore;
 
   /**
-   * Scores voices based on human-likeness and acoustic quality.
-   * Higher score = better, more natural sounding voice.
+   * Strict allowlist of 4 curated voices.
+   * Only these voices are offered to the user. Order = priority.
    */
-  function scoreVoice(voice) {
-    if (!voice || !voice.lang) return -999;
-    
-    // Only English voices for blog articles
-    if (!voice.lang.startsWith('en')) return -999;
+  const ALLOWED_VOICES = [
+    { match: 'Google UK English Female', label: 'Google UK English Female · Neural 🌟' },
+    { match: 'Google UK English Male',   label: 'Google UK English Male · Neural 🌟' },
+    { match: 'Google US English',        label: 'Google US English · Neural 🌟' },
+    { match: 'Samantha',                 label: 'Samantha' }
+  ];
 
-    const name = voice.name || '';
-    const nameLower = name.toLowerCase();
-
-    // Filter out robotic novelty & low-quality voices
-    const DISQUALIFIED = [
-      'compact', 'espeak', 'klatt', 'whisper', 'zarvox', 'trinoids',
-      'pipe organ', 'cellos', 'bad news', 'good news', 'bells', 'boing',
-      'bahh', 'bubbles', 'deranged', 'hysterical', 'albert', 'fred',
-      'junior', 'ralph', 'kathy', 'vicki', 'bruce', 'agnes'
-    ];
-    if (DISQUALIFIED.some(d => nameLower.includes(d))) return -500;
-
-    let score = 100;
-
-    // Tier 1: Microsoft Natural Online Neural (Edge / Windows 10+)
-    if (nameLower.includes('natural') || nameLower.includes('online')) {
-      score += 850;
-      if (nameLower.includes('jenny') || nameLower.includes('ava') || nameLower.includes('guy') || 
-          nameLower.includes('aria') || nameLower.includes('christopher') || nameLower.includes('emma') ||
-          nameLower.includes('andrew') || nameLower.includes('brian')) {
-        score += 150;
-      }
-    }
-
-    // Tier 1b: Google WaveNet / Neural (Chrome)
-    if (nameLower.includes('google')) {
-      score += 750;
-      if (nameLower.includes('us english') || nameLower.includes('uk english female') || nameLower.includes('uk english male')) {
-        score += 120;
-      }
-    }
-
-    // Tier 1c: Apple Premium & Enhanced Neural (macOS / iOS / Safari)
-    if (nameLower.includes('premium')) {
-      score += 700;
-      if (nameLower.includes('ava') || nameLower.includes('samantha') || nameLower.includes('zoe') || nameLower.includes('tom')) {
-        score += 100;
-      }
-    } else if (nameLower.includes('enhanced')) {
-      score += 600;
-      if (nameLower.includes('samantha') || nameLower.includes('evan') || nameLower.includes('nathan') || 
-          nameLower.includes('serena') || nameLower.includes('allison') || nameLower.includes('tom') ||
-          nameLower.includes('oliver') || nameLower.includes('kate')) {
-        score += 80;
-      }
-    } else if (nameLower.includes('siri')) {
-      score += 650;
-    }
-
-    // High quality standard voice names
-    if (nameLower.includes('ava')) score += 60;
-    if (nameLower.includes('samantha')) score += 40;
-    if (nameLower.includes('serena')) score += 40;
-    if (nameLower.includes('daniel')) score += 30;
-    if (nameLower.includes('karen')) score += 30;
-    if (nameLower.includes('moira')) score += 30;
-    if (nameLower.includes('oliver')) score += 30;
-    if (nameLower.includes('victoria')) score += 25;
-
-    // Prefer en-US and en-GB accents
-    if (voice.lang === 'en-US') score += 25;
-    if (voice.lang === 'en-GB') score += 20;
-
-    if (voice.default) score += 5;
-
-    return score;
+  /**
+   * Check if a voice exactly matches one of our allowed names.
+   */
+  function findAllowedEntry(voice) {
+    if (!voice || !voice.name) return null;
+    return ALLOWED_VOICES.find(a => voice.name === a.match);
   }
 
   /**
-   * Generates a clean, user-friendly label for voice dropdowns.
-   */
-  function formatVoiceLabel(voice) {
-    const raw = voice.name || 'Voice';
-    let clean = raw;
-
-    // Clean up Microsoft Edge voice names
-    clean = clean.replace(/Microsoft\s+/i, '');
-    clean = clean.replace(/Online\s*\(Natural\)\s*-\s*English\s*\([^)]+\)/gi, '(Natural)');
-    clean = clean.replace(/\s*-\s*English\s*\([^)]+\)/gi, '');
-
-    // Highlight premium / enhanced / natural
-    if (/natural/i.test(raw)) {
-      clean = clean.replace(/\(Natural\)/gi, '').trim() + ' · Natural ✨';
-    } else if (/premium/i.test(raw)) {
-      clean = clean.replace(/\(Premium\)/gi, '').trim() + ' · Premium HD ✨';
-    } else if (/enhanced/i.test(raw)) {
-      clean = clean.replace(/\(Enhanced\)/gi, '').trim() + ' · Enhanced HD 🎧';
-    } else if (/google/i.test(raw)) {
-      clean = clean + ' · Neural 🌟';
-    }
-
-    return clean.trim();
-  }
-
-  /**
-   * Returns curated English voices sorted by quality score.
+   * Returns only the allowed voices that exist on this browser/OS.
    */
   function getCuratedVoices() {
-    const valid = availableVoices
-      .filter(v => v.lang && v.lang.startsWith('en'))
-      .map(v => ({
-        voice: v,
-        score: scoreVoice(v),
-        label: formatVoiceLabel(v)
-      }))
-      .filter(item => item.score > 0)
-      .sort((a, b) => b.score - a.score);
-
-    return valid;
+    const result = [];
+    for (const allowed of ALLOWED_VOICES) {
+      const voice = availableVoices.find(v => v.name === allowed.match);
+      if (voice) {
+        result.push({ voice, label: allowed.label, score: ALLOWED_VOICES.length - result.length });
+      }
+    }
+    return result;
   }
 
   /**
-   * Pick the single highest quality voice available.
+   * Pick the best voice: first available from the allowlist.
    */
   function pickBestVoice(voices) {
     const curated = getCuratedVoices();
-    if (curated.length > 0) {
-      return curated[0].voice;
-    }
+    if (curated.length > 0) return curated[0].voice;
 
-    // Fallback: any en-US, en-GB, en-*, or first
-    const english = (voices || availableVoices).filter(v => v.lang && v.lang.startsWith('en'));
+    // Ultimate fallback: if none of the 4 are available, pick any English voice
+    const all = voices || availableVoices;
+    const english = all.filter(v => v.lang && v.lang.startsWith('en'));
     return english.find(v => v.lang === 'en-US') ||
            english.find(v => v.lang === 'en-GB') ||
            english[0] ||
-           (voices || availableVoices)[0] ||
+           all[0] ||
            null;
   }
 
