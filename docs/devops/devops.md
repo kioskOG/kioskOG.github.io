@@ -147,6 +147,7 @@ timestamp: '2026-06-30T11:56:08Z'
           <a class="tag" href="/docs/devops/Cloud/Gcp/Cross-cloud-identities-between-GCP-and-AWS/">Cross-Cloud GCP/AWS</a>
           <a class="tag" href="/docs/devops/Cloud/AWS/aws-firewal/">AWS Firewall</a>
           <a class="tag" href="/docs/devops/Cloud/AWS/How-to-Configure-AWS-MCP-in-Cursor/">AWS MCP in Cursor</a>
+          <a class="tag" href="/docs/devops/Cloud/Azure/Secure-Application-with-Microsoft-Entra-ID-OIDC/">AWS Application with Entra ID</a>
         </div>
       </div>
     </article>

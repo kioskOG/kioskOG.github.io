@@ -93,7 +93,7 @@ timestamp: '2026-06-30T11:56:08Z'
     </div>
   </article>
 
-    <article class="project-card card-orange reveal">
+  <article class="project-card card-orange reveal">
     <div class="card-link">
       <div class="project-head">
         <h3 class="project-title">How to Configure AWS MCP in Cursor with AWS SSO, AssumeRole, Multiple Accounts, and Multiple Regions</h3>
@@ -118,4 +118,20 @@ timestamp: '2026-06-30T11:56:08Z'
       <div class="tags"><span class="tag">Terraform</span><span class="tag">IaC</span><span class="tag">S3</span><span class="tag">DynamoDB</span></div>
     </div>
   </article>
+</section>
+
+<section class="projects-section reveal" aria-labelledby="cloud-azure">
+  <h2 id="cloud-azure">Azure</h2>
+
+  <article class="project-card card-green reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">Secure an AWS Application with Microsoft Entra ID OIDC and Group-Based Access Control</h3>
+        <a class="project-open" href="/docs/devops/Cloud/Azure/Secure-Application-with-Microsoft-Entra-ID-OIDC/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Secure an AWS Application with Microsoft Entra ID OIDC and Group-Based Access Control</p>
+      <div class="tags"><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">OIDC</span><span class="tag">Entra ID</span><span class="tag">Group-Based Access Control</span></div>
+    </div>
+  </article>
+
 </section>
