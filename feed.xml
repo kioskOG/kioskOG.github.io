@@ -1,0 +1,31 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.title | xml_escape }}</title>
+    <description>{{ site.description | xml_escape }}</description>
+    <link>{{ site.url }}{{ site.baseurl }}/</link>
+    <atom:link href="{{ '/feed.xml' | absolute_url }}" rel="self" type="application/rss+xml"/>
+    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+    <generator>Jekyll v{{ jekyll.version }}</generator>
+    {% for page in site.html_pages %}
+      {% if page.title and page.url != '/404.html' and page.url != '/' and page.url != '/search/' and page.url != '/bookmarks/' %}
+      <item>
+        <title>{{ page.title | xml_escape }}</title>
+        {% if page.description %}
+        <description>{{ page.description | xml_escape }}</description>
+        {% else %}
+        <description>{{ page.excerpt | strip_html | xml_escape | default: site.description | xml_escape }}</description>
+        {% endif %}
+        {% assign pub_date = page.date | default: page.last_modified_date | default: site.time %}
+        <pubDate>{{ pub_date | date_to_rfc822 }}</pubDate>
+        <link>{{ page.url | absolute_url }}</link>
+        <guid isPermaLink="true">{{ page.url | absolute_url }}</guid>
+      </item>
+      {% endif %}
+    {% endfor %}
+  </channel>
+</rss>

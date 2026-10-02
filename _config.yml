@@ -56,7 +56,6 @@ callouts:
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
-  - jekyll-feed
 
 mermaid:
   version: "9.4.3"
