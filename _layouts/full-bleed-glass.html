@@ -40,73 +40,17 @@
       {% endif %}
     }
   </style>
+  {% include head-theme.html %}
 </head>
 
 <body>
 
-  <canvas id="particle-canvas"></canvas>
 
   <div class="bg-blobs" aria-hidden="true"></div>
 
   <div class="page-wrap">
 
-    <!-- NAV -->
-    <nav class="site-nav" role="navigation" aria-label="Primary navigation">
-      <div class="nav-inner">
-        <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma /&gt;</a>
-        <ul class="nav-links" id="nav-links">
-          <li><a href="{{ '/' | relative_url }}" {% if page.url=='/' %}class="nav-active" {% endif %}>Home</a></li>
-          <li><a href="{{ '/docs/about/' | relative_url }}" {% if page.url contains '/docs/about/' %}class="nav-active"
-              {% endif %}>About</a></li>
-          <li><a href="{{ '/docs/devops/' | relative_url }}" {% if page.url contains '/docs/devops/'
-              %}class="nav-active" {% endif %}>DevOps</a></li>
-          <li><a href="{{ '/docs/ml/' | relative_url }}" {% if page.url contains '/docs/ml/'
-              %}class="nav-active" {% endif %}>ML</a></li>
-          <li><a href="{{ '/docs/ai/' | relative_url }}" {% if page.url contains '/docs/ai/'
-              %}class="nav-active" {% endif %}>AI</a></li>
-          <li><a href="{{ '/brain/' | relative_url }}" {% if page.url contains '/brain/'
-              %}class="nav-active" {% endif %}>Brain</a></li>
-          <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i
-                class="fas fa-external-link-alt" style="font-size:0.7em;opacity:0.7"></i></a></li>
-          <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta" {% if page.url contains 'contact'
-              %}style="opacity:0.85" {% endif %}>Get in Touch</a></li>
-        </ul>
-        <div class="nav-actions">
-          <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
-            <i class="fas fa-search" aria-hidden="true"></i>
-            <span>Search</span>
-            <span class="search-kbd">⌘K</span>
-          </button>
-          <div class="theme-select-container">
-            <button class="theme-dropdown-btn" id="theme-dropdown-btn" aria-label="Select Theme" type="button">
-              <i class="fas fa-palette" id="theme-dropdown-icon"></i>
-            </button>
-            <div class="theme-dropdown" id="theme-dropdown">
-              <button class="theme-dropdown-item" data-theme-preset="light">
-                <span class="theme-swatch swatch-light"></span> Light
-              </button>
-              <button class="theme-dropdown-item" data-theme-preset="dark">
-                <span class="theme-swatch swatch-dark"></span> Dark
-              </button>
-              <button class="theme-dropdown-item" data-theme-preset="dracula">
-                <span class="theme-swatch swatch-dracula"></span> Dracula
-              </button>
-              <button class="theme-dropdown-item" data-theme-preset="nord">
-                <span class="theme-swatch swatch-nord"></span> Nord
-              </button>
-              <button class="theme-dropdown-item" data-theme-preset="emerald">
-                <span class="theme-swatch swatch-emerald"></span> Emerald
-              </button>
-            </div>
-          </div>
-          <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-            <span></span><span></span><span></span>
-          </button>
-        </div>
-      </div>
-      <!-- Scroll Progress Bar -->
-      <div class="scroll-progress-bar" id="scroll-progress"></div>
-    </nav>
+    {% include site-nav.html %}
 
     <!-- PAGE HERO -->
     <header class="page-hero" aria-labelledby="page-hero-title">
@@ -149,7 +93,7 @@
     <div class="divider"></div>
 
     <!-- MAIN CONTENT -->
-    <main>
+    <main id="main-content">
       <div class="page-content">
         {{ content }}
       </div>
@@ -157,47 +101,7 @@
 
     <div class="divider"></div>
 
-    <!-- FOOTER -->
-    <footer class="site-footer-main" role="contentinfo">
-      <div class="footer-inner-main">
-        <div class="footer-brand-main">
-          <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma /&gt;</a>
-          <p>DevOps Engineer &amp; Platform Architect building scalable cloud-native systems. Passionate about
-            automation, observability, and GitOps.</p>
-          <div class="footer-socials-main">
-            <a class="social-pill" href="https://github.com/kioskOG" target="_blank" rel="noopener"
-              aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
-            <a class="social-pill" href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener"
-              aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-            <a class="social-pill" href="mailto:jatinvashishtha110@gmail.com" aria-label="Email"><i
-                class="fas fa-envelope" aria-hidden="true"></i></a>
-          </div>
-        </div>
-        <div class="footer-col-main">
-          <h4>Quick Links</h4>
-          <ul class="footer-links-main">
-            <li><a href="{{ '/' | relative_url }}">Home</a></li>
-            <li><a href="{{ '/docs/about/' | relative_url }}">About</a></li>
-            <li><a href="{{ '/docs/devops/' | relative_url }}">DevOps Docs</a></li>
-            <li><a href="{{ '/docs/ml/' | relative_url }}">ML Models</a></li>
-            <li><a href="{{ '/docs/ai/' | relative_url }}">AI Systems</a></li>
-            <li><a href="{{ '/docs/about/contact/' | relative_url }}">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-col-main">
-          <h4>Resources</h4>
-          <ul class="footer-links-main">
-            <li><a href="https://github.com/kioskOG" target="_blank" rel="noopener">GitHub Profile</a></li>
-            <li><a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener">LinkedIn</a></li>
-            <li><a href="javascript:void(0)" data-search-trigger>Search Docs</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom-main">
-        <span>&copy; <span id="year"></span> Jatin Sharma. All rights reserved.</span>
-        <span>Built with &#10084;&#65039; &amp; deployed on GitHub Pages</span>
-      </div>
-    </footer>
+    {% include site-footer.html %}
 
   </div><!-- .page-wrap -->
 
@@ -214,21 +118,7 @@
       var y = document.getElementById('year');
       if (y) y.textContent = new Date().getFullYear();
 
-      // Mobile nav
-      var ham = document.getElementById('hamburger');
-      var nav = document.getElementById('nav-links');
-      if (ham && nav) {
-        ham.addEventListener('click', function () {
-          var open = nav.classList.toggle('open');
-          ham.setAttribute('aria-expanded', String(open));
-        });
-        nav.querySelectorAll('a').forEach(function (a) {
-          a.addEventListener('click', function () {
-            nav.classList.remove('open');
-            ham.setAttribute('aria-expanded', 'false');
-          });
-        });
-      }
+      // Mobile nav toggling is handled once in assets/effects.js
 
 
 

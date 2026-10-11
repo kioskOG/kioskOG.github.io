@@ -190,6 +190,9 @@
     .doc-article {
       padding: 36px 40px 80px;
       min-width: 0;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
     /* Breadcrumb */
@@ -411,6 +414,25 @@
       to   { opacity: 1;   transform: scaleY(1); }
     }
 
+    /* Wider screens: header, transport and settings share one band, progress below */
+    @media (min-width: 720px) {
+      .audio-player-widget {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-areas:
+          "header controls settings"
+          "progress progress progress";
+        align-items: center;
+        gap: 10px 20px;
+        padding: 14px 18px;
+      }
+      .ap-header { grid-area: header; }
+      .ap-controls { grid-area: controls; }
+      .ap-progress-row { grid-area: progress; }
+      .ap-settings { grid-area: settings; padding-top: 0; border-top: none; flex-wrap: nowrap; }
+      .ap-voice-select { max-width: 190px; }
+    }
+
     /* Mobile responsive */
     @media (max-width: 520px) {
       .ap-controls { gap: 4px; }
@@ -425,8 +447,9 @@
        ==================================================== */
     .doc-prose {
       color: var(--text-body);
-      line-height: 1.85;
-      font-size: 0.975rem;
+      line-height: 1.8;
+      font-size: 1.02rem;
+      overflow-wrap: break-word;
     }
 
     .doc-prose h1,
@@ -445,9 +468,7 @@
     .doc-prose h1 { font-size: 1.9rem; }
 
     .doc-prose h2 {
-      font-size: 1.35rem;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
+      font-size: 1.4rem;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -459,10 +480,10 @@
       height: 2px;
       background: var(--grad-primary);
       border-radius: 2px;
-      opacity: 0.20;
+      opacity: 0.35;
     }
 
-    .doc-prose h3 { font-size: 1.1rem; }
+    .doc-prose h3 { font-size: 1.15rem; }
     .doc-prose h4 { font-size: 1rem; color: var(--text-body); }
     .doc-prose p { margin-bottom: 1.1em; }
 
@@ -504,6 +525,16 @@
     }
 
     .doc-prose blockquote p { margin: 0; }
+    .doc-prose blockquote p + p { margin-top: 0.6em; }
+
+    /* `>>` in markdown nests quotes — render it as a single callout */
+    .doc-prose blockquote blockquote {
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: none;
+      border-radius: 0;
+    }
 
     /* Callout Boxes */
     .doc-prose blockquote.note,
@@ -646,99 +677,113 @@
       background: var(--code-bg);
       border: 1px solid var(--code-border);
       color: var(--code-color);
-      white-space: nowrap;
+      white-space: normal;
+      overflow-wrap: anywhere;
     }
 
-    /* Code blocks */
+    /* Code blocks — terminal-window frame with a title bar for badge + actions */
     .doc-prose pre {
-      margin: 1.4em 0;
+      margin: 1.5em 0;
       border-radius: var(--radius-md);
       background: #0f172a;
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: var(--shadow-md);
-      overflow-x: auto;
+      overflow: hidden;
       position: relative;
+    }
+
+    .doc-prose pre::before {
+      content: '';
+      display: block;
+      height: 38px;
+      background:
+        radial-gradient(circle at 18px 19px, rgba(239, 68, 68, 0.75) 5px, transparent 5.5px),
+        radial-gradient(circle at 36px 19px, rgba(245, 158, 11, 0.75) 5px, transparent 5.5px),
+        radial-gradient(circle at 54px 19px, rgba(16, 185, 129, 0.75) 5px, transparent 5.5px),
+        rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .doc-prose pre code {
       display: block;
-      padding: 20px 22px;
+      padding: 16px 22px 20px;
       font-size: 0.855rem;
       line-height: 1.7;
       background: none;
       border: none;
       color: #e2e8f0;
       white-space: pre;
+      overflow-wrap: normal;
+      overflow-x: auto;
       border-radius: 0;
     }
 
-    /* Copy Button */
+    .doc-prose pre code::-webkit-scrollbar { height: 6px; }
+    .doc-prose pre code::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
+
+    /* Copy Button (lives in the title bar, so it never covers code) */
     .copy-code-btn {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 5px;
+      right: 8px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 10px;
+      padding: 5px 10px;
       font-family: inherit;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 600;
       color: #94a3b8;
-      background: rgba(30, 41, 59, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: transparent;
+      border: 1px solid transparent;
       border-radius: 6px;
       cursor: pointer;
-      opacity: 0;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
       z-index: 10;
       user-select: none;
     }
 
-    .doc-prose pre:hover .copy-code-btn { opacity: 1; }
-    .copy-code-btn:focus-visible { opacity: 1; outline: 2px solid var(--accent-blue); outline-offset: 2px; }
-    .copy-code-btn:hover { color: #f8fafc; background: rgba(30, 41, 59, 0.8); border-color: rgba(255, 255, 255, 0.2); }
+    .copy-code-btn:hover { color: #f8fafc; background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.12); }
     .copy-code-btn:active { transform: scale(0.95); }
     .copy-code-btn.copied { color: var(--accent-green) !important; border-color: rgba(16, 185, 129, 0.3) !important; background: rgba(16, 185, 129, 0.1) !important; }
 
-    /* Code language badge */
-    .code-lang-badge {
+    /* Code language badge (overrides the generic badge in portfolio.css) */
+    .doc-prose .code-lang-badge {
       position: absolute;
-      top: 10px;
-      left: 14px;
+      top: 0;
+      left: 72px;
+      right: auto;
+      line-height: 38px;
+      padding: 0;
+      background: none;
+      border: none;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       font-weight: 700;
       color: #64748b;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
       pointer-events: none;
     }
 
-    /* Expand/collapse code */
-    .doc-prose pre.code-collapsed { max-height: 340px; overflow: hidden; }
-    .expand-code-btn {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      background: linear-gradient(to top, rgba(15,23,42,0.97), transparent);
-      border: none;
-      color: #94a3b8;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      font-family: inherit;
-      gap: 6px;
+    /* Expand/collapse long code (pill styling comes from portfolio.css) */
+    .doc-prose pre.code-collapsed { max-height: 380px; overflow: hidden; }
+    .doc-prose pre:not(.code-collapsed) .expand-code-btn {
+      top: 6px;
+      right: 96px;
+      background: transparent;
+      border-color: transparent;
     }
-    .doc-prose pre.code-collapsed { position: relative; }
 
-    /* Tables */
+    /* Tables — wrapped in .table-wrap by JS so wide tables scroll instead of overflowing */
+    .doc-prose .table-wrap {
+      margin: 1.4em 0;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
     .doc-prose table {
       width: 100%;
       border-collapse: collapse;
@@ -748,6 +793,8 @@
       box-shadow: var(--shadow-sm);
       font-size: 0.9rem;
     }
+
+    .doc-prose .table-wrap > table { margin: 0; border-radius: 0; box-shadow: none; overflow: visible; }
 
     .doc-prose th {
       background: linear-gradient(90deg, rgba(59, 130, 246, 0.12), rgba(16, 185, 129, 0.08));
@@ -781,8 +828,9 @@
     /* HR */
     .doc-prose hr {
       border: none;
-      border-top: 1px solid var(--border);
-      margin: 2em 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border) 15%, var(--border) 85%, transparent);
+      margin: 2.4em 0;
     }
 
     /* details/summary */
@@ -914,8 +962,8 @@
        ==================================================== */
     .article-feedback {
       margin-top: 24px;
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 16px;
     }
 
@@ -992,30 +1040,27 @@
        PAGE NAVIGATION (prev / next)
        ==================================================== */
     .doc-page-nav {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 16px;
       padding-top: 36px;
       margin-top: 40px;
       border-top: 1px solid var(--border);
-      flex-wrap: wrap;
     }
 
     .doc-page-nav a {
       display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 20px;
+      flex-direction: column;
+      gap: 4px;
+      padding: 14px 20px;
       border-radius: var(--radius-md);
       background: var(--surface);
       border: 1px solid var(--border);
       text-decoration: none;
       color: var(--text-heading);
-      font-size: 0.875rem;
-      font-weight: 600;
       box-shadow: var(--shadow-sm);
       transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
-      max-width: 48%;
+      min-width: 0;
     }
 
     html[data-theme="light"] .doc-page-nav a { background: #fff; }
@@ -1026,7 +1071,28 @@
       box-shadow: var(--shadow-md);
     }
 
-    .doc-page-nav .next { margin-left: auto; }
+    .doc-page-nav .next { grid-column: 2; text-align: right; align-items: flex-end; }
+
+    .doc-page-nav-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+    }
+
+    .doc-page-nav-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--text-heading);
+      transition: color 0.15s;
+    }
+
+    .doc-page-nav a:hover .doc-page-nav-title { color: var(--accent-blue); }
 
     /* ====================================================
        RIGHT SIDEBAR — Reading Progress + TOC
@@ -1149,6 +1215,39 @@
       .doc-right-sidebar { display: none; }
     }
 
+    /* Series menu shown in place of the hidden left sidebar on narrow screens */
+    .series-mobile { display: none; }
+
+    @media (max-width: 900px) {
+      .series-mobile {
+        display: block;
+        margin: 0 0 20px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+      }
+      html[data-theme="light"] .series-mobile { background: #fff; }
+      .series-mobile summary {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        list-style: none;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--accent-blue);
+      }
+      .series-mobile summary::-webkit-details-marker { display: none; }
+      .series-mobile summary span { flex: 1; }
+      .series-mobile-caret { font-size: 0.75rem; transition: transform 0.2s; }
+      .series-mobile[open] .series-mobile-caret { transform: rotate(180deg); }
+      .series-mobile[open] summary { border-bottom: 1px solid var(--border); }
+      .series-mobile .sidebar-toc { padding: 8px; }
+      .series-mobile .sidebar-label { padding: 12px 18px 0; margin-bottom: 0; }
+    }
+
     @media (max-width: 900px) {
       .doc-layout {
         grid-template-columns: 1fr;
@@ -1159,7 +1258,8 @@
 
     @media (max-width: 640px) {
       .doc-article { padding: 16px 0 48px; }
-      .doc-page-nav a { max-width: 100%; }
+      .doc-page-nav { grid-template-columns: 1fr; }
+      .doc-page-nav .next { grid-column: 1; }
     }
 
     /* ====================================================
@@ -1427,74 +1527,8 @@
       margin-top: 2px;
     }
 
-    /* ====================================================
-       KEYBOARD SHORTCUT CHEATSHEET
-       ==================================================== */
-    .kbd-cheatsheet {
-      position: fixed;
-      inset: 0;
-      z-index: 9500;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s;
-    }
-    .kbd-cheatsheet.open { opacity: 1; pointer-events: auto; }
-    .kbd-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
-    .kbd-panel {
-      position: relative;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 28px 32px;
-      max-width: 400px;
-      width: 100%;
-      box-shadow: var(--shadow-xl);
-      transform: scale(0.95);
-      transition: transform 0.2s;
-    }
-    html[data-theme="light"] .kbd-panel { background: #fff; }
-    .kbd-cheatsheet.open .kbd-panel { transform: scale(1); }
-    .kbd-panel-title { font-size: 1rem; font-weight: 700; color: var(--text-heading); margin-bottom: 20px; }
-    .kbd-grid { display: flex; flex-direction: column; gap: 10px; }
-    .kbd-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      color: var(--text-body);
-    }
-    .kbd-row kbd {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 3px 8px;
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      font-size: 0.78rem;
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--text-heading);
-      box-shadow: 0 1px 0 var(--border);
-    }
-    .kbd-close {
-      position: absolute;
-      top: 14px;
-      right: 16px;
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      cursor: pointer;
-      padding: 4px;
-      border-radius: 4px;
-      transition: color 0.15s;
-    }
-    .kbd-close:hover { color: var(--text-heading); }
   </style>
+  {% include head-theme.html %}
 </head>
 
 <body>
@@ -1504,63 +1538,10 @@
 
   <div class="page-wrap">
 
-    <!-- NAV -->
-    <nav class="site-nav" role="navigation" aria-label="Primary navigation">
-      <div class="nav-inner">
-        <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma /></a>
-        <ul class="nav-links" id="nav-links">
-          <li><a href="{{ '/' | relative_url }}">Home</a></li>
-          <li><a href="{{ '/docs/about/' | relative_url }}" {% if page.url contains '/docs/about/' %}class="nav-active"
-              {% endif %}>About</a></li>
-          <li><a href="{{ '/docs/devops/' | relative_url }}" {% if page.url contains '/docs/devops/'
-              %}class="nav-active" {% endif %}>DevOps</a></li>
-          <li><a href="{{ '/docs/ml/' | relative_url }}" {% if page.url contains '/docs/ml/' %}class="nav-active" {%
-              endif %}>ML</a></li>
-          <li><a href="{{ '/docs/ai/' | relative_url }}" {% if page.url contains '/docs/ai/' %}class="nav-active" {%
-              endif %}>AI</a></li>
-          <li><a href="{{ '/brain/' | relative_url }}" {% if page.url contains '/brain/' %}class="nav-active" {%
-              endif %}>Brain</a></li>
-          <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i
-                class="fas fa-external-link-alt" style="font-size:0.7em;opacity:0.7"></i></a></li>
-          <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta">Get in Touch</a></li>
-        </ul>
-        <div class="nav-actions">
-          <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
-            <i class="fas fa-search" aria-hidden="true"></i>
-            <span>Search</span>
-            <span class="search-kbd">⌘K</span>
-          </button>
-          <div class="theme-select-container">
-            <button class="theme-dropdown-btn" id="theme-dropdown-btn" aria-label="Select Theme" type="button">
-              <i class="fas fa-palette" id="theme-dropdown-icon"></i>
-            </button>
-            <div class="theme-dropdown" id="theme-dropdown">
-              <button class="theme-dropdown-item" data-theme-preset="light">
-                <span class="theme-swatch swatch-light"></span> Light
-              </button>
-              <button class="theme-dropdown-item" data-theme-preset="dark">
-                <span class="theme-swatch swatch-dark"></span> Dark
-              </button>
-              <button class="theme-dropdown-item" data-theme-preset="dracula">
-                <span class="theme-swatch swatch-dracula"></span> Dracula
-              </button>
-              <button class="theme-dropdown-item" data-theme-preset="nord">
-                <span class="theme-swatch swatch-nord"></span> Nord
-              </button>
-              <button class="theme-dropdown-item" data-theme-preset="emerald">
-                <span class="theme-swatch swatch-emerald"></span> Emerald
-              </button>
-            </div>
-          </div>
-          <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-            <span></span><span></span><span></span>
-          </button>
-        </div>
-      </div>
-    </nav>
+    {% include site-nav.html %}
 
     <!-- ARTICLE LAYOUT -->
-    <main>
+    <main id="main-content">
       <div class="doc-layout">
 
         <!-- LEFT SIDEBAR -->
@@ -1835,7 +1816,7 @@
           </div>
           {% elsif page.parent %}
           {% assign siblings = site.pages | where: "parent", page.parent | sort: "nav_order" %}
-          {% assign related_pages = siblings | reject: "url", page.url %}
+          {% assign related_pages = siblings | where_exp: "item", "item.url != page.url" %}
           {% if related_pages.size > 0 or parent_doc %}
           <div class="related-articles">
             <div class="related-title"><i class="fas fa-layer-group" style="margin-right:6px"></i>More in {{ page.parent }}</div>
@@ -1865,20 +1846,53 @@
           {% endif %}
           {% endif %}
 
-          <!-- Prev/Next page nav -->
+          <!-- Prev/Next page nav — walks the series (overview first, then siblings by nav_order) -->
+          {% assign series_prev = nil %}
+          {% assign series_next = nil %}
+          {% assign series_children = site.pages | where: "parent", page.title | sort: "nav_order" %}
+          {% if series_children.size > 0 %}
+            {% assign series_next = series_children | first %}
+          {% elsif page.parent %}
+            {% assign series_siblings = site.pages | where: "parent", page.parent | sort: "nav_order" %}
+            {% assign series_found = false %}
+            {% assign series_last = nil %}
+            {% for sib in series_siblings %}
+              {% if series_found %}{% assign series_next = sib %}{% break %}{% endif %}
+              {% if sib.url == page.url %}{% assign series_found = true %}{% assign series_prev = series_last %}{% endif %}
+              {% assign series_last = sib %}
+            {% endfor %}
+            {% if series_found and series_prev == nil and parent_doc and parent_doc.url != page.url %}
+              {% assign series_prev = parent_doc %}
+            {% endif %}
+          {% endif %}
           <nav class="doc-page-nav" aria-label="Page navigation">
-            {% if page.parent %}
-            <a href="{{ page.parent_url | default: cat_url | relative_url }}">
-              <i class="fas fa-folder-open" aria-hidden="true"></i> Back to {{ page.parent }}
+            {% if series_prev %}
+            <a class="prev" rel="prev" href="{{ series_prev.url | relative_url }}">
+              <span class="doc-page-nav-label"><i class="fas fa-arrow-left" aria-hidden="true"></i> Previous</span>
+              <span class="doc-page-nav-title">{{ series_prev.title }}</span>
+            </a>
+            {% elsif page.parent %}
+            <a class="prev" href="{{ back_url | relative_url }}">
+              <span class="doc-page-nav-label"><i class="fas fa-folder-open" aria-hidden="true"></i> Back to</span>
+              <span class="doc-page-nav-title">{{ page.parent }}</span>
             </a>
             {% else %}
-            <a href="{{ cat_url | relative_url }}">
-              <i class="fas fa-th-large" aria-hidden="true"></i> All {{ cat_name }} Topics
+            <a class="prev" href="{{ cat_url | relative_url }}">
+              <span class="doc-page-nav-label"><i class="fas fa-th-large" aria-hidden="true"></i> Browse</span>
+              <span class="doc-page-nav-title">All {{ cat_name }} Topics</span>
             </a>
             {% endif %}
-            <a class="next" href="{{ '/docs/about/contact/' | relative_url }}">
-              Get in Touch <i class="fas fa-envelope" aria-hidden="true"></i>
+            {% if series_next %}
+            <a class="next" rel="next" href="{{ series_next.url | relative_url }}">
+              <span class="doc-page-nav-label">Next <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+              <span class="doc-page-nav-title">{{ series_next.title }}</span>
             </a>
+            {% else %}
+            <a class="next" href="{{ '/docs/about/contact/' | relative_url }}">
+              <span class="doc-page-nav-label">Questions? <i class="fas fa-envelope" aria-hidden="true"></i></span>
+              <span class="doc-page-nav-title">Get in Touch</span>
+            </a>
+            {% endif %}
           </nav>
 
         </article>
@@ -1912,47 +1926,7 @@
 
     <div class="divider"></div>
 
-    <!-- FOOTER -->
-    <footer class="site-footer-main" role="contentinfo">
-      <div class="footer-inner-main">
-        <div class="footer-brand-main">
-          <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma /></a>
-          <p>DevOps Engineer &amp; Platform Architect building scalable cloud-native systems. Passionate about
-            automation, observability, and GitOps.</p>
-          <div class="footer-socials-main">
-            <a class="social-pill" href="https://github.com/kioskOG" target="_blank" rel="noopener"
-              aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
-            <a class="social-pill" href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener"
-              aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-            <a class="social-pill" href="mailto:jatinvashishtha110@gmail.com" aria-label="Email"><i
-                class="fas fa-envelope" aria-hidden="true"></i></a>
-          </div>
-        </div>
-        <div class="footer-col-main">
-          <h4>Quick Links</h4>
-          <ul class="footer-links-main">
-            <li><a href="{{ '/' | relative_url }}">Home</a></li>
-            <li><a href="{{ '/docs/about/' | relative_url }}">About</a></li>
-            <li><a href="{{ '/docs/devops/' | relative_url }}">DevOps Docs</a></li>
-            <li><a href="{{ '/docs/ml/' | relative_url }}">ML Docs</a></li>
-            <li><a href="{{ '/docs/ai/' | relative_url }}">AI Docs</a></li>
-            <li><a href="{{ '/docs/about/contact/' | relative_url }}">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-col-main">
-          <h4>Resources</h4>
-          <ul class="footer-links-main">
-            <li><a href="https://github.com/kioskOG" target="_blank" rel="noopener">GitHub Profile</a></li>
-            <li><a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener">LinkedIn</a></li>
-            <li><a href="javascript:void(0)" data-search-trigger>Search Docs</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom-main">
-        <span>&copy; <span id="year"></span> Jatin Sharma. All rights reserved.</span>
-        <span>Built with &#10084;&#65039; &amp; deployed on GitHub Pages</span>
-      </div>
-    </footer>
+    {% include site-footer.html %}
 
   </div><!-- .page-wrap -->
 
@@ -1979,29 +1953,6 @@
     <img class="lightbox-img" id="lightbox-img" src="" alt="" />
   </div>
 
-  <!-- Keyboard Shortcut Cheatsheet -->
-  <div class="kbd-cheatsheet" id="kbd-cheatsheet" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
-    <div class="kbd-backdrop" id="kbd-backdrop"></div>
-    <div class="kbd-panel">
-      <button class="kbd-close" id="kbd-close" aria-label="Close shortcuts"><i class="fas fa-times"></i></button>
-      <div class="kbd-panel-title">⌨️ Keyboard Shortcuts</div>
-      <div class="kbd-grid">
-        <div class="kbd-row"><span>Open search</span><kbd>/</kbd></div>
-        <div class="kbd-row"><span>Next heading</span><kbd>j</kbd></div>
-        <div class="kbd-row"><span>Prev heading</span><kbd>k</kbd></div>
-        <div class="kbd-row"><span>Back to top</span><kbd>g</kbd><kbd>g</kbd></div>
-        <div class="kbd-row"><span>Open TOC</span><kbd>t</kbd></div>
-        <div class="kbd-row"><span>Play / pause audio</span><kbd>Space</kbd></div>
-        <div class="kbd-row"><span>Show shortcuts</span><kbd>?</kbd></div>
-        <div class="kbd-row"><span>Close modal</span><kbd>Esc</kbd></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Back to Top Button -->
-  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" type="button">
-    <i class="fas fa-arrow-up" aria-hidden="true"></i>
-  </button>
 
   <script>
     (function () {
@@ -2013,23 +1964,7 @@
       var y = document.getElementById('year');
       if (y) y.textContent = new Date().getFullYear();
 
-      /* ================================================
-         MOBILE NAV
-         ================================================ */
-      var ham = document.getElementById('hamburger');
-      var navLinks = document.getElementById('nav-links');
-      if (ham && navLinks) {
-        ham.addEventListener('click', function () {
-          var open = navLinks.classList.toggle('open');
-          ham.setAttribute('aria-expanded', String(open));
-        });
-        navLinks.querySelectorAll('a').forEach(function (a) {
-          a.addEventListener('click', function () {
-            navLinks.classList.remove('open');
-            ham.setAttribute('aria-expanded', 'false');
-          });
-        });
-      }
+      // Mobile nav toggling is handled once in assets/effects.js
 
       /* ================================================
          READING TIME
@@ -2043,6 +1978,41 @@
         var timeBadge = document.createElement('span');
         timeBadge.innerHTML = '<i class="fas fa-clock" aria-hidden="true"></i> ' + estimatedMinutes + ' min read';
         metaBar.appendChild(timeBadge);
+      }
+
+      /* ================================================
+         WIDE TABLES — scroll horizontally inside their own frame
+         ================================================ */
+      if (proseEl) {
+        proseEl.querySelectorAll('table').forEach(function (table) {
+          if (table.parentElement.classList.contains('table-wrap')) return;
+          var wrap = document.createElement('div');
+          wrap.className = 'table-wrap';
+          table.parentNode.insertBefore(wrap, table);
+          wrap.appendChild(table);
+        });
+      }
+
+      /* ================================================
+         SERIES MENU FOR NARROW SCREENS (left sidebar is hidden there)
+         ================================================ */
+      var seriesLists = document.querySelectorAll('.doc-sidebar .sidebar-toc');
+      var audioWidget = document.getElementById('audio-player-widget');
+      if (seriesLists.length && audioWidget) {
+        var seriesBox = document.createElement('details');
+        seriesBox.className = 'series-mobile';
+        var firstLabel = document.querySelector('.doc-sidebar .sidebar-label');
+        var summary = document.createElement('summary');
+        summary.innerHTML = '<i class="fas fa-layer-group" aria-hidden="true"></i><span></span><i class="fas fa-chevron-down series-mobile-caret" aria-hidden="true"></i>';
+        summary.querySelector('span').textContent = firstLabel ? firstLabel.textContent.trim() : 'In this series';
+        seriesBox.appendChild(summary);
+        document.querySelectorAll('.doc-sidebar .sidebar-label, .doc-sidebar .sidebar-toc').forEach(function (el, i) {
+          if (i === 0) return; // first label is already the summary text
+          var clone = el.cloneNode(true);
+          clone.removeAttribute('style');
+          seriesBox.appendChild(clone);
+        });
+        audioWidget.parentNode.insertBefore(seriesBox, audioWidget);
       }
 
       /* ================================================
@@ -2348,10 +2318,11 @@
         button.innerHTML = '<i class="fa-regular fa-copy" aria-hidden="true"></i><span>Copy</span>';
         pre.appendChild(button);
 
-        // Language badge
+        // Language badge — Rouge puts language-* on the wrapper div, not on <code>
         var codeEl = pre.querySelector('code');
-        if (codeEl) {
-          var langClass = Array.from(codeEl.classList).find(function (c) { return c.startsWith('language-'); });
+        var langHost = (codeEl && /\blanguage-/.test(codeEl.className)) ? codeEl : pre.closest('[class*="language-"]');
+        if (codeEl && langHost) {
+          var langClass = Array.from(langHost.classList).find(function (c) { return c.startsWith('language-'); });
           if (langClass) {
             var lang = langClass.replace('language-', '').toUpperCase();
             var badge = document.createElement('span');
@@ -2454,19 +2425,6 @@
         noBtn.addEventListener('click', function () {
           noBtn.classList.toggle('active-no');
           yesBtn.classList.remove('active-yes');
-        });
-      }
-
-      /* ================================================
-         BACK TO TOP
-         ================================================ */
-      var bttBtn = document.getElementById('back-to-top');
-      if (bttBtn) {
-        window.addEventListener('scroll', function () {
-          bttBtn.classList.toggle('show', (window.pageYOffset || document.documentElement.scrollTop) > 400);
-        }, { passive: true });
-        bttBtn.addEventListener('click', function () {
-          try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch(e) { window.scrollTo(0,0); }
         });
       }
 
@@ -2612,15 +2570,8 @@
       /* ================================================
          KEYBOARD SHORTCUTS
          ================================================ */
-      var kbdCheatsheet = document.getElementById('kbd-cheatsheet');
-      var kbdClose      = document.getElementById('kbd-close');
-      var kbdBackdrop   = document.getElementById('kbd-backdrop');
+      // The "?" cheat sheet and [ / ] series navigation live in the power-user script below.
       var lastGpress    = 0;
-
-      function openKbd() { if(kbdCheatsheet) kbdCheatsheet.classList.add('open'); }
-      function closeKbd() { if(kbdCheatsheet) kbdCheatsheet.classList.remove('open'); }
-      if (kbdClose) kbdClose.addEventListener('click', closeKbd);
-      if (kbdBackdrop) kbdBackdrop.addEventListener('click', closeKbd);
 
       document.addEventListener('keydown', function (e) {
         // Skip if user is in an input field
@@ -2629,15 +2580,11 @@
 
         // Close any open modal on Escape
         if (e.key === 'Escape') {
-          closeKbd();
           if (lightboxOverlay) lightboxOverlay.classList.remove('open');
           closeMobileToc();
           document.body.style.overflow = '';
           return;
         }
-
-        // ? → show shortcuts
-        if (e.key === '?' && !e.ctrlKey && !e.metaKey) { e.preventDefault(); openKbd(); return; }
 
         // / → open search
         if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
@@ -2647,8 +2594,13 @@
           return;
         }
 
-        // t → open mobile TOC
-        if (e.key === 't' && !e.ctrlKey && !e.metaKey) { openMobileToc(); return; }
+        // t → contents: bottom sheet on narrow screens, focus the "On this page" list on wide ones
+        if ((e.key === 't' || e.key === 'T') && !e.ctrlKey && !e.metaKey && !e.altKey) {
+          var firstTocLink = document.querySelector('#right-toc-list a');
+          if (window.matchMedia('(max-width: 1200px)').matches || !firstTocLink) { openMobileToc(); }
+          else { firstTocLink.focus(); }
+          return;
+        }
 
         // g g → back to top
         if (e.key === 'g' && !e.ctrlKey && !e.metaKey) {
@@ -2680,8 +2632,8 @@
           return;
         }
 
-        // Space → toggle audio play/pause
-        if (e.key === ' ' && !e.ctrlKey && !e.metaKey) {
+        // p → toggle audio play/pause (Space is left alone so it keeps scrolling the page)
+        if ((e.key === 'p' || e.key === 'P') && !e.ctrlKey && !e.metaKey && !e.altKey) {
           var audioBtn = document.getElementById('ap-play');
           if (audioBtn) { e.preventDefault(); audioBtn.click(); }
           return;
@@ -2759,7 +2711,7 @@
         <tbody>
           <tr>
             <td>Open Search</td>
-            <td><span class="ks-kbd-pill"><kbd>Cmd</kbd> / <kbd>Ctrl</kbd> + <kbd>K</kbd></span></td>
+            <td><span class="ks-kbd-pill"><kbd>Cmd</kbd> / <kbd>Ctrl</kbd> + <kbd>K</kbd></span> or <span class="ks-kbd-pill"><kbd>/</kbd></span></td>
           </tr>
           <tr>
             <td>Previous Article in Series</td>
@@ -2770,8 +2722,20 @@
             <td><span class="ks-kbd-pill"><kbd>]</kbd></span> or <span class="ks-kbd-pill"><kbd>Alt</kbd> + <kbd>→</kbd></span></td>
           </tr>
           <tr>
-            <td>Toggle Table of Contents</td>
+            <td>Next / Previous Heading</td>
+            <td><span class="ks-kbd-pill"><kbd>J</kbd></span> / <span class="ks-kbd-pill"><kbd>K</kbd></span></td>
+          </tr>
+          <tr>
+            <td>Table of Contents</td>
             <td><span class="ks-kbd-pill"><kbd>T</kbd></span></td>
+          </tr>
+          <tr>
+            <td>Play / Pause Audio</td>
+            <td><span class="ks-kbd-pill"><kbd>P</kbd></span></td>
+          </tr>
+          <tr>
+            <td>Back to Top</td>
+            <td><span class="ks-kbd-pill"><kbd>G</kbd> <kbd>G</kbd></span></td>
           </tr>
           <tr>
             <td>Open Shortcuts Cheat Sheet</td>
@@ -2911,15 +2875,6 @@
           return;
         }
 
-        if (e.key === 't' || e.key === 'T') {
-          const toc = document.querySelector('.doc-toc, .sidebar-toc');
-          if (toc) {
-            e.preventDefault();
-            toc.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            toc.style.outline = '2px solid var(--accent-blue)';
-            setTimeout(() => { toc.style.outline = 'none'; }, 1200);
-          }
-        }
       });
     })();
   </script>

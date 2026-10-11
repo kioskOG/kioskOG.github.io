@@ -1,0 +1,47 @@
+{%- comment -%}
+  Shared site footer — used by every layout.
+{%- endcomment -%}
+<footer class="site-footer-main" role="contentinfo">
+  <div class="footer-inner-main">
+    <div class="footer-brand-main">
+      <a class="nav-logo" href="{{ '/' | relative_url }}" aria-label="Jatin Sharma — home"><span class="nav-logo-mark" aria-hidden="true">JS</span><span class="nav-logo-text">Jatin Sharma <span class="nav-logo-slash">/&gt;</span></span></a>
+      <p>DevOps Engineer &amp; Platform Architect building scalable cloud-native systems. Passionate about
+        automation, observability, and GitOps.</p>
+      <div class="footer-socials-main">
+        <a class="social-pill" href="https://github.com/kioskOG" target="_blank" rel="noopener"
+          aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+        <a class="social-pill" href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener"
+          aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+        <a class="social-pill" href="mailto:jatinvashishtha110@gmail.com" aria-label="Email"><i
+            class="fas fa-envelope" aria-hidden="true"></i></a>
+        <a class="social-pill" href="{{ '/feed.xml' | relative_url }}" target="_blank" rel="noopener"
+          aria-label="RSS feed"><i class="fas fa-rss" aria-hidden="true"></i></a>
+      </div>
+    </div>
+    <div class="footer-col-main">
+      <h4>Quick Links</h4>
+      <ul class="footer-links-main">
+        <li><a href="{{ '/' | relative_url }}">Home</a></li>
+        <li><a href="{{ '/docs/about/' | relative_url }}">About</a></li>
+        <li><a href="{{ '/docs/devops/' | relative_url }}">DevOps Docs</a></li>
+        <li><a href="{{ '/docs/ml/' | relative_url }}">ML Docs</a></li>
+        <li><a href="{{ '/docs/ai/' | relative_url }}">AI Docs</a></li>
+        <li><a href="{{ '/docs/about/contact/' | relative_url }}">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col-main">
+      <h4>Resources</h4>
+      <ul class="footer-links-main">
+        <li><a href="https://github.com/kioskOG" target="_blank" rel="noopener">GitHub Profile</a></li>
+        <li><a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="{{ '/brain/' | relative_url }}">Knowledge Brain</a></li>
+        <li><a href="{{ '/feed.xml' | relative_url }}" target="_blank" rel="noopener">RSS Feed</a></li>
+        <li><a href="javascript:void(0)" data-search-trigger>Search Docs</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom-main">
+    <span>&copy; <span id="year"></span> Jatin Sharma. All rights reserved.</span>
+    <span>Built with &#10084;&#65039; &amp; deployed on GitHub Pages</span>
+  </div>
+</footer>

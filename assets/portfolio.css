@@ -767,20 +767,33 @@ form textarea { resize: vertical; min-height: 120px; }
   .footer-inner-main { grid-template-columns: 1fr 1fr; }
   .footer-brand-main { grid-column: 1 / -1; }
 }
-@media (max-width: 640px) {
+/* Collapsed nav: the full link row no longer fits below ~1100px */
+@media (max-width: 1100px) {
   .nav-links { display: none; }
+  /* .site-nav has backdrop-filter, so it is the containing block for this fixed sheet */
   .nav-links.open {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     position: fixed;
-    top: var(--nav-h); left: 0; right: 0; bottom: 0;
-    background: rgba(248,250,252,0.97);
-    backdrop-filter: blur(20px);
-    padding: 24px;
+    top: var(--nav-h); left: 0; right: 0;
+    max-height: calc(100dvh - var(--nav-h));
+    overflow-y: auto;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    padding: 12px 20px 24px;
     z-index: 99;
-    gap: 4px;
+    gap: 2px;
+    animation: navSheetIn 0.2s ease;
   }
+  .nav-links.open a { padding: 12px 14px; font-size: 1rem; }
+  .nav-links.open .nav-cta { margin-top: 10px; text-align: center; }
   .nav-hamburger { display: flex; }
+}
+@keyframes navSheetIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 640px) {
   .page-hero { padding: 44px 16px 36px; }
   .page-content { padding: 0 16px 60px; }
   .footer-inner-main { grid-template-columns: 1fr; gap: 28px; }
@@ -1543,7 +1556,8 @@ html[data-theme="emerald"] .theme-dropdown-btn {
   pointer-events: none;
 }
 
-.scroll-progress-bar {
+/* Scoped to the container: the nav's own .scroll-progress-bar must stay 3px tall */
+.scroll-progress-container .scroll-progress-bar {
   height: 100%;
   width: 0%;
   background: linear-gradient(90deg, #3b82f6, #8b5cf6, #10b981);
@@ -1954,3 +1968,79 @@ html[data-theme="emerald"] .theme-dropdown-btn {
 
 
 
+
+/* ====================================================
+   UI REFINEMENTS — navigation, accessibility, index cards
+   ==================================================== */
+
+/* Skip link — visible only when focused via keyboard */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 10000;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-blue);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: top 0.15s;
+}
+.skip-link:focus { top: 12px; }
+
+/* Consistent keyboard focus ring (beats per-component `outline: none`) */
+html :focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+::selection { background: rgba(59, 130, 246, 0.28); }
+
+/* Brand logo never wraps onto two lines */
+.nav-logo { white-space: nowrap; flex-shrink: 0; }
+
+/* Hamburger morphs into a close icon while the menu is open */
+.nav-hamburger span { transform-origin: center; }
+.nav-hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Section headings: keep the gradient accent line, drop the redundant second rule */
+.projects-section > h2 {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Index pages: plain card lists flow into two columns on wide screens */
+@media (min-width: 900px) {
+  .projects-section:has(> .project-card) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .projects-section:has(> .project-card) > :not(.project-card) { grid-column: 1 / -1; }
+  .projects-section:has(> .project-card) > h2 { margin-bottom: 2px; }
+  .projects-section:has(> .project-card) > .project-card { margin-bottom: 0; }
+}
+
+/* Whole card is clickable via its primary "View Docs" link; other links stay on top */
+.project-card a.project-open::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.project-card a:not(.project-open) { position: relative; z-index: 2; }
+.project-card:has(a.project-open) { cursor: pointer; }
+.project-card:has(a.project-open):hover .project-title { color: var(--accent-blue); }
+.project-title { transition: color 0.15s; }
+
+/* Internal "View Docs" links get an arrow instead of an external-link glyph */
+.project-open:not([target="_blank"]) .fa-external-link-alt::before { content: "\f061"; }
+.project-open .fa-external-link-alt { transition: transform 0.15s; }
+.project-card:hover .project-open:not([target="_blank"]) .fa-external-link-alt { transform: translateX(2px); }
+
+/* Tags read a little better on dark surfaces */
+html:not([data-theme="light"]) .tag { background: rgba(255, 255, 255, 0.04); }
