@@ -1,0 +1,360 @@
+---
+# landing.html — Home page.
+# Content lives in _data/home.yml; article feeds and topic counts are generated from the docs.
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% seo %}
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}" />
+
+  <!-- Theme Blocker Script -->
+  <script>
+    (function () {
+      var savedTheme = localStorage.getItem('theme-preset') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous" />
+  <!-- Shared Portfolio CSS -->
+  <link rel="stylesheet" href="{{ '/assets/portfolio.css' | relative_url }}" />
+  {% include head-theme.html %}
+  <link rel="stylesheet" href="{{ '/assets/css/home-2026.css' | relative_url }}" />
+</head>
+
+<body class="hm">
+
+  {% include citadel-loader.html %}
+
+  {%- assign h = site.data.home -%}
+  {%- assign articles = site.pages | where: "layout", "doc-page" | sort: "timestamp" | reverse -%}
+
+  <div class="page-wrap">
+    {% include site-nav.html %}
+
+    <main id="main-content">
+
+      <!-- ============================== HERO ============================== -->
+      <section class="hm-hero" aria-labelledby="hm-hero-title">
+        <div class="hm-wrap hm-hero-grid">
+          <div class="hm-hero-copy">
+            <a class="hm-status" href="{{ '/docs/about/contact/' | relative_url }}">
+              <span class="hm-status-dot" aria-hidden="true"></span> {{ h.hero.status }}
+              <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+            <h1 id="hm-hero-title" class="hm-hero-title">{{ h.hero.title }}</h1>
+            <p class="hm-hero-intro">{{ h.hero.intro }}</p>
+
+            <button class="hm-search" type="button" data-search-trigger aria-label="Search all guides">
+              <i class="fas fa-search" aria-hidden="true"></i>
+              <span>Search {{ articles.size }} guides…</span>
+              <kbd>⌘K</kbd>
+            </button>
+
+            <nav class="hm-quick" aria-label="Popular topics">
+              <span class="hm-quick-label">Popular:</span>
+              {% for q in h.hero.quick_links %}
+              <a href="{{ q.url | relative_url }}">{{ q.label }}</a>
+              {% endfor %}
+            </nav>
+
+            {% if page.quote %}
+            <p class="hm-quote">“{{ page.quote }}”</p>
+            {% endif %}
+          </div>
+
+          <aside class="hm-terminal" aria-label="About the author">
+            <div class="hm-terminal-bar" aria-hidden="true">
+              <span></span><span></span><span></span>
+              <em>jatin@mlops-devops: ~</em>
+            </div>
+            <div class="hm-terminal-body">
+              {% for t in h.terminal %}
+              <p class="hm-cmd"><span class="hm-prompt">jatin@mlops-devops:~#</span> {{ t.cmd }}</p>
+              <p class="hm-out">{{ t.out }}</p>
+              {% endfor %}
+              <p class="hm-cmd"><span class="hm-prompt">jatin@mlops-devops:~#</span> ls ~/docs | wc -l</p>
+              <p class="hm-out">{{ articles.size }} guides across DevOps, AI &amp; ML</p>
+              <p class="hm-cmd"><span class="hm-prompt">jatin@mlops-devops:~#</span> <span class="hm-caret" aria-hidden="true"></span></p>
+            </div>
+            <div class="hm-author">
+              <img src="{{ '/profile-image.png' | relative_url }}" alt="Jatin Sharma" width="44" height="44" loading="eager" />
+              <div>
+                <strong>Jatin Sharma</strong>
+                <span>DevOps &amp; Platform Engineer</span>
+              </div>
+              <div class="hm-author-links">
+                <a href="https://github.com/kioskOG" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                <a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                <a href="mailto:jatinvashishtha110@gmail.com" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Live stats -->
+        {%- assign devops_count = articles | where_exp: "p", "p.url contains '/docs/devops/'" | size -%}
+        {%- assign ai_count = articles | where_exp: "p", "p.url contains '/docs/ai/'" | size -%}
+        <div class="hm-wrap">
+          <dl class="hm-stats">
+            <div><dt>Guides</dt><dd>{{ articles.size }}</dd></div>
+            <div><dt>DevOps guides</dt><dd>{{ devops_count }}</dd></div>
+            <div><dt>AI guides</dt><dd>{{ ai_count }}</dd></div>
+            {% for s in h.stats %}
+            <div><dt>{{ s.label }}</dt><dd>{{ s.value }}</dd></div>
+            {% endfor %}
+          </dl>
+        </div>
+      </section>
+
+      <!-- ========================= LATEST WRITING ========================= -->
+      <section class="hm-section" aria-labelledby="hm-latest">
+        <div class="hm-wrap">
+          <header class="hm-head">
+            <div>
+              <p class="hm-eyebrow">Latest writing</p>
+              <h2 id="hm-latest">Fresh from the lab</h2>
+            </div>
+            <a class="hm-head-link" href="{{ '/feed.xml' | relative_url }}" target="_blank" rel="noopener">
+              <i class="fas fa-rss" aria-hidden="true"></i> Subscribe via RSS
+            </a>
+          </header>
+
+          <div class="hm-latest">
+            {% for p in articles limit: 7 %}
+              {%- if p.url contains '/docs/ai/' -%}{%- assign cat = 'AI' -%}{%- assign cat_cls = 'ai' -%}
+              {%- elsif p.url contains '/docs/ml/' -%}{%- assign cat = 'ML' -%}{%- assign cat_cls = 'ml' -%}
+              {%- else -%}{%- assign cat = 'DevOps' -%}{%- assign cat_cls = 'devops' -%}{%- endif -%}
+              {%- assign words = p.content | number_of_words -%}
+              {%- assign mins = words | divided_by: 200 | plus: 1 -%}
+              {% if forloop.first %}
+              <a class="hm-feature" href="{{ p.url | relative_url }}">
+                <div class="hm-feature-meta">
+                  <span class="hm-cat hm-cat-{{ cat_cls }}">{{ cat }}</span>
+                  {% if p.parent %}<span>{{ p.parent }}</span>{% endif %}
+                </div>
+                <h3>{{ p.title }}</h3>
+                {% if p.description %}<p>{{ p.description }}</p>{% endif %}
+                {% if p.tags.size > 0 %}
+                <div class="hm-feature-tags">{% for tg in p.tags limit: 5 %}<span>#{{ tg }}</span>{% endfor %}</div>
+                {% endif %}
+                <div class="hm-feature-foot">
+                  <time datetime="{{ p.timestamp | date_to_xmlschema }}">{{ p.timestamp | date: "%b %-d, %Y" }}</time>
+                  <span>·</span><span>{{ mins }} min read</span>
+                  <span class="hm-read">Read article <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+              </a>
+              <ol class="hm-list">
+              {% else %}
+                <li>
+                  <a href="{{ p.url | relative_url }}">
+                    <time datetime="{{ p.timestamp | date_to_xmlschema }}">{{ p.timestamp | date: "%b %-d" }}</time>
+                    <span class="hm-list-main">
+                      <span class="hm-list-title">{{ p.title }}</span>
+                      <span class="hm-list-meta"><span class="hm-cat hm-cat-{{ cat_cls }}">{{ cat }}</span>{% if p.parent %} {{ p.parent }}{% endif %} · {{ mins }} min</span>
+                    </span>
+                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                  </a>
+                </li>
+              {% endif %}
+              {% if forloop.last %}</ol>{% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================= BROWSE BY TOPIC ======================== -->
+      <section class="hm-section" id="topics" aria-labelledby="hm-topics">
+        <div class="hm-wrap">
+          <header class="hm-head">
+            <div>
+              <p class="hm-eyebrow">Knowledge base</p>
+              <h2 id="hm-topics">Browse by topic</h2>
+            </div>
+            <a class="hm-head-link" href="{{ '/brain/' | relative_url }}">
+              <i class="fas fa-brain" aria-hidden="true"></i> Explore the knowledge graph
+            </a>
+          </header>
+
+          {% assign groups = "devops,ai" | split: "," %}
+          {% for g in groups %}
+          {%- if g == 'ai' -%}{%- assign g_title = 'AI Engineering' -%}{%- assign g_url = '/docs/ai/' -%}
+          {%- else -%}{%- assign g_title = 'DevOps & Platform' -%}{%- assign g_url = '/docs/devops/' -%}{%- endif -%}
+          <div class="hm-topic-group">
+            <div class="hm-topic-group-head">
+              <h3>{{ g_title }}</h3>
+              <a href="{{ g_url | relative_url }}">View all <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+            <div class="hm-topics hm-topics-{{ g }}">
+              {% for t in h.topics[g] %}
+              {%- assign t_page = site.pages | where: "permalink", t.url | first -%}
+              {%- assign t_path = t.count_path | default: t.url -%}
+              {%- assign t_count = articles | where_exp: "p", "p.url contains t_path" | size -%}
+              {%- assign t_blurb = t.blurb | default: t_page.hero_intro -%}
+              <a class="hm-topic" href="{{ t.url | relative_url }}">
+                <span class="hm-topic-icon"><i class="{{ t.icon }}" aria-hidden="true"></i></span>
+                <span class="hm-topic-body">
+                  <span class="hm-topic-title">{{ t.label }}</span>
+                  {% if t_blurb %}<span class="hm-topic-desc">{{ t_blurb | strip_html | strip | truncatewords: 13 }}</span>{% endif %}
+                </span>
+                {% if t_count > 0 %}<span class="hm-topic-count">{{ t_count }}</span>{% endif %}
+              </a>
+              {% endfor %}
+              {% if g == 'ai' %}
+              <a class="hm-topic" href="{{ '/docs/ml/' | relative_url }}">
+                <span class="hm-topic-icon"><i class="fas fa-brain" aria-hidden="true"></i></span>
+                <span class="hm-topic-body">
+                  <span class="hm-topic-title">Machine Learning</span>
+                  <span class="hm-topic-desc">Datasets, pipelines and model training fundamentals.</span>
+                </span>
+              </a>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+
+      <!-- ========================= FEATURED PROJECTS ====================== -->
+      <section class="hm-section" id="projects" aria-labelledby="hm-projects">
+        <div class="hm-wrap">
+          <header class="hm-head">
+            <div>
+              <p class="hm-eyebrow">Open source &amp; field work</p>
+              <h2 id="hm-projects">Featured projects</h2>
+            </div>
+            <a class="hm-head-link" href="https://github.com/kioskOG" target="_blank" rel="noopener">
+              <i class="fab fa-github" aria-hidden="true"></i> All repositories
+            </a>
+          </header>
+
+          <div class="hm-projects">
+            {% for pr in h.projects %}
+            {%- assign external = pr.url | slice: 0, 4 -%}
+            <a class="hm-project{% if pr.featured %} is-featured{% endif %}" href="{{ pr.url | relative_url }}"{% if external == 'http' %} target="_blank" rel="noopener"{% endif %}>
+              <span class="hm-project-top">
+                <span class="hm-project-icon"><i class="{% if external == 'http' %}fab fa-github{% else %}fas fa-book-open{% endif %}" aria-hidden="true"></i></span>
+                <i class="fas {% if external == 'http' %}fa-arrow-up-right-from-square{% else %}fa-arrow-right{% endif %} hm-project-go" aria-hidden="true"></i>
+              </span>
+              <span class="hm-project-title">{{ pr.title }}</span>
+              <span class="hm-project-desc">{{ pr.desc }}</span>
+              <span class="hm-project-tags">{% for tg in pr.tags %}<span>{{ tg }}</span>{% endfor %}</span>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== ABOUT ============================= -->
+      <section class="hm-section" id="about" aria-labelledby="hm-about">
+        <div class="hm-wrap hm-about">
+          <div class="hm-about-copy">
+            <p class="hm-eyebrow">About</p>
+            <h2 id="hm-about">{{ h.about.heading }}</h2>
+            {% for para in h.about.paragraphs %}<p>{{ para }}</p>{% endfor %}
+            <ul class="hm-chips" aria-label="Areas of expertise">
+              {% for e in h.about.expertise %}
+              <li><i class="{{ e.icon }}" aria-hidden="true"></i> {{ e.label }}</li>
+              {% endfor %}
+            </ul>
+            <div class="hm-actions">
+              <a class="btn-primary" href="{{ '/docs/about/' | relative_url }}">More about me</a>
+              <a class="btn-outline" href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            </div>
+          </div>
+          <div class="hm-impact" aria-label="Proven impact">
+            {% for m in h.impact %}
+            <div class="hm-impact-item">
+              <span class="hm-impact-value">{{ m.value }}</span>
+              <span class="hm-impact-label">{{ m.label }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================= TOOLBOX ============================ -->
+      <section class="hm-section" id="skills" aria-labelledby="hm-toolbox">
+        <div class="hm-wrap">
+          <header class="hm-head">
+            <div>
+              <p class="hm-eyebrow">Toolbox</p>
+              <h2 id="hm-toolbox">What I work with</h2>
+            </div>
+          </header>
+          <dl class="hm-toolbox">
+            {% for tb in h.toolbox %}
+            <div class="hm-toolbox-row">
+              <dt><i class="{{ tb.icon }}" aria-hidden="true"></i> {{ tb.area }}</dt>
+              <dd>{% for tool in tb.tools %}<span>{{ tool }}</span>{% endfor %}</dd>
+            </div>
+            {% endfor %}
+          </dl>
+        </div>
+      </section>
+
+      <!-- ============================ CLOSING ============================= -->
+      <section class="hm-section hm-closing" aria-label="Stay in touch">
+        <div class="hm-wrap hm-closing-grid">
+          <a class="hm-promo" href="{{ '/brain/' | relative_url }}">
+            <span class="hm-promo-icon"><i class="fas fa-brain" aria-hidden="true"></i></span>
+            <span class="hm-promo-title">Knowledge Brain</span>
+            <span class="hm-promo-desc">Navigate every guide as an interactive graph of linked concepts.</span>
+            <span class="hm-promo-cta">Launch graph <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+          </a>
+          <a class="hm-promo" href="{{ '/feed.xml' | relative_url }}" target="_blank" rel="noopener">
+            <span class="hm-promo-icon"><i class="fas fa-rss" aria-hidden="true"></i></span>
+            <span class="hm-promo-title">Follow along</span>
+            <span class="hm-promo-desc">New guides land in the RSS feed first. Plug it into any reader.</span>
+            <span class="hm-promo-cta">Get the feed <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+          </a>
+          <div class="hm-cta">
+            <h2>Ready to build something remarkable?</h2>
+            <p>Scaling infrastructure, automating pipelines or improving reliability: let's talk.</p>
+            <a class="btn-primary" href="{{ '/docs/about/contact/' | relative_url }}"><i class="fas fa-paper-plane" aria-hidden="true"></i> Get in touch</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    {% include site-footer.html %}
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" type="button">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <script>
+    (function () {
+      'use strict';
+      var bar = document.getElementById('scroll-progress');
+      var btt = document.getElementById('back-to-top');
+      function onScroll() {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var y = window.scrollY || document.documentElement.scrollTop;
+        if (bar) bar.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
+        if (btt) btt.classList.toggle('show', y > 500);
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      if (btt) btt.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    })();
+  </script>
+
+  <!-- Lunr.js + Search -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" crossorigin="anonymous"></script>
+  <script src="{{ '/assets/search.js' | relative_url }}"></script>
+  <script src="{{ '/assets/effects.js' | relative_url }}"></script>
+  <!-- Instant.page prefetching for zero-latency page transitions -->
+  <script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.js" type="module" defer></script>
+</body>
+
+</html>

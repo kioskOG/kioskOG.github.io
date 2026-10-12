@@ -1,0 +1,125 @@
+# Content for the home page (_layouts/landing.html).
+# Edit text here — the layout only handles presentation.
+# Article lists and per-topic counts are generated automatically from the docs.
+
+hero:
+  status: Open to opportunities
+  title: Practical guides for DevOps, Platform & AI engineering.
+  intro: >-
+    Hands-on notes by Jatin Sharma, DevOps & Platform Engineer, on Kubernetes, cloud
+    infrastructure, observability, security automation and MLOps, written from real
+    production work.
+  quick_links:
+    - { label: Kubernetes, url: /docs/devops/kubernetes/ }
+    - { label: Docker, url: /docs/devops/docker/ }
+    - { label: Observability, url: /docs/devops/monitoring/ }
+    - { label: RAG, url: /docs/ai/RAG/ }
+    - { label: MCP, url: /docs/ai/MCP/ }
+    - { label: Claude Code, url: /docs/ai/Claude/ }
+
+# Rendered as a terminal session in the hero card
+terminal:
+  - { cmd: whoami, out: "Jatin Sharma, DevOps & Platform Engineer" }
+  - { cmd: cat focus.txt, out: "kubernetes · cloud · observability · security · mlops" }
+  - { cmd: "uptime --career", out: "8+ years shipping infrastructure" }
+
+stats:
+  - { value: "8+", label: Years experience }
+  - { value: "20+", label: Projects shipped }
+
+# Topic grid — counts and blurbs are read from each topic's index page.
+# Optional per-topic overrides: `blurb` (description text) and `count_path` (URL prefix to count).
+topics:
+  devops:
+    - { label: Kubernetes, url: /docs/devops/kubernetes/, icon: fas fa-dharmachakra }
+    - { label: Docker & Self-hosting, url: /docs/devops/docker/, icon: fab fa-docker }
+    - { label: Monitoring, url: /docs/devops/monitoring/, icon: fas fa-chart-line }
+    - { label: Cloud, url: /docs/devops/Cloud/, icon: fas fa-cloud }
+    - { label: Linux, url: /docs/devops/Linux/, icon: fab fa-linux }
+    - { label: Networking, url: /docs/devops/Networking/, icon: fas fa-network-wired }
+    - { label: Python Tooling, url: /docs/devops/python/, icon: fab fa-python }
+    - { label: System Design, url: /docs/devops/System-Design/, icon: fas fa-diagram-project }
+    - { label: GitHub, url: /docs/devops/GitHub/, icon: fab fa-github, blurb: "GitHub Actions workflows, repository security and automation." }
+  ai:
+    - { label: LangChain, url: /docs/ai/LangChain/, icon: fas fa-link }
+    - { label: RAG, url: /docs/ai/RAG/, icon: fas fa-magnifying-glass }
+    - { label: MCP, url: /docs/ai/MCP/, icon: fas fa-plug }
+    - { label: Claude Code, url: /docs/ai/Claude/, icon: fas fa-terminal }
+    - { label: AI Infrastructure, url: /docs/ai/, count_path: /docs/ai/AI-Infra/, icon: fas fa-microchip, blurb: "Compute and storage for AI workloads: GPUs, TPUs, NPUs and file systems." }
+
+about:
+  heading: DevOps Engineer & Platform Architect
+  paragraphs:
+    - >-
+      Hello! I'm <strong>Jatin Sharma</strong>, a DevOps Engineer dedicated to building
+      scalable, automated cloud solutions. I love crafting infrastructure that lets teams
+      ship faster and more reliably.
+    - >-
+      My work spans cloud-native architectures on AWS &amp; GCP, Kubernetes orchestration,
+      observability stacks, security automation and GitOps workflows. I believe in
+      infrastructure as code and continuous improvement.
+  expertise:
+    - { label: Multi-Cloud, icon: fas fa-cloud }
+    - { label: CI/CD Pipelines, icon: fas fa-infinity }
+    - { label: Kubernetes, icon: fas fa-dharmachakra }
+    - { label: Security & Compliance, icon: fas fa-shield-alt }
+    - { label: Observability, icon: fas fa-chart-line }
+    - { label: Automation, icon: fas fa-robot }
+    - { label: MLOps, icon: fas fa-brain }
+    - { label: MCP, icon: fas fa-microchip }
+    - { label: Infrastructure as Code, icon: fas fa-server }
+
+impact:
+  - { value: "60%", label: Faster deployments with automated CI/CD }
+  - { value: "80%", label: Fewer manual ops tasks through automation }
+  - { value: "40%", label: Cloud cost reduction through optimisation }
+  - { value: "3×", label: Better MTTR with improved observability }
+
+toolbox:
+  - { area: Kubernetes & Containers, icon: fas fa-dharmachakra, tools: [Kubernetes, Docker, Helm, Helmfile, EKS, GKE, OKE, Kustomize, Karpenter, KEDA, Knative, KServe] }
+  - { area: Cloud Platforms, icon: fas fa-cloud, tools: [AWS, GCP, OCI, S3, EC2, Lambda, Cloud Run, Route53, Cloud Map] }
+  - { area: CI/CD & GitOps, icon: fas fa-arrows-rotate, tools: [GitHub Actions, ArgoCD, Jenkins, GitLab CI, FluxCD] }
+  - { area: Infrastructure as Code, icon: fas fa-code, tools: [Terraform, Terragrunt, Ansible, CloudFormation] }
+  - { area: Observability, icon: fas fa-chart-line, tools: [Grafana, Prometheus, Loki, Tempo, Mimir, Pyroscope, ELK, SigNoz, OpenObserve] }
+  - { area: Security & Compliance, icon: fas fa-shield-alt, tools: [TruffleHog, Falco, OPA, Trivy, Vault, Wazuh, Keycloak, Authentik, cert-manager] }
+  - { area: Networking & Service Mesh, icon: fas fa-network-wired, tools: [Cilium, Istio, Linkerd, Netbird, Nginx, Traefik, Caddy, ExternalDNS] }
+  - { area: MLOps & AI Platforms, icon: fas fa-robot, tools: [MLflow, DVC, KServe, SageMaker, Bedrock, scikit-learn, Pandas, NumPy] }
+  - { area: Programming & Scripting, icon: fab fa-python, tools: [Python, Bash, Go, YAML, FastAPI] }
+  - { area: Databases & Messaging, icon: fas fa-database, tools: [Kafka, Redis, PostgreSQL, MySQL, DynamoDB, ElastiCache, MinIO] }
+  - { area: Operating Systems, icon: fab fa-linux, tools: [Linux, Ubuntu, CentOS, RHEL, macOS, Windows] }
+  - { area: Toolbox, icon: fas fa-toolbox, tools: [Velero, Apicurio, Tyk API Gateway, Kro, Selenium, Jira, Confluence] }
+
+projects:
+  - title: LGTM Stack on Kubernetes
+    desc: Production observability with Loki, Grafana, Tempo and Mimir. Deploy, scale and validate end-to-end.
+    url: https://github.com/kioskOG/observability-hub
+    tags: [Kubernetes, Helm, Grafana, Loki, Tempo, Mimir]
+    featured: true
+  - title: GitHub Secret Scanner
+    desc: TruffleHog + Kafka + FastAPI with Slack alerts and CI security gates that stop secret leaks.
+    url: https://github.com/kioskOG/secret-scan-poc
+    tags: [TruffleHog, Kafka, FastAPI, Helm]
+  - title: CloudMap Controller
+    desc: Syncs headless Kubernetes Services to AWS Cloud Map / Route53 with configurable TTLs and audit logs.
+    url: https://github.com/kioskOG/EKS-cloudmap-controller
+    tags: [Python, Controller, AWS, EKS]
+  - title: PR Secret Gatekeeper
+    desc: Blocks pull requests containing secrets via webhooks and required status checks.
+    url: https://github.com/kioskOG/secret-scan-poc/tree/main/based-on-push-and-pull_request
+    tags: [GitHub Actions, Security, CI]
+  - title: Netbird Deployment
+    desc: Self-hosted VPN server and multi-cloud private network links with automated deployment scripts.
+    url: /docs/devops/docker/Netbird/
+    tags: [Docker, VPN, Infra]
+  - title: SAP HANA on GCP
+    desc: Client access patterns and troubleshooting notes for SAP HANA on GCP Private Edition.
+    url: /docs/devops/Cloud/Gcp/Sap-Hana-Problem-Solution/
+    tags: [SAP, GCP, Networking]
+  - title: Netbird Utility
+    desc: Menu-driven Python CLI to manage Netbird peers, groups, routes and policies.
+    url: /docs/devops/python/netbird-python-utility/
+    tags: [Python, CLI, Netbird]
+  - title: Greythr Automated Sign-In/Out
+    desc: Selenium automation with screenshots and email notifications for an HR portal.
+    url: https://github.com/kioskOG/Greythr
+    tags: [Python, Selenium, Automation]

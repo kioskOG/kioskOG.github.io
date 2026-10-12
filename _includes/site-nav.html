@@ -1,0 +1,55 @@
+{%- comment -%}
+  Shared primary navigation — used by every layout.
+  Mobile menu toggling, theme presets and search are wired up in assets/effects.js and assets/search.js.
+{%- endcomment -%}
+<a class="skip-link" href="#{{ include.main_id | default: 'main-content' }}">Skip to content</a>
+<nav class="site-nav" role="navigation" aria-label="Primary navigation">
+  <div class="nav-inner">
+    <a class="nav-logo" href="{{ '/' | relative_url }}" aria-label="Jatin Sharma — home"><span class="nav-logo-mark" aria-hidden="true">JS</span><span class="nav-logo-text">Jatin Sharma <span class="nav-logo-slash">/&gt;</span></span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="nav-active" aria-current="page"{% endif %}>Home</a></li>
+      <li><a href="{{ '/docs/about/' | relative_url }}"{% if page.url == '/docs/about/' %} class="nav-active" aria-current="page"{% elsif page.url contains '/docs/about/' and page.url != '/docs/about/contact/' %} class="nav-active"{% endif %}>About</a></li>
+      <li><a href="{{ '/docs/devops/' | relative_url }}"{% if page.url == '/docs/devops/' %} class="nav-active" aria-current="page"{% elsif page.url contains '/docs/devops/' %} class="nav-active"{% endif %}>DevOps</a></li>
+      <li><a href="{{ '/docs/ml/' | relative_url }}"{% if page.url == '/docs/ml/' %} class="nav-active" aria-current="page"{% elsif page.url contains '/docs/ml/' %} class="nav-active"{% endif %}>ML</a></li>
+      <li><a href="{{ '/docs/ai/' | relative_url }}"{% if page.url == '/docs/ai/' %} class="nav-active" aria-current="page"{% elsif page.url contains '/docs/ai/' %} class="nav-active"{% endif %}>AI</a></li>
+      <li><a href="{{ '/brain/' | relative_url }}"{% if page.url contains '/brain/' %} class="nav-active" aria-current="page"{% endif %}>Brain</a></li>
+      <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i
+            class="fas fa-external-link-alt" style="font-size:0.7em;opacity:0.7" aria-hidden="true"></i></a></li>
+      <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta"{% if page.url contains '/contact' %} aria-current="page"{% endif %}>Get in Touch</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
+        <i class="fas fa-search" aria-hidden="true"></i>
+        <span>Search</span>
+        <span class="search-kbd">⌘K</span>
+      </button>
+      <div class="theme-select-container">
+        <button class="theme-dropdown-btn" id="theme-dropdown-btn" aria-label="Select theme" aria-haspopup="true" type="button">
+          <i class="fas fa-palette" id="theme-dropdown-icon" aria-hidden="true"></i>
+        </button>
+        <div class="theme-dropdown" id="theme-dropdown">
+          <button class="theme-dropdown-item" data-theme-preset="light" type="button">
+            <span class="theme-swatch swatch-light"></span> Light
+          </button>
+          <button class="theme-dropdown-item" data-theme-preset="dark" type="button">
+            <span class="theme-swatch swatch-dark"></span> Dark
+          </button>
+          <button class="theme-dropdown-item" data-theme-preset="dracula" type="button">
+            <span class="theme-swatch swatch-dracula"></span> Dracula
+          </button>
+          <button class="theme-dropdown-item" data-theme-preset="nord" type="button">
+            <span class="theme-swatch swatch-nord"></span> Nord
+          </button>
+          <button class="theme-dropdown-item" data-theme-preset="emerald" type="button">
+            <span class="theme-swatch swatch-emerald"></span> Emerald
+          </button>
+        </div>
+      </div>
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-controls="nav-links" aria-expanded="false" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-bar" id="scroll-progress"></div>
+</nav>

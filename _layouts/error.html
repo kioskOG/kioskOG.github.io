@@ -12,12 +12,8 @@
   <!-- Theme Blocker Script -->
   <script>
     (function () {
-      var savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-      }
+      var savedTheme = localStorage.getItem('theme-preset') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
     })();
   </script>
 
@@ -31,6 +27,7 @@
     crossorigin="anonymous" />
   <!-- Shared Portfolio CSS -->
   <link rel="stylesheet" href="{{ '/assets/portfolio.css' | relative_url }}" />
+  {% include head-theme.html %}
 </head>
 
 <body>
@@ -39,55 +36,14 @@
 
   <div class="page-wrap">
 
-    <!-- NAV -->
-    <nav class="site-nav" role="navigation" aria-label="Primary navigation">
-      <div class="nav-inner">
-        <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma /&gt;</a>
-        <ul class="nav-links" id="nav-links">
-          <li><a href="{{ '/' | relative_url }}">Home</a></li>
-          <li><a href="{{ '/docs/about/' | relative_url }}">About</a></li>
-          <li><a href="{{ '/docs/devops/' | relative_url }}">DevOps</a></li>
-          <li><a href="{{ '/docs/ml/' | relative_url }}">ML</a></li>
-          <li><a href="{{ '/docs/ai/' | relative_url }}">AI</a></li>
-          <li><a href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i
-                class="fas fa-external-link-alt" style="font-size:0.7em;opacity:0.7"></i></a></li>
-          <li><a href="{{ '/docs/about/contact/' | relative_url }}" class="nav-cta">Get in Touch</a></li>
-        </ul>
-        <div class="nav-actions">
-          <button class="nav-search-btn" data-search-trigger aria-label="Search site" type="button">
-            <i class="fas fa-search" aria-hidden="true"></i>
-            <span>Search</span>
-            <span class="search-kbd">⌘K</span>
-          </button>
-          <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark mode" type="button">
-            <i class="fas fa-moon" id="theme-toggle-icon"></i>
-          </button>
-          <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-            <span></span><span></span><span></span>
-          </button>
-        </div>
-      </div>
-      <!-- Scroll Progress Bar -->
-      <div class="scroll-progress-bar" id="scroll-progress"></div>
-    </nav>
+    {% include site-nav.html %}
 
     <!-- MAIN CONTENT -->
-    <main>
+    <main id="main-content">
       {{ content }}
     </main>
 
-    <!-- FOOTER -->
-    <footer class="site-footer-main" role="contentinfo">
-      <div class="footer-inner-main">
-        <div class="footer-brand-main">
-          <a class="nav-logo" href="{{ '/' | relative_url }}">Jatin Sharma /&gt;</a>
-          <p>DevOps Engineer &amp; Platform Architect building scalable cloud-native systems.</p>
-        </div>
-      </div>
-      <div class="footer-bottom-main">
-        <span>&copy; <span id="year"></span> Jatin Sharma. All rights reserved.</span>
-      </div>
-    </footer>
+    {% include site-footer.html %}
 
   </div>
 
@@ -101,45 +57,8 @@
       'use strict';
       var y = document.getElementById('year');
       if (y) y.textContent = new Date().getFullYear();
-      var ham = document.getElementById('hamburger');
-      var nav = document.getElementById('nav-links');
-      if (ham && nav) {
-        ham.addEventListener('click', function () {
-          var open = nav.classList.toggle('open');
-          ham.setAttribute('aria-expanded', String(open));
-        });
-      }
+      // Mobile nav toggling is handled once in assets/effects.js
 
-      // Theme Toggle Logic
-      var toggle = document.getElementById('theme-toggle');
-      if (toggle) {
-        toggle.addEventListener('click', function () {
-          var currentTheme = document.documentElement.getAttribute('data-theme');
-          var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          if (newTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-          } else {
-            document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
-          }
-          updateToggleIcon(newTheme);
-        });
-      }
-
-      function updateToggleIcon(theme) {
-        var icon = document.getElementById('theme-toggle-icon');
-        if (icon) {
-          if (theme === 'dark') {
-            icon.className = 'fas fa-sun';
-          } else {
-            icon.className = 'fas fa-moon';
-          }
-        }
-      }
-
-      var activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      updateToggleIcon(activeTheme);
 
       // 1. Scroll Progress Bar
       var progressBar = document.getElementById('scroll-progress');
@@ -184,6 +103,7 @@
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" crossorigin="anonymous"></script>
   <script src="{{ '/assets/search.js' | relative_url }}"></script>
+  <script src="{{ '/assets/effects.js' | relative_url }}"></script>
 
 </body>
 </html>

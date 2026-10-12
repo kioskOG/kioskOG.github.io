@@ -1,0 +1,261 @@
+{%- comment -%}
+  "The Citadel" splash intro — shown once per browser session on the home page.
+  Remove the include from _layouts/landing.html to disable it.
+{%- endcomment -%}
+<style>
+    /* =============================================
+       GAME OF THRONES - THE CITADEL SPLASH LOADER
+    ============================================= */
+    .citadel-loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #060913;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+      overflow: hidden;
+    }
+
+    .citadel-loader-overlay.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .citadel-astrolabe-container {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1000px;
+    }
+
+    .citadel-core {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #f59e0b 20%, #d97706 80%);
+      box-shadow: 0 0 30px #f59e0b, 0 0 60px #d97706, 0 0 100px rgba(245, 158, 11, 0.5);
+      z-index: 5;
+    }
+
+    .citadel-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+    }
+
+    .ring-outer {
+      width: 160px;
+      height: 160px;
+      border-top-color: #f59e0b;
+      border-bottom-color: #f59e0b;
+      animation: rotateClockwiseOuter 8s linear infinite;
+    }
+
+    .ring-middle {
+      width: 110px;
+      height: 110px;
+      border-left-color: #d97706;
+      border-right-color: #d97706;
+      animation: rotateCounterClockwiseMiddle 5s linear infinite;
+    }
+
+    .ring-inner {
+      width: 60px;
+      height: 60px;
+      border-top-color: #b45309;
+      border-bottom-color: #b45309;
+      animation: rotateClockwiseInner 3s linear infinite;
+    }
+
+    @keyframes rotateClockwiseOuter {
+      0% { transform: rotate3d(1, 0.5, 0.5, 0deg); }
+      100% { transform: rotate3d(1, 0.5, 0.5, 360deg); }
+    }
+
+    @keyframes rotateCounterClockwiseMiddle {
+      0% { transform: rotate3d(0.5, 1, 0.5, 0deg); }
+      100% { transform: rotate3d(0.5, 1, 0.5, -360deg); }
+    }
+
+    @keyframes rotateClockwiseInner {
+      0% { transform: rotate3d(0.2, 0.2, 1, 0deg); }
+      100% { transform: rotate3d(0.2, 0.2, 1, 360deg); }
+    }
+
+    .citadel-text-container {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .citadel-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 8px;
+      color: #f59e0b;
+      text-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+      margin: 0 0 0.6rem 0;
+    }
+
+    .citadel-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      margin-bottom: 1.8rem;
+      min-height: 1.5rem;
+      transition: opacity 0.15s ease-in-out;
+    }
+
+    .citadel-progress-track {
+      width: 220px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .citadel-progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(to right, #b45309, #f59e0b);
+      box-shadow: 0 0 8px #f59e0b;
+      transition: width 0.1s linear;
+    }
+
+    .citadel-skip-btn {
+      position: absolute;
+      bottom: 40px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #64748b;
+      padding: 8px 18px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      outline: none;
+      z-index: 10;
+    }
+
+    .citadel-skip-btn:hover {
+      border-color: #f59e0b;
+      color: #f59e0b;
+      background: rgba(245, 158, 11, 0.05);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.15);
+      transform: translateY(-1px);
+    }
+</style>
+  <!-- Game of Thrones Citadel Splash Loader -->
+  <div id="citadel-loader" class="citadel-loader-overlay">
+    <div class="citadel-astrolabe-container">
+      <div class="citadel-core"></div>
+      <div class="citadel-ring ring-outer"></div>
+      <div class="citadel-ring ring-middle"></div>
+      <div class="citadel-ring ring-inner"></div>
+    </div>
+    <div class="citadel-text-container">
+      <h1 class="citadel-title">THE CITADEL</h1>
+      <p class="citadel-subtitle" id="citadel-status">Aligning the astrolabe...</p>
+      <div class="citadel-progress-track">
+        <div class="citadel-progress-bar" id="citadel-bar"></div>
+      </div>
+    </div>
+    <button class="citadel-skip-btn" id="citadel-skip" type="button">Skip Intro</button>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+      var loader = document.getElementById('citadel-loader');
+      var bar = document.getElementById('citadel-bar');
+      var status = document.getElementById('citadel-status');
+      var skip = document.getElementById('citadel-skip');
+
+      if (!loader) return;
+
+      // Check sessionStorage to only show once per browser session
+      if (sessionStorage.getItem('citadel-loaded')) {
+        loader.style.display = 'none';
+        loader.style.visibility = 'hidden';
+        return;
+      }
+
+      // Lock body scrolling
+      document.body.style.overflow = 'hidden';
+
+      var progress = 0;
+      var statusMessages = [
+        { limit: 25, text: 'Consulting the ancient scrolls...' },
+        { limit: 50, text: 'Aligning the Citadel astrolabe...' },
+        { limit: 75, text: 'Forging the links of your chain...' },
+        { limit: 100, text: 'Entering Grand Maester\'s chambers...' }
+      ];
+
+      function updateStatus(val) {
+        for (var i = 0; i < statusMessages.length; i++) {
+          if (val <= statusMessages[i].limit) {
+            if (status.textContent !== statusMessages[i].text) {
+              status.style.opacity = 0;
+              (function(msg) {
+                setTimeout(function() {
+                  status.textContent = msg;
+                  status.style.opacity = 1;
+                }, 150);
+              })(statusMessages[i].text);
+            }
+            break;
+          }
+        }
+      }
+
+      var interval = setInterval(function () {
+        progress += 1.5;
+        if (progress > 100) progress = 100;
+        
+        if (bar) bar.style.width = progress + '%';
+        updateStatus(progress);
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          finishLoader();
+        }
+      }, 45);
+
+      function finishLoader() {
+        clearInterval(interval);
+        sessionStorage.setItem('citadel-loaded', 'true');
+        loader.classList.add('fade-out');
+        setTimeout(function () {
+          loader.style.display = 'none';
+          document.body.style.overflow = '';
+        }, 800);
+      }
+
+      if (skip) {
+        skip.addEventListener('click', finishLoader);
+      }
+    })();
+  </script>

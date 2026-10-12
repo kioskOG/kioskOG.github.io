@@ -132,6 +132,7 @@
   }
 
   function createParticles() {
+    if (!canvas) return;
     particles = [];
     var count = Math.min(60, Math.floor((canvas.width * canvas.height) / 18000));
     for (var i = 0; i < count; i++) {
