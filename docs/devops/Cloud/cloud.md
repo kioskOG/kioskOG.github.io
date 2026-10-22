@@ -103,6 +103,30 @@ timestamp: '2026-06-30T11:56:08Z'
       <div class="tags"><span class="tag">AWS</span><span class="tag">Firewall</span><span class="tag">Security</span><span class="tag">Egress</span></div>
     </div>
   </article>
+
+  <article class="project-card card-orange reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">AWS Private Link End to End</h3>
+        <a class="project-open" href="/docs/devops/Cloud/AWS/aws-privateLink-end-to-end/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Implementing AWS Private Link End to End.</p>
+      <div class="tags"><span class="tag">AWS</span><span class="tag">Private Link</span><span class="tag">Security</span><span class="tag">Egress</span></div>
+    </div>
+  </article>
+
+  <article class="project-card card-orange reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">AWS Glue zero-ETL integration with Salesforce</h3>
+        <a class="project-open" href="/docs/devops/Cloud/AWS/Setting-up-AWS-Glue-zero-ETL-integration-with-Salesforce/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Setting up AWS Glue zero-ETL integration with Salesforce.</p>
+      <div class="tags"><span class="tag">AWS</span><span class="tag">Glue</span><span class="tag">Zero-ETL</span><span class="tag">Salesforce</span></div>
+    </div>
+  </article>
+
+
 </section>
 
 <section class="projects-section reveal" aria-labelledby="cloud-iac">
