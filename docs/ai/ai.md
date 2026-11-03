@@ -140,6 +140,23 @@ timestamp: '2026-06-30T11:56:08Z'
       </div>
     </article>
 
+    <article class="project-card card-gold normal reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">AI Certification Exam Prep</h3>
+          <a class="project-open" href="/docs/ai/Exams-Prep/" aria-label="View AI Certification Exam Prep docs">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">Interactive exam simulator, comprehensive study notes, 400+ practice questions across Core and Scenario sets, and timed mock tests for NVIDIA NCA-AIIO and AWS Certified AI Practitioner (AIF-C01).</p>
+        <div class="tags">
+          <a class="tag" href="/docs/ai/Exams-Prep/exam-crack-buddy/">Exam Crack Buddy</a>
+          <a class="tag" href="/docs/ai/Exams-Prep/nvidia-nca-aiio/">NVIDIA NCA-AIIO</a>
+          <a class="tag" href="/docs/ai/Exams-Prep/aws-aif-c01/">AWS AIF-C01</a>
+        </div>
+      </div>
+    </article>
+
 
   </div>
 </section>
