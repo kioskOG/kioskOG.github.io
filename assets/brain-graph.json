@@ -1,0 +1,21 @@
+---
+layout: none
+permalink: /assets/brain-graph.json
+---
+{%- assign sep = "@@BL@@" -%}
+{%- assign first = true -%}
+{%- assign all_docs = site.pages | concat: site.documents -%}
+[
+{%- for p in all_docs -%}
+{%- if p.path contains "docs/" and p.path contains ".md" and p.type and p.type != "" -%}
+{%- assign hrefs = p.content | split: 'href="' -%}
+{%- assign mds = p.content | split: '](' -%}
+{%- capture raw_links -%}{%- for h in hrefs offset:1 -%}{{ h | split: '"' | first }}{{ sep }}{%- endfor -%}{%- for h in mds offset:1 -%}{{ h | split: ')' | first | split: ' ' | first }}{{ sep }}{%- endfor -%}{%- endcapture -%}
+{%- assign link_list = raw_links | split: sep | uniq -%}
+{%- assign plain = p.content | strip_html | replace: "#", "" | replace: "*", "" | replace: "`", "" | normalize_whitespace -%}
+{%- unless first -%},{%- endunless %}
+{"id":{{ p.permalink | jsonify }},"title":{{ p.title | jsonify }},"description":{{ p.description | default: "" | jsonify }},"type":{{ p.type | default: "concept" | jsonify }},"tags":{% if p.tags %}{{ p.tags | jsonify }}{% else %}[]{% endif %},"timestamp":{{ p.timestamp | default: "" | jsonify }},"parent":{{ p.parent | default: "" | jsonify }},"parent_url":{{ p.parent_url | default: "" | jsonify }},"grand_parent":{{ p.grand_parent | default: "" | jsonify }},"path":{{ p.path | jsonify }},"size":{{ p.content.size | jsonify }},"words":{{ plain | number_of_words }},"excerpt":{{ plain | truncatewords: 45 | jsonify }},"links":{{ link_list | jsonify }}}
+{%- assign first = false -%}
+{%- endif -%}
+{%- endfor %}
+]

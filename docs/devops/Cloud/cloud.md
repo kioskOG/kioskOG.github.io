@@ -157,5 +157,28 @@ timestamp: '2026-06-30T11:56:08Z'
       <div class="tags"><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">OIDC</span><span class="tag">Entra ID</span><span class="tag">Group-Based Access Control</span></div>
     </div>
   </article>
+  
+  <article class="project-card card-green reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">Connect Claude Code to MCP with Microsoft Entra ID SSO</h3>
+        <a class="project-open" href="/docs/devops/Cloud/Azure/SSO-Internal-MCP-Steps/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Connect Claude Code to MCP with Microsoft Entra ID SSO</p>
+      <div class="tags"><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">OIDC</span><span class="tag">Entra ID</span><span class="tag">Group-Based Access Control</span></div>
+    </div>
+  </article>
+
+  <article class="project-card card-green reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">Company SSO for an Internal MCP Server: Entra ID App Roles, Security Groups and Claude Connectors</h3>
+        <a class="project-open" href="/docs/devops/Cloud/Azure/SSO-Internal-MCP/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">Put an internal MCP server behind company SSO with one Entra ID app registration, app roles, security groups and "assignment required", then connect it from Claude.</p>
+      <div class="tags"><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">OIDC</span><span class="tag">Entra ID</span><span class="tag">Group-Based Access Control</span></div>
+    </div>
+  </article>
+
 
 </section>

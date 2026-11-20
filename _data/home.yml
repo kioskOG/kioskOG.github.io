@@ -99,6 +99,11 @@ projects:
     desc: TruffleHog + Kafka + FastAPI with Slack alerts and CI security gates that stop secret leaks.
     url: https://github.com/kioskOG/secret-scan-poc
     tags: [TruffleHog, Kafka, FastAPI, Helm]
+  - title: NetBird on Amazon EKS
+    desc: Self-hosted NetBird control plane on AWS EKS with CloudNativePG, External Secrets, ALBs, Helm charts and Terragrunt.
+    url: https://github.com/kioskOG/netbird-on-eks
+    tags: [NetBird, AWS, EKS, Terraform, Terragrunt, Helm]
+    featured: true
   - title: CloudMap Controller
     desc: Syncs headless Kubernetes Services to AWS Cloud Map / Route53 with configurable TTLs and audit logs.
     url: https://github.com/kioskOG/EKS-cloudmap-controller
