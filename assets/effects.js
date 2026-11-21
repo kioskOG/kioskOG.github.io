@@ -310,7 +310,7 @@
     });
 
     // Initialize switcher state to match current theme
-    var activeTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    var activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
     var activeItem = menu.querySelector('[data-theme-preset="' + activeTheme + '"]');
     if (activeItem) {
       activeItem.classList.add('active');

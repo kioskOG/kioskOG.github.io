@@ -14,7 +14,7 @@
   <!-- Theme Blocker Script -->
   <script>
     (function () {
-      var savedTheme = localStorage.getItem('theme-preset') || 'dark';
+      var savedTheme = localStorage.getItem('theme-preset') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
     })();
   </script>
@@ -25,7 +25,7 @@
   <!-- Shared Portfolio CSS -->
   <link rel="stylesheet" href="{{ '/assets/portfolio.css' | relative_url }}" />
   {% include head-theme.html %}
-  <link rel="stylesheet" href="{{ '/assets/css/home-2026.css' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/assets/css/home-editorial.css' | relative_url }}" />
 </head>
 
 <body class="hm">
@@ -38,76 +38,69 @@
   <div class="page-wrap">
     {% include site-nav.html %}
 
+    {%- assign devops_count = articles | where_exp: "p", "p.url contains '/docs/devops/'" | size -%}
+    {%- assign ai_count = articles | where_exp: "p", "p.url contains '/docs/ai/'" | size -%}
+
     <main id="main-content">
 
-      <!-- ============================== HERO ============================== -->
+      <!-- ============================ MASTHEAD ============================ -->
       <section class="hm-hero" aria-labelledby="hm-hero-title">
-        <div class="hm-wrap hm-hero-grid">
-          <div class="hm-hero-copy">
-            <a class="hm-status" href="{{ '/docs/about/contact/' | relative_url }}">
-              <span class="hm-status-dot" aria-hidden="true"></span> {{ h.hero.status }}
-              <i class="fas fa-arrow-right" aria-hidden="true"></i>
-            </a>
-            <h1 id="hm-hero-title" class="hm-hero-title">{{ h.hero.title }}</h1>
-            <p class="hm-hero-intro">{{ h.hero.intro }}</p>
-
-            <button class="hm-search" type="button" data-search-trigger aria-label="Search all guides">
-              <i class="fas fa-search" aria-hidden="true"></i>
-              <span>Search {{ articles.size }} guides…</span>
-              <kbd>⌘K</kbd>
-            </button>
-
-            <nav class="hm-quick" aria-label="Popular topics">
-              <span class="hm-quick-label">Popular:</span>
-              {% for q in h.hero.quick_links %}
-              <a href="{{ q.url | relative_url }}">{{ q.label }}</a>
-              {% endfor %}
-            </nav>
-
-            {% if page.quote %}
-            <p class="hm-quote">“{{ page.quote }}”</p>
-            {% endif %}
+        <div class="hm-wrap">
+          <div class="hm-dateline" aria-hidden="true">
+            <span>Field Notes</span>
+            <span>DevOps · Platform · AI</span>
+            <span>No. {{ articles.size }} · {{ site.time | date: "%B %Y" }}</span>
           </div>
 
-          <aside class="hm-terminal" aria-label="About the author">
-            <div class="hm-terminal-bar" aria-hidden="true">
-              <span></span><span></span><span></span>
-              <em>jatin@mlops-devops: ~</em>
+          <div class="hm-hero-grid">
+            <div class="hm-hero-copy">
+              <a class="hm-status" href="{{ '/docs/about/contact/' | relative_url }}">
+                <span class="hm-status-dot" aria-hidden="true"></span> {{ h.hero.status }}
+                <i class="fas fa-arrow-right" aria-hidden="true"></i>
+              </a>
+              <h1 id="hm-hero-title" class="hm-hero-title">{{ h.hero.title }}</h1>
+              <p class="hm-hero-intro">{{ h.hero.intro }}</p>
+
+              <button class="hm-search" type="button" data-search-trigger aria-label="Search all guides">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <span>Search {{ articles.size }} guides…</span>
+                <kbd>⌘K</kbd>
+              </button>
+
+              <nav class="hm-quick" aria-label="Popular topics">
+                <span class="hm-quick-label">Popular</span>
+                {% for q in h.hero.quick_links %}
+                <a href="{{ q.url | relative_url }}">{{ q.label }}</a>
+                {% endfor %}
+              </nav>
             </div>
-            <div class="hm-terminal-body">
-              {% for t in h.terminal %}
-              <p class="hm-cmd"><span class="hm-prompt">jatin@mlops-devops:~#</span> {{ t.cmd }}</p>
-              <p class="hm-out">{{ t.out }}</p>
-              {% endfor %}
-              <p class="hm-cmd"><span class="hm-prompt">jatin@mlops-devops:~#</span> ls ~/docs | wc -l</p>
-              <p class="hm-out">{{ articles.size }} guides across DevOps, AI &amp; ML</p>
-              <p class="hm-cmd"><span class="hm-prompt">jatin@mlops-devops:~#</span> <span class="hm-caret" aria-hidden="true"></span></p>
-            </div>
-            <div class="hm-author">
-              <img src="{{ '/profile-image.png' | relative_url }}" alt="Jatin Sharma" width="44" height="44" loading="eager" />
-              <div>
-                <strong>Jatin Sharma</strong>
-                <span>DevOps &amp; Platform Engineer</span>
-              </div>
-              <div class="hm-author-links">
+
+            <aside class="hm-byline" aria-label="About the author">
+              <figure class="hm-portrait">
+                <img src="{{ '/profile-image.png' | relative_url }}" alt="Jatin Sharma" width="160" height="160" loading="eager" />
+              </figure>
+              <p class="hm-byline-name">Jatin Sharma</p>
+              <p class="hm-byline-role">DevOps &amp; Platform Engineer</p>
+              <dl class="hm-spec">
+                {% for t in h.terminal %}
+                <div><dt>{{ t.cmd }}</dt><dd>{{ t.out }}</dd></div>
+                {% endfor %}
+              </dl>
+              {% if page.quote %}<blockquote class="hm-quote">“{{ page.quote }}”</blockquote>{% endif %}
+              <div class="hm-byline-links">
                 <a href="https://github.com/kioskOG" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
                 <a href="https://www.linkedin.com/in/jatin-devops/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
                 <a href="mailto:jatinvashishtha110@gmail.com" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
               </div>
-            </div>
-          </aside>
-        </div>
+            </aside>
+          </div>
 
-        <!-- Live stats -->
-        {%- assign devops_count = articles | where_exp: "p", "p.url contains '/docs/devops/'" | size -%}
-        {%- assign ai_count = articles | where_exp: "p", "p.url contains '/docs/ai/'" | size -%}
-        <div class="hm-wrap">
           <dl class="hm-stats">
-            <div><dt>Guides</dt><dd>{{ articles.size }}</dd></div>
-            <div><dt>DevOps guides</dt><dd>{{ devops_count }}</dd></div>
-            <div><dt>AI guides</dt><dd>{{ ai_count }}</dd></div>
+            <div><dd>{{ articles.size }}</dd><dt>Guides</dt></div>
+            <div><dd>{{ devops_count }}</dd><dt>DevOps guides</dt></div>
+            <div><dd>{{ ai_count }}</dd><dt>AI guides</dt></div>
             {% for s in h.stats %}
-            <div><dt>{{ s.label }}</dt><dd>{{ s.value }}</dd></div>
+            <div><dd>{{ s.value }}</dd><dt>{{ s.label }}</dt></div>
             {% endfor %}
           </dl>
         </div>
@@ -117,10 +110,7 @@
       <section class="hm-section" aria-labelledby="hm-latest">
         <div class="hm-wrap">
           <header class="hm-head">
-            <div>
-              <p class="hm-eyebrow">Latest writing</p>
-              <h2 id="hm-latest">Fresh from the lab</h2>
-            </div>
+            <h2 id="hm-latest">Latest writing</h2>
             <a class="hm-head-link" href="{{ '/feed.xml' | relative_url }}" target="_blank" rel="noopener">
               <i class="fas fa-rss" aria-hidden="true"></i> Subscribe via RSS
             </a>
@@ -135,31 +125,28 @@
               {%- assign mins = words | divided_by: 200 | plus: 1 -%}
               {% if forloop.first %}
               <a class="hm-feature" href="{{ p.url | relative_url }}">
-                <div class="hm-feature-meta">
-                  <span class="hm-cat hm-cat-{{ cat_cls }}">{{ cat }}</span>
-                  {% if p.parent %}<span>{{ p.parent }}</span>{% endif %}
-                </div>
+                <p class="hm-kicker"><span class="hm-cat hm-cat-{{ cat_cls }}">{{ cat }}</span>{% if p.parent %}<span>{{ p.parent }}</span>{% endif %}</p>
                 <h3>{{ p.title }}</h3>
-                {% if p.description %}<p>{{ p.description }}</p>{% endif %}
+                {% if p.description %}<p class="hm-standfirst">{{ p.description }}</p>{% endif %}
                 {% if p.tags.size > 0 %}
                 <div class="hm-feature-tags">{% for tg in p.tags limit: 5 %}<span>#{{ tg }}</span>{% endfor %}</div>
                 {% endif %}
                 <div class="hm-feature-foot">
-                  <time datetime="{{ p.timestamp | date_to_xmlschema }}">{{ p.timestamp | date: "%b %-d, %Y" }}</time>
-                  <span>·</span><span>{{ mins }} min read</span>
-                  <span class="hm-read">Read article <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                  <time datetime="{{ p.timestamp | date_to_xmlschema }}">{{ p.timestamp | date: "%B %-d, %Y" }}</time>
+                  <span aria-hidden="true">·</span><span>{{ mins }} min read</span>
+                  <span class="hm-read">Read the guide <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
                 </div>
               </a>
               <ol class="hm-list">
               {% else %}
                 <li>
                   <a href="{{ p.url | relative_url }}">
-                    <time datetime="{{ p.timestamp | date_to_xmlschema }}">{{ p.timestamp | date: "%b %-d" }}</time>
+                    <span class="hm-num" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
                     <span class="hm-list-main">
+                      <span class="hm-list-meta"><span class="hm-cat hm-cat-{{ cat_cls }}">{{ cat }}</span>{% if p.parent %} {{ p.parent }}{% endif %}</span>
                       <span class="hm-list-title">{{ p.title }}</span>
-                      <span class="hm-list-meta"><span class="hm-cat hm-cat-{{ cat_cls }}">{{ cat }}</span>{% if p.parent %} {{ p.parent }}{% endif %} · {{ mins }} min</span>
+                      <span class="hm-list-date"><time datetime="{{ p.timestamp | date_to_xmlschema }}">{{ p.timestamp | date: "%b %-d, %Y" }}</time> · {{ mins }} min</span>
                     </span>
-                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
                   </a>
                 </li>
               {% endif %}
@@ -173,51 +160,54 @@
       <section class="hm-section" id="topics" aria-labelledby="hm-topics">
         <div class="hm-wrap">
           <header class="hm-head">
-            <div>
-              <p class="hm-eyebrow">Knowledge base</p>
-              <h2 id="hm-topics">Browse by topic</h2>
-            </div>
+            <h2 id="hm-topics">In this edition</h2>
             <a class="hm-head-link" href="{{ '/brain/' | relative_url }}">
               <i class="fas fa-brain" aria-hidden="true"></i> Explore the knowledge graph
             </a>
           </header>
 
+          <div class="hm-contents">
           {% assign groups = "devops,ai" | split: "," %}
           {% for g in groups %}
           {%- if g == 'ai' -%}{%- assign g_title = 'AI Engineering' -%}{%- assign g_url = '/docs/ai/' -%}
-          {%- else -%}{%- assign g_title = 'DevOps & Platform' -%}{%- assign g_url = '/docs/devops/' -%}{%- endif -%}
-          <div class="hm-topic-group">
+          {%- else -%}{%- assign g_title = 'DevOps &amp; Platform' -%}{%- assign g_url = '/docs/devops/' -%}{%- endif -%}
+          <div class="hm-topic-group hm-topic-group-{{ g }}">
             <div class="hm-topic-group-head">
               <h3>{{ g_title }}</h3>
               <a href="{{ g_url | relative_url }}">View all <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
             </div>
-            <div class="hm-topics hm-topics-{{ g }}">
+            <ul class="hm-topics">
               {% for t in h.topics[g] %}
               {%- assign t_page = site.pages | where: "permalink", t.url | first -%}
               {%- assign t_path = t.count_path | default: t.url -%}
               {%- assign t_count = articles | where_exp: "p", "p.url contains t_path" | size -%}
               {%- assign t_blurb = t.blurb | default: t_page.hero_intro -%}
-              <a class="hm-topic" href="{{ t.url | relative_url }}">
-                <span class="hm-topic-icon"><i class="{{ t.icon }}" aria-hidden="true"></i></span>
-                <span class="hm-topic-body">
-                  <span class="hm-topic-title">{{ t.label }}</span>
+              <li>
+                <a class="hm-topic" href="{{ t.url | relative_url }}">
+                  <span class="hm-topic-line">
+                    <span class="hm-topic-title">{{ t.label }}</span>
+                    <span class="hm-topic-leader" aria-hidden="true"></span>
+                    {% if t_count > 0 %}<span class="hm-topic-count">{{ t_count }}</span>{% endif %}
+                  </span>
                   {% if t_blurb %}<span class="hm-topic-desc">{{ t_blurb | strip_html | strip | truncatewords: 13 }}</span>{% endif %}
-                </span>
-                {% if t_count > 0 %}<span class="hm-topic-count">{{ t_count }}</span>{% endif %}
-              </a>
+                </a>
+              </li>
               {% endfor %}
               {% if g == 'ai' %}
-              <a class="hm-topic" href="{{ '/docs/ml/' | relative_url }}">
-                <span class="hm-topic-icon"><i class="fas fa-brain" aria-hidden="true"></i></span>
-                <span class="hm-topic-body">
-                  <span class="hm-topic-title">Machine Learning</span>
+              <li>
+                <a class="hm-topic" href="{{ '/docs/ml/' | relative_url }}">
+                  <span class="hm-topic-line">
+                    <span class="hm-topic-title">Machine Learning</span>
+                    <span class="hm-topic-leader" aria-hidden="true"></span>
+                  </span>
                   <span class="hm-topic-desc">Datasets, pipelines and model training fundamentals.</span>
-                </span>
-              </a>
+                </a>
+              </li>
               {% endif %}
-            </div>
+            </ul>
           </div>
           {% endfor %}
+          </div>
         </div>
       </section>
 
@@ -225,10 +215,7 @@
       <section class="hm-section" id="projects" aria-labelledby="hm-projects">
         <div class="hm-wrap">
           <header class="hm-head">
-            <div>
-              <p class="hm-eyebrow">Open source &amp; field work</p>
-              <h2 id="hm-projects">Featured projects</h2>
-            </div>
+            <h2 id="hm-projects">Projects &amp; field work</h2>
             <a class="hm-head-link" href="https://github.com/kioskOG" target="_blank" rel="noopener">
               <i class="fab fa-github" aria-hidden="true"></i> All repositories
             </a>
@@ -239,7 +226,7 @@
             {%- assign external = pr.url | slice: 0, 4 -%}
             <a class="hm-project{% if pr.featured %} is-featured{% endif %}" href="{{ pr.url | relative_url }}"{% if external == 'http' %} target="_blank" rel="noopener"{% endif %}>
               <span class="hm-project-top">
-                <span class="hm-project-icon"><i class="{% if external == 'http' %}fab fa-github{% else %}fas fa-book-open{% endif %}" aria-hidden="true"></i></span>
+                <span class="hm-project-kind">{% if pr.featured %}Featured · {% endif %}{% if external == 'http' %}Repository{% else %}Guide{% endif %}</span>
                 <i class="fas {% if external == 'http' %}fa-arrow-up-right-from-square{% else %}fa-arrow-right{% endif %} hm-project-go" aria-hidden="true"></i>
               </span>
               <span class="hm-project-title">{{ pr.title }}</span>
@@ -253,28 +240,32 @@
 
       <!-- ============================== ABOUT ============================= -->
       <section class="hm-section" id="about" aria-labelledby="hm-about">
-        <div class="hm-wrap hm-about">
-          <div class="hm-about-copy">
-            <p class="hm-eyebrow">About</p>
-            <h2 id="hm-about">{{ h.about.heading }}</h2>
-            {% for para in h.about.paragraphs %}<p>{{ para }}</p>{% endfor %}
-            <ul class="hm-chips" aria-label="Areas of expertise">
-              {% for e in h.about.expertise %}
-              <li><i class="{{ e.icon }}" aria-hidden="true"></i> {{ e.label }}</li>
+        <div class="hm-wrap">
+          <header class="hm-head">
+            <h2>About the author</h2>
+          </header>
+          <div class="hm-about">
+            <div class="hm-about-copy">
+              <h3 id="hm-about">{{ h.about.heading }}</h3>
+              {% for para in h.about.paragraphs %}<p>{{ para }}</p>{% endfor %}
+              <ul class="hm-chips" aria-label="Areas of expertise">
+                {% for e in h.about.expertise %}
+                <li>{{ e.label }}</li>
+                {% endfor %}
+              </ul>
+              <div class="hm-actions">
+                <a class="btn-primary" href="{{ '/docs/about/' | relative_url }}">More about me</a>
+                <a class="btn-outline" href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+              </div>
+            </div>
+            <div class="hm-impact" aria-label="Proven impact">
+              {% for m in h.impact %}
+              <div class="hm-impact-item">
+                <span class="hm-impact-value">{{ m.value }}</span>
+                <span class="hm-impact-label">{{ m.label }}</span>
+              </div>
               {% endfor %}
-            </ul>
-            <div class="hm-actions">
-              <a class="btn-primary" href="{{ '/docs/about/' | relative_url }}">More about me</a>
-              <a class="btn-outline" href="https://portfolio.jatinog.com/" target="_blank" rel="noopener">Portfolio <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
             </div>
-          </div>
-          <div class="hm-impact" aria-label="Proven impact">
-            {% for m in h.impact %}
-            <div class="hm-impact-item">
-              <span class="hm-impact-value">{{ m.value }}</span>
-              <span class="hm-impact-label">{{ m.label }}</span>
-            </div>
-            {% endfor %}
           </div>
         </div>
       </section>
@@ -283,15 +274,12 @@
       <section class="hm-section" id="skills" aria-labelledby="hm-toolbox">
         <div class="hm-wrap">
           <header class="hm-head">
-            <div>
-              <p class="hm-eyebrow">Toolbox</p>
-              <h2 id="hm-toolbox">What I work with</h2>
-            </div>
+            <h2 id="hm-toolbox">The toolbox</h2>
           </header>
           <dl class="hm-toolbox">
             {% for tb in h.toolbox %}
             <div class="hm-toolbox-row">
-              <dt><i class="{{ tb.icon }}" aria-hidden="true"></i> {{ tb.area }}</dt>
+              <dt>{{ tb.area }}</dt>
               <dd>{% for tool in tb.tools %}<span>{{ tool }}</span>{% endfor %}</dd>
             </div>
             {% endfor %}
@@ -303,13 +291,13 @@
       <section class="hm-section hm-closing" aria-label="Stay in touch">
         <div class="hm-wrap hm-closing-grid">
           <a class="hm-promo" href="{{ '/brain/' | relative_url }}">
-            <span class="hm-promo-icon"><i class="fas fa-brain" aria-hidden="true"></i></span>
-            <span class="hm-promo-title">Knowledge Brain</span>
+            <span class="hm-promo-kicker">Interactive</span>
+            <span class="hm-promo-title">The Knowledge Brain</span>
             <span class="hm-promo-desc">Navigate every guide as an interactive graph of linked concepts.</span>
             <span class="hm-promo-cta">Launch graph <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
           </a>
           <a class="hm-promo" href="{{ '/feed.xml' | relative_url }}" target="_blank" rel="noopener">
-            <span class="hm-promo-icon"><i class="fas fa-rss" aria-hidden="true"></i></span>
+            <span class="hm-promo-kicker">Subscribe</span>
             <span class="hm-promo-title">Follow along</span>
             <span class="hm-promo-desc">New guides land in the RSS feed first. Plug it into any reader.</span>
             <span class="hm-promo-cta">Get the feed <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
@@ -317,7 +305,7 @@
           <div class="hm-cta">
             <h2>Ready to build something remarkable?</h2>
             <p>Scaling infrastructure, automating pipelines or improving reliability: let's talk.</p>
-            <a class="btn-primary" href="{{ '/docs/about/contact/' | relative_url }}"><i class="fas fa-paper-plane" aria-hidden="true"></i> Get in touch</a>
+            <a class="btn-primary" href="{{ '/docs/about/contact/' | relative_url }}">Get in touch <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
           </div>
         </div>
       </section>
