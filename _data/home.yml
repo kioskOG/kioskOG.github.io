@@ -4,7 +4,7 @@
 
 hero:
   status: Open to opportunities
-  title: Practical guides for DevOps, Platform & AI engineering.
+  title: "Practical guides for DevOps, Platform &amp; <em>AI engineering</em>."
   intro: >-
     Hands-on notes by Jatin Sharma, DevOps & Platform Engineer, on Kubernetes, cloud
     infrastructure, observability, security automation and MLOps, written from real

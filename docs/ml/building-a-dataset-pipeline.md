@@ -22,7 +22,7 @@ A DevOps engineer does not write the Java application. But understanding how the
 
 We are going to apply the same thinking to MLOps. You do not need to become a data engineer or a data scientist. But you need to understand the core workflow on how data flows in, how a model gets trained, what the output looks like. This way, when you are setting up pipelines, deploying models, or debugging failures, you actually know what is going on under the hood.
 
-> **Disclaimer:** The main goal of this series is to understand the infrastructure side of MLOps. The model example used here is only for learning and demo purposes.
+> **Disclaimer:** The main goal of this series is to understand the infrastructure side of MLOps. The model example used here is only for learning and demo purposes. If you are new to ML fundamentals, check out our companion series: [Basics of AI and ML](/docs/ml/basics/).
 
 ---
 

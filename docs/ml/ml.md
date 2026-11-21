@@ -20,12 +20,34 @@ timestamp: '2026-06-03T10:14:12Z'
     <article class="project-card card-teal wide reveal">
       <div class="card-link" tabindex="0">
         <div class="project-head">
+          <h3 class="project-title">Basics of AI & Machine Learning</h3>
+          <a class="project-open" href="/docs/ml/basics/" aria-label="View Basics of AI & ML series">
+            View Series <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">A comprehensive 8-part engineering guide covering the foundations of AI, Machine Learning, Deep Learning, Generative AI, ML task types, and the end-to-end ML lifecycle from business problem to continuous production optimization.</p>
+        <div class="tags">
+          <a class="tag" href="/docs/ml/basics/ai-ml-dl-genai-overview/">1. AI, ML, DL & GenAI</a>
+          <a class="tag" href="/docs/ml/basics/how-machines-learn/">2. How Machines Learn</a>
+          <a class="tag" href="/docs/ml/basics/machine-learning-lifecycle/">3. ML Lifecycle</a>
+          <a class="tag" href="/docs/ml/basics/business-problem-and-ml-framing/">4. Problem Framing</a>
+          <a class="tag" href="/docs/ml/basics/ml-tasks-and-model-types/">5. ML Tasks & Metrics</a>
+          <a class="tag" href="/docs/ml/basics/data-collection-and-preparation/">6. Data Prep</a>
+          <a class="tag" href="/docs/ml/basics/model-training-and-evaluation/">7. Training & Eval</a>
+          <a class="tag" href="/docs/ml/basics/model-inference-and-optimization/">8. Inference & Optimization</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project-card card-teal normal reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
           <h3 class="project-title">Training & Inference Pipelines</h3>
           <a class="project-open" href="/docs/ml/building-a-dataset-pipeline/" aria-label="View ML docs">
             View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
           </a>
         </div>
-        <p class="project-desc">Content covering machine learning models, deployment patterns, and optimization techniques will be populated here.</p>
+        <p class="project-desc">Content covering machine learning models, deployment patterns, and optimization techniques.</p>
         <div class="tags">
           <a class="tag" href="/docs/ml/building-a-dataset-pipeline/">MLOps Step 1: Building a Dataset Pipeline</a>
         </div>
