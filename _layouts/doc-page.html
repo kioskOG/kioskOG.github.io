@@ -250,194 +250,156 @@
     }
 
     /* ====================================================
-       AUDIO PLAYER WIDGET — Premium Full-Featured
+       AUDIO PLAYER WIDGET — "Listen" card
        ==================================================== */
     .audio-player-widget {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      padding: 18px 20px;
-      margin: 0 0 28px;
-      background: var(--surface);
+      --ap-accent: var(--accent-blue, #3b82f6);
+      --ap-soft: color-mix(in srgb, var(--ap-accent) 10%, transparent);
+      --ap-line: color-mix(in srgb, var(--text-muted, #64748b) 22%, transparent);
+      position: relative;
+      display: flex; flex-direction: column; gap: 14px;
+      margin: 0 0 28px; padding: 16px 18px 14px;
+      background:
+        radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--ap-accent) 9%, transparent) 0%, transparent 55%),
+        var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-lg, 12px);
       box-shadow: var(--shadow-sm);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      overflow: hidden;
+      transition: border-color .25s, box-shadow .25s;
     }
-    html[data-theme="light"] .audio-player-widget {
-      background: #fff;
-      border-color: rgba(15,23,42,0.10);
+    .audio-player-widget::before {
+      content: ""; position: absolute; inset: 0 auto 0 0; width: 3px;
+      background: var(--ap-accent); opacity: .35; transition: opacity .25s;
     }
-    .audio-player-widget:hover {
-      border-color: var(--border-hover);
-      box-shadow: var(--shadow-md);
-    }
+    .audio-player-widget.is-playing::before,
+    .audio-player-widget.is-paused::before { opacity: 1; }
+    .audio-player-widget:hover,
+    .audio-player-widget.is-playing { border-color: color-mix(in srgb, var(--ap-accent) 40%, var(--border)); box-shadow: var(--shadow-md); }
 
-    /* Row 1: Header */
-    .ap-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+    /* Top row */
+    .ap-main { display: flex; align-items: center; gap: 14px; }
+
+    .ap-play {
+      position: relative; flex-shrink: 0;
+      width: 52px; height: 52px; border-radius: 50%; border: 0; padding: 0;
+      display: grid; place-items: center;
+      background: var(--ap-accent); color: #fff; cursor: pointer;
+      box-shadow: 0 6px 18px -6px color-mix(in srgb, var(--ap-accent) 70%, transparent);
+      transition: transform .15s, box-shadow .2s, filter .2s;
     }
-    .ap-header-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .ap-play:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .ap-play:active { transform: scale(.94); }
+    .ap-play:focus-visible { outline: 2px solid var(--ap-accent); outline-offset: 4px; }
+    .ap-play i { font-size: 1.05rem; position: relative; z-index: 1; }
+    .ap-play i.fa-play { margin-left: 3px; }
+    .ap-ring { position: absolute; inset: -5px; width: calc(100% + 10px); height: calc(100% + 10px); transform: rotate(-90deg); pointer-events: none; }
+    .ap-ring circle { fill: none; stroke-width: 2.5; }
+    .ap-ring .ap-ring-bg { stroke: var(--ap-soft); }
+    .ap-ring .ap-ring-fg { stroke: var(--ap-accent); stroke-linecap: round; transition: stroke-dashoffset .3s ease-out; }
+    .audio-player-widget.is-loading .ap-play i { animation: apSpin 1s linear infinite; }
+    @keyframes apSpin { to { transform: rotate(360deg); } }
+
+    .ap-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+    .ap-eyebrow {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--text-muted);
     }
-    .ap-icon {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: rgba(59, 130, 246, 0.10);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--accent-blue); font-size: 0.9rem; flex-shrink: 0;
-      transition: background 0.2s;
-    }
-    .audio-player-widget.is-playing .ap-icon {
-      background: rgba(59, 130, 246, 0.20);
-    }
-    .ap-title { font-weight: 600; font-size: 0.88rem; color: var(--text-heading); }
+    .ap-eyebrow > i { color: var(--ap-accent); }
     .ap-status {
-      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.5px;
-      text-transform: uppercase; color: var(--text-muted);
-      transition: color 0.2s;
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 2px 8px; border-radius: 999px;
+      background: var(--ap-soft); color: var(--ap-accent);
+      font-size: .62rem; letter-spacing: .06em;
     }
-    .audio-player-widget.is-playing .ap-status { color: var(--accent-green); }
-    .audio-player-widget.is-paused  .ap-status { color: var(--accent-amber, #f59e0b); }
+    .audio-player-widget.is-playing .ap-status { background: color-mix(in srgb, var(--accent-green, #10b981) 14%, transparent); color: var(--accent-green, #10b981); }
+    .audio-player-widget.is-paused .ap-status  { background: color-mix(in srgb, var(--accent-amber, #f59e0b) 16%, transparent); color: var(--accent-amber, #f59e0b); }
+    .audio-player-widget.is-error .ap-status   { background: rgba(239,68,68,.12); color: #ef4444; }
+    .ap-title { font-weight: 650; font-size: 1rem; line-height: 1.25; color: var(--text-heading); }
+    .ap-meta { font-size: .76rem; color: var(--text-muted); font-variant-numeric: tabular-nums; }
 
-    /* Row 2: Transport Controls */
-    .ap-controls {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
+    .ap-waveform { display: none; align-items: center; gap: 2px; height: 12px; }
+    .audio-player-widget.is-playing .ap-waveform { display: inline-flex; }
+    .ap-waveform span { width: 2px; height: 100%; border-radius: 2px; background: var(--accent-green, #10b981); animation: apWave .9s ease-in-out infinite alternate; transform-origin: center; }
+    .ap-waveform span:nth-child(2) { animation-delay: .2s; }
+    .ap-waveform span:nth-child(3) { animation-delay: .05s; }
+    .ap-waveform span:nth-child(4) { animation-delay: .3s; }
+    @keyframes apWave { from { transform: scaleY(.3); } to { transform: scaleY(1); } }
+
+    .ap-transport { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
     .ap-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      gap: 6px; padding: 0; width: 36px; height: 36px;
-      border-radius: 50%; background: transparent;
-      border: 1.5px solid var(--border);
-      color: var(--text-heading); font-size: 0.85rem;
-      cursor: pointer; transition: all 0.15s; font-family: inherit;
+      width: 34px; height: 34px; border-radius: 50%; border: 0; padding: 0;
+      display: grid; place-items: center;
+      background: transparent; color: var(--text-heading); font-size: .82rem;
+      cursor: pointer; transition: background .15s, color .15s, opacity .15s, transform .1s;
     }
-    .ap-btn:hover:not(:disabled) {
-      border-color: var(--accent-blue); color: var(--accent-blue);
-      background: rgba(59,130,246,0.06);
-    }
-    .ap-btn:active:not(:disabled) { transform: scale(0.93); }
-    .ap-btn:disabled { opacity: 0.35; cursor: not-allowed; }
-    .ap-btn:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 2px; }
+    .ap-btn:hover:not(:disabled) { background: var(--ap-soft); color: var(--ap-accent); }
+    .ap-btn:active:not(:disabled) { transform: scale(.9); }
+    .ap-btn:disabled { opacity: .3; cursor: default; }
+    .ap-btn:focus-visible { outline: 2px solid var(--ap-accent); outline-offset: 1px; }
 
-    /* Primary play button — larger */
-    .ap-btn-play {
-      width: 44px; height: 44px; font-size: 1rem;
-      border-width: 2px;
-    }
-    .ap-btn-play.playing {
-      background: var(--accent-blue); border-color: var(--accent-blue); color: #fff;
-    }
-    .ap-btn-play.playing:hover { background: #2563eb; }
-
-    /* Row 3: Progress */
-    .ap-progress-row {
-      display: flex; align-items: center; gap: 10px;
-    }
-    .ap-time {
-      font-size: 0.72rem; font-weight: 600; color: var(--text-muted);
-      font-variant-numeric: tabular-nums; min-width: 50px; text-align: center;
-      white-space: nowrap;
-    }
+    /* Scrubber */
     .ap-progress-track {
-      flex: 1; height: 5px;
-      background: rgba(255,255,255,0.08); border-radius: 3px;
-      position: relative; cursor: pointer; overflow: hidden;
+      position: relative; height: 18px; cursor: pointer; touch-action: none;
+      display: flex; align-items: center;
     }
-    html[data-theme="light"] .ap-progress-track { background: rgba(15,23,42,0.08); }
+    .ap-progress-track::before {
+      content: ""; position: absolute; left: 0; right: 0; height: 4px; border-radius: 4px;
+      background: var(--ap-line); transition: height .15s;
+    }
     .ap-progress-fill {
-      position: absolute; top: 0; left: 0; height: 100%;
-      background: var(--accent-blue); border-radius: 3px;
-      width: 0%; transition: width 0.15s ease-out;
+      position: absolute; left: 0; height: 4px; width: 0%; border-radius: 4px;
+      background: var(--ap-accent); transition: width .25s ease-out, height .15s;
     }
+    .ap-progress-thumb {
+      position: absolute; left: 0%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%;
+      background: var(--ap-accent); box-shadow: 0 0 0 4px var(--ap-soft);
+      transform: scale(0); transition: transform .15s, left .25s ease-out;
+    }
+    .ap-progress-track:hover::before, .ap-progress-track:hover .ap-progress-fill { height: 6px; }
+    .ap-progress-track:hover .ap-progress-thumb,
+    .ap-progress-track:focus-visible .ap-progress-thumb,
+    .audio-player-widget.is-playing .ap-progress-thumb,
+    .audio-player-widget.is-paused .ap-progress-thumb { transform: scale(1); }
+    .ap-progress-track:focus-visible { outline: none; }
+    .ap-progress-track:focus-visible::before { box-shadow: 0 0 0 2px var(--ap-soft); }
 
-    /* Row 4: Settings */
-    .ap-settings {
-      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-      padding-top: 10px; border-top: 1px solid var(--border);
+    /* Footer: voices + speed */
+    .ap-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .ap-voices { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .ap-voices-label { font-size: .7rem; font-weight: 600; color: var(--text-muted); margin-right: 2px; }
+    .ap-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px; border-radius: 999px;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--text-body, var(--text-heading)); font: 600 .74rem/1 inherit; font-family: inherit;
+      cursor: pointer; transition: all .15s;
     }
-    .ap-voice-select {
-      flex: 1; min-width: 140px; max-width: 260px;
-      background: var(--surface-card, rgba(255, 255, 255, 0.04));
-      border: 1px solid var(--border); color: var(--text-heading);
-      padding: 5px 26px 5px 10px; border-radius: 6px;
-      font-size: 0.75rem; font-weight: 500; font-family: inherit;
-      cursor: pointer; outline: none;
-      transition: border-color 0.15s, background 0.15s;
-      appearance: none; -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%2394a3b8' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 8px center;
-      text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
-    }
-    .ap-voice-select:hover, .ap-voice-select:focus {
-      border-color: var(--accent-blue); background-color: rgba(59, 130, 246, 0.06);
-    }
-    .ap-voice-select option { background: #1e293b; color: #f1f5f9; }
-    html[data-theme="light"] .ap-voice-select option { background: #fff; color: #0f172a; }
+    .ap-chip:hover { border-color: var(--ap-accent); color: var(--ap-accent); }
+    .ap-chip[aria-checked="true"] { background: var(--ap-accent); border-color: var(--ap-accent); color: #fff; }
+    .ap-chip:focus-visible { outline: 2px solid var(--ap-accent); outline-offset: 2px; }
+    .ap-chip .ap-chip-tag { font-size: .6rem; font-weight: 700; letter-spacing: .05em; opacity: .7; text-transform: uppercase; }
+    .ap-chip-empty { font-size: .74rem; color: var(--text-muted); }
 
-    .ap-speed-btn {
-      background: transparent; border: 1px solid var(--border);
-      color: var(--text-muted); padding: 5px 10px; border-radius: 6px;
-      font-size: 0.75rem; font-weight: 700; font-family: inherit;
-      cursor: pointer; transition: all 0.15s; white-space: nowrap;
+    .ap-speed { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
+    .ap-speed button {
+      border: 0; background: transparent; color: var(--text-muted);
+      width: 28px; height: 28px; cursor: pointer; font-size: .7rem; transition: all .15s;
     }
-    .ap-speed-btn:hover {
-      border-color: var(--accent-blue); color: var(--accent-blue);
-      background: rgba(59,130,246,0.06);
-    }
+    .ap-speed button:hover:not(:disabled) { background: var(--ap-soft); color: var(--ap-accent); }
+    .ap-speed button:disabled { opacity: .3; cursor: default; }
+    .ap-speed-val { min-width: 42px; text-align: center; font-size: .74rem; font-weight: 700; color: var(--text-heading); font-variant-numeric: tabular-nums; }
 
-    /* Waveform bars */
-    .ap-waveform {
-      display: none; align-items: flex-end; gap: 2px; height: 16px;
+    @media (max-width: 560px) {
+      .ap-main { flex-wrap: wrap; }
+      .ap-transport { width: 100%; justify-content: center; order: 3; gap: 10px; }
+      .ap-title { font-size: .92rem; }
+      .ap-footer { flex-direction: column; align-items: stretch; }
+      .ap-speed { align-self: flex-start; }
     }
-    .audio-player-widget.is-playing .ap-waveform { display: flex; }
-    .ap-waveform span {
-      display: block; width: 3px; background: var(--accent-blue);
-      border-radius: 2px; animation: waveBar 0.9s ease-in-out infinite alternate;
-    }
-    .ap-waveform span:nth-child(1) { height: 5px;  animation-delay: 0s; }
-    .ap-waveform span:nth-child(2) { height: 11px; animation-delay: 0.15s; }
-    .ap-waveform span:nth-child(3) { height: 16px; animation-delay: 0.05s; }
-    .ap-waveform span:nth-child(4) { height: 9px;  animation-delay: 0.25s; }
-    .ap-waveform span:nth-child(5) { height: 6px;  animation-delay: 0.1s; }
-    @keyframes waveBar {
-      from { opacity: 0.4; transform: scaleY(0.5); }
-      to   { opacity: 1;   transform: scaleY(1); }
-    }
-
-    /* Wider screens: header, transport and settings share one band, progress below */
-    @media (min-width: 720px) {
-      .audio-player-widget {
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        grid-template-areas:
-          "header controls settings"
-          "progress progress progress";
-        align-items: center;
-        gap: 10px 20px;
-        padding: 14px 18px;
-      }
-      .ap-header { grid-area: header; }
-      .ap-controls { grid-area: controls; }
-      .ap-progress-row { grid-area: progress; }
-      .ap-settings { grid-area: settings; padding-top: 0; border-top: none; flex-wrap: nowrap; }
-      .ap-voice-select { max-width: 190px; }
-    }
-
-    /* Mobile responsive */
-    @media (max-width: 520px) {
-      .ap-controls { gap: 4px; }
-      .ap-btn { width: 32px; height: 32px; font-size: 0.78rem; }
-      .ap-btn-play { width: 40px; height: 40px; }
-      .ap-settings { gap: 8px; }
-      .ap-voice-select { min-width: 110px; }
+    @media (prefers-reduced-motion: reduce) {
+      .ap-waveform span, .audio-player-widget.is-loading .ap-play i { animation: none; }
     }
 
     /* ====================================================
@@ -1664,58 +1626,52 @@
             <!-- Reading time injected by JS -->
           </div>
 
-          <!-- Audio Player Widget — Premium Full-Featured -->
-          <div class="audio-player-widget" id="audio-player-widget" role="complementary" aria-label="Listen to article">
-            <!-- Header -->
-            <div class="ap-header">
-              <div class="ap-header-left">
-                <div class="ap-icon" aria-hidden="true"><i class="fas fa-headphones"></i></div>
-                <div>
-                  <div class="ap-title">Listen to this article</div>
+          <!-- Audio Player Widget — "Listen" card -->
+          <div class="audio-player-widget" id="audio-player-widget" role="region" aria-label="Listen to this article">
+            <div class="ap-main">
+              <button class="ap-play" id="ap-play" type="button" aria-label="Play article">
+                <svg class="ap-ring" viewBox="0 0 62 62" aria-hidden="true">
+                  <circle class="ap-ring-bg" cx="31" cy="31" r="29"></circle>
+                  <circle class="ap-ring-fg" id="ap-ring" cx="31" cy="31" r="29" stroke-dasharray="182.21" stroke-dashoffset="182.21"></circle>
+                </svg>
+                <i class="fas fa-play" id="ap-play-icon" aria-hidden="true"></i>
+              </button>
+
+              <div class="ap-info">
+                <div class="ap-eyebrow">
+                  <i class="fas fa-headphones" aria-hidden="true"></i>
+                  <span>Audio</span>
+                  <span class="ap-status" id="ap-status" aria-live="polite">Ready</span>
+                  <span class="ap-waveform" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
                 </div>
+                <div class="ap-title">Listen to this article</div>
+                <div class="ap-meta"><span id="ap-current">0:00</span> <span aria-hidden="true">/</span> <span id="ap-total">--:--</span></div>
               </div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <span class="ap-status" id="ap-status">Ready</span>
-                <span class="ap-waveform" id="ap-waveform" aria-hidden="true">
-                  <span></span><span></span><span></span><span></span><span></span>
-                </span>
+
+              <div class="ap-transport">
+                <button class="ap-btn" id="ap-restart" type="button" aria-label="Restart from beginning" title="Restart" disabled><i class="fas fa-rotate-left" aria-hidden="true"></i></button>
+                <button class="ap-btn" id="ap-prev" type="button" aria-label="Previous sentence" title="Previous sentence" disabled><i class="fas fa-backward-step" aria-hidden="true"></i></button>
+                <button class="ap-btn" id="ap-next" type="button" aria-label="Next sentence" title="Next sentence" disabled><i class="fas fa-forward-step" aria-hidden="true"></i></button>
+                <button class="ap-btn" id="ap-stop" type="button" aria-label="Stop playback" title="Stop" disabled><i class="fas fa-stop" aria-hidden="true"></i></button>
               </div>
             </div>
 
-            <!-- Transport Controls -->
-            <div class="ap-controls">
-              <button class="ap-btn" id="ap-restart" type="button" aria-label="Restart from beginning" title="Restart" disabled>
-                <i class="fas fa-undo-alt"></i>
-              </button>
-              <button class="ap-btn" id="ap-prev" type="button" aria-label="Previous sentence" title="Previous" disabled>
-                <i class="fas fa-step-backward"></i>
-              </button>
-              <button class="ap-btn ap-btn-play" id="ap-play" type="button" aria-label="Play article">
-                <i class="fas fa-play" id="ap-play-icon"></i>
-              </button>
-              <button class="ap-btn" id="ap-next" type="button" aria-label="Next sentence" title="Next" disabled>
-                <i class="fas fa-step-forward"></i>
-              </button>
-              <button class="ap-btn" id="ap-stop" type="button" aria-label="Stop playback" title="Stop" disabled>
-                <i class="fas fa-stop"></i>
-              </button>
+            <div class="ap-progress-track" id="ap-progress-track" role="slider" tabindex="0"
+                 aria-label="Playback position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0%">
+              <div class="ap-progress-fill" id="ap-progress-fill"></div>
+              <div class="ap-progress-thumb" id="ap-progress-thumb"></div>
             </div>
 
-            <!-- Progress Bar -->
-            <div class="ap-progress-row">
-              <span class="ap-time" id="ap-current">0 / 0</span>
-              <div class="ap-progress-track" id="ap-progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" tabindex="0" aria-label="Playback progress">
-                <div class="ap-progress-fill" id="ap-progress-fill"></div>
+            <div class="ap-footer">
+              <div class="ap-voices" id="ap-voices" role="radiogroup" aria-label="Voice">
+                <span class="ap-voices-label">Voice</span>
+                <span class="ap-chip-empty">Loading voices…</span>
               </div>
-              <span class="ap-time" id="ap-total"></span>
-            </div>
-
-            <!-- Settings Row -->
-            <div class="ap-settings">
-              <select class="ap-voice-select" id="ap-voice" aria-label="Select voice" title="Choose voice">
-                <option value="">Auto (Best Voice)</option>
-              </select>
-              <button class="ap-speed-btn" id="ap-speed" type="button" aria-label="Playback speed" title="Cycle speed">1×</button>
+              <div class="ap-speed" role="group" aria-label="Playback speed">
+                <button type="button" id="ap-speed-down" aria-label="Slower"><i class="fas fa-minus" aria-hidden="true"></i></button>
+                <span class="ap-speed-val" id="ap-speed" aria-live="polite">1×</span>
+                <button type="button" id="ap-speed-up" aria-label="Faster"><i class="fas fa-plus" aria-hidden="true"></i></button>
+              </div>
             </div>
           </div>
 
@@ -2086,204 +2042,258 @@
       }
 
       /* ================================================
-         AUDIO PLAYER WIDGET — Full-Featured Controls
+         AUDIO PLAYER WIDGET — "Listen" card controller
+         Store engine states are lowercase ('playing', 'paused', …);
+         always compare against Store.STATES, never string literals.
          ================================================ */
       (function () {
-        var widget      = document.getElementById('audio-player-widget');
-        var playBtn     = document.getElementById('ap-play');
-        var playIcon    = document.getElementById('ap-play-icon');
-        var stopBtn     = document.getElementById('ap-stop');
-        var prevBtn     = document.getElementById('ap-prev');
-        var nextBtn     = document.getElementById('ap-next');
-        var restartBtn  = document.getElementById('ap-restart');
-        var speedBtn    = document.getElementById('ap-speed');
-        var voiceSelect = document.getElementById('ap-voice');
-        var statusEl    = document.getElementById('ap-status');
-        var currentEl   = document.getElementById('ap-current');
-        var totalEl     = document.getElementById('ap-total');
-        var progressTrack = document.getElementById('ap-progress-track');
-        var progressFill  = document.getElementById('ap-progress-fill');
+        var widget = document.getElementById('audio-player-widget');
+        if (!widget) return;
+        if (!('speechSynthesis' in window)) { widget.hidden = true; return; }
 
-        if (!playBtn) return;
+        var $ = function (id) { return document.getElementById(id); };
+        var playBtn = $('ap-play'), playIcon = $('ap-play-icon'), ring = $('ap-ring');
+        var stopBtn = $('ap-stop'), prevBtn = $('ap-prev'), nextBtn = $('ap-next'), restartBtn = $('ap-restart');
+        var statusEl = $('ap-status'), currentEl = $('ap-current'), totalEl = $('ap-total');
+        var track = $('ap-progress-track'), fill = $('ap-progress-fill'), thumb = $('ap-progress-thumb');
+        var voicesEl = $('ap-voices');
+        var speedVal = $('ap-speed'), speedDown = $('ap-speed-down'), speedUp = $('ap-speed-up');
 
-        var SPEEDS = [0.75, 0.9, 1.0, 1.25, 1.5, 2.0];
-        var speedIdx = 2;
+        var RING_LEN = 2 * Math.PI * 29;
+        var SPEEDS = [0.75, 0.9, 1, 1.1, 1.25, 1.5, 1.75, 2];
+        var BASE_WPM = 150;
+        var VOICE_CHIPS = {
+          'Google UK English Female': { name: 'UK English', tag: 'Female' },
+          'Google UK English Male':   { name: 'UK English', tag: 'Male' },
+          'Google US English':        { name: 'US English', tag: 'Neural' },
+          'Samantha':                 { name: 'Samantha',   tag: 'US' }
+        };
+
+        var Store = null, Engine = null, Extractor = null;
+        var articleId = window.location.pathname;
         var uiState = 'idle';
-        var ttsReady = false;
-        var Engine = null;
-        var Extractor = null;
+        var cumWords = null; // cumulative word counts per sentence (for time estimates)
 
-        /* ── Voice Dropdown ───────────────────────────────────────── */
-        function syncVoiceDropdown() {
-          if (!Engine || !voiceSelect) return;
-          var curated = Engine.getCuratedVoices ? Engine.getCuratedVoices() : [];
-          var Store = window.TTSStore;
-          var currentVoiceURI = Store ? Store.getState().voiceURI : null;
-          var bestVoice = Engine.getBestVoice ? Engine.getBestVoice() : null;
+        /* ── Helpers ─────────────────────────────────────────────── */
+        function S() { return Store.STATES; }
+        function isThisArticle(s) { return s.articleId === articleId && s.totalSentences > 0; }
+        function canResume(s) { return isThisArticle(s) && s.sentenceIndex > 0 && s.sentenceIndex < s.totalSentences; }
 
-          if (curated.length > 0) {
-            voiceSelect.innerHTML = '';
-            curated.forEach(function (item) {
-              var opt = document.createElement('option');
-              opt.value = item.voice.voiceURI;
-              opt.textContent = item.label;
-              if (currentVoiceURI && opt.value === currentVoiceURI) opt.selected = true;
-              else if (!currentVoiceURI && bestVoice && opt.value === bestVoice.voiceURI) opt.selected = true;
-              voiceSelect.appendChild(opt);
-            });
-          }
+        function fmt(min) {
+          var sec = Math.max(0, Math.round(min * 60));
+          var m = Math.floor(sec / 60), r = sec % 60;
+          return m + ':' + (r < 10 ? '0' : '') + r;
         }
 
-        /* ── Init TTS engine ──────────────────────────────────────── */
-        function tryInit() {
-          Engine = window.TTSSpeechEngine;
-          Extractor = window.TTSArticleExtractor;
-          if (Engine && Extractor) {
-            ttsReady = true;
-            syncVoiceDropdown();
-            window.addEventListener('tts-voices-loaded', syncVoiceDropdown);
-
-            var Store = window.TTSStore;
-            if (Store) {
-              Store.subscribe(function (s) {
-                if (s.engineState === 'COMPLETED' || s.engineState === 'IDLE') {
-                  setUI('idle');
-                } else if (s.engineState === 'PLAYING') {
-                  setUI('playing');
-                } else if (s.engineState === 'PAUSED') {
-                  setUI('paused');
-                }
-                updateProgress(s);
-              });
-            }
-          }
-        }
-        tryInit();
-        if (!ttsReady) {
-          var retryTimer = setInterval(function () { tryInit(); if (ttsReady) clearInterval(retryTimer); }, 200);
-        }
-
-        /* ── UI State ─────────────────────────────────────────────── */
-        function setUI(newState) {
-          uiState = newState;
-          var isActive = (newState === 'playing' || newState === 'paused');
-
-          widget.classList.toggle('is-playing', newState === 'playing');
-          widget.classList.toggle('is-paused', newState === 'paused');
-
-          // Play button icon
-          if (newState === 'playing') {
-            playIcon.className = 'fas fa-pause';
-            playBtn.setAttribute('aria-label', 'Pause');
-            playBtn.classList.add('playing');
-          } else {
-            playIcon.className = 'fas fa-play';
-            playBtn.setAttribute('aria-label', newState === 'paused' ? 'Resume' : 'Play');
-            playBtn.classList.remove('playing');
-          }
-
-          // Status text
-          if (newState === 'playing') statusEl.textContent = 'Playing';
-          else if (newState === 'paused') statusEl.textContent = 'Paused';
-          else statusEl.textContent = 'Ready';
-
-          // Enable/disable transport buttons
-          stopBtn.disabled = !isActive;
-          prevBtn.disabled = !isActive;
-          nextBtn.disabled = !isActive;
-          restartBtn.disabled = !isActive;
-
-          // Reset progress on idle
-          if (newState === 'idle') {
-            progressFill.style.width = '0%';
-            currentEl.textContent = '0 / 0';
-            totalEl.textContent = '';
-          }
-        }
-
-        /* ── Progress tracking ────────────────────────────────────── */
-        function updateProgress(s) {
-          if (s.totalSentences > 0 && s.articleId === window.location.pathname) {
-            var pct = (s.sentenceIndex / s.totalSentences) * 100;
-            progressFill.style.width = pct + '%';
-            currentEl.textContent = s.sentenceIndex + ' / ' + s.totalSentences;
-            progressTrack.setAttribute('aria-valuenow', Math.round(pct));
-          }
-        }
-
-        /* ── Start article TTS ────────────────────────────────────── */
-        function startArticle() {
+        function buildWordIndex() {
+          if (cumWords || !Extractor) return;
           var prose = document.querySelector('.doc-prose');
-          if (!prose || !Extractor || !Engine) return;
-          window.dispatchEvent(new CustomEvent('tts-request-start-article'));
-          if (!window.TTSStore || window.TTSStore.getState().engineState === 'idle') {
-            var extraction = Extractor.extract(prose);
-            Engine.setQueue(extraction.sentences);
-            Engine.setRate(SPEEDS[speedIdx]);
-            Engine.play(0);
+          if (!prose) return;
+          try {
+            var sentences = Extractor.extract(prose).sentences || [];
+            cumWords = [0];
+            sentences.forEach(function (x, i) {
+              var t = (x.speechText || x.displayText || '').trim();
+              cumWords.push(cumWords[i] + (t ? t.split(/\s+/).length : 0));
+            });
+          } catch (e) { cumWords = [0]; }
+        }
+
+        // Words spoken before sentence `idx` of `total`, mapped proportionally
+        // if our extraction length differs from the engine's queue.
+        function wordsAt(idx, total) {
+          if (!cumWords || cumWords.length < 2) return 0;
+          var n = cumWords.length - 1;
+          var i = total && total !== n ? Math.round((idx / total) * n) : idx;
+          return cumWords[Math.max(0, Math.min(n, i))];
+        }
+
+        /* ── Rendering ───────────────────────────────────────────── */
+        function render(s) {
+          var st = s.engineState, ST = S();
+          var mode =
+            st === ST.PLAYING ? 'playing' :
+            st === ST.READY   ? 'loading' :
+            st === ST.PAUSED  ? 'paused'  :
+            st === ST.ERROR   ? 'error'   : 'idle';
+          // Engine is global; ignore activity that belongs to another article.
+          if (mode !== 'idle' && mode !== 'error' && s.articleId && s.articleId !== articleId) mode = 'idle';
+          uiState = mode;
+
+          var active = mode === 'playing' || mode === 'paused' || mode === 'loading';
+          var resumable = mode === 'idle' && canResume(s);
+
+          widget.classList.toggle('is-playing', mode === 'playing');
+          widget.classList.toggle('is-paused', mode === 'paused');
+          widget.classList.toggle('is-loading', mode === 'loading');
+          widget.classList.toggle('is-error', mode === 'error');
+
+          var playing = mode === 'playing' || mode === 'loading';
+          playIcon.className = mode === 'loading' ? 'fas fa-circle-notch' : (playing ? 'fas fa-pause' : 'fas fa-play');
+          playBtn.setAttribute('aria-label', playing ? 'Pause' : (mode === 'paused' || resumable ? 'Resume' : 'Play article'));
+
+          statusEl.textContent =
+            mode === 'playing' ? 'Playing' :
+            mode === 'loading' ? 'Starting' :
+            mode === 'paused'  ? 'Paused'  :
+            mode === 'error'   ? 'Voice error' :
+            resumable ? 'Resume' :
+            (s.engineState === ST.COMPLETED && isThisArticle(s)) ? 'Finished' : 'Ready';
+
+          stopBtn.disabled = prevBtn.disabled = nextBtn.disabled = !(active || resumable);
+          restartBtn.disabled = !(active || resumable);
+
+          // Progress
+          buildWordIndex();
+          var total = isThisArticle(s) ? s.totalSentences : 0;
+          var idx = total ? Math.min(s.sentenceIndex, total) : 0;
+          var showPos = active || resumable;
+          var pct = showPos && total ? (idx / total) * 100 : 0;
+          fill.style.width = pct + '%';
+          thumb.style.left = pct + '%';
+          ring.style.strokeDashoffset = RING_LEN * (1 - pct / 100);
+          track.setAttribute('aria-valuenow', Math.round(pct));
+          track.setAttribute('aria-valuetext', Math.round(pct) + '%');
+
+          var rate = s.rate || 1;
+          var totalWords = cumWords ? cumWords[cumWords.length - 1] : 0;
+          var spent = showPos ? wordsAt(idx, total) : 0;
+          if (totalWords) {
+            currentEl.textContent = fmt(spent / (BASE_WPM * rate));
+            totalEl.textContent = fmt(totalWords / (BASE_WPM * rate));
+          }
+
+          // Speed
+          speedVal.textContent = (+rate.toFixed(2)) + '×';
+          speedDown.disabled = rate <= SPEEDS[0];
+          speedUp.disabled = rate >= SPEEDS[SPEEDS.length - 1];
+
+          // Voice selection highlight
+          var chips = voicesEl.querySelectorAll('.ap-chip');
+          var selected = s.voiceURI || (Engine.getBestVoice() || {}).voiceURI;
+          for (var c = 0; c < chips.length; c++) {
+            var on = chips[c].getAttribute('data-uri') === selected;
+            chips[c].setAttribute('aria-checked', on ? 'true' : 'false');
+            chips[c].tabIndex = on ? 0 : -1;
           }
         }
 
-        /* ── Button handlers ──────────────────────────────────────── */
-        playBtn.addEventListener('click', function () {
-          if (!ttsReady) return;
-          if (uiState === 'idle') startArticle();
-          else if (uiState === 'playing') Engine.pause();
-          else Engine.resume();
-        });
+        function renderVoices() {
+          var curated = Engine.getCuratedVoices ? Engine.getCuratedVoices() : [];
+          voicesEl.innerHTML = '<span class="ap-voices-label">Voice</span>';
+          if (!curated.length) {
+            voicesEl.insertAdjacentHTML('beforeend', '<span class="ap-chip-empty">System default</span>');
+            return;
+          }
+          curated.forEach(function (item) {
+            var meta = VOICE_CHIPS[item.voice.name] || { name: item.label, tag: '' };
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'ap-chip';
+            b.setAttribute('role', 'radio');
+            b.setAttribute('data-uri', item.voice.voiceURI);
+            b.title = item.label;
+            b.innerHTML = '<span></span>' + (meta.tag ? '<span class="ap-chip-tag"></span>' : '');
+            b.firstChild.textContent = meta.name;
+            if (meta.tag) b.lastChild.textContent = meta.tag;
+            voicesEl.appendChild(b);
+          });
+          if (!(Store.getState().voiceURI) && curated[0]) Store.updatePrefs({ voiceURI: curated[0].voice.voiceURI });
+          render(Store.getState());
+        }
 
-        stopBtn.addEventListener('click', function () {
-          if (Engine) Engine.stop();
-        });
-
-        prevBtn.addEventListener('click', function () {
-          if (Engine) Engine.prev();
-        });
-
-        nextBtn.addEventListener('click', function () {
-          if (Engine) Engine.next();
-        });
-
-        restartBtn.addEventListener('click', function () {
-          if (!Engine) return;
-          var Store = window.TTSStore;
-          if (Store) Store.updateSession({ sentenceIndex: 0 });
-          Engine.play(0);
-        });
-
-        /* ── Progress bar seeking ─────────────────────────────────── */
-        progressTrack.addEventListener('click', function (e) {
-          var Store = window.TTSStore;
-          if (!Store || !Engine) return;
+        /* ── Actions ─────────────────────────────────────────────── */
+        function play() {
           var s = Store.getState();
-          if (s.totalSentences === 0) return;
-          var rect = progressTrack.getBoundingClientRect();
+          if (uiState === 'playing' || uiState === 'loading') { Engine.pause(); return; }
+          if (uiState === 'paused') { Engine.resume(); return; }
+          // Saved position on this article: index.js already restored the queue.
+          if (canResume(s)) { Engine.play(s.sentenceIndex); return; }
+          window.dispatchEvent(new CustomEvent('tts-request-start-article'));
+        }
+
+        function stop() {
+          Engine.stop();
+          Store.updateSession({ sentenceIndex: 0 });
+        }
+
+        function seekTo(index) {
+          var s = Store.getState();
+          if (!isThisArticle(s)) return;
+          index = Math.max(0, Math.min(s.totalSentences - 1, index));
+          if (uiState === 'playing' || uiState === 'loading') Engine.play(index);
+          else Store.updateSession({ sentenceIndex: index });
+        }
+
+        function seekFromPointer(e) {
+          var s = Store.getState();
+          if (!isThisArticle(s)) return;
+          var rect = track.getBoundingClientRect();
           var x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-          var targetIndex = Math.floor((x / rect.width) * s.totalSentences);
-          Engine.seek(targetIndex);
-        });
+          seekTo(Math.floor((x / rect.width) * s.totalSentences));
+        }
 
-        progressTrack.addEventListener('keydown', function (e) {
-          var Store = window.TTSStore;
-          if (!Store || !Engine) return;
-          var s = Store.getState();
-          if (s.totalSentences === 0) return;
-          if (e.key === 'ArrowRight') Engine.seek(Math.min(s.sentenceIndex + 1, s.totalSentences - 1));
-          if (e.key === 'ArrowLeft') Engine.seek(Math.max(s.sentenceIndex - 1, 0));
-        });
+        function stepSpeed(dir) {
+          var rate = Store.getState().rate || 1;
+          var i = 0;
+          for (var k = 0; k < SPEEDS.length; k++) if (Math.abs(SPEEDS[k] - rate) < Math.abs(SPEEDS[i] - rate)) i = k;
+          i = Math.max(0, Math.min(SPEEDS.length - 1, i + dir));
+          Engine.setRate(SPEEDS[i]);
+        }
 
-        /* ── Voice dropdown ───────────────────────────────────────── */
-        voiceSelect.addEventListener('change', function () {
-          if (Engine && voiceSelect.value) Engine.setVoice(voiceSelect.value);
-        });
+        function wire() {
+          playBtn.addEventListener('click', play);
+          stopBtn.addEventListener('click', stop);
+          restartBtn.addEventListener('click', function () { Engine.play(0); });
+          prevBtn.addEventListener('click', function () {
+            if (uiState === 'idle') seekTo(Store.getState().sentenceIndex - 1); else Engine.prev();
+          });
+          nextBtn.addEventListener('click', function () {
+            if (uiState === 'idle') seekTo(Store.getState().sentenceIndex + 1); else Engine.next();
+          });
+          speedDown.addEventListener('click', function () { stepSpeed(-1); });
+          speedUp.addEventListener('click', function () { stepSpeed(1); });
 
-        /* ── Speed control ────────────────────────────────────────── */
-        speedBtn.addEventListener('click', function () {
-          speedIdx = (speedIdx + 1) % SPEEDS.length;
-          var s = SPEEDS[speedIdx];
-          speedBtn.textContent = s + '\u00D7';
-          if (Engine) Engine.setRate(s);
-        });
+          track.addEventListener('click', seekFromPointer);
+          track.addEventListener('keydown', function (e) {
+            var s = Store.getState();
+            if (!isThisArticle(s)) return;
+            var step = Math.max(1, Math.round(s.totalSentences / 20));
+            var map = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1, PageUp: step, PageDown: -step };
+            if (e.key in map) { e.preventDefault(); seekTo(s.sentenceIndex + map[e.key]); }
+            else if (e.key === 'Home') { e.preventDefault(); seekTo(0); }
+            else if (e.key === 'End') { e.preventDefault(); seekTo(s.totalSentences - 1); }
+          });
+
+          voicesEl.addEventListener('click', function (e) {
+            var chip = e.target.closest('.ap-chip');
+            if (chip) Engine.setVoice(chip.getAttribute('data-uri'));
+          });
+          voicesEl.addEventListener('keydown', function (e) {
+            if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].indexOf(e.key) < 0) return;
+            var chips = Array.prototype.slice.call(voicesEl.querySelectorAll('.ap-chip'));
+            var i = chips.indexOf(document.activeElement);
+            if (i < 0) return;
+            e.preventDefault();
+            var n = chips[(i + (e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 1) + chips.length) % chips.length];
+            n.focus(); n.click();
+          });
+        }
+
+        /* ── Init (TTS scripts load after this inline script) ────── */
+        function tryInit() {
+          Store = window.TTSStore; Engine = window.TTSSpeechEngine; Extractor = window.TTSArticleExtractor;
+          if (!Store || !Engine || !Extractor) return false;
+          wire();
+          renderVoices();
+          window.addEventListener('tts-voices-loaded', renderVoices);
+          Store.subscribe(render);
+          return true;
+        }
+        if (!tryInit()) {
+          var tries = 0;
+          var t = setInterval(function () { if (tryInit() || ++tries > 50) clearInterval(t); }, 200);
+        }
       })();
 
       /* ================================================

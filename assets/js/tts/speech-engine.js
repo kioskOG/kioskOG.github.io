@@ -237,18 +237,24 @@ const TTSSpeechEngine = (function () {
       speakCurrentIndex();
     },
 
+    // synth.pause()/resume() is unreliable across browsers (Chrome's Google
+    // voices frequently never resume, and Chrome drops paused speech after
+    // ~15s). Instead, cancel the current utterance and re-speak the current
+    // sentence on resume — robust everywhere at the cost of repeating one line.
     pause() {
-      if (synth.speaking) {
-        synth.pause();
-        if (Store) Store.setEngineState(Store.STATES.PAUSED);
-      }
+      const s = Store ? Store.getState() : {};
+      if (s.engineState !== Store.STATES.PLAYING && s.engineState !== Store.STATES.READY) return;
+      incrementGeneration();
+      intentionalCancel = true;
+      synth.cancel();
+      intentionalCancel = false;
+      currentUtterance = null;
+      if (Store) Store.setEngineState(Store.STATES.PAUSED);
     },
 
     resume() {
-      if (synth.paused) {
-        synth.resume();
-        if (Store) Store.setEngineState(Store.STATES.PLAYING);
-      } else if (Store && Store.getState().engineState !== Store.STATES.PLAYING) {
+      if (!Store) return;
+      if (Store.getState().engineState !== Store.STATES.PLAYING) {
         this.play(Store.getState().sentenceIndex);
       }
     },
