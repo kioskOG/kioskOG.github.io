@@ -219,5 +219,8 @@ Congratulations! You have now walked through the complete foundation of Artifici
 | **[6. Data Prep](/docs/ml/basics/data-collection-and-preparation/)** | Cleaning, EDA, Features & Leakage | 80% of ML work is data hygiene: cleaning outliers, correlation analysis, and preventing data leakage. |
 | **[7. Training & Evaluation](/docs/ml/basics/model-training-and-evaluation/)** | 3-Way Splits, Overfitting, Confusion Matrix | Train (~70%), Validate (~15%), Test (~15%); avoid memorization; never trust raw accuracy on imbalanced data. |
 | **[8. Production & Optimization](/docs/ml/basics/model-inference-and-optimization/)** | Real-Time vs Batch, Drift & Quantization | Serve predictions online or offline; monitor for silent drift; optimize with quantization and canary deployments. |
+| **[9. Recap & Cheat Sheet](/docs/ml/basics/recap-what-we-learnt/)** | Complete Series Summary & Popular Models | Full quick-reference guide covering the ML lifecycle, learning types, task types, metrics, and popular AI models. |
 
 You now possess a clear, structured, and practical understanding of how machine learning systems are conceived, built, evaluated, and operated in the real world.
+
+For a full quick-reference summary, explore our **[Recap: What We Learnt & Cheat Sheet](/docs/ml/basics/recap-what-we-learnt/)**.

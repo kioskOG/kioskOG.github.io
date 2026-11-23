@@ -126,6 +126,16 @@ timestamp: '2026-06-30T11:56:08Z'
     </div>
   </article>
 
+  <article class="project-card card-orange reveal">
+    <div class="card-link">
+      <div class="project-head">
+        <h3 class="project-title">AWS DynamoDB Cross Account Glue Zero ETL Integration</h3>
+        <a class="project-open" href="/docs/devops/Cloud/AWS/AWS-DynamoDB-Cross-Account-Glue-Zero-ETL-Integration/">View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      </div>
+      <p class="project-desc">AWS DynamoDB Cross Account Glue Zero ETL Integration.</p>
+      <div class="tags"><span class="tag">AWS</span><span class="tag">Glue</span><span class="tag">Zero-ETL</span><span class="tag">DynamoDB</span></div>
+    </div>
+  </article>
 
 </section>
 
