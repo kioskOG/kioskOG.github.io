@@ -158,7 +158,7 @@ timestamp: '2026-11-21T11:30:00Z'
     </article>
 
     <!-- Article 8 -->
-    <article class="project-card card-teal wide reveal">
+    <article class="project-card card-teal normal reveal">
       <div class="card-link" tabindex="0">
         <div class="project-head">
           <h3 class="project-title">8. Model Inference, Production Evaluation & Optimization</h3>
@@ -171,7 +171,24 @@ timestamp: '2026-11-21T11:30:00Z'
           <span class="tag">Serving APIs</span>
           <span class="tag">Data Drift</span>
           <span class="tag">Quantization</span>
-          <span class="tag">Continuous Retraining</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Article 9 -->
+    <article class="project-card card-teal wide reveal">
+      <div class="card-link" tabindex="0">
+        <div class="project-head">
+          <h3 class="project-title">9. Recap: What We Learnt & Cheat Sheet</h3>
+          <a class="project-open" href="/docs/ml/basics/recap-what-we-learnt/" aria-label="Read Part 9">
+            View Docs <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+          </a>
+        </div>
+        <p class="project-desc">A complete quick-reference summary: end-to-end ML lifecycle, learning and task types, real-world use cases table, evaluation metrics, and popular AI models (RLHF, BERT, XGBoost, GPT).</p>
+        <div class="tags">
+          <span class="tag">Quick Reference</span>
+          <span class="tag">Cheat Sheet</span>
+          <span class="tag">Popular Models</span>
         </div>
       </div>
     </article>

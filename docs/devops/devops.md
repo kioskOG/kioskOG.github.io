@@ -148,6 +148,7 @@ timestamp: '2026-06-30T11:56:08Z'
           <a class="tag" href="/docs/devops/Cloud/AWS/aws-firewal/">AWS Firewall</a>
           <a class="tag" href="/docs/devops/Cloud/AWS/How-to-Configure-AWS-MCP-in-Cursor/">AWS MCP in Cursor</a>
           <a class="tag" href="/docs/devops/Cloud/AWS/Setting-up-AWS-Glue-zero-ETL-integration-with-Salesforce/">AWS Glue zero-ETL integration with Salesforce</a>
+          <a class="tag" href="/docs/devops/Cloud/AWS/AWS-DynamoDB-Cross-Account-Glue-Zero-ETL-Integration/">AWS DynamoDB Cross Account Glue Zero ETL Integration</a>
           <a class="tag" href="/docs/devops/Cloud/AWS/aws-privateLink-end-to-end/">AWS Private Link End to End</a>
           <a class="tag" href="/docs/devops/Cloud/Azure/Secure-Application-with-Microsoft-Entra-ID-OIDC/">AWS Application with Entra ID</a>
           <a class="tag" href="/docs/devops/Cloud/Azure/SSO-Internal-MCP/">Company SSO for an Internal MCP Server</a>

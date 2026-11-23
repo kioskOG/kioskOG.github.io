@@ -35,6 +35,7 @@ timestamp: '2026-06-03T10:14:12Z'
           <a class="tag" href="/docs/ml/basics/data-collection-and-preparation/">6. Data Prep</a>
           <a class="tag" href="/docs/ml/basics/model-training-and-evaluation/">7. Training & Eval</a>
           <a class="tag" href="/docs/ml/basics/model-inference-and-optimization/">8. Inference & Optimization</a>
+          <a class="tag" href="/docs/ml/basics/recap-what-we-learnt/">9. Recap & Cheat Sheet</a>
         </div>
       </div>
     </article>
