@@ -13,502 +13,371 @@ tags:
 timestamp: '2026-06-30T11:56:08Z'
 ---
 
-## Building RAG-based applications using LangChain. 
-
-Let's discuss a very important second component called text splitters. We will study different techniques for splitting large texts into smaller chunks, which are necessary for LLM applications. We'll cover length-based, structure-based, and semantic-based splitting methods.
-
-First, let's discuss what text splitting actually is.
-
-Suppose you have a very large text file or PDF, maybe thousands of pages long, and you want to perform some kind of processing on it. Obviously, processing such a huge PDF all at once would be very difficult. So an obvious solution is to divide the entire PDF into smaller chunks. 
-
-*For example, you could create chunks based on pages: page one becomes one chunk, page two becomes another chunk, and so on. Or you could use another strategy, such as creating chunks based on paragraphs.*
-
 # Text Splitters in RAG: Chunking Data for LLMs
 
-To build any Retrieval-Augmented Generation (RAG) application, the second step in the ingestion phase is to break down the loaded documents into smaller, semantically coherent chunks. This process is handled by **Text Splitters**.
+After loading raw documents into your pipeline, the next crucial step is breaking them down into smaller, semantically coherent segments. In RAG architectures, this process is known as **chunking**, and it is executed by **Text Splitters**.
 
-In this guide, we will explore how Text Splitters work in LangChain, cover different types of text splitting, and understand how to optimize chunk sizes and overlap.
-
----
-
-## The Roadmap: Mastering Text Splitting
-To fully understand how to split external data for an LLM, we will cover:
-* **What** is Text Splitting?
-* **Why** is Text Splitting important?
-* **The 4 Main Splitting Techniques** (Length-based, Text-structure, Document-structure, and Semantic)
-* **Chunk Size & Chunk Overlap** (Optimizing context retrieval)
+In this guide, we will explore why chunking is essential, how chunk size and overlap work, and the primary splitting strategies available in LangChain.
 
 ---
 
 ## The Big Picture: RAG & Chunking
 
-Regardless of how complex a RAG application is, it is almost always built using four core components:
+```mermaid
+flowchart TD
+    Docs["Documents"] --> Chunk["Chunking<br/><b>(Our Focus: Text Splitting)</b>"]
+    Chunk --> Embed["Embeddings"]
+    Query["User Query"] --> QEmbed["Query Embedding"]
+    Embed --> VDB["Vector Database"]
+    QEmbed --> VDB
+    VDB --> Chunks["Relevant Chunks"]
+    Chunks --> Prompt["Prompt Augmentation"]
+    Prompt --> Response["LLM Response"]
 
+    style Docs fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Chunk fill:#1e1b4b,stroke:#818cf8,stroke-width:3px,color:#f8fafc
+    style Embed fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Query fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style QEmbed fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style VDB fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style Chunks fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Prompt fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Response fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
 ```
-[ Raw Source ] ---> [ Document Loader ] ---> [ Text Splitter ] ---> [ Vector Database ] ---> [ Retriever ]
-                                              (Our Focus)             (Storage)             (Search)
-```
 
-1. **Document Loaders**: Load data from different sources and convert them into standard objects.
-2. **Text Splitters**: Break down large documents into smaller, semantically coherent chunks.
-3. **Vector Databases**: Store chunk embeddings to enable fast fuzzy semantic searches.
-4. **Retrievers**: Retrieve and rank the top context chunks matching the user query.
+1. [**Document Loaders**](/docs/ai/RAG/Document-loaders/): Load data into `Document` objects.
+2. **Text Splitters**: Divide large documents into digestible, focused chunks.
+3. [**Text Embeddings**](/docs/ai/RAG/Embeddings/) & [**Vector Databases**](/docs/ai/RAG/Vector-Stores/): Convert chunks to vectors and store them.
+4. [**Retrievers**](/docs/ai/RAG/Retrievers/): Fetch the most relevant chunks for user queries.
 
-{: .tip}
-> The good part is that even though these splitters work with different types of data, the basic idea behind all of them is exactly the same. So once you understand one splitter properly, you can easily work with most of the others.
-
+---
 
 ## What is a Text Splitter?
 
 {: .important }
 > **Definition:**  
-> Text splitting is the process of breaking large chunks of text like articles, PDFs, HTML pages, and books into smaller manageable pieces (chunks) that an LLM can handle effectively. The code that performs this operation is called a **text splitter**.
+> A **Text Splitter** breaks down large documents (such as books, manuals, or research papers) into smaller pieces called **chunks** while attempting to keep related semantic thoughts intact.
 
-This is a very important fact in the world of LLMs: if you are building any LLM-powered application, **you should never try to deal with very large texts all at once**. Generally, in such situations, the quality of the LLM’s output is not very good. It is always recommended that you divide large texts into smaller chunks and then feed those chunks to the LLM. This significantly improves output quality.
+### Why is Chunking Essential?
+
+```mermaid
+flowchart TD
+    subgraph Benefits["Why We Chunk Text"]
+        B1["🎯 Higher Retrieval Precision<br>Small focused chunks match queries better than whole books"]
+        B2["📏 Embedding Model Limits<br>Models like text-embedding-3 have fixed token ceilings"]
+        B3["💡 Avoid Lost-in-the-Middle<br>LLMs can miss critical facts buried in massive prompts"]
+        B4["⚡ Cost & Latency Savings<br>Injecting only needed passages keeps prompt tokens low"]
+    end
+
+    style Benefits fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style B1 fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style B2 fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style B3 fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style B4 fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+```
+
+1. **Precision in Semantic Search**: If an entire 50-page document is converted into a single embedding vector, its specific details are diluted. Searching over 300-word focused chunks returns exactly the paragraph answering the user's question.
+2. **Embedding Model Constraints**: Most embedding models accept inputs between 512 and 8,192 tokens. Attempting to embed a 20,000-word PDF in one shot will trigger an error or silently truncate text.
+3. **Preventing Attention Degradation**: LLMs suffer from the "lost-in-the-middle" effect—they pay high attention to the beginning and end of long prompts, but overlook details buried in between.
 
 ---
 
-## Why is Text Splitting Important?
+## Core Splitting Strategies
 
-There are three major reasons why text splitting is crucial when building LLM-powered applications:
+LangChain groups splitters into four main techniques:
 
-### 1. Overcoming Context Length Limits (Model Limitations)
-Every Language Model has a strict context length limit, meaning there is a boundary to how much text an LLM can receive as input in a single request.
+```mermaid
+flowchart TD
+    A["Text Splitting Techniques"] --> B["1. Length-Based<br>(CharacterTextSplitter)"]
+    A --> C["2. Text Structure<br>(RecursiveCharacterTextSplitter)"]
+    A --> D["3. Document Structure<br>(Markdown, Code, HTML)"]
+    A --> E["4. Semantic Meaning<br>(SemanticChunker)"]
 
-Suppose an LLM has a context length of 50,000 tokens (for simplicity, let's assume tokens and words are the same). If you have a huge PDF containing thousands of pages and over 100,000 words, you cannot send the entire document in a single prompt because it exceeds the context limit. Text splitting solves this by breaking the document into smaller segments.
+    style A fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style B fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style C fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style D fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style E fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+```
 
-{: .note}
-> Many embedding models and language models have maximum input size constraints. Splitting allows us to process documents that would otherwise exceed these limits.
+---
 
+### 1. Length-Based Splitting (`CharacterTextSplitter`)
 
-### 2. Improving Downstream Task Performance
-When building LLM-powered applications, you perform tasks such as embeddings, semantic search, and text summarization. Text splitting generally provides better results for all these tasks.
+Length-based splitting is the simplest approach: it divides text based on character count and a single fixed separator (like spaces `" "` or newlines `"\n"`).
 
-Let me explain.
+```python
+from langchain_text_splitters import CharacterTextSplitter
 
-Take embeddings for example. You have a piece of text and convert it into numbers or vectors so that machine learning models can work with it. You do this using an embedding model.
+text = (
+    "Generative AI is transforming modern software engineering. "
+    "Retrieval-Augmented Generation connects LLMs to your private data. "
+    "Chunking text properly ensures that vector search yields highly relevant context."
+)
 
-If you try to embed a very large text into vectors, you will notice that the embedding quality is often not very good. In other words, the vector does not effectively capture the semantic meaning of the entire text.
+splitter = CharacterTextSplitter(
+    separator=" ",
+    chunk_size=75,
+    chunk_overlap=15
+)
 
-This happens because you are trying to represent the semantic meaning of a huge amount of text using only a few numbers, which is difficult.
+chunks = splitter.split_text(text)
+for idx, chunk in enumerate(chunks, 1):
+    print(f"Chunk {idx} ({len(chunk)} chars): {chunk}")
+```
 
-Instead, if you divide the text into smaller chunks and generate separate embeddings for each chunk, it has been observed that these smaller chunks capture semantic meaning much better.
-  
-  {: .tip}
-  > **Example:** Suppose you have a document about the IPL where different paragraphs cover CSK, Mumbai Indians, RCB, etc. If you generate a single embedding for the whole text, the quality will be diluted. Creating separate embeddings for each team's paragraph captures the semantic meaning much more effectively.
+#### Understanding Chunk Overlap
 
-* **Semantic Search**:
-As discussed before, suppose you have separate documents about `RCB`, `MI`, and `CSK`, and you have generated embeddings for all of them.
+When text is split strictly at a length boundary, a sentence or thought can be sliced down the middle. **Chunk overlap** duplicates a small window of characters between consecutive chunks so context isn't lost.
 
-Now suppose you receive a query: “Which IPL team does Virat Kohli play for?”
+```mermaid
+flowchart LR
+    subgraph Stream["Continuous Text Stream"]
+        C1["Chunk 1: Characters 0 – 100"]
+        C2["Chunk 2: Characters 80 – 180"]
+    end
+    C1 -->|"Overlap Window: 20 chars"| C2
 
-You generate an embedding for the query and compare it with the document embeddings. The document with the highest similarity provides the answer. This process is called semantic search.
-
-Again, it has been observed that semantic search works more accurately when you perform chunking first. If you search over smaller chunks rather than one large block of text, the search quality is significantly improved.
-
-
-* **Summarization**
-
-If you ask an LLM to summarize a very large document, LLMs are not always great at handling large texts. Sometimes they drift off-topic, and sometimes they hallucinate information that doesn't even exist in the document. Empirical evidence shows that text splitting often produces better summarization results.
-
-So reason number two is that text splitting improves downstream tasks such as embeddings, semantic search, and summarization.
-
-* **Computational Efficiency**
-
-Obviously, processing smaller chunks is more efficient than processing one huge text. It reduces memory requirements and allows better parallelization of tasks.
-
-After this discussion, I hope you understand why text splitting is so important when building LLM-based applications.   
-
-Specifically, we will cover four different types of text splitting:
-
-1. **Length-based splitting**
-2. **Text-structure-based splitting**
-3. **Document-structure-based splitting**
-4. **Semantic-meaning-based splitting**
-
-Now let's discuss our first text splitting technique, called length-based text splitting.
-
-Length-based text splitting is the simplest and fastest way to split text. With this method, you decide beforehand what the size of each chunk will be (defined in characters or tokens).
-
-Suppose you have a text and set the chunk size to 100 characters:
-1. The splitter traverses the text from the beginning.
-2. Once it reaches 100 characters, it cuts the text to create the first chunk.
-3. It resumes traversing from that point, counts another 100 characters, creates the second chunk, and continues this pattern.
+    style Stream fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style C1 fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style C2 fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+```
 
 {: .tip}
-> **Pros & Cons:**
-> * **Pros:** Extremely simple and fast.
-> * **Cons:** Ignores linguistic structure, grammar, and semantic meaning. It will cut abruptly after exactly 100 characters, even if it splits a word, sentence, or paragraph in half.
-
-[ChunkViz](https://chunkviz.up.railway.app/)
-
-#### Implementation in LangChain
-In LangChain, this is implemented using `CharacterTextSplitter`:
-
-```python
-from langchain_text_splitters import CharacterTextSplitter
-
-text = """Your text goes here....."""
-
-splitter = CharacterTextSplitter(
-    chunk_size=100,
-    chunk_overlap=0,
-    separator=''
-)
-
-result = splitter.split_text(text)
-
-print(result)
-```
-
-**Output:**
-
-```text
-[
- 'In this section, we will explore how Text Splitters work in LangChain, cover different types of text splitting, and understand how to optimize chunk sizes and overlap.',
- 'First, let\'s discuss what text splitting actually is.',
- 'Suppose you have a very large text file or PDF, maybe thousands of pages long, and you want to perform some kind of processing on it.',
- 'Obviously, processing such a huge PDF all at once would be very difficult. So an obvious solution is to divide the entire PDF into smaller chunks.'
-]
-```
-
-#### Connecting Document Loaders with Text Splitters
-Usually, instead of splitting raw text strings directly, you want to split standard `Document` objects that you loaded using a Document Loader (like `PyPDFLoader`):
-
-```python
-from langchain_community.document_loaders import PyPDFLoader
-from langchain_text_splitters import CharacterTextSplitter
-
-# 1. Load documents (returns list of Documents, one per page)
-loader = PyPDFLoader("file.pdf")
-documents = loader.load()
-
-# 2. Initialize the splitter
-splitter = CharacterTextSplitter(
-    separator="\n",
-    chunk_size=1000,
-    chunk_overlap=150
-)
-
-# 3. Use split_documents instead of split_text
-chunked_docs = splitter.split_documents(documents)
-print(f"Generated {len(chunked_docs)} chunked documents.")
-print("Metadata of first chunk:", chunked_docs[0].metadata)
-```
-
-{: .note}
-> Using `split_documents` automatically preserves the original document's `metadata` dictionary (such as page number or source path) and attaches it to every single resulting chunk document.
-
----
-
-### Understanding Chunk Overlap
-
-The `chunk_overlap` parameter defines how many units (characters/tokens) of overlap exist between two consecutive chunks.
-
-```
-[--- Chunk 1 ---]
-           [--- Chunk 2 ---]
-           ^--- Overlap ---^
-```
-
-If your `chunk_size` is 100 and `chunk_overlap` is 20, the last 20 characters of Chunk 1 will also appear at the beginning of Chunk 2.
-
-{: .important}
-> **Why is Chunk Overlap Useful?**
-> * **Context Preservation:** Abruptly splitting text at a size boundary can cut a sentence in half or sever the link between a pronoun and its subject. Overlap keeps context intact at the boundary.
-> * **Better Retrieval:** It ensures that information lying exactly on a boundary isn't lost during similarity searches.
->
-> **Trade-off:**
-> * Too little overlap leads to context fragmentation.
-> * Too much overlap creates redundant chunks, increasing vector store size and LLM generation costs.
->
-> *Rule of Thumb:* A common recommendation is to set `chunk_overlap` to **10% to 20%** of your `chunk_size` (e.g., `chunk_size=1000`, `chunk_overlap=150`).
+> **Rule of Thumb:** Setting `chunk_overlap` between **10% and 20%** of your `chunk_size` (e.g., `chunk_size=1000`, `chunk_overlap=150`) is a reliable starting point for most English text.
 
 ---
 
 ### 2. Text-Structure-Based Splitting (`RecursiveCharacterTextSplitter`)
 
-This technique takes advantage of the fact that written text naturally follows a hierarchical structure:
-1. **Paragraphs** (separated by `\n\n`)
-2. **Sentences** (separated by `\n` or punctuation)
-3. **Words** (separated by spaces `" "`)
-4. **Characters** (separated by `""`)
+Written prose has a natural hierarchical structure:
+1. **Paragraphs** (`\n\n`)
+2. **Sentences** (`\n` or `.` / `?` / `!`)
+3. **Words** (`" "`)
+4. **Individual Characters** (`""`)
 
-The most popular implementation in LangChain is the **`RecursiveCharacterTextSplitter`**.
-
-#### How the Recursive Algorithm Works
-The splitter is initialized with a default hierarchy of separators: `["\n\n", "\n", " ", ""]`.
-1. It attempts to split the text by the first separator (double newlines `\n\n` for paragraphs).
-2. If the resulting chunks are smaller than the target `chunk_size`, it keeps them.
-3. If any chunk is still larger than the target `chunk_size`, it recursively applies the next separator (single newlines `\n`) to that specific chunk.
-4. It repeats this process down the separator list (spaces, then characters) until all pieces fit within the maximum size constraint.
-
-This approach intelligently merges adjacent segments when they fit, ensuring that paragraphs, sentences, and words are kept together as much as possible.
-
-{: .tip}
-> **Example Walkthrough:**
-> Consider this input text:
-> ```text
-> My name is Kiosk
-> I am 26 years old
-> 
-> I live in Gurgaon
-> How are you
-> ```
-> Let's set a small `chunk_size` of **10 characters**.
-> - The splitter first splits on paragraph boundaries (`\n\n`).
-> - Since the paragraph *"My name is Kiosk\nI am 26 years old"* is longer than 10 characters, it splits it using `\n`.
-> - The sentence *"My name is Kiosk"* is still longer than 10 characters, so it splits on spaces `" "`.
-> - It merges word blocks together as long as they don't exceed 10 characters.
-> 
-> The resulting chunks are:
-> * `"My name is"` (10 chars)
-> * `"Kiosk"` (6 chars)
-> * `"I am 26"` (7 chars)
-> * `"years old"` (9 chars)
-> * `"I live in"` (9 chars)
-> * `"Gurgaon"` (7 chars)
-> * `"How are"` (7 chars)
-> * `"you"` (3 chars)
-> 
-> Notice how the algorithm works hard to avoid splitting individual words. If we increased the `chunk_size` to 26, it would keep entire sentences intact. If we increased it to 50, it would keep entire paragraphs intact.
-
-
-### Visual Splitting & Merging Tree
+The **`RecursiveCharacterTextSplitter`** is the recommended default splitter for general text. It attempts to split by paragraph first. If a piece is still too large, it steps down to sentences, then words, keeping natural blocks together as much as possible.
 
 ```mermaid
-graph TD
-    classDef orig fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef split fill:#bdf,stroke:#333,stroke-width:1px;
-    classDef word fill:#ffd,stroke:#333,stroke-width:1px;
-    classDef merge fill:#dfd,stroke:#333,stroke-width:2px;
+flowchart TD
+    A["Raw Document"] --> B{"Fits within chunk_size using '\\n\\n' (Paragraphs)?"}
+    B -- Yes --> C["Keep Paragraph intact"]
+    B -- No --> D{"Fits within chunk_size using '\\n' (Lines/Sentences)?"}
+    D -- Yes --> E["Keep Sentence intact"]
+    D -- No --> F{"Fits within chunk_size using ' ' (Words)?"}
+    F -- Yes --> G["Keep Words intact"]
+    F -- No --> H["Split at character level"]
 
-    A["Original Text<br>'My name is Kiosk\nI am 26 years old\n\nI live in Gurgaon\nHow are you'"]:::orig
-    
-    A --> P1["Paragraph 1<br>'My name is Kiosk\nI am 26 years old'"]:::split
-    A --> P2["Paragraph 2<br>'I live in Gurgaon\nHow are you'"]:::split
-    
-    P1 --> L1["Line 1<br>'My name is Kiosk'"]:::split
-    P1 --> L2["Line 2<br>'I am 26 years old'"]:::split
-    
-    P2 --> L3["Line 3<br>'I live in Gurgaon'"]:::split
-    P2 --> L4["Line 4<br>'How are you'"]:::split
-    
-    L1 --> W1["Words: 'My', 'name', 'is', 'Kiosk'"]:::word
-    L2 --> W2["Words: 'I', 'am', '26', 'years', 'old'"]:::word
-    L3 --> W3["Words: 'I', 'live', 'in', 'Gurgaon'"]:::word
-    L4 --> W4["Words: 'How', 'are', 'you'"]:::word
-    
-    W1 --> M1["'My name is' (10 chars)"]:::merge
-    W1 --> M2["'Kiosk' (6 chars)"]:::merge
-    W2 --> M3["'I am 26' (7 chars)"]:::merge
-    W2 --> M4["'years old' (9 chars)"]:::merge
-    W3 --> M5["'I live in' (9 chars)"]:::merge
-    W3 --> M6["'Gurgaon' (7 chars)"]:::merge
-    W4 --> M7["'How are' (7 chars)"]:::merge
-    W4 --> M8["'you' (3 chars)"]:::merge
-```
-
-Here is the step-by-step breakdown showing the recursive splitting and final merging process:
-
-```text
-📂 Original Text
- ├── 📄 Paragraph 1: "My name is Kiosk\nI am 26 years old"
- │    ├── 📝 Line 1: "My name is Kiosk"
- │    │    ├── 🔤 Words: ["My", "name", "is", "Kiosk"]
- │    │    └── 🔗 Merge (≤ 10 chars):
- │    │         ├── "My name is" (10 chars)
- │    │         └── "Kiosk" (6 chars)
- │    └── 📝 Line 2: "I am 26 years old"
- │         ├── 🔤 Words: ["I", "am", "26", "years", "old"]
- │         └── 🔗 Merge (≤ 10 chars):
- │              ├── "I am 26" (7 chars)
- │              └── "years old" (9 chars)
- └── 📄 Paragraph 2: "I live in Gurgaon\nHow are you"
-      ├── 📝 Line 3: "I live in Gurgaon"
-      │    ├── 🔤 Words: ["I", "live", "in", "Gurgaon"]
-      │    └── 🔗 Merge (≤ 10 chars):
-      │         ├── "I live in" (9 chars)
-      │         └── "Gurgaon" (7 chars)
-      └── 📝 Line 4: "How are you"
-           ├── 🔤 Words: ["How", "are", "you"]
-           └── 🔗 Merge (≤ 10 chars):
-                ├── "How are" (7 chars)
-                └── "you" (3 chars)
+    style A fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style B fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style C fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style D fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style E fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style F fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style G fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style H fill:#7f1d1d,stroke:#ef4444,stroke-width:2px,color:#f8fafc
 ```
 
 #### Implementation in LangChain
-`RecursiveCharacterTextSplitter` is the recommended default splitter for general text.
-
-#### Example 1:-
-
 ```python
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-text = """
-Space exploration has led to incredible scientific discoveries. From landing on the Moon to exploring Mars, humanity continues to push the boundaries of what’s possible beyond our planet.
+sample_text = """
+Retrieval-Augmented Generation (RAG) is an architectural approach that can improve the efficacy of Large Language Model (LLM) applications by leveraging custom data.
 
-These missions have not only expanded our knowledge of the universe but have also contributed to advancements in technology here on Earth. Satellite communications, GPS, and even certain medical imaging techniques trace their roots back to innovations driven by space programs.
+This is done by retrieving relevant data/documents relevant to a question or task and providing them as context for the LLM. RAG has shown success in support chatbots and Q&A systems.
 """
 
-# Initialize the splitter
 splitter = RecursiveCharacterTextSplitter(
-    chunk_size=500,
-    chunk_overlap=0,
+    chunk_size=150,
+    chunk_overlap=25,
+    separators=["\n\n", "\n", " ", ""]
 )
 
-# Perform the split
-chunks = splitter.split_text(text)
-
-print(len(chunks))
-print(chunks)
+chunks = splitter.split_text(sample_text)
+for i, chunk in enumerate(chunks, 1):
+    print(f"Chunk {i} ({len(chunk)} chars):\n{repr(chunk)}\n")
 ```
 
-
-#### Example 2:-
+#### Splitting Loaded `Document` Objects
+Instead of splitting raw strings, you usually split `Document` objects output by document loaders. Using `.split_documents()` automatically **preserves all metadata**:
 
 ```python
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-text = """My name is Kiosk
-I am 26 years old
+loader = PyPDFLoader("sample.pdf")
+pages = loader.load()
 
-I live in Gurgaon
-How are you"""
+splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+chunked_docs = splitter.split_documents(pages)
 
-# Initialize the recursive splitter
-splitter = RecursiveCharacterTextSplitter(
-    chunk_size=26,
-    chunk_overlap=5
-)
-
-# Split the text
-chunks = splitter.split_text(text)
-
-for idx, chunk in enumerate(chunks):
-    print(f"Chunk {idx+1}: {repr(chunk)}")
+print(f"Original pages: {len(pages)} | Resulting chunks: {len(chunked_docs)}")
+print("Chunk 1 metadata:", chunked_docs[0].metadata)
+# Every chunk retains {'source': 'sample.pdf', 'page': 0}
 ```
 
 ---
 
 ### 3. Document-Structure-Based Splitting
 
-Standard text structure splitters are designed for general prose. However, structured documents like source code or markup require separator rules that match their programming or formatting language:
+Structured documents (like Markdown, HTML, and source code) contain syntax rules that standard sentence splitters might break.
 
-* **Python code** is organized around classes (`class`), functions (`def`), loops, and indentation rather than sentences.
-* **Markdown** documents are structured around headings (`#`, `##`), list items, and section blocks.
-* **HTML** documents are structured using tags (`<p>`, `<div>`, etc.).
+#### A. Markdown: Preserving Headings (`MarkdownHeaderTextSplitter`)
+When splitting documentation, knowing which `# Header` or `## Subheader` a paragraph belongs to is crucial for the LLM's understanding.
 
-Using general splitters on code can break classes or HTML structures, rendering the context useless or causing syntax errors.
+`MarkdownHeaderTextSplitter` splits along heading boundaries and **injects the heading names directly into document metadata**:
 
-To solve this, LangChain provides language-specific recursive splitters that use syntax-aware separators.
+```python
+from langchain_text_splitters import MarkdownHeaderTextSplitter
 
-#### Implementation in LangChain
-You can instantiate a structured splitter using the `from_language` constructor of `RecursiveCharacterTextSplitter`:
+markdown_document = """
+# RAG Architecture
+RAG connects external databases to generative models.
+
+## Document Ingestion
+Ingestion loads raw files into standard formats.
+
+### Supported Loaders
+PDFs, text files, and web pages are all supported.
+"""
+
+headers_to_split_on = [
+    ("#", "Header 1"),
+    ("##", "Header 2"),
+    ("###", "Header 3"),
+]
+
+markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on)
+chunks = markdown_splitter.split_text(markdown_document)
+
+for chunk in chunks:
+    print(f"Metadata: {chunk.metadata}")
+    print(f"Content: {chunk.page_content}\n")
+```
+
+#### B. Source Code Splitting (`from_language`)
+Splitting source code requires respecting function and class definitions rather than sentences:
 
 ```python
 from langchain_text_splitters import RecursiveCharacterTextSplitter, Language
 
-# 1. Example code snippet to split
 python_code = """
-class DatabaseConnector:
-    def __init__(self, host: str):
-        self.host = host
+class DataManager:
+    def __init__(self, db_url: str):
+        self.db_url = db_url
 
     def connect(self):
-        print(f"Connecting to {self.host}")
+        print(f"Connecting to {self.db_url}")
         return True
 
-def run_query():
-    print("Running some DB query")
+def calculate_metrics(values):
+    return sum(values) / len(values)
 """
 
-# 2. Create a Python-specific splitter
 python_splitter = RecursiveCharacterTextSplitter.from_language(
     language=Language.PYTHON,
-    chunk_size=100,
+    chunk_size=120,
     chunk_overlap=0
 )
 
-# 3. Split the code
 code_chunks = python_splitter.split_text(python_code)
-
-for idx, chunk in enumerate(code_chunks):
-    print(f"--- Chunk {idx+1} ---")
+for i, chunk in enumerate(code_chunks, 1):
+    print(f"--- Chunk {i} ---")
     print(chunk)
 ```
 
-{: .tip}
-> **Supported Languages:**  
-> LangChain supports a wide variety of languages via the `Language` enum, including:
-> - `Language.PYTHON`
-> - `Language.JS`
-> - `Language.TS`
-> - `Language.HTML`
-> - `Language.MARKDOWN`
-> - `Language.CPP`
-> - `Language.GO`
-> - `Language.JAVA`
-> - `Language.PHP`
-> - and many others.
+---
+
+### 4. Token-Based Splitting (`TokenTextSplitter`)
+
+LLMs and embedding models measure input lengths in **tokens**, not characters. In English, 1,000 characters is roughly 250 tokens, but in code or other languages, the ratio can vary drastically.
+
+If your embedding model has a hard limit of 512 tokens, using `TokenTextSplitter` guarantees your chunks stay within token boundaries:
+
+```python
+from langchain_text_splitters import TokenTextSplitter
+
+# Uses the OpenAI tiktoken tokenizer behind the scenes
+token_splitter = TokenTextSplitter(
+    chunk_size=200,   # measured in tokens
+    chunk_overlap=25  # measured in tokens
+)
+
+token_chunks = token_splitter.split_text("Long text...")
+```
 
 ---
 
-### 4. Semantic-Meaning-Based Splitting (`SemanticChunker`)
+### 5. Semantic-Meaning-Based Splitting (`SemanticChunker`)
 
-`Farmers were working hard in the fields, preparing the soil and planting seeds for the next season. The sun was bright, and the air smelled of earth and fresh grass. The Indian Premier League (IPL) is the biggest cricket league in the world. People all over the world watch the matches and cheer for their favourite teams.`
+Length-based and structural splitters don't understand the underlying subject matter. If a single paragraph shifts from discussing *financial quarterly earnings* to *office catering options*, a structural splitter will lump them together.
 
-Length and structural splitting methods rely on formatting markers (like newlines or length metrics). However, these parameters do not understand what the text actually *means*.
+**Semantic Chunking** uses an embedding model to evaluate the similarity between consecutive sentences. When cosine similarity drops significantly between sentence $N$ and $N+1$, the splitter detects a topic shift and creates a chunk boundary.
 
-Consider a single paragraph where the first half details *agricultural irrigation* and the second half transitions immediately into *IPL cricket statistics*. Structurally, it is one paragraph, so a structure-based splitter will keep it as a single chunk. Semantically, these are two entirely unrelated topics. They should be split into different chunks to avoid confusing the vector database and the LLM.
+```mermaid
+flowchart TD
+    S1["Sentence 1: Neural network training"] --> S2["Sentence 2: Backpropagation steps"]
+    S2 --> S3["Sentence 3: Gradient descent optimization"]
+    
+    subgraph HighSim["High Cosine Similarity -> Grouped into Chunk 1"]
+        S1
+        S2
+        S3
+    end
+    
+    HighSim -. "Similarity drops below threshold (Topic Shift!)" .-> LowSim
+    
+    subgraph LowSim["High Cosine Similarity -> Grouped into Chunk 2"]
+        S4["Sentence 4: Cafeteria lunch menu"]
+        S5["Sentence 5: Pizza options on Friday"]
+    end
 
-**Semantic Splitting** solves this by evaluating semantic transitions:
+    style HighSim fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#f8fafc
+    style S1 fill:#1e293b,stroke:#34d399,stroke-width:1px,color:#f8fafc
+    style S2 fill:#1e293b,stroke:#34d399,stroke-width:1px,color:#f8fafc
+    style S3 fill:#1e293b,stroke:#34d399,stroke-width:1px,color:#f8fafc
 
-```text
-[ Sentence 1: Agriculture ]  \
-[ Sentence 2: Farming     ]   |-- High Cosine Similarity (Keep together)
-[ Sentence 3: Irrigation  ]  /
-       === Low Similarity Boundary (Topic shift detected!) ===
-[ Sentence 4: Cricket     ]  \
-[ Sentence 5: IPL Matches ]   |-- High Cosine Similarity (Keep together)
-[ Sentence 6: Dhoni       ]  /
+    style LowSim fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style S4 fill:#1e293b,stroke:#fbbf24,stroke-width:1px,color:#f8fafc
+    style S5 fill:#1e293b,stroke:#fbbf24,stroke-width:1px,color:#f8fafc
 ```
-
-#### The Semantic Chunking Algorithm
-1. **Sentence Segmentation:** Break the raw document into individual sentences.
-2. **Generate Embeddings:** Convert each sentence into a vector representation using an embedding model.
-3. **Similarity Calculation:** Compute the cosine similarity between each sentence and its neighbors.
-4. **Identify Drops:** Detect points where the similarity drops below a calculated threshold.
-5. **Split Chunks:** Insert chunk boundaries at these drop-off points.
-
-#### Implementation in LangChain
-LangChain provides the `SemanticChunker` (present in `langchain_experimental`). You can choose different thresholding techniques to determine when a topic shift has occurred:
-
-* **Percentile** (default): Splits occur when the similarity drop exceeds a specified percentile.
-* **Standard Deviation**: Splits occur when the similarity drop is greater than a standard deviation threshold.
-* **Interquartile Range**: Uses interquartile range statistical filters.
-* **Gradient**: Splitting based on local slope changes.
 
 ```python
-# Note: Requires langchain-experimental and an embedding model package
-from langchain_text_splitters import SemanticChunker
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+# Note: Requires langchain-experimental
+from langchain_experimental.text_splitter import SemanticChunker
+from langchain_openai import OpenAIEmbeddings
 
-# Initialize the embedding model
-embeddings = GoogleGenerativeAIEmbeddings(model="gemini-embedding-2")
+# Embeddings model evaluates sentence transitions
+embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
-# Initialize the semantic chunker
-splitter = SemanticChunker(
+semantic_splitter = SemanticChunker(
     embeddings,
     breakpoint_threshold_type="standard_deviation",
-    breakpoint_threshold_amount=2
+    breakpoint_threshold_amount=1.5
 )
 
-# Split the text
-text = "..."
-documents = splitter.create_documents([text])
+docs = semantic_splitter.create_documents([sample_text])
 ```
 
-{: .warning}
-> **Experimental Feature:**
-> The `SemanticChunker` is currently in LangChain's experimental module. In practice, boundaries are not always highly accurate, and performance depends heavily on the quality of the underlying embedding model. However, as models improve, semantic chunking is poised to become one of the most vital strategies for RAG systems.
+{: .note}
+> **Performance Note:** Semantic chunking requires generating embeddings for every sentence during the ingestion stage, which is slower and incurs higher API usage than character or token splitting. It is best used for high-value knowledge bases where topics vary unpredictably within sections.
+
+---
+
+## Interactive Visualizer
+
+To experiment with different chunk sizes, overlaps, and see visual breakdowns in real-time, check out [ChunkViz](https://chunkviz.up.railway.app/), a browser-based chunk visualization tool created by Greg Kamradt.
+
+---
+
+## Summary & Next Step
+
+| Splitter Type | Best For | Main Advantage |
+| :--- | :--- | :--- |
+| **`RecursiveCharacterTextSplitter`** | General prose, articles, books | Keeps paragraphs and sentences intact |
+| **`MarkdownHeaderTextSplitter`** | Technical docs, wikis, Markdown files | Attaches header hierarchy into metadata |
+| **`TokenTextSplitter`** | Strict embedding model boundaries | Prevents token limit overflow errors |
+| **`SemanticChunker`** | Multi-topic unstructured documents | Cuts chunks along natural topic transitions |
+
+Now that your documents are split into clean chunks, the next step is converting them into vectors in [Text Embeddings](/docs/ai/RAG/Embeddings/) and storing them in [Vector Stores](/docs/ai/RAG/Vector-Stores/)!

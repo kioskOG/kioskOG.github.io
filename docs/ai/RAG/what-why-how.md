@@ -37,105 +37,112 @@ To master RAG, we will follow a structured approach covering three core question
 
 ## Why RAG? Understanding LLM Limitations
 
-Technically speaking, LLM's are giant transformer based Neural Network architecture. where lot's of parameters (weights & bias) are present. The concept of training the LLM is Pre-training. We train LLM's on huge amount of data. Like, literally the data present on internet. The result of this pre-training is, the LLM now contain the world-wide knowledge.
-
-What if i ask you where does LLM's store the world-wide knowledge? I guess you already know the answer, yes correct, it's parameters i.e. number of weights & bias. That's why this knowledge is called parametric knowledge. That's why we listen the more amount of parameters the model have, just as much powerful the model become. e.g. The model with 13 billion parameters will be more powerful than the 7 billion parameters & model with 70 billion parameters will be more powerful than the 13 billion parameters & so on.
+To understand why we need RAG, let's first look at how Large Language Models (LLMs) learn and answer questions.
 
 ### Parametric Knowledge vs. External Knowledge
-LLMs are massive transformer-based neural network architectures trained (pre-trained) on astronomical scales of public internet data. During this pre-training stage, the model stores all its learned information inside its **parameters** (weights and biases). This is known as **Parametric Knowledge**.
+When an LLM (like GPT-4, Llama 3, or Gemini) is trained, it reads massive amounts of publicly available text from the internet. All the patterns and facts it learns are stored inside its **parameters** (weights and biases). This is called **Parametric Knowledge**.
 
-Generally, the more parameters a model has, the larger its capacity for parametric knowledge:
+```mermaid
+flowchart LR
+    A["User Prompt"] --> B["LLM Parameters<br>(Parametric Knowledge)"] --> C["Generated Response"]
 
-$$\text{7B Parameters} \rightarrow \text{13B Parameters} \rightarrow \text{70B Parameters} \rightarrow \text{175B+ Parameters}$$
+    style A fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style B fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style C fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+```
 
-When a user prompts an LLM, the model processes the query and generates a response by looking up patterns in its parametric knowledge.
+Generally, the more parameters a model has, the larger its internal knowledge bank:
 
+```mermaid
+flowchart LR
+    P1["7B Parameters<br/>Base Knowledge"] --> P2["13B Parameters<br/>Broader Reasoning"] --> P3["70B Parameters<br/>Deep Domain Skills"] --> P4["175B+ Parameters<br/>Emergent Intelligence"]
 
-$$\text{User Prompt} \rightarrow \text{LLM / Parametric Knowledge} \rightarrow \text{Response}$$
+    style P1 fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style P2 fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style P3 fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style P4 fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+```
 
-Now the question comes, as model contains a huge amount of data how can we access it as a user ? So, the answer is via Prompting.
+When you ask an LLM a question, it relies on this internal parametric memory to generate an answer token by token. For everyday knowledge (like *"What is photosynthesis?"*), this works well.
 
-You can send a query to the LLM, which we called prompt in technical language. As soon as the prompt go to LLM, it will start understanding it & then it go to it's parametric knowledge & try to print correct answer word by word. This is how a typical LLM work.
-
-Now in most of the situations, this flow works where you send the prompt & access the parametric knowledge of LLM & generate the response. 
-But there are certain situations where this flow can't help you. There are certain situation when this perticular flow doesn't help you. So, now let's discuss those scenerios where with the help of prompting you can't do generate the best response from LLM's parametric knowledge.
-
+However, relying solely on parametric knowledge fails in three major scenarios:
 
 ### The Three Failure Modes of LLM Prompting
-While this flow works well for general knowledge queries, relying solely on parametric knowledge fails in three critical real-world scenarios:
 
-#### 1. Private/Proprietary Data
-If you ask a general-purpose LLM about private data—such as internal company documents, subscriber details, or video transcripts from a private learning portal—the model cannot answer. 
+```mermaid
+flowchart TD
+    subgraph Failures["Where Standard Prompting Fails"]
+        F1["🔒 Private / Proprietary Data<br>Internal company docs, user records"]
+        F2["⏱️ Real-Time Information<br>Events after the training cutoff date"]
+        F3["🌀 Hallucinations<br>Confident but fabricated facts"]
+    end
 
-* **Reason**: During its pre-training stage, the model never had access to this private data.
+    style Failures fill:#0f172a,stroke:#64748b,stroke-width:2px,color:#f8fafc
+    style F1 fill:#7f1d1d,stroke:#ef4444,stroke-width:2px,color:#f8fafc
+    style F2 fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style F3 fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+```
+
+#### 1. Private / Proprietary Data
+If you ask an LLM about your company's internal wiki, private codebase, customer invoices, or employee handbook, it cannot answer accurately.
+* **Why**: The model was never trained on your private data.
 
 #### 2. Recent or Real-Time Information
-Every LLM has a **knowledge cut-off date** (e.g., January 2025). The model is completely unaware of any events, news, or developments that occurred after its last pre-training run. But chatgpt can do because it has access to internet. but if you use any opensource model from huggingface of somewhere, most likely it won't answer you.
-
-* **Reason**: Without active web search capabilities, offline or open-source models cannot answer questions about current affairs or real-time updates.
+Every LLM has a fixed **knowledge cutoff date** (e.g., January 2025). It has no memory of events, product releases, or news that happened after training finished.
+* **Why**: The weights are static and frozen unless retrained or augmented with live search.
 
 #### 3. Hallucinations
-Because LLMs are probabilistic systems predicting the next most likely token, they can confidently invent factually incorrect information.
-
-* **Reason**: Instead of stating "I don't know," a model may generate highly plausible but entirely fabricated stories (e.g., claiming Albert Einstein played professional football for Germany in his youth). This is known as **Hallucination**.
+LLMs are probabilistic prediction engines, not databases. They predict the next most likely word based on patterns. If a model doesn't know a fact, it may generate an answer that sounds completely convincing but is entirely fabricated.
+* **Why**: Instead of saying "I don't know," models fill in gaps with plausible-sounding fiction.
 
 ---
 
 ## The First Attempt at a Solution: Fine-Tuning
 
-To resolve these limitations, developers initially turned to **Fine-Tuning**.
+When teams first encountered these problems, their instinctive solution was **Fine-Tuning**.
 
-$$\text{Pre-trained LLM} \rightarrow \text{Small Domain-Specific Dataset} \rightarrow \text{Fine-Tuned Model}$$
+```mermaid
+flowchart LR
+    A["Pre-trained Base LLM"] --> B["Domain-Specific Dataset"] --> C["Fine-Tuned Model Weights"]
 
+    style A fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style B fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style C fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+```
 
 ### What is Fine-Tuning?
-Fine-tuning involves taking a pre-trained LLM and training it further on a smaller, task- or domain-specific dataset (such as medical records or financial reports). 
+Fine-tuning means continuing the training process on a smaller, domain-specific dataset (such as medical reports, customer support logs, or legal contracts).
 
 {: .note }
 > **The Engineering Student Analogy:**  
-> Think of a pre-trained LLM as an engineering graduate who has completed their degree. They have broad general knowledge (physics, chemistry, math, basic coding). However, when they join a company, they undergo 2–3 months of specialized training to learn the company's specific stack.
+> Think of a pre-trained LLM as an engineering graduate who has finished university. They possess broad general knowledge (math, physics, basic programming). When they join a company, they spend 2–3 months in company onboarding to learn internal tools and domain language.
 >
-> * **Student** = LLM
-> * **Engineering Degree** = Pre-training
+> * **Student** = Base LLM
+> * **University Degree** = Pre-training
 > * **Company Onboarding** = Fine-Tuning
 
-
 ### Fine-Tuning Methods
+1. **Supervised Fine-Tuning (SFT)**: Training the model on curated prompt-response pairs to teach specific styles, tasks, or behaviors.
+2. **Continued Pre-training**: Feeding large volumes of raw, unlabeled domain text (e.g., medical textbooks) to adapt vocabulary and domain patterns.
+3. **RLHF (Reinforcement Learning from Human Feedback)**: Aligning outputs with human preferences and safety guidelines.
+4. **PEFT (Parameter-Efficient Fine-Tuning)**: Methods like **LoRA** and **QLoRA** that freeze base weights and only train small adapter layers, cutting compute requirements.
 
-1. **Supervised Fine-Tuning (SFT)**: The model is trained on labeled prompt-response pairs (typically between 1,000 and 1,000,000 examples) to align its behavior with desired outputs.
+### Why Fine-Tuning Doesn't Solve the Whole Problem
+While fine-tuning is great for teaching a model **how to talk** (tone, format, specialized reasoning), it is painful for teaching a model **dynamic facts**:
 
-2. **Continued Pre-training**: An unsupervised technique where the model continues to predict the next token on a raw, unlabeled text corpus specific to a domain (e.g., feeding raw medical textbooks or video transcripts).
-
-3. **RLHF (Reinforcement Learning from Human Feedback)**: Aligning model output with human preferences.
-
-4. **PEFT (Parameter-Efficient Fine-Tuning)**: Techniques like **LoRA** and **QLoRA** that freeze the base weights and train only a small fraction of adapter parameters, dramatically lowering compute costs.
-
-### How Fine-Tuning Addresses the Three Problems
-* **Private Data**: You can train the LLM on your private documents, embedding them into its parametric knowledge base.
-
-* **Recent Data**: You can run periodic fine-tuning runs to update the model with new data.
-
-* **Hallucinations**: You can train the model on tricky prompts and explicitly teach it to answer "I don't know" when appropriate, reducing the hallucination rate.
-
-### The Drawbacks of Fine-Tuning
-Despite these benefits, fine-tuning introduces severe operational bottlenecks:
-
-* **High Computational Cost**: Retraining weights, even with PEFT, requires expensive GPU resources.
-
-* **Technical Complexity**: Setting up training pipelines, hyperparameter tuning, and evaluating models demands highly specialized AI engineering talent.
-
-* **Dynamic Data Problem**: If your data changes frequently (e.g., updating a product catalog daily or adding new courses), you must constantly retrain the model. If you delete a product, removing that information from the model's parametric weights is extremely difficult.
+* **High Cost & Complexity**: Training even small models requires specialized GPU clusters and machine learning engineering expertise.
+* **The Dynamic Data Problem**: If your company publishes new documentation or product updates daily, you cannot afford to retrain your model every day.
+* **Difficult Deletions**: If a policy document is deleted or modified, un-learning that specific piece of data from billions of neural network weights is difficult.
 
 ---
 
 ## The Breakthrough: In-Context Learning (ICL)
 
-As models grew larger, researchers discovered an **emergent property** in LLMs: **In-Context Learning (ICL)**.
+As models grew in scale, researchers uncovered an emergent property: **In-Context Learning (ICL)**.
 
 ### What is In-Context Learning?
-In-Context Learning is the ability of an LLM to learn how to solve a task purely by observing examples provided directly within the prompt, without updating any of its parameters or weights.
+In-Context Learning means the model can perform a new task or answer a question accurately simply by reading facts and examples **provided inside the prompt**, without updating any weights.
 
-For example, in a **Few-Shot Prompt**:
 ```text
 Classify the sentiment of the following texts.
 
@@ -148,36 +155,46 @@ Sentiment: Negative
 Text: "I hate the battery life."
 Sentiment:
 ```
-By analyzing the structure in the prompt, the model outputs `Negative` without any weight adjustments.
+The model completes `Negative` simply by observing the prompt context.
 
 {: .important }
 > **Emergent Properties in LLMs**  
-> An emergent property is a capability that suddenly appears when a system scales in size and complexity, despite not being explicitly programmed. ICL was absent in smaller models like GPT-1 and GPT-2, but spontaneously emerged in GPT-3 (175B parameters), which led to the landmark research paper: *"Language Models are Few-Shot Learners"*.
+> An emergent capability is one that appears naturally when a system scales up in size. In-Context Learning emerged strongly in models with tens of billions of parameters, formalized in the landmark paper: *"Language Models are Few-Shot Learners"*.
 
+### The Core Idea of RAG: Context Injection
+If an LLM can reason over whatever context is inside its prompt, the solution is straightforward:
+1. Don't try to cram all private data into the model's weights.
+2. Keep the data in an external database.
+3. When the user asks a question, search the database for the exact relevant paragraphs.
+4. Inject those paragraphs directly into the prompt and instruct the LLM: *"Answer the user's question using only these passages."*
 
-### Transitioning to RAG: Context Injection
-If an LLM can learn from examples inside the prompt, what if we provide the **entire background context** needed to answer a specific query directly inside the prompt?
-
-Let's return to the lecture example. If a student asks a specific question about *Gradient Descent* in a 2-hour Linear Regression lecture:
-Instead of sending the entire 2-hour transcript (which exceeds context limits), we:
-1. Identify the specific segment discussing *Gradient Descent* (e.g., minutes 5 to 25).
-2. Inject that specific 20-minute transcript into the prompt.
-3. Ask the LLM to answer the question using only the provided transcript.
-
-This concept of retrieving relevant information and injecting it into the prompt is called **Retrieval-Augmented Generation (RAG)**.
+This is the foundation of **Retrieval-Augmented Generation (RAG)**.
 
 ---
 
 ## What is RAG?
-RAG is a way to make a language model smarter by giving it extra information at the time yous ask your question.  The model will then base its answer on that information, instead of relying on its parametric knowledge.
 
-**Retrieval-Augmented Generation (RAG)** is a paradigm that enhances an LLM's performance by retrieving relevant facts from an external, authoritative knowledge base and passing them as context to the LLM alongside the user's query.
+**Retrieval-Augmented Generation (RAG)** is an architecture that augments an LLM with external knowledge: at query time, it retrieves relevant passages from your knowledge base and passes them as context into the prompt alongside the user's question.
 
-$$\begin{array}{ccccc}
-& & \text{External Knowledge (Database)} & & \\
-& & \downarrow \text{Retrieve} & & \\
-\text{User Query} & \rightarrow & \text{Prompt Generator} & \rightarrow & \text{Augmented Prompt} \rightarrow \text{LLM} \rightarrow \text{Response}
-\end{array}$$
+```mermaid
+flowchart LR
+    KB[("External Knowledge<br>(Vector DB / Documents)")]
+    User(["User Query"])
+    
+    User --> Search["1. Retrieve Relevant Chunks"]
+    KB --> Search
+    Search --> Prompt["2. Augment Prompt with Context"]
+    User --> Prompt
+    Prompt --> LLM["3. LLM Generates Grounded Answer"]
+    LLM --> Output(["Final Response with Citations"])
+
+    style KB fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style User fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Search fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Prompt fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style LLM fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style Output fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#f8fafc
+```
 
 ### Sample RAG Prompt
 ```text
@@ -186,13 +203,13 @@ If the context does not contain the answer, reply with "I do not know." Do not m
 
 Context:
 ---------------------
-[Retrieved Transcript Segment: Minutes 5-25 discussing Gradient Descent]
+[Retrieved Document Segment: Section 3.2 on Authentication Tokens]
 ---------------------
 
-Question: How does the optimization step work in Gradient Descent?
+Question: How long does an auth token remain valid?
 Answer:
 ```
-This forces the model to base its response on the provided context rather than relying on its probabilistic parametric knowledge, virtually eliminating hallucinations.
+Because the model has the exact source text directly in front of it, hallucinations are minimized and answers become verifiable.
 
 ---
 
@@ -202,89 +219,76 @@ Technically, RAG is a marriage of two fields:
 1. **Information Retrieval (IR)**: A classic computer science field focused on finding relevant documents.
 2. **Text Generation**: The modern capability of LLMs to generate coherent text.
 
-The RAG workflow is split into four sequential phases: 
-
-   a. **Indexing**
-
-   b. **Retrieval**
-
-   c. **Augmentation**
-
-   d. **Generation**
+Here is the complete end-to-end architecture connecting both the **offline ingestion** pipeline and the **online query** pipeline:
 
 ```mermaid
-graph TD
-    subgraph Phase 1: Indexing
-        A[Data Sources: PDFs, YouTube, Web] --> B[Document Ingestion]
-        B --> C[Text Chunking]
-        C --> D[Embedding Model]
-        D --> E[(Vector Database)]
-    end
-    subgraph Phase 2: Retrieval
-        F[User Query] --> G[Query Embedding]
-        G --> H[Semantic Search & Ranking]
-        E --> H
-        H --> I[Top K Context Chunks]
-    end
-    subgraph Phase 3: Augmentation
-        F --> J[Prompt Construction]
-        I --> J
-    end
-    subgraph Phase 4: Generation
-        J --> K[Augmented Prompt]
-        K --> L[Large Language Model]
-        L --> M[Grounded Response]
-    end
+flowchart TD
+    Docs["Documents"] --> Chunk["Chunking"]
+    Chunk --> Embed["Embeddings"]
+    Query["User Query"] --> QEmbed["Query Embedding"]
+    Embed --> VDB["Vector Database"]
+    QEmbed --> VDB
+    VDB --> Chunks["Relevant Chunks"]
+    Chunks --> Prompt["Prompt Augmentation"]
+    Prompt --> Response["LLM Response"]
+
+    style Docs fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Chunk fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Embed fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style Query fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style QEmbed fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style VDB fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style Chunks fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Prompt fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Response fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
 ```
 
 ### Phase 1: Indexing (Building the Knowledge Base)
 Indexing is the process of preparing your knowledge base so that it can be efficiently searched at query time.
 (Indexing is an offline preparation phase where your documents are converted into a searchable index.)
 
-1. **Document Ingestion**: Loading documents (PDFs, Markdown files, YouTube transcripts, Google Drive files, Github repos, scraped webpages, Internal wiki etc) using **Document Loaders**.
+1. **Document Ingestion**: Loading documents (PDFs, Markdown files, YouTube transcripts, Google Drive files, Github repos, scraped webpages, Internal wiki etc) using [**Document Loaders**](/docs/ai/RAG/Document-loaders/).
 
     {: .tip}
-    >
-    **Tools:-** `PyPDFLoader`, `YoutubeLoader`, `WebBaseLoader`, `GitLoader` etc
+    > **Tools:** `PyPDFLoader`, `YoutubeLoader`, `WebBaseLoader`, `DirectoryLoader`, `CSVLoader` etc.
 
-2. **Text Chunking**: Splitting large documents into smaller, semantically coherent segments Chunking is required because:
-   * LLMs have strict input context limit (4k-32k tokens approx). Smaller chunks are more focused, increasing semantic search accuracy.
+2. **Text Chunking**: Splitting large documents into smaller, semantically coherent segments using [**Text Splitters**](/docs/ai/RAG/Text-Splitters/). Chunking is required because:
+   * **Semantic Precision**: A small chunk focused on a single topic generates a much more distinct and accurate embedding than a 50-page document.
+   * **Embedding Constraints**: Most embedding models have maximum token limits (e.g., 512 to 8,192 tokens).
+   * **Attention & Cost**: Supplying only the exact relevant excerpts avoids prompt clutter, prevents "lost-in-the-middle" attention degradation, and reduces LLM latency and costs.
 
-   {: .tip}
-   >
-   **Tools:-** `RecursiveCharacterTextSplitter`, `MarkdownHeaderTextSplitter`, `SemanticChunker` etc
+    {: .tip}
+    > **Tools:** `RecursiveCharacterTextSplitter`, `MarkdownHeaderTextSplitter`, `TokenTextSplitter`, `SemanticChunker` etc.
 
-3. **Embedding Generation**: Converting each chunk into a dense vector (Embedding) that capture it's meaning.
+3. **Embedding Generation**: Converting each chunk into a dense vector (Embedding) that captures its semantic meaning using [**Text Embeddings**](/docs/ai/RAG/Embeddings/).
 
-   **Why Embeddings ?**
-   * This allow fast fuzzy semantic search.
-   * Embeddings of similar meanings are close in the vector space.
-   * Embeddings of different meanings are far apart in the vector space.
+   **Why Embeddings?**
+   * They allow fast mathematical similarity search.
+   * Chunks with similar concepts land close to each other in vector space.
+   * Chunks with completely different meanings land far apart.
 
-   {: .tip}
-   >
-   **Tools:-** `OpenAIEmbeddings`, `HuggingFaceEmbeddings`, `text-embedding-3-small`, `SentenceTransformersEmbeddings`, `InstructorEmbeddings` etc
+    {: .tip}
+    > **Tools:** `OpenAIEmbeddings`, `GoogleGenerativeAIEmbeddings`, `HuggingFaceEmbeddings`, `text-embedding-3-small` etc.
 
-4. **Vector Storage**: Storing the embedding vectors alongside their corresponding raw text and metadata (like source URLs or timestamps) in a **Vector Store**
+4. **Vector Storage**: Storing the embedding vectors alongside their corresponding raw text and metadata (such as source URLs, page numbers, or timestamps) in a [**Vector Store**](/docs/ai/RAG/Vector-Stores/).
    
-   {: .tip }
-   >
-   **Tools:-** Local-only: `FAISS`, `Chroma` ... Cloud-based: `Pinecone`, `Weaviate`, `Milvus`, `Qdrant` etc
+    {: .tip }
+    > **Tools:** Local/Embedded (`Chroma`, `FAISS`), Cloud/Managed (`Pinecone`, `Qdrant`, `Weaviate`, `Milvus`, `pgvector`).
 
 ### Phase 2: Retrieval (Finding Relevant Context)
-When a user submits a query, RAG retrieves relevant information from the vector store in real-time.
+When a user submits a query, RAG searches and retrieves relevant information from the vector store in real-time using [**Retrievers**](/docs/ai/RAG/Retrievers/).
 
 1. **Query Embedding**: The user's query is converted into a vector using the **same embedding model** used during indexing.
 
-2. **Semantic Search**: The system calculates the distance (e.g., Cosine Similarity) between the query vector and all stored chunk vectors in the database.
+2. **Semantic Search & Reranking**: The system calculates vector distance (e.g., Cosine Similarity or MMR) to find the closest matching chunks.
 
-3. **Ranking & Filtering**: The closest matching vectors are retrieved, ranked by similarity score, and the top-performing text chunks (e.g., Top 3 or Top 5) are returned.
+3. **Ranking & Filtering**: The top-performing text chunks (e.g., Top 3 or Top 5) are returned.
 
 ### Phase 3: Augmentation (Injecting Context)
 The retrieved text chunks and the user's original query are formatted into a single prompt template (as shown in the [Sample RAG Prompt](#sample-rag-prompt) section).
 
 ### Phase 4: Generation (Producing the Grounded Output)
-The augmented prompt is passed to the LLM. The LLM reads the context, processes the query, and uses its text-generation capability to produce a factual, grounded answer.
+The augmented prompt is passed to the LLM. The LLM reads the context, processes the query, and produces a factual, grounded answer with citations (see [Building an End-to-End RAG Pipeline](/docs/ai/RAG/End-to-End-RAG/)).
 
 ---
 
