@@ -13,6 +13,8 @@ tags:
 timestamp: '2026-06-01T14:55:10Z'
 ---
 
+# Building a Local & Remote MCP Server with FastMCP
+
 <p align="center">
   <img src="/docs/ai/MCP/images/mcp-architecture.png" alt="MCP Architecture" height=500 width="800">
 </p>
@@ -20,6 +22,46 @@ timestamp: '2026-06-01T14:55:10Z'
 <p align="center">
   <img src="/docs/ai/MCP/images/mcp-client-server-flow.png" alt="MCP Client Server Flow" height=500 width="800">
 </p>
+
+```mermaid
+flowchart LR
+    subgraph Clients ["AI Clients & Debuggers"]
+        Claude["🤖 Claude Desktop"]
+        Inspector["🔍 MCP Inspector (Web UI)"]
+        Cursor["💻 Cursor / Coding Agent"]
+    end
+
+    subgraph Transports ["Supported Transports"]
+        Stdio["🖥️ stdio (Subprocess / CLI)<br/>Fast & secure local execution"]
+        SSE["🌐 HTTP + SSE (Streamed)<br/>Remote / Networked Agents"]
+    end
+
+    subgraph ServerEngine ["FastMCP Server ('ExpenseTracker')"]
+        FastMCP["⚡ FastMCP Engine<br/>Auto JSON-RPC & Pydantic Validation"]
+        Tools["🛠️ Tools (@mcp.tool)<br/>add_expense, list, summarize"]
+        Resources["📂 Resources (@mcp.resource)<br/>expense://categories"]
+    end
+
+    Clients --> Stdio
+    Clients --> SSE
+    Stdio --> FastMCP
+    SSE --> FastMCP
+    FastMCP --> Tools
+    FastMCP --> Resources
+
+    style Clients fill:#0f172a,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Transports fill:#0f172a,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style ServerEngine fill:#0f172a,stroke:#34d399,stroke-width:2px,color:#f8fafc
+
+    style Claude fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Inspector fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Cursor fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Stdio fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style SSE fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style FastMCP fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style Tools fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Resources fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+```
 
 ### Module 1: The Library Ecosystem (Why FastMCP?)
 
@@ -150,25 +192,45 @@ Imagine a company like "CampusX" that already has a production-ready Expense Tra
 If they want to make their app accessible as an AI agent via Claude or ChatGPT, **they do not need to rewrite their entire codebase into an MCP Server**. FastMCP offers a one-line conversion feature.
 
 
-## 1. Build a Remote MCP Server
+### Step 1: Install Dependencies
 
 ```bash
 mkdir expense-tracker-remote-mcp-server
 cd expense-tracker-remote-mcp-server
 uv init .
-```
-
->> Install dependencies:
-
-```bash
-pip install fastmcp
-# or
 uv add fastmcp
 ```
 
+### Step 2: Define Category Taxonomy (`categories.json`)
 
->> categories.json
->
+To prevent the LLM from inventing inconsistent expense categories, define a controlled taxonomy in `categories.json`. Claude will access this file as an MCP **Resource**:
+
+```json
+{
+    "food": [
+        "groceries",
+        "dining_out",
+        "coffee_tea",
+        "snacks"
+    ],
+    "transport": [
+        "fuel",
+        "public_transport",
+        "cab_ride_hailing",
+        "parking"
+    ],
+    "utilities": [
+        "electricity",
+        "water",
+        "gas",
+        "internet_broadband"
+    ]
+}
+```
+
+<details>
+<summary><strong>Click to expand the full categories.json taxonomy (17 categories)</strong></summary>
+
 ```json
 {
     "food": [
@@ -332,8 +394,9 @@ uv add fastmcp
     ]
 }
 ```
+</details>
 
->> main.py
+### Step 3: Server Implementation (`main.py`)
 
 ```python
 from fastmcp import FastMCP
@@ -507,31 +570,55 @@ http://localhost:8000/mcp
 {: .important}
 > ## 🧠 How Everything Works Behind the Scenes
 
-### MCP Flow
+### MCP End-to-End Execution Flow
+
 ```mermaid
-   [ User / Claude Desktop ]
-            |
-            v
-   (JSON-RPC Request)
-            |
-            v
-   [ MCP Protocol Layer ]
-            |
-            v
-   [ FastMCP Server ]
-        |       |
-        |       |
-        v       v
-   [ Tools ]  [ Resources ]
-      |            |
-      v            v
-  [ SQLite DB ]  [ categories.json ]
-      |
-      v
-  (Structured Response)
-      |
-      v
-  [ Client / UI / Inspector ]
+flowchart TD
+    User["👤 User Prompt<br/>'Spent ₹500 on cab yesterday'"]
+    Claude["🤖 Claude Desktop / AI Client"]
+    Req["📨 JSON-RPC 2.0 Request<br/><code>tools/call</code> with arguments"]
+    Proto["⚡ MCP Protocol Layer<br/>(stdio pipe or HTTP/SSE stream)"]
+    FastMCPApp["🚀 FastMCP Server<br/>(Dispatcher & Parameter Validator)"]
+
+    subgraph Capabilities ["Registered MCP Capabilities"]
+        Tools["🛠️ Tools<br/><code>add_expense()</code>, <code>list_expenses()</code>"]
+        Resources["📂 Resources<br/><code>expense://categories</code>"]
+    end
+
+    subgraph Storage ["Persistent State"]
+        DB[("🗄️ SQLite Database<br/><code>expenses.db</code>")]
+        Taxonomy[("📄 Category Schema<br/><code>categories.json</code>")]
+    end
+
+    Resp["📦 Structured JSON-RPC Response<br/><code>{status: 'ok', id: 4}</code>"]
+    Answer["💬 Natural Language Response<br/>'Logged ₹500 under Transport &gt; Cab'"]
+
+    User --> Claude
+    Claude --> Req
+    Req --> Proto
+    Proto --> FastMCPApp
+    FastMCPApp --> Tools
+    FastMCPApp --> Resources
+    Tools --> DB
+    Resources --> Taxonomy
+    Tools --> Resp
+    Resources --> Resp
+    Resp --> Claude
+    Claude --> Answer
+
+    style User fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Claude fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Req fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Proto fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style FastMCPApp fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style Capabilities fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Tools fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Resources fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Storage fill:#0f172a,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style DB fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style Taxonomy fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style Resp fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style Answer fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
 ```
 
 ### 🔵 Option 2: curl (Manual MCP Flow)
@@ -644,7 +731,17 @@ Example configuration:
 
 ## 🛠️ Development Tips
 
-* Modify `categories.json` without restarting server
-* Use `--reload` for auto-restart
-* Change port if 8000 is occupied
+* **Zero-Downtime Taxonomy Updates:** Edit `categories.json` anytime; the resource reads fresh on every call without restarting the server.
+* **Auto-Reloading During Development:** Always use `--reload` so file changes trigger instant restarts.
+* **Port Conflicts:** If port `8000` is already in use by another service, swap to `--port 8080` or `--port 8888`.
+* **Transport Choice:** Use standard `stdio` for local personal agents (Claude Desktop / Cursor) and `http` + SSE for cloud deployments or shared team agents.
+
+---
+
+## Navigation & Next Steps
+
+* ⬅️ **Previous:** [MCP Lifecycle](/docs/ai/MCP/MCP-Lifecycle/)
+* ➡️ **Next:** [MCP vs. RAG: When to Use Which](/docs/ai/MCP/mcp-vs-rag/)
+* 🏠 **Hub:** [All MCP Topics](/docs/ai/MCP/)
+* 🚀 **Explore Related:** [Retrieval-Augmented Generation (RAG)](/docs/ai/RAG/) | [LangChain Framework](/docs/ai/LangChain/)
 

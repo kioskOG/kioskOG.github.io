@@ -3,7 +3,7 @@ title: Vector Stores
 layout: doc-page
 parent: RAG
 parent_url: /docs/ai/RAG/
-nav_order: 4
+nav_order: 5
 permalink: /docs/ai/RAG/Vector-Stores/
 description: An in-depth guide to Vector Stores in RAG-based applications using LangChain.
 type: concept
@@ -15,7 +15,35 @@ timestamp: '2026-06-30T11:56:08Z'
 
 # Vector Stores in RAG-based Applications
 
-So far, we have covered [document loaders](/docs/ai/RAG/Document-Loaders/) and [text splitters](/docs/ai/RAG/Text-Splitters/). Today we will learn about vector stores, which are a critical component of any Retrieval-Augmented Generation (RAG) system.
+So far, we have covered [document loaders](/docs/ai/RAG/Document-loaders/), [text splitters](/docs/ai/RAG/Text-Splitters/), and [text embeddings](/docs/ai/RAG/Embeddings/). Today we will learn about vector stores, which are a critical component of any Retrieval-Augmented Generation (RAG) system.
+
+---
+
+## The Big Picture: RAG & Vector Storage
+
+Notice where Vector Stores sit in the architecture—holding all chunk embeddings and serving as the search target for user query embeddings:
+
+```mermaid
+flowchart TD
+    Docs["Documents"] --> Chunk["Chunking"]
+    Chunk --> Embed["Embeddings"]
+    Query["User Query"] --> QEmbed["Query Embedding"]
+    Embed --> VDB["Vector Database<br/><b>(Our Focus: Storage & Indexing)</b>"]
+    QEmbed --> VDB
+    VDB --> Chunks["Relevant Chunks"]
+    Chunks --> Prompt["Prompt Augmentation"]
+    Prompt --> Response["LLM Response"]
+
+    style Docs fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Chunk fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Embed fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Query fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style QEmbed fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style VDB fill:#78350f,stroke:#fbbf24,stroke-width:3px,color:#f8fafc
+    style Chunks fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Prompt fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Response fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+```
 
 ---
 
@@ -103,6 +131,11 @@ graph TD
     Text["Movie Plot (Text)"] -->|Pass through| Model["Embedding Neural Network"]
     Model -->|Generates| Vector["Vector of Numbers (e.g., 512, 784, or 1536 dimensions)"]
     Vector -->|Encodes| Semantic["Semantic Meaning of the Plot"]
+
+    style Text fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Model fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Vector fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style Semantic fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
 ```
 
 During this process:
@@ -173,11 +206,13 @@ At its core, a vector store holds vector embeddings alongside their associated *
 ### 2. Similarity Search
 Allows querying the store with a new vector to retrieve the most similar vectors. This forms the foundation of recommendation engines, semantic search, and RAG systems.
 
-### 3. Indexing (Speed Optimization)
-If you have 1 million vectors, comparing a query against all 1 million is too slow. Vector stores use **indexing** (e.g., Approximate Nearest Neighbors - ANN) to speed up search.
+### 3. Indexing & Fast Search (ANN Algorithms)
+If you have 1 million vectors, comparing a query against all 1 million one-by-one is a brute-force $O(N)$ operation. In production, this causes high latency and CPU spikes.
 
-**An Example of Indexing via Clustering:**
-Suppose you group 1,000,000 vectors into 10 clusters (100,000 vectors per cluster), each with a calculated **centroid**:
+To solve this, vector stores build **Approximate Nearest Neighbor (ANN)** indexes. Two of the most popular indexing techniques are:
+
+#### A. Clustering / Inverted File Index (IVF)
+Vectors are grouped into clusters around central points called **centroids**:
 
 ```mermaid
 graph TD
@@ -185,11 +220,65 @@ graph TD
     Centroids -->|Identify closest centroid| BestCluster["Target Cluster<br>(~100,000 vectors)"]
     BestCluster --> Search["Search only within<br>the target cluster"]
     Search --> Results["Top K Similar Vectors"]
+
+    style Query fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Centroids fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style BestCluster fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style Search fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Results fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
 ```
 
-Instead of 1,000,000 comparisons, you perform:
-$$\text{10 (Centroid comparisons)} + \text{100,000 (Cluster member comparisons)} \approx 100,010 \text{ operations}$$
-This reduces search computations by approximately **90%**.
+Instead of 1,000,000 comparisons, the database only checks the 10 centroids plus the ~100,000 vectors in the closest cluster, reducing computation by ~90%.
+
+#### B. HNSW (Hierarchical Navigable Small World)
+**HNSW** is the gold standard indexing algorithm used by modern vector databases (including Chroma, Pinecone, and Qdrant). It creates a multi-layered graph similar to an expressway network:
+
+```mermaid
+flowchart TD
+    subgraph Layers["HNSW Graph Hierarchy"]
+        L2["Layer 2: Expressway<br>(Few nodes, long leaps across vector space)"]
+        L1["Layer 1: Arterial Roads<br>(Medium density, regional routing)"]
+        L0["Layer 0: Local Streets<br>(All vectors connected to nearest neighbors)"]
+    end
+    
+    Q["Search Query"] --> L2
+    L2 -->|Zoom in on nearest cluster| L1
+    L1 -->|Fine search| L0
+    L0 --> TopK["Top-K Most Similar Vectors"]
+
+    style Layers fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style L2 fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style L1 fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style L0 fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Q fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style TopK fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+```
+
+* **Expressway analogy:** You jump on the highway for long distances to reach the correct region, exit onto arterial roads, and finally search local streets to locate the exact address. This reduces search time from $O(N)$ to $O(\log N)$.
+
+---
+
+### Understanding Distance & Similarity Metrics
+
+How does a vector database know if two vectors are "close"? It uses a distance metric:
+
+```mermaid
+flowchart LR
+    A["Vector Distance Metrics"] --> B["1. Cosine Similarity<br>Measures Angle (Direction)<br>Best for text of varying lengths"]
+    A --> C["2. Euclidean (L2) Distance<br>Measures Straight-Line Distance<br>Smaller score = More similar"]
+    A --> D["3. Dot Product<br>Measures Magnitude & Direction<br>Extremely fast for normalized vectors"]
+
+    style A fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style B fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style C fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style D fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+```
+
+| Metric | Range | When to Use |
+| :--- | :--- | :--- |
+| **Cosine Similarity** | -1 to 1 (1 = identical) | Default for most text embeddings; ignores document length differences |
+| **Euclidean (L2) Distance** | 0 to $\infty$ (0 = identical) | When the absolute magnitude of values matters |
+| **Dot Product / Inner Product** | $-\infty$ to $+\infty$ (higher = more similar) | When embeddings are normalized (length = 1.0); fastest to compute |
 
 ### 4. CRUD Operations
 Like any standard database, a vector store supports full Create, Read, Update, and Delete operations:
@@ -251,15 +340,24 @@ Regardless of the underlying vector store, the key API methods remain identical:
 We will use **ChromaDB**, a lightweight, open-source vector database suitable for local development and small-to-medium production workloads. ChromaDB sits somewhere between a raw vector store and a full-fledged vector database.
 
 ### ChromaDB Hierarchy
-ChromaDB organizes data in a structured hierarchy:
+ChromaDB organizes data in a clean hierarchy:
 
-```
-[ Tenant ]
-    └── [ Database ]
-            └── [ Collection ]  <--- Equivalent to a Table in SQL
-                    └── [ Documents ]
-                            ├── Embeddings (Vectors)
-                            └── Metadata
+```mermaid
+graph TD
+    Tenant["Tenant"] --> Database["Database"]
+    Database --> Collection["Collection (Equivalent to SQL Table)"]
+    Collection --> Documents["Documents"]
+    Documents --> Embeddings["Vector Embeddings (Float Arrays)"]
+    Documents --> Metadata["Metadata (Key-Value Dictionaries)"]
+    Documents --> PageContent["Page Content (Raw Text Chunks)"]
+
+    style Tenant fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Database fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Collection fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Documents fill:#78350f,stroke:#fbbf24,stroke-width:2px,color:#f8fafc
+    style Embeddings fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style Metadata fill:#1e293b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style PageContent fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
 ```
 
 A **Collection** in Chroma is roughly equivalent to a table in a relational database.
@@ -268,7 +366,7 @@ A **Collection** in Chroma is roughly equivalent to a table in a relational data
 
 ## Hands-on Implementation: ChromaDB with LangChain
 
-Let's write a complete Python script that covers all the CRUD and search operations.
+Let's write a complete Python script that covers in-memory testing, on-disk persistence, and all CRUD/search operations.
 
 ### 1. Install Dependencies
 ```bash
@@ -282,15 +380,11 @@ from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_core.documents import Document
 
-# 1. Setup API Keys
-# Ensure you have OPENAI_API_KEY set in your environment variables.
-# os.environ["OPENAI_API_KEY"] = "your-api-key"
-
-# Initialize our embedding model
+# 1. Setup API Keys & Embeddings
+# Ensure you have OPENAI_API_KEY set in your environment
 embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 # 2. Creating Document Objects
-# We will load data representing five IPL players.
 documents = [
     Document(
         page_content="Virat Kohli is a world-class batsman playing for RCB. He is known for his aggressive style, incredible chase record, and has led the Indian team.",
@@ -314,24 +408,26 @@ documents = [
     )
 ]
 
-# 3. Creating a Chroma Vector Store & Adding Documents
-print("Initializing Chroma DB in-memory...")
-# We use from_documents to generate embeddings and load them into Chroma
+# 3. Initializing Chroma Vector Store (In-Memory or Persistent)
+# In-Memory (for quick scripts & testing):
+# vector_store = Chroma.from_documents(documents=documents, embedding=embeddings, collection_name="ipl_players")
+
+# Persistent Storage on Disk (Recommended for real apps):
+print("Initializing persistent Chroma DB on disk...")
 vector_store = Chroma.from_documents(
     documents=documents,
     embedding=embeddings,
-    collection_name="ipl_players"
+    collection_name="ipl_players",
+    persist_directory="./chroma_db"  # Saves vectors to disk so they survive restarts!
 )
 
 # 4. Viewing Stored Data (Querying the Database)
-# We can inspect the collection to view metadata and page content
 db_data = vector_store.get()
 print("\n--- Inspecting Stored Documents ---")
 for doc_id, content, metadata in zip(db_data['ids'], db_data['documents'], db_data['metadatas']):
     print(f"ID: {metadata['id']} | Name: {content.split('is')[0].strip()} | Team: {metadata['team']}")
 
 # 5. Performing Similarity Search
-# Let's perform a query: "Among these, who is a bowler?"
 query = "Among these, who is a bowler?"
 print(f"\nSearching for: '{query}'...")
 search_results = vector_store.similarity_search(query, k=2)
@@ -341,14 +437,14 @@ for doc in search_results:
     print(f"Content: {doc.page_content}")
     print(f"Metadata: {doc.metadata}\n")
 
-# 6. Similarity Search with Scores
+# 6. Similarity Search with Scores (Distance)
 print("Performing similarity search with scores...")
 search_results_with_scores = vector_store.similarity_search_with_score(query, k=2)
 
 print("\n--- Similarity Search with Scores (Distance) ---")
 for doc, score in search_results_with_scores:
-    # Note: Chroma returns L2 distance score, so lower values represent higher similarity.
-    print(f"Score (Distance): {score:.4f}")
+    # Note: Chroma returns distance (e.g. L2 or Cosine distance), so lower values mean higher similarity.
+    print(f"Distance Score: {score:.4f} (Lower = closer)")
     print(f"Content: {doc.page_content}\n")
 
 # 7. Metadata Filtering
@@ -366,7 +462,6 @@ for doc in csk_results:
     print(f"Metadata: {doc.metadata}\n")
 
 # 8. Updating Documents
-# Let's update Virat Kohli's (id: 1) content. First, find its Chroma database ID.
 chroma_id_to_update = None
 for chroma_id, metadata in zip(db_data['ids'], db_data['metadatas']):
     if metadata['id'] == "1":
@@ -376,13 +471,12 @@ for chroma_id, metadata in zip(db_data['ids'], db_data['metadatas']):
 if chroma_id_to_update:
     updated_doc = Document(
         page_content="Virat Kohli is a world-class batsman playing for RCB. He holds the record for the most runs in IPL history.",
-        metadata={"id": "1", "team": "RCB", "role": "batsman", "runs": "legendary"}
+        metadata={"id": "1", "team": "RCB", "role": "batsman", "runs": "highest_scorer"}
     )
     vector_store.update_document(document_id=chroma_id_to_update, document=updated_doc)
     print(f"Successfully updated document (ID: {chroma_id_to_update})")
 
 # 9. Deleting Documents
-# Let's delete Ravindra Jadeja (id: 5)
 chroma_id_to_delete = None
 for chroma_id, metadata in zip(db_data['ids'], db_data['metadatas']):
     if metadata['id'] == "5":
@@ -396,9 +490,9 @@ if chroma_id_to_delete:
 
 ---
 
-## 📝 Homework
-Re-implement the code above using another vector store, such as:
-* **FAISS** (`from langchain_community.vectorstores import FAISS`)
-* **Pinecone** (`from langchain_pinecone import PineconeVectorStore`)
+## Summary & Next Step
 
-Observe how the LangChain interface remains almost identical, demonstrating the power of its unified abstraction layers!
+* **Vector Stores** store high-dimensional embeddings and support Approximate Nearest Neighbor (ANN) search via algorithms like **HNSW**.
+* In LangChain, switching between Chroma, FAISS, Pinecone, or Qdrant requires virtually zero code changes thanks to unified abstractions.
+* But having vectors stored is only half the battle—how do we query, re-rank, and filter them smartly during user interactions?
+* Next step in the pipeline: [Retrievers](/docs/ai/RAG/Retrievers/)!

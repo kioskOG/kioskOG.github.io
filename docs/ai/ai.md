@@ -49,6 +49,7 @@ timestamp: '2026-06-30T11:56:08Z'
           <a class="tag" href="/docs/ai/MCP/why-mcp/">Why MCP?</a>
           <a class="tag" href="/docs/ai/MCP/MCP-Lifecycle/">MCP Lifecycle</a>
           <a class="tag" href="/docs/ai/MCP/Build-local-mcp-server/">Build Local MCP Server</a>
+          <a class="tag" href="/docs/ai/MCP/mcp-vs-rag/">MCP vs. RAG</a>
         </div>
       </div>
     </article>
@@ -86,7 +87,10 @@ timestamp: '2026-06-30T11:56:08Z'
           <a class="tag" href="/docs/ai/RAG/what-why-how/">What, Why & How</a>
           <a class="tag" href="/docs/ai/RAG/Document-loaders/">Document Loaders</a>
           <a class="tag" href="/docs/ai/RAG/Text-Splitters/">Text Splitters</a>
+          <a class="tag" href="/docs/ai/RAG/Embeddings/">Text Embeddings</a>
           <a class="tag" href="/docs/ai/RAG/Vector-Stores/">Vector Stores</a>
+          <a class="tag" href="/docs/ai/RAG/Retrievers/">Retrievers</a>
+          <a class="tag" href="/docs/ai/RAG/End-to-End-RAG/">End-to-End RAG</a>
         </div>
       </div>
     </article>

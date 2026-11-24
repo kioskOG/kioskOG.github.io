@@ -26,13 +26,40 @@ Before they can do anything useful, they need to build trust, understand each ot
 
 This entire journey is called the **MCP Lifecycle**. 
 
-At the center of everything is something called a **session** — basically, a continuous connection between the Client and Server.
+At the center of everything is something called a **session** — a continuous stateful or stateless transport connection between the Client and Server.
 
 This lifecycle plays out in three clear stages:
 
-1. **Initialization** → “Hey, can we talk?”
-2. **Operation** → “Let’s get work done.”
-3. **Shutdown** → “Alright, we’re done here.”
+1. **Initialization** → “Hey, can we talk?” (Version & capability agreement)
+2. **Operation** → “Let’s get work done.” (Discovery, tools, resources, and progress)
+3. **Shutdown** → “Alright, we’re done here.” (Clean transport teardown)
+
+```mermaid
+flowchart LR
+    subgraph P1 ["Phase 1: Handshake"]
+        Init["1. Initialize & Negotiate<br/>Protocol version, capabilities, info"]
+    end
+
+    subgraph P2 ["Phase 2: Operation"]
+        Disc["2. Capability Discovery<br/>(tools/list, resources/list)"]
+        Exec["3. Execution & Streaming<br/>(tools/call, sampling, progress)"]
+    end
+
+    subgraph P3 ["Phase 3: Teardown"]
+        Close["4. Clean Disconnect<br/>(close stdin / SIGTERM / HTTP close)"]
+    end
+
+    Init --> Disc --> Exec --> Close
+
+    style P1 fill:#0f172a,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style P2 fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style P3 fill:#0f172a,stroke:#ef4444,stroke-width:2px,color:#f8fafc
+
+    style Init fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc
+    style Disc fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Exec fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
+    style Close fill:#7f1d1d,stroke:#ef4444,stroke-width:2px,color:#f8fafc
+```
 
 ---
 
@@ -66,16 +93,17 @@ Once the Client receives the response and confirms compatibility, it fires an `i
 *   The Server cannot serve any requests (other than pings and logging) until it receives the final `initialized` notification from the Client.
 
 #### Visual Diagram: The Initialization Handshake
-```text
-[CLIENT]                                                 [SERVER]
-   |                                                        |
-   |---- 1. Method: `initialize` (Version, Capabilities)--->|
-   |                                                        |
-   |<--- 2. Response (Version, Server Capabilities) --------|
-   |                                                        |
-   |---- 3. Notification: `initialized` ------------------->|
-   |                                                        |
-[CONNECTION ESTABLISHED - READY FOR OPERATION]
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Client as MCP Client (Claude Desktop)
+    participant Server as MCP Server (Local DB / FastMCP)
+
+    Client->>Server: 1. Request: "initialize" (protocolVersion, clientCapabilities, clientInfo)
+    Server-->>Client: 2. Response: Version Accepted, serverCapabilities (tools, resources, prompts)
+    Client->>Server: 3. Notification: "notifications/initialized"
+    Note over Client,Server: Handshake Complete — Ready for Operation
 ```
 
 #### What exactly is being negotiated?
@@ -170,45 +198,48 @@ For long-running tasks (e.g., scanning 1,000 files in a GitHub repo for vulnerab
 
 #### Visual Diagram: Progress Notifications
 
-```text
-[CLIENT]                                                 [SERVER]
-   |                                                        |
-   |---- Request: `search_code` (Metadata: token=7) ------->|
-   |                                                        |
-   |<--- Notification: `progress` (token=7, value=60/100) --|
-   |                                                        |
-   |<--- Notification: `progress` (token=7, value=100/100)--|
-   |                                                        |
-   |<--- Final Result / Response ---------------------------|
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Client as MCP Client
+    participant Server as MCP Server
+
+    Client->>Server: tools/call: "search_code" (meta: {progressToken: 7})
+    Note over Server: Server starts scanning 1,000 files...
+    Server-->>Client: notifications/progress {progressToken: 7, progress: 60, total: 100}
+    Note over Client: UI updates progress bar (60%)
+    Server-->>Client: notifications/progress {progressToken: 7, progress: 100, total: 100}
+    Note over Client: UI updates progress bar (100%)
+    Server-->>Client: Final Tool Result (matching files & snippets)
 ```
 
 By understanding these three phases and the specific edge-cases, you have complete conceptual mastery over how the MCP architecture governs communication flow.
 
 
-## 🔍 “Behind the Scenes”
+## 🔍 Behind the Scenes
 
 <p align="center">
   <img src="/docs/ai/MCP/images/behind-the-scene-of-mcp-1.png" alt="MCP Behind the Scene 1" height=500 width="800">
 </p>
-
 
 <p align="center">
   <img src="/docs/ai/MCP/images/behind-the-scene-of-mcp-2.png" alt="MCP Behind the Scene 2" height=500 width="800">
 </p>
 
 
-## This is how MCP will send log messages.
+### 5. Diagnostics & Server Logging (`notifications/message`)
 
->> notifications/message
-> 
+Servers can emit asynchronous log streams without blocking ongoing tool calls or returning artificial responses. Clients subscribe to or capture log streams based on their negotiated `logging` level (`debug`, `info`, `warning`, `error`):
+
 ```json
 {
+  "jsonrpc": "2.0",
   "method": "notifications/message",
   "params": {
     "level": "info",
     "logger": "stdio",
     "data": {
-      "message": "[05/03/26 18:10:21] INFO     Reload mode enabled (using stateless     run.py:393\n                             sessions)"
+      "message": "Reload mode enabled (using stateless sessions)"
     }
   }
 }
@@ -224,8 +255,12 @@ If you zoom out, the MCP lifecycle is just a well-structured conversation:
 * After that, they **get work done**
 * And finally, they **cleanly disconnect**
 
-Once you understand this flow, building MCP-based systems becomes much easier — because you’re no longer guessing how communication works.
-
-You’re following a clear, predictable story.
+Once you understand this flow, building MCP-based systems becomes much easier — because you’re no longer guessing how communication works. You’re following a clear, predictable story.
 
 ---
+
+## Navigation & Next Steps
+
+* ⬅️ **Previous:** [Why MCP?](/docs/ai/MCP/why-mcp/)
+* ➡️ **Next:** [Build Local MCP Server](/docs/ai/MCP/Build-local-mcp-server/)
+* 🏠 **Hub:** [All MCP Topics](/docs/ai/MCP/)
